@@ -1,11 +1,12 @@
 import React from 'react';
-import AppLayout from '../components/sleepMode/AppLayout';
+import Login from './login';
 
 const Home = () => {
     return (
-        <AppLayout>
-            Home
-        </AppLayout>
+        <>
+            <Login />
+            {/*<div>index.js</div>*/}
+        </>
     );
 };
 
