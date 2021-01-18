@@ -11,3 +11,6 @@ const Home = () => {
 };
 
 export default Home;
+
+// TODO
+// - 언어 https://meaningless-life.tistory.com/9
