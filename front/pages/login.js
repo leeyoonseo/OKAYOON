@@ -8,11 +8,12 @@ import Link from 'next/link';
 import styled from 'styled-components';
 import UserInfo from '../components/UserInfo/index';
 
-const CircleBtnWrapper = styled(Col)`
+const CircleBtnWrapper = styled.div`
     text-align:center;
 
-    & > span{
+    & > a{
         display:block;
+        color:#333;
     }
 `;
 
@@ -42,18 +43,15 @@ const Login = () => {
                 </Col>
 
                 <Col span={8} offset={8} style={{ background: 'green' }}>
-                    {/** footer 영역 */}
-                    <Row>
-                        <CircleBtnWrapper span={8}>
-                            <Button 
-                                shape="circle"
-                                icon={<LogoutOutlined />} 
-                            />
-                            <Link href="./sleep">
-                                <a>잠자기</a>
-                            </Link>
-                        </CircleBtnWrapper>
-                    </Row>
+                    <CircleBtnWrapper>
+                        <Button 
+                            shape="circle"
+                            icon={<LogoutOutlined />} 
+                        />
+                        <Link href="./sleep">
+                            <a>잠자기</a>
+                        </Link>
+                    </CircleBtnWrapper>
                 </Col>
             </Row>
         </>

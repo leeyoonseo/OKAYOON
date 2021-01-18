@@ -5,11 +5,7 @@ export const initialState = {
     logInDone: false,
     logInError: null,
 
-    editAvatarImgLoading: false, // 아바타 이미지 변경 시도
-    editAvatarImgDone: false,
-    editAvatarImgError: null,
-    
-    avatarImgs: [
+    sampleAvatarList: [
         {
             src: 'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png',
             title: '1번',
@@ -28,7 +24,13 @@ export const initialState = {
         },
     ],
 
-    userInfo: null, 
+    userInfo: null,
+
+    // userInfo: {
+    //     nickname: '',
+    //     avatar: '',
+    // }
+
     //avatarImage: null,
     //nickname: null,
     //country: null,
@@ -41,11 +43,6 @@ export const initialState = {
 export const LOG_IN_REQUEST = 'LOG_IN_REQUEST';
 export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
 export const LOG_IN_FAILURE = 'LOG_IN_FAILURE';
-
-// 아바타
-export const EDIT_AVATAR_IMG_REQUEST = 'EDIT_AVATAR_IMG_REQUEST';
-export const EDIT_AVATAR_IMG_SUCCESS = 'EDIT_AVATAR_IMG_SUCCESS';
-export const EDIT_AVATAR_IMG_FAILURE = 'EDIT_AVATAR_IMG_FAILURE';
 
 export const loginRequestAction = (data) => ({
     type: LOG_IN_REQUEST,
@@ -65,34 +62,14 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             draft.logInLoading = false;
             draft.logInDone = true;
             draft.logInError = false;
-            draft.nickname = action.data.nickname;
-            draft.avatarImage = action.data.avatarImage;
+            // draft.nickname = action.data.nickname;
+            // draft.avatarImage = action.data.avatarImage;
             break;
 
         case LOG_IN_FAILURE:
             draft.logInLoading = false;
             draft.logInDone = false;
             draft.logInError = true;
-
-            break;
-
-        case EDIT_AVATAR_IMG_REQUEST: 
-            draft.editAvatarImgLoading = true;
-            draft.editAvatarImgDone = false;
-            draft.editAvatarImgError = false;
-
-            break;
-                
-        case EDIT_AVATAR_IMG_SUCCESS:
-            draft.editAvatarImgLoading = false;
-            draft.editAvatarImgDone = true;
-            draft.editAvatarImgError = false;
-            break;
-
-        case EDIT_AVATAR_IMG_FAILURE:
-            draft.editAvatarImgLoading = false;
-            draft.editAvatarImgDone = false;
-            draft.editAvatarImgError = true;
 
             break;
         

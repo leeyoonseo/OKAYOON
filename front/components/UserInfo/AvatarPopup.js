@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Modal, Button  } from 'antd';
 import { useSelector } from 'react-redux';
 
@@ -14,30 +14,35 @@ const SourceText = styled.span`
 `;
 
 const AvatarImg = styled.img`
-    width:50%;
-    height:200px;
-    box-sizing:border-box;
+    margin-bottom: 6px;
+    width: calc(50% - 6px);
+    height: 200px;
+    box-sizing: border-box;
+    cursor: pointer;
+
+    &:nth-child(even){
+        margin-left: 3px;
+    }
+
+    &:nth-child(odd){
+        margin-right: 3px;
+    }
 
     &:hover,
-    &:active{
-        border:3px solid #333;
+    &:active,
+    &.active{
+        outline: 3px solid #333;
     }
 `;
 
 const AvatarPopup = ({ visible, onClosePopup }) => {
-    const [imgSrc, setImgSrc] = useState(null);
-    const { avatarImgs } = useSelector((state) => state.user);
-
-    const onClickImg = useCallback(({ target }) => {
-        console.log('onClickImg', target);
-
-
-    }, []);
-
-    useEffect(() => {
-        console.log('avatarImgs', avatarImgs);
-    }, []);
+    const { sampleAvatarList } = useSelector((state) => state.user);
+    const [chosenIndex, setChosenIndex] = useState(null);
     
+    const onClickImg = useCallback((i) => () => {
+        setChosenIndex(i);
+    }, []);
+
     return(
         <Modal 
             title="Select Avatar" 
@@ -53,19 +58,20 @@ const AvatarPopup = ({ visible, onClosePopup }) => {
                 </Button>,
                 <Button key="submit" type="primary" 
                     //loading={loading}
-                    onClick={onClosePopup(true)}>
+                    onClick={onClosePopup(true, chosenIndex)}>
                     저장
                 </Button>,
             ]}
         >
             {
-                avatarImgs.map((v, i) => {
+                sampleAvatarList.map((v, i) => {
                     return (
                         <AvatarImg 
-                            key={`${v.title}-${i}`} 
+                            className={chosenIndex === i && 'active'}
+                            key={`${v.title}-${i}`}
                             alt={v.title} 
                             src={v.src} 
-                            onClick={onClickImg}
+                            onClick={onClickImg(i)}
                         />
                     );  
                 })

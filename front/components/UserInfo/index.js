@@ -18,25 +18,26 @@ const NicknameWrapper = styled.div`
 
 const UserInfo = () => {
     const dispatch = useDispatch();
-    const { logInLoading, userInfo } = useSelector((state) => state.user);
-    const [nickname, onChangeNickname, setNickname] = useInput(userInfo?.nickname || '');
-    const [avatarImgSrc, onChangeAvatarImgSrc, setAvatarImgSrc] = useInput(userInfo?.avatarImgSrc || null);
-
+    const { logInLoading, sampleAvatarList, userInfo } = useSelector((state) => state.user);
+    const [nickname, setNickname] = useInput(userInfo?.nickname || '');
+    const [avatar, setAvatar] = useState(userInfo?.avatar || null);
     const [isModalVisible, setIsModalVisible] = useState(false);
 
-    useEffect(() => {
-        // setNickname('a');
-        // setAvatarImgSrc('https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMDEyMjRfNzMg%2FMDAxNjA4ODAzMzc4Mzcy.vZ5GlzHy_7o9AC578mihp-bM3lKjVGK8NJb1Lx0DPSkg.FQUiTGbFXhfLE5p-fiJXjv4iKeYAMb4Zn42mPIusik8g.JPEG.rlafksdud1%2FIMG_0028.JPG&type=sc960_832');
-    }, []);
-
-    const onClickAvatar = useCallback(() => setIsModalVisible(true), []);
-    const onCloseAvatarPopup = useCallback((changeAvatar) => () => {
+    const onOpenAvatarPopup = useCallback(() => setIsModalVisible(true), []);
+    const onCloseAvatarPopup = useCallback((isOk, avatarIndex = null) => () => {
         setIsModalVisible(false);
         
-        if(changeAvatar){
-            console.log('확인 클릭');
+        if(isOk){
+            console.log('sampleAvatarList[avatarIndex].src',sampleAvatarList[avatarIndex].src)
+            setAvatar(sampleAvatarList[avatarIndex].src);
         }
     }, []);
+
+    // const onClickImg = useCallback((index) => () => {
+    //     console.log(sampleAvatarList[index].src);
+    //     setAvatar(sampleAvatarList[index].src);
+
+    // }, []);
 
     const onRemoveNickname = useCallback(() => {
         setNickname('');
@@ -68,13 +69,16 @@ const UserInfo = () => {
         <>
             <Avatar 
                 size={64} 
-                src={avatarImgSrc ? avatarImgSrc : null}
+                src={avatar ? avatar : null}
                 icon={<UserOutlined />} 
                 style={{ cursor: 'pointer' }}
-                onClick={onClickAvatar}
+                onClick={onOpenAvatarPopup}
             />
         
-            <AvatarPopup visible={isModalVisible} onClosePopup={onCloseAvatarPopup} />
+            <AvatarPopup 
+                visible={isModalVisible} 
+                onClosePopup={onCloseAvatarPopup} 
+            />
 
             {
                 nickname 
