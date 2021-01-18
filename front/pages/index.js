@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import Head from 'next/head';
+
 import Login from './login';
 
+const userLanguage = () => {
+    console.log('navigator.language', navigator.language);
+    console.log('navigator.userLanguage', navigator.userLanguage);
+};
+
 const Home = () => {
+
+    useEffect(() => {
+        userLanguage();
+    }, []);
+
     return (
         <>
-            <Login />
-            {/*<div>index.js</div>*/}
+            index.js
         </>
     );
 };
