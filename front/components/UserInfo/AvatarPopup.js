@@ -13,10 +13,11 @@ const SourceText = styled.span`
     color:#aaa;
 `;
 
-const AvatarImg = styled.img`
+const AvatarBox = styled.div`
     margin-bottom: 6px;
+    display: inline-block;
     width: calc(50% - 6px);
-    height: 200px;
+    height: 150px;
     box-sizing: border-box;
     cursor: pointer;
 
@@ -33,6 +34,19 @@ const AvatarImg = styled.img`
     &.active{
         outline: 3px solid #333;
     }
+
+    &:after{
+        content:'';
+        display:block;
+        clear:both;
+    }
+
+    img,
+    button{
+        display: inline-block;
+        width:100%;
+        height:100%;
+    }
 `;
 
 const AvatarPopup = ({ visible, onClosePopup }) => {
@@ -46,7 +60,9 @@ const AvatarPopup = ({ visible, onClosePopup }) => {
     return(
         <Modal 
             title="Select Avatar" 
+            width={500}
             visible={visible} 
+            style={{ top: 20 }}
             onCancel={onClosePopup(false)}
 
             footer={[
@@ -56,23 +72,29 @@ const AvatarPopup = ({ visible, onClosePopup }) => {
                 <Button key="back" onClick={onClosePopup(false)}>
                     닫기
                 </Button>,
-                <Button key="submit" type="primary" 
-                    //loading={loading}
-                    onClick={onClosePopup(true, chosenIndex)}>
+                <Button key="submit" type="primary" onClick={onClosePopup(true, chosenIndex)}>
                     저장
                 </Button>,
             ]}
         >
+            <AvatarBox 
+                className={chosenIndex === null && 'active'}
+                onClick={onClickImg(null)}
+            >
+
+                {/* [TODO] 기본이미지 텍스트 수정, 스타일 수정 */}
+                <button>기본이미지</button>
+            </AvatarBox>
             {
                 sampleAvatarList.map((v, i) => {
                     return (
-                        <AvatarImg 
+                        <AvatarBox
                             className={chosenIndex === i && 'active'}
                             key={`${v.title}-${i}`}
-                            alt={v.title} 
-                            src={v.src} 
                             onClick={onClickImg(i)}
-                        />
+                        >
+                            <img alt={v.title} src={v.src} />
+                        </AvatarBox>
                     );  
                 })
             }

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Avatar, Input, Button, Modal } from 'antd';
@@ -26,34 +26,36 @@ const UserInfo = () => {
     const onOpenAvatarPopup = useCallback(() => setIsModalVisible(true), []);
     const onCloseAvatarPopup = useCallback((isOk, avatarIndex = null) => () => {
         setIsModalVisible(false);
-        
+
         if(isOk){
-            const chosenAvatarSrc = sampleAvatarList[avatarIndex].src;
-            setAvatar(chosenAvatarSrc);
+            const src = (avatarIndex === null) ? null : sampleAvatarList[avatarIndex].src;
+            setAvatar(src);
         }
     }, []);
 
-    const onRemoveNickname = useCallback(() => {
-        setNickname('');
-    }, []);
+    const onRemoveNickname = useCallback(() => setNickname(''), []);
 
     const onClickReset = useCallback(() => {
-        
+        setNickname('');
+        setAvatar(null);
     }, []);
-
     const onClickAccess = useCallback(() => {
-        console.log('onClickAccess', logInLoading);
+        const data = {};
 
-        const data = {
-            nickname, 
-            avatarImageSrc
+        if(!nickname.trim()){
+            setNickname('Guest');
+            data.nickname = 'Guest';
+        }
+
+        if(avatar !== null){
+            data.avatar = avatar;
         }
 
         dispatch({
             type: LOG_IN_REQUEST,
             data
         });
-    }, []);
+    }, [nickname, avatar]);
 
     return(
         <>
@@ -86,7 +88,7 @@ const UserInfo = () => {
                     <Input 
                         size="large" 
                         maxLength="10"
-                        placeholder="Please your nickname" 
+                        placeholder="Please enter your nickname" 
                         prefix={<UserOutlined />}
                         onPressEnter={onChangeNickname}
                     />

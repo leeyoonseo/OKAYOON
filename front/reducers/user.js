@@ -5,6 +5,7 @@ export const initialState = {
     logInDone: false,
     logInError: null,
 
+    // TODO 홀수로
     sampleAvatarList: [
         {
             src: 'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png',
@@ -21,10 +22,18 @@ export const initialState = {
         {
             src: 'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20140127_257%2Faosjahemdd_1390820129233pOn7o_JPEG%2Fd018e984a74511e2bd6322000a1fa42a_7_large.jpg&type=sc960_832',
             title: '4번',
+        },{
+            src: 'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png',
+            title: '5번',
         },
     ],
 
-    userInfo: null,
+    // userInfo: null,
+
+    userInfo: {
+        nickname: '',
+        avatar: null,
+    },
 
     // userInfo: {
     //     nickname: '',
@@ -58,13 +67,18 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
 
             break;
                 
-        case LOG_IN_SUCCESS:
+        case LOG_IN_SUCCESS: {
             draft.logInLoading = false;
             draft.logInDone = true;
             draft.logInError = false;
-            // draft.nickname = action.data.nickname;
-            // draft.avatarImage = action.data.avatarImage;
+            draft.userInfo.nickname = action.data.nickname;
+            
+            if(action.data.avatar){
+                draft.userInfo.avatar = action.data.avatar;
+            }
+
             break;
+        }
 
         case LOG_IN_FAILURE:
             draft.logInLoading = false;
