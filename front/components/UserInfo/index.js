@@ -19,7 +19,7 @@ const NicknameWrapper = styled.div`
 const UserInfo = () => {
     const dispatch = useDispatch();
     const { logInLoading, sampleAvatarList, userInfo } = useSelector((state) => state.user);
-    const [nickname, setNickname] = useInput(userInfo?.nickname || '');
+    const [nickname, onChangeNickname, setNickname] = useInput(userInfo?.nickname || '');
     const [avatar, setAvatar] = useState(userInfo?.avatar || null);
     const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -28,23 +28,13 @@ const UserInfo = () => {
         setIsModalVisible(false);
         
         if(isOk){
-            console.log('sampleAvatarList[avatarIndex].src',sampleAvatarList[avatarIndex].src)
-            setAvatar(sampleAvatarList[avatarIndex].src);
+            const chosenAvatarSrc = sampleAvatarList[avatarIndex].src;
+            setAvatar(chosenAvatarSrc);
         }
     }, []);
 
-    // const onClickImg = useCallback((index) => () => {
-    //     console.log(sampleAvatarList[index].src);
-    //     setAvatar(sampleAvatarList[index].src);
-
-    // }, []);
-
     const onRemoveNickname = useCallback(() => {
         setNickname('');
-    }, []);
-
-    const onPressEnterInput = useCallback(({target}) => {
-        setNickname(target.value);
     }, []);
 
     const onClickReset = useCallback(() => {
@@ -98,7 +88,7 @@ const UserInfo = () => {
                         maxLength="10"
                         placeholder="Please your nickname" 
                         prefix={<UserOutlined />}
-                        onPressEnter={onPressEnterInput}
+                        onPressEnter={onChangeNickname}
                     />
                 )
             } 
