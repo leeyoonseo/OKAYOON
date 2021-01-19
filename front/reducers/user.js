@@ -28,24 +28,12 @@ export const initialState = {
         },
     ],
 
-    // userInfo: null,
-
     userInfo: {
         nickname: '',
         avatar: null,
     },
-
-    // userInfo: {
-    //     nickname: '',
-    //     avatar: '',
-    // }
-
-    //avatarImage: null,
-    //nickname: null,
-    //country: null,
     
-    battery: null,
-    time: null,
+
 };
 
 // 로그인

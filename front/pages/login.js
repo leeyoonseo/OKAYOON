@@ -7,6 +7,7 @@ import Link from 'next/link';
 
 import styled from 'styled-components';
 import UserInfo from '../components/UserInfo/index';
+import SystemTools from '../components/SystemTools';
 
 const CircleBtnWrapper = styled.div`
     text-align:center;
@@ -18,7 +19,6 @@ const CircleBtnWrapper = styled.div`
 `;
 
 const Login = () => {
-
     return (
         <>
             <Head>
@@ -27,15 +27,8 @@ const Login = () => {
 
             <Row>
                 <Col span={6} offset={18} style={{ backgroundColor: 'red' }}>
-                    <Row>
-                        {/** header 영역 */}
-                        <Col span={6}>
-                            언어
-                        </Col>
-                        <Col span={6}>배터리</Col>
-                        <Col span={6}>와이파이</Col>
-                        <Col span={6}>시간</Col>
-                    </Row>
+                    {/** header 영역 */}
+                    <SystemTools themeColor="#fff" />     
                 </Col>
 
                 <Col span={6} offset={9} style={{ textAlign: 'center',  background: 'yellow' }}>
