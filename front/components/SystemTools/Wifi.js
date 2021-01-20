@@ -34,7 +34,7 @@ const OutLine = styled.div`
     width: 25px;
     height: 30px;
     border-top-color: ${props => props.themeColor};
-	animation: ${props => appearOut(props.themeColor)} 1.5s linear
+	animation: ${props => appearOut(props.themeColor)} 1.5s infinite linear
 `;
 
 const MiddleLine = styled.div`
@@ -43,7 +43,7 @@ const MiddleLine = styled.div`
     width: 18px;
 	height: 25px;
     border-top-color: ${props => props.themeColor};
-	animation: ${props => appearMiddle(props.themeColor)} 1.5s linear
+	animation: ${props => appearMiddle(props.themeColor)} 1.5s infinite linear;
 `;
 
 const InLine = styled.div`
@@ -52,7 +52,7 @@ const InLine = styled.div`
     width: 14px;
     height: 23px;
     border-top-color: ${props => props.themeColor};
-	animation: ${props => appearIn(props.themeColor)} 1.5s linear
+	animation: ${props => appearIn(props.themeColor)} 1.5s infinite linear;
 `;
 
 const Dot = styled.div`
