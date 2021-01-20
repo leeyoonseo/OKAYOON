@@ -7,25 +7,25 @@ const lineDefaultStyle = `
     border-radius: 100%;
 `;
 
-const appearIn = (themeColor) => keyframes`
+const appearIn = (themecolor) => keyframes`
     0%{ border-top-color: transparent; }
-    25%{ border-top-color: ${themeColor}; }
-    75%{ border-top-color: ${themeColor}; }
-    100%{ border-top-color: ${themeColor}; }
+    25%{ border-top-color: ${themecolor}; }
+    75%{ border-top-color: ${themecolor}; }
+    100%{ border-top-color: ${themecolor}; }
 `;
 
-const appearMiddle = (themeColor) => keyframes`
+const appearMiddle = (themecolor) => keyframes`
     0%{ border-top-color: transparent; }
     25%{ border-top-color: transparent; }
-    75%{ border-top-color: ${themeColor}; }
-    100%{ border-top-color: ${themeColor}; }
+    75%{ border-top-color: ${themecolor}; }
+    100%{ border-top-color: ${themecolor}; }
 `;
 
-const appearOut = (themeColor) => keyframes`
+const appearOut = (themecolor) => keyframes`
     0%{ border-top-color: transparent; }
     25%{ border-top-color: transparent; }
     75%{ border-top-color: transparent; }
-    100%{ border-top-color: ${themeColor}; }
+    100%{ border-top-color: ${themecolor}; }
 `;
 
 const OutLine = styled.div`
@@ -33,8 +33,12 @@ const OutLine = styled.div`
     margin: 1px auto;
     width: 25px;
     height: 30px;
-    border-top-color: ${props => props.themeColor};
-	animation: ${props => appearOut(props.themeColor)} 1.5s infinite linear
+    border-top-color: ${props => props.themecolor};
+    animation: ${props => appearOut(props.themecolor)} 1.5s infinite linear;
+
+    .line{
+        border-top-color: ${props => props.themecolor};
+    }
 `;
 
 const MiddleLine = styled.div`
@@ -42,8 +46,7 @@ const MiddleLine = styled.div`
     margin: 1px auto;
     width: 18px;
 	height: 25px;
-    border-top-color: ${props => props.themeColor};
-	animation: ${props => appearMiddle(props.themeColor)} 1.5s infinite linear;
+	animation: ${props => appearMiddle(props.themecolor)} 1.5s infinite linear;
 `;
 
 const InLine = styled.div`
@@ -51,8 +54,7 @@ const InLine = styled.div`
     margin: 1px auto;
     width: 14px;
     height: 23px;
-    border-top-color: ${props => props.themeColor};
-	animation: ${props => appearIn(props.themeColor)} 1.5s infinite linear;
+	animation: ${props => appearIn(props.themecolor)} 1.5s infinite linear;
 `;
 
 const Dot = styled.div`
@@ -61,15 +63,15 @@ const Dot = styled.div`
     width: 3px;
     height: 3px;
     border: 0;
-    background: ${props => props.themeColor};
+    background: ${props => props.themecolor};
 `;
 
-const Wifi = (({ themeColor }) => {
+const Wifi = (({ themecolor }) => {
     return(
-        <OutLine themeColor={themeColor}>
-            <MiddleLine themeColor={themeColor}>
-                <InLine themeColor={themeColor}>
-                    <Dot themeColor={themeColor} />
+        <OutLine className="line" themecolor={themecolor}>
+            <MiddleLine className="line" themecolor={themecolor}>
+                <InLine className="line" themecolor={themecolor}>
+                    <Dot themecolor={themecolor} />
                 </InLine>
             </MiddleLine>
         </OutLine>
@@ -77,11 +79,11 @@ const Wifi = (({ themeColor }) => {
 });
 
 Wifi.propTypes = {
-    themeColor: PropTypes.string,
+    themecolor: PropTypes.string,
 };
 
 Wifi.defaultProps = {
-    themeColor: '#333',
+    themecolor: '#333',
 };
 
 export default Wifi;

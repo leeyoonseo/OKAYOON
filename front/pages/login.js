@@ -27,8 +27,7 @@ const Login = () => {
 
             <Row>
                 <Col span={6} offset={18} style={{ backgroundColor: 'red' }}>
-                    {/** header 영역 */}
-                    <SystemTools themeColor="#fff" />     
+                    <SystemTools themecolor="#fff" />     
                 </Col>
 
                 <Col span={6} offset={9} style={{ textAlign: 'center',  background: 'yellow' }}>

@@ -1,15 +1,13 @@
 import { all, fork, put, takeLatest, delay } from 'redux-saga/effects';
-import { 
-    
-} from '../reducers/site';
+import { CHANGE_MUTED } from '../reducers/site';
 
-// function changeThemeAPI(data){
+// function changeMutedAPI(data){
 //     // 통신 작업할 것
 // };
 
-// function* changeTheme(action){
+// function* changeMuted(action){
 //     try{
-//         // const result = yield call(changeThemeAPI, action.data);
+//         // const result = yield call(changeMutedAPI);
 //         // 임시
 //         yield delay(1000);
 //         console.log('change sagas',action.data )
@@ -27,13 +25,13 @@ import {
 //     }
 // }
 
-// function* watchChangeTheme(){ 
-//     yield takeLatest(CHANGE_THEME_REQUEST, changeTheme);
+// function* watchChangeMuted(){ 
+//     yield takeLatest(CHANGE_MUTED, changeMuted);
 // }
 
 export default function* userSaga(){
     yield all([
-        // fork(watchChangeTheme),
+        // fork(watchChangeMuted),
     ]);
 }
 
