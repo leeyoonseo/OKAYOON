@@ -13,16 +13,30 @@ import Clock from './Clock';
 import Search from './Search/index';
 
 const SystemToolsWrapper = styled(Row)`
+    width: 250px;
     line-height: 1 !important;
+    background-color: red;
+    vertical-align: middle;
 
     button{
         line-height: 1 !important;
     }
 `;
 
+const FixedIconBox = styled.div`
+    display: inline-block;
+    width: ${props => props.iconWidth}px;
+`;
+
+const UnFixedIconBox = styled.div`
+    display: inline-block;
+    width: auto;
+`;
+
 const SoundButton = styled(Button)`
     padding: 0;
-    height: auto;
+    height: 100%;
+    text-align: left;
     border: none;
     background: none;
 
@@ -51,23 +65,29 @@ const SystemTools = ({ themecolor }) => {
 
     return(
         <SystemToolsWrapper>
-            <Col span={3}>
+            <FixedIconBox iconWidth={30}>
                 <Wifi themecolor={themecolor} />
-            </Col>
-            <Col span={2} style={{ position: 'relative', verticalAlign: 'top' }}>
+            </FixedIconBox>
+
+            <FixedIconBox iconWidth={20}>
                 <SoundButton onClick={onClickSound}>
                     <SoundIcon
                         className={isMuted && 'muted'} 
                         themecolor={themecolor}
                     />
                 </SoundButton>
-            </Col>
-            <Col span={6}>
+            </FixedIconBox>
+
+            <UnFixedIconBox>
                 <Battery themecolor={themecolor} />
-            </Col>
+            </UnFixedIconBox>
+
             <Col span={4}>
                 <Clock themecolor={themecolor} />
             </Col>
+            {
+                themecolor === '#fff'  
+            }
             <Col span={4}>
                 <Search themecolor={themecolor} />
             </Col>

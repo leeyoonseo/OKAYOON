@@ -32,7 +32,7 @@ const OutLine = styled.div`
     ${lineDefaultStyle}
     margin: 0 auto;
     width: 25px;
-    height: 30px;
+    height: 20px;
     border-top-color: ${props => props.themecolor};
     animation: ${props => appearOut(props.themecolor)} 1.5s infinite linear;
 
@@ -45,7 +45,7 @@ const MiddleLine = styled.div`
     ${lineDefaultStyle}
     margin: 1px auto;
     width: 18px;
-	height: 25px;
+	height: 15px;
 	animation: ${props => appearMiddle(props.themecolor)} 1.5s infinite linear;
 `;
 
@@ -53,7 +53,7 @@ const InLine = styled.div`
     ${lineDefaultStyle}
     margin: 1px auto;
     width: 14px;
-    height: 23px;
+    height: 13px;
 	animation: ${props => appearIn(props.themecolor)} 1.5s infinite linear;
 `;
 

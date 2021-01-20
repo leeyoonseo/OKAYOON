@@ -12,7 +12,7 @@ function getCurrentPercent(time){
 
 const BatteryWrapper = styled.div`
     &:before {
-        margin-right: 3px;
+        margin-right: 4px;
         display: inline-block;
         content: '${props => Math.floor(props.percent)}%';
         color: ${props => props.themecolor};
@@ -20,8 +20,9 @@ const BatteryWrapper = styled.div`
 
     .gauge {
         display: inline-block;
-        width: 28px;
-        height: 12px;
+        width: 25px;
+        height: 15px;
+        vertical-align: middle;
         border: 1px solid ${props => props.themecolor};
         border-radius:3px;
     }
