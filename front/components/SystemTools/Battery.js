@@ -12,7 +12,7 @@ function getCurrentPercent(time){
 
 const BatteryWrapper = styled.div`
     &:before {
-        margin-right: 2px;
+        margin-right: 3px;
         display: inline-block;
         content: '${props => Math.floor(props.percent)}%';
         color: ${props => props.themecolor};

@@ -30,7 +30,7 @@ const appearOut = (themecolor) => keyframes`
 
 const OutLine = styled.div`
     ${lineDefaultStyle}
-    margin: 1px auto;
+    margin: 0 auto;
     width: 25px;
     height: 30px;
     border-top-color: ${props => props.themecolor};

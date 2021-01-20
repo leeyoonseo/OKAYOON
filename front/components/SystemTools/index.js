@@ -10,11 +10,19 @@ import { CHANGE_MUTED } from '../../reducers/site';
 import Wifi from './Wifi';
 import Battery from './Battery';
 import Clock from './Clock';
+import Search from './Search/index';
+
+const SystemToolsWrapper = styled(Row)`
+    line-height: 1 !important;
+
+    button{
+        line-height: 1 !important;
+    }
+`;
 
 const SoundButton = styled(Button)`
     padding: 0;
     height: auto;
-    line-height: 1;
     border: none;
     background: none;
 
@@ -42,7 +50,7 @@ const SystemTools = ({ themecolor }) => {
     });
 
     return(
-        <Row>
+        <SystemToolsWrapper>
             <Col span={3}>
                 <Wifi themecolor={themecolor} />
             </Col>
@@ -54,19 +62,19 @@ const SystemTools = ({ themecolor }) => {
                     />
                 </SoundButton>
             </Col>
-            <Col span={7}>
+            <Col span={6}>
                 <Battery themecolor={themecolor} />
             </Col>
             <Col span={4}>
                 <Clock themecolor={themecolor} />
             </Col>
             <Col span={4}>
-                검색
+                <Search themecolor={themecolor} />
             </Col>
             <Col span={4}>
                 메뉴
             </Col>
-        </Row>
+        </SystemToolsWrapper>
     );
 };
 
