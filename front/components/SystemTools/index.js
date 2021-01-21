@@ -46,8 +46,10 @@ const SoundIcon = styled(SoundOutlined)`
     font-size: 16px;
     color: ${props => props.themecolor};
 
+    &:hover,
+    &:focus,
     &.active{
-        opacity:0.5;
+        opacity: 0.5;
     }
 `;
 

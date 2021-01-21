@@ -16,7 +16,9 @@ const MenuButton = styled.button`
         background: none;
     }
 
-    .active {
+    &:hover,
+    &:focus,
+    &.active{
         opacity: 0.5;
     }
 `;

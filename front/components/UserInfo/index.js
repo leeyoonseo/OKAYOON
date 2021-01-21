@@ -1,18 +1,107 @@
 import React, { useCallback, useState } from 'react';
-
 import { useDispatch, useSelector } from 'react-redux';
-import { Avatar, Input, Button, Modal } from 'antd';
-import { UserOutlined, CloseOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
+
 import useInput from '../../hooks/useInput';
+
+import { Avatar, Button, Modal } from 'antd';
+import { UserOutlined, CloseOutlined } from '@ant-design/icons';
 import { LOG_IN_REQUEST } from '../../reducers/user';
+
 import AvatarPopup from './AvatarPopup';
 
-const NicknameWrapper = styled.div`
-    margin:10px 0;
+const UserInfoWrap = styled.div`
+    display:inline-block;
+    width: 300px;
+    text-align: center;
+`;
 
-    button:hover{
-        color:#333;
+const AvatarButton = styled(Avatar)`
+    margin-bottom: 10px;
+    cursor: pointer;
+    opacity: 0.8;
+`;
+
+const NicknameWrap = styled.div`
+    margin-bottom: 10px;
+`;
+
+const UserIcon = styled(UserOutlined)`
+    color: #fff;
+    opacity: 0.8;
+`;
+
+const NicknameInputWrap = styled.div`
+    padding: 6px;
+    height: 36px;
+    border: 1px solid #fff;
+    border-radius: 3px;
+    opacity: 0.8;
+    box-sizing: border-box;
+`;
+
+const NicknameInput = styled.input`
+    padding: 0 5px;
+    margin-left: 5px;
+    width: 80%;
+    height: 24px;
+    border: none;
+    background: none;
+    color: #fff;
+
+    &:hover,
+    &:focus {
+        outline: none;
+
+    }    
+
+    &::placeholder {
+        color: #fff;
+    }
+`;
+
+const Nickname = styled.div`
+    margin-bottom: 10px;
+    color: #fff;
+
+    height: 36px;
+    padding: 6px 0;
+    box-sizing: border-box;
+`;
+
+const CloseButton = styled.button`
+    padding: 0;
+    margin-left: 5px;
+    line-height: 1;
+    color: #fff;
+    border: none;
+    background: none;
+    cursor: pointer;
+    outline: none;
+
+    &:hover,
+    &:focus { 
+        color: #fff;
+        border: none;
+    }
+`;
+
+const CloseIcon = styled(CloseOutlined)`
+`;
+
+const UserInfoButton = styled(Button)`
+    color: #fff;
+    background: none;
+
+    & + button {
+        margin-left: 5px;
+    }
+
+    &:hover,
+    &:focus {
+        color: #fff;
+        background: none;
+        border-color: #fff;
     }
 `;
 
@@ -30,6 +119,13 @@ const UserInfo = () => {
         if(isOk){
             const src = (avatarIndex === null) ? null : sampleAvatarList[avatarIndex].src;
             setAvatar(src);
+        }
+    }, []);
+
+    const onKeyPressInput = useCallback((e) => {
+        if(e.key === 'Enter'){
+            console.log('onKeyPressInput', e.target.value);
+            setNickname(e.target.value);
         }
     }, []);
 
@@ -58,56 +154,52 @@ const UserInfo = () => {
     }, [nickname, avatar]);
 
     return(
-        <>
-            <Avatar 
+        <UserInfoWrap>
+            <AvatarButton 
                 size={64} 
                 src={avatar ? avatar : null}
                 icon={<UserOutlined />} 
-                style={{ cursor: 'pointer' }}
                 onClick={onOpenAvatarPopup}
             />
-        
+
             <AvatarPopup 
                 visible={isModalVisible} 
                 onClosePopup={onCloseAvatarPopup} 
             />
 
-            {
-                nickname 
-                ? (
-                    <NicknameWrapper className="nickname">
-                        <span>{nickname}</span>
-                        <Button
-                            icon={<CloseOutlined />}
-                            onClick={onRemoveNickname}
-                        />
-                    </NicknameWrapper>
-                )
-                :
-                (
-                    <Input 
-                        size="large" 
-                        maxLength="10"
-                        placeholder="Please enter your nickname" 
-                        prefix={<UserOutlined />}
-                        onPressEnter={onChangeNickname}
-                    />
-                )
-            } 
+            <NicknameWrap>
+                {
+                    nickname 
+                    ? (
+                        <Nickname className="nickname">
+                            <span>{nickname}</span>
+                            <CloseButton onClick={onRemoveNickname}>
+                                <CloseIcon />
+                            </CloseButton>
+                        </Nickname>
+                    ) : (
 
-            <Button
-                onClick={onClickReset}
-            >
+                        <NicknameInputWrap>
+                            <UserIcon />
+
+                            <NicknameInput 
+                                maxLenght="10"
+                                placeholder="Please enter your nickname" 
+                                onKeyPress={onKeyPressInput}
+                            />
+                        </NicknameInputWrap>
+                    )
+                } 
+            </NicknameWrap>
+            
+            <UserInfoButton onClick={onClickReset}>
                 초기화
-            </Button>
+            </UserInfoButton>
 
-            <Button 
-                onClick={onClickAccess} 
-                loading={logInLoading}
-            >
+            <UserInfoButton onClick={onClickAccess} loading={logInLoading}>
                 접속하기
-            </Button>           
-        </>
+            </UserInfoButton>           
+        </UserInfoWrap>
     );
 };
 

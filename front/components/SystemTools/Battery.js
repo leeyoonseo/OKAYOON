@@ -84,3 +84,4 @@ export default Battery;
 
 // [TODO]
 // - dayjs 한글만 가져오도록 최적화
+// - 배터리 10% 미만일 때 깜빡 깜빡
