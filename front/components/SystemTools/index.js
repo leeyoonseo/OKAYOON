@@ -1,9 +1,8 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { Row, Col, Button } from 'antd';
 import { SoundOutlined } from '@ant-design/icons';
 import { CHANGE_MUTED } from '../../reducers/site';
 
@@ -11,34 +10,31 @@ import Wifi from './Wifi';
 import Battery from './Battery';
 import Clock from './Clock';
 import Search from './Search/index';
+import Menu from './Menu/index';
 
-const SystemToolsWrapper = styled(Row)`
+const SystemToolsWrapper = styled.div`
     width: 250px;
     line-height: 1 !important;
     background-color: red;
-    vertical-align: middle;
 
     button{
         line-height: 1 !important;
     }
 `;
 
-const FixedIconBox = styled.div`
+const IconBox = styled.div`
     display: inline-block;
-    width: ${props => props.iconWidth}px;
+    width: ${props => props.iconWidth ? props.iconWidth + 'px' : 'auto'};
 `;
 
-const UnFixedIconBox = styled.div`
-    display: inline-block;
-    width: auto;
-`;
-
-const SoundButton = styled(Button)`
+const SoundButton = styled.button`
     padding: 0;
     height: 100%;
     text-align: left;
     border: none;
+    outline: none;
     background: none;
+    cursor: pointer;
 
     &:hover,
     &:focus{
@@ -65,35 +61,34 @@ const SystemTools = ({ themecolor }) => {
 
     return(
         <SystemToolsWrapper>
-            <FixedIconBox iconWidth={30}>
+            <IconBox iconWidth={25}>
                 <Wifi themecolor={themecolor} />
-            </FixedIconBox>
+            </IconBox>
 
-            <FixedIconBox iconWidth={20}>
+            <IconBox iconWidth={20}>
                 <SoundButton onClick={onClickSound}>
                     <SoundIcon
                         className={isMuted && 'active'} 
                         themecolor={themecolor}
                     />
                 </SoundButton>
-            </FixedIconBox>
+            </IconBox>
 
-            <UnFixedIconBox>
+            <IconBox>
                 <Battery themecolor={themecolor} />
-            </UnFixedIconBox>
+            </IconBox>
 
-            <Col span={4}>
+            <IconBox iconWidth={35}>
                 <Clock themecolor={themecolor} />
-            </Col>
-            {
-                themecolor === '#fff'  
-            }
-            <Col span={4}>
+            </IconBox>
+
+            <IconBox iconWidth={20}>
                 <Search themecolor={themecolor} />
-            </Col>
-            <Col span={4}>
-                메뉴
-            </Col>
+            </IconBox>
+
+            <IconBox>
+                <Menu themecolor={themecolor} />
+            </IconBox>
         </SystemToolsWrapper>
     );
 };

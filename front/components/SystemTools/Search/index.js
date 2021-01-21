@@ -6,12 +6,12 @@ import { SearchOutlined } from '@ant-design/icons';
 
 import SearchPopup from './SearchPopup';
 
-const SearchButtonWrapper = styled(Button)`
+const SearchButtonWrap = styled.button`
     padding: 0;
-    width: auto;
-    height: auto;
     background: none;
     border: none;
+    cursor: pointer;
+    outline: none;
 
     &:hover,
     &:focus {
@@ -24,21 +24,21 @@ const SearchButtonWrapper = styled(Button)`
 `;
 
 const Search = ({ themecolor }) => {
-    const [isPopupShow, setIsPopupShow] = useState(false);
+    const [isShowPopup, setIsShowPopup] = useState(false);
 
-    const onClickSearchButton = useCallback(() => {
-        setIsPopupShow(!isPopupShow);
-    }, [isPopupShow]);
+    const onClicButton = useCallback(() => {
+        setIsShowPopup(!isShowPopup);
+    }, [isShowPopup]);
 
     return(
         <>
-            <SearchButtonWrapper onClick={onClickSearchButton}>
+            <SearchButtonWrap onClick={onClicButton}>
                 <SearchOutlined 
-                    className={isPopupShow && 'active'} 
+                    className={isShowPopup && 'active'} 
                     style={{ color: themecolor }}
                 />
-            </SearchButtonWrapper>
-            { isPopupShow && <SearchPopup /> }
+            </SearchButtonWrap>
+            { isShowPopup && <SearchPopup /> }
         </>
     );
 };

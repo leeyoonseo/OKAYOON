@@ -1,21 +1,28 @@
 import React from 'react';
-import { Button, Row, Col, Layout } from 'antd';
-import { LogoutOutlined } from '@ant-design/icons';
+import styled from 'styled-components';
 
 import Head from 'next/head';
 import Link from 'next/link';
 
-import styled from 'styled-components';
 import UserInfo from '../components/UserInfo/index';
 import SystemTools from '../components/SystemTools';
 
-
+import { Button, Layout } from 'antd';
+import { LogoutOutlined } from '@ant-design/icons';
 
 const HeaderWrap = styled(Layout.Header)`
-    padding: 5px 0;
+    padding: 5px 2%;
     height: 30px;
     box-sizing: border-box;
     text-align:right;
+`;
+
+const ContentWrap = styled(Layout.Content)`
+    padding: 0 2%;
+`;
+
+const FooterWrap = styled(Layout.Footer)`
+    padding: 0 2%;
 `;
 
 const SystemToolsWrap = styled.div`
@@ -47,11 +54,11 @@ const Login = () => {
                     </SystemToolsWrap>
                 </HeaderWrap>
 
-                <Content>
+                <ContentWrap>
                     <UserInfo />
-                </Content>
+                </ContentWrap>
 
-                <Footer>
+                <FooterWrap>
                     <CircleBtnWrapper>
                         <Button 
                             shape="circle"
@@ -62,55 +69,9 @@ const Login = () => {
                             <a>잠자기</a>
                         </Link>
                     </CircleBtnWrapper>
-                </Footer>
+                </FooterWrap>
             </Layout>
         </>
-
-        // <>
-        //     <Head>
-        //         <title>사용자 접속페이지 | OKAYOON</title>
-        //     </Head>
-
-        //     <Row>
-        //         <FixHeader>
-        //             <SystemTools themecolor="#fff" />     
-        //         </FixHeader>
-        //         {/* <Col span={6} offset={18} style={{ backgroundColor: 'red' }}> */}
-        //         {/* </Col> */}
-
-        //         <FixContainer>
-        //             <UserInfo />                
-        //         </FixContainer>
-
-        //         {/* <Col span={6} offset={9} style={{ textAlign: 'center',  background: 'yellow' }}>
-        //             <UserInfo />                
-        //         </Col> */}
-
-
-        //         <FixBottom>
-        //             <CircleBtnWrapper>
-        //                     <Button 
-        //                         shape="circle"
-        //                         icon={<LogoutOutlined />} 
-        //                     />
-        //                     <Link href="./sleep">
-        //                         <a>잠자기</a>
-        //                     </Link>
-        //                 </CircleBtnWrapper>
-        //         </FixBottom>
-        //         {/* <Col span={8} offset={8} style={{ background: 'green' }}>
-        //             <CircleBtnWrapper>
-        //                 <Button 
-        //                     shape="circle"
-        //                     icon={<LogoutOutlined />} 
-        //                 />
-        //                 <Link href="./sleep">
-        //                     <a>잠자기</a>
-        //                 </Link>
-        //             </CircleBtnWrapper>
-        //         </Col> */}
-        //     </Row>
-        // </>
     );
 };
 
