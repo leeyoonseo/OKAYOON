@@ -9,6 +9,7 @@ import { UserOutlined, CloseOutlined } from '@ant-design/icons';
 import { LOG_IN_REQUEST } from '../../reducers/user';
 
 import AvatarPopup from './AvatarPopup';
+import CommonModal from '../CommonModal/index';
 
 const UserInfoWrap = styled.div`
     display:inline-block;
@@ -105,16 +106,23 @@ const UserInfoButton = styled(Button)`
     }
 `;
 
+const SourceText = styled.span`
+    display:block;
+    text-align:left;
+    font-size:60%;
+    color:#aaa;
+`;
+
 const UserInfo = () => {
     const dispatch = useDispatch();
     const { logInLoading, sampleAvatarList, userInfo } = useSelector((state) => state.user);
     const [nickname, onChangeNickname, setNickname] = useInput(userInfo?.nickname || '');
     const [avatar, setAvatar] = useState(userInfo?.avatar || null);
-    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [isShowModal, setIsShowModal] = useState(false);
 
-    const onOpenAvatarPopup = useCallback(() => setIsModalVisible(true), []);
+    const onOpenAvatarPopup = useCallback(() => setIsShowModal(true), []);
     const onCloseAvatarPopup = useCallback((isOk, avatarIndex = null) => () => {
-        setIsModalVisible(false);
+        setIsShowModal(false);
 
         if(isOk){
             const src = (avatarIndex === null) ? null : sampleAvatarList[avatarIndex].src;
@@ -162,10 +170,19 @@ const UserInfo = () => {
                 onClick={onOpenAvatarPopup}
             />
 
-            <AvatarPopup 
-                visible={isModalVisible} 
+            {/* <AvatarPopup 
+                visible={isShowModal} 
                 onClosePopup={onCloseAvatarPopup} 
-            />
+            /> */}
+
+            { isShowModal && (
+                <CommonModal 
+                    size="500" 
+                    title="아바타 설정"
+                    content={[<div key="d">1</div>, <div key="a">2</div>]}
+                    bottom={<SourceText>이미지출처: https://www.pngwing.com/ko/free-png-zvldq/download</SourceText>}
+                />
+            )}
 
             <NicknameWrap>
                 {

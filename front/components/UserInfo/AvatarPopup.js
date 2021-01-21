@@ -5,13 +5,13 @@ import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const SourceText = styled.span`
-    display:block;
-    margin-bottom:7px;
-    text-align:left;
-    font-size:60%;
-    color:#aaa;
-`;
+// const SourceText = styled.span`
+//     display:block;
+//     margin-bottom:7px;
+//     text-align:left;
+//     font-size:60%;
+//     color:#aaa;
+// `;
 
 const AvatarBox = styled.div`
     margin-bottom: 6px;
