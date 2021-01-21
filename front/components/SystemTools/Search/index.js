@@ -17,6 +17,10 @@ const SearchButtonWrapper = styled(Button)`
     &:focus {
         background: none;
     }
+
+    .active {
+        opacity: 0.5;
+    }
 `;
 
 const Search = ({ themecolor }) => {
@@ -29,7 +33,10 @@ const Search = ({ themecolor }) => {
     return(
         <>
             <SearchButtonWrapper onClick={onClickSearchButton}>
-                <SearchOutlined style={{ color: themecolor }}/>
+                <SearchOutlined 
+                    className={isPopupShow && 'active'} 
+                    style={{ color: themecolor }}
+                />
             </SearchButtonWrapper>
             { isPopupShow && <SearchPopup /> }
         </>

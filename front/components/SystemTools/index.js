@@ -50,8 +50,8 @@ const SoundIcon = styled(SoundOutlined)`
     font-size: 16px;
     color: ${props => props.themecolor};
 
-    &.muted{
-        opacity:0.8;
+    &.active{
+        opacity:0.5;
     }
 `;
 
@@ -72,7 +72,7 @@ const SystemTools = ({ themecolor }) => {
             <FixedIconBox iconWidth={20}>
                 <SoundButton onClick={onClickSound}>
                     <SoundIcon
-                        className={isMuted && 'muted'} 
+                        className={isMuted && 'active'} 
                         themecolor={themecolor}
                     />
                 </SoundButton>

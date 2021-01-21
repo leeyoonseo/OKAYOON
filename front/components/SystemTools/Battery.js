@@ -4,11 +4,13 @@ import styled from 'styled-components';
 import dayjs from 'dayjs';
 
 function getCurrentPercent(time){
-    const totalMin = 24 * 60;
-    const currentMin = (time.format('HH') * 60) + Number(time.format('mm'));
-    
-    return Math.floor(100 / (totalMin / currentMin));
-}
+    const maxNum = 100;
+    const dayMinutes = 24 * 60;
+    const currentMinutes = (time.format('HH') * 60) + Number(time.format('mm'));
+
+    // 최대 값(100%) - (최대 값(100%) / 하루 총 분 / 현재 분) 
+    return (maxNum - Math.floor(maxNum / (dayMinutes / currentMinutes)));
+};
 
 const BatteryWrapper = styled.div`
     &:before {
