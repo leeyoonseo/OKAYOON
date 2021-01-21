@@ -23,6 +23,11 @@ const MenuButton = styled.button`
     }
 `;
 
+const MenuIcon = styled(MenuOutlined)`
+    font-size: 17px;
+    color: ${props => props.themecolor};
+`;
+
 const Menu = ({ themecolor }) => {
     const [isShowPopup, setIsShowPopup] = useState(false);
 
@@ -33,9 +38,9 @@ const Menu = ({ themecolor }) => {
     return(
         <>
             <MenuButton onClick={onClicButton}>
-                <MenuOutlined 
+                <MenuIcon 
                     className={isShowPopup && 'active'} 
-                    style={{ color: themecolor }} 
+                    themecolor={themecolor}
                 />
             </MenuButton>
             { isShowPopup && <MenuPopup /> }

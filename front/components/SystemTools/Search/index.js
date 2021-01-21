@@ -8,6 +8,7 @@ import SearchPopup from './SearchPopup';
 
 const SearchButtonWrap = styled.button`
     padding: 0;
+    text-align: center;
     background: none;
     border: none;
     cursor: pointer;
@@ -25,6 +26,11 @@ const SearchButtonWrap = styled.button`
     }
 `;
 
+const SearchIcon = styled(SearchOutlined)`
+    font-size: 16px;
+    color: ${props => props.themecolor};
+`;
+
 const Search = ({ themecolor }) => {
     const [isShowPopup, setIsShowPopup] = useState(false);
 
@@ -35,9 +41,9 @@ const Search = ({ themecolor }) => {
     return(
         <>
             <SearchButtonWrap onClick={onClicButton}>
-                <SearchOutlined 
+                <SearchIcon
                     className={isShowPopup && 'active'} 
-                    style={{ color: themecolor }}
+                    themecolor={themecolor}
                 />
             </SearchButtonWrap>
             { isShowPopup && <SearchPopup /> }

@@ -30,6 +30,8 @@ const appearOut = (themecolor) => keyframes`
 
 const OutLine = styled.div`
     ${lineDefaultStyle}
+    position: relative;
+    top: 2px;
     margin: 0 auto;
     width: 25px;
     height: 20px;

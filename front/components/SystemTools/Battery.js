@@ -3,18 +3,9 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
 
-function getCurrentPercent(time){
-    const maxNum = 100;
-    const dayMinutes = 24 * 60;
-    const currentMinutes = (time.format('HH') * 60) + Number(time.format('mm'));
-
-    // 최대 값(100%) - (최대 값(100%) / 하루 총 분 / 현재 분) 
-    return (maxNum - Math.floor(maxNum / (dayMinutes / currentMinutes)));
-};
-
 const BatteryWrapper = styled.div`
     &:before {
-        margin-right: 4px;
+        margin-right: 7px;
         display: inline-block;
         content: '${props => Math.floor(props.percent)}%';
         color: ${props => props.themecolor};
@@ -24,9 +15,11 @@ const BatteryWrapper = styled.div`
         display: inline-block;
         width: 25px;
         height: 15px;
-        vertical-align: middle;
+        vertical-align: text-bottom;
         border: 1px solid ${props => props.themecolor};
         border-radius:3px;
+
+        
     }
 
     .gauge:before {
@@ -37,6 +30,15 @@ const BatteryWrapper = styled.div`
         background-color: ${props => props.themecolor};
     }
 `;
+
+function getCurrentPercent(time){
+    const maxNum = 100;
+    const dayMinutes = 24 * 60;
+    const currentMinutes = (time.format('HH') * 60) + Number(time.format('mm'));
+
+    // 최대 값(100%) - (최대 값(100%) / 하루 총 분 / 현재 분) 
+    return (maxNum - Math.floor(maxNum / (dayMinutes / currentMinutes)));
+};
 
 const Battery = ({ themecolor }) => {
     const [time, setTime] = useState(dayjs());

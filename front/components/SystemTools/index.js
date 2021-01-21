@@ -13,9 +13,7 @@ import Search from './Search/index';
 import Menu from './Menu/index';
 
 const SystemToolsWrapper = styled.div`
-    width: 250px;
     line-height: 1 !important;
-    background-color: red;
 
     button{
         line-height: 1 !important;
@@ -24,13 +22,14 @@ const SystemToolsWrapper = styled.div`
 
 const IconBox = styled.div`
     display: inline-block;
-    width: ${props => props.iconWidth ? props.iconWidth + 'px' : 'auto'};
+    width: ${props => props.iconwidth ? props.iconwidth + 'px' : 'auto'};
+    vertical-align: middle;
+    ${props => props.addstyled && props.addstyled};
 `;
 
 const SoundButton = styled.button`
     padding: 0;
     height: 100%;
-    text-align: left;
     border: none;
     outline: none;
     background: none;
@@ -43,7 +42,7 @@ const SoundButton = styled.button`
 `;
 
 const SoundIcon = styled(SoundOutlined)`
-    font-size: 16px;
+    font-size: 18px;
     color: ${props => props.themecolor};
 
     &:hover,
@@ -63,11 +62,11 @@ const SystemTools = ({ themecolor }) => {
 
     return(
         <SystemToolsWrapper>
-            <IconBox iconWidth={25}>
+            <IconBox iconwidth={30}>
                 <Wifi themecolor={themecolor} />
             </IconBox>
 
-            <IconBox iconWidth={20}>
+            <IconBox iconwidth={25} addstyled="text-align: left;">
                 <SoundButton onClick={onClickSound}>
                     <SoundIcon
                         className={isMuted && 'active'} 
@@ -80,15 +79,15 @@ const SystemTools = ({ themecolor }) => {
                 <Battery themecolor={themecolor} />
             </IconBox>
 
-            <IconBox iconWidth={35}>
+            <IconBox iconwidth={45}>
                 <Clock themecolor={themecolor} />
             </IconBox>
 
-            <IconBox iconWidth={20}>
+            <IconBox iconwidth={20}>
                 <Search themecolor={themecolor} />
             </IconBox>
 
-            <IconBox>
+            <IconBox iconwidth={20}>
                 <Menu themecolor={themecolor} />
             </IconBox>
         </SystemToolsWrapper>
@@ -104,3 +103,7 @@ SystemTools.defaultProps = {
 }
 
 export default SystemTools;
+
+
+// TODO
+// - 검색, 메뉴 아이콘 로그인하고 들어간 화면에서만 접근 할 수 있도록 수정
