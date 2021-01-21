@@ -8,7 +8,7 @@ import { Avatar, Button, Modal } from 'antd';
 import { UserOutlined, CloseOutlined } from '@ant-design/icons';
 import { LOG_IN_REQUEST } from '../../reducers/user';
 
-import AvatarPopup from './AvatarPopup';
+import AvatarModalContent from './AvatarModalContent';
 import CommonModal from '../CommonModal/index';
 
 const UserInfoWrap = styled.div`
@@ -118,11 +118,11 @@ const UserInfo = () => {
     const { logInLoading, sampleAvatarList, userInfo } = useSelector((state) => state.user);
     const [nickname, onChangeNickname, setNickname] = useInput(userInfo?.nickname || '');
     const [avatar, setAvatar] = useState(userInfo?.avatar || null);
-    const [isShowModal, setIsShowModal] = useState(false);
+    const [isVisiblePopup, setIsVisiblePopup] = useState(false);
 
-    const onOpenAvatarPopup = useCallback(() => setIsShowModal(true), []);
-    const onCloseAvatarPopup = useCallback((isOk, avatarIndex = null) => () => {
-        setIsShowModal(false);
+    const onOpenAvatarPopup = useCallback(() => setIsVisiblePopup(true), []);
+    const onClosePopup = useCallback((isOk, avatarIndex = null) => () => {
+        setIsVisiblePopup(false);
 
         if(isOk){
             const src = (avatarIndex === null) ? null : sampleAvatarList[avatarIndex].src;
@@ -171,16 +171,18 @@ const UserInfo = () => {
             />
 
             {/* <AvatarPopup 
-                visible={isShowModal} 
+                visible={isVisiblePopup} 
                 onClosePopup={onCloseAvatarPopup} 
             /> */}
 
-            { isShowModal && (
+            { isVisiblePopup && (
                 <CommonModal 
-                    size="500" 
+                    visible={isVisiblePopup} 
+                    sizew="500"
                     title="아바타 설정"
-                    content={[<div key="d">1</div>, <div key="a">2</div>]}
+                    content={<AvatarModalContent onClosePopup={onClosePopup} />}
                     bottom={<SourceText>이미지출처: https://www.pngwing.com/ko/free-png-zvldq/download</SourceText>}
+                    onClosePopup={onClosePopup} 
                 />
             )}
 
@@ -221,3 +223,6 @@ const UserInfo = () => {
 };
 
 export default UserInfo;
+
+// TODO
+// - props 전달할때 대문자 못씀?
