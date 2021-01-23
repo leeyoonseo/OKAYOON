@@ -79,14 +79,13 @@ const CircleIcon = styled(LogoutOutlined)`
 
 const Login = () => {
     const themecolor = DARK_MODE_COLOR;
-    const headerHeight = 35;
-    const footerHeight = 150;
+    const fixedHeaderH = 35;
+    const fixexFooterH = 150;
     const [contentHeight, setContentHeight] = useState(null);
 
     useEffect(() => {
-        const browserH = window.innerHeight;
-        setContentHeight(browserH - headerHeight - footerHeight);
-        console.log('브라우저 height!!?', contentHeight)
+        const windowH = window.innerHeight;
+        setContentHeight(windowH - fixedHeaderH - fixexFooterH);
     }, []);
 
 
@@ -96,7 +95,7 @@ const Login = () => {
                 <title>사용자 접속페이지 | OKAYOON</title>
             </Head>
             <LayoutWrap>
-                <HeaderWrap fixedheight={headerHeight}>
+                <HeaderWrap fixedheight={fixedHeaderH}>
                     <SystemToolsWrap>
                         <SystemTools themecolor={themecolor} />    
                     </SystemToolsWrap>
@@ -106,7 +105,7 @@ const Login = () => {
                     <UserInfo themecolor={themecolor} />
                 </ContentWrap>
 
-                <FooterWrap fixedheight={footerHeight}>
+                <FooterWrap fixedheight={fixexFooterH}>
                     <Link href="./sleep">
                         <SleepModeButton themecolor={themecolor}>  
                             <CircleIconWrap>
@@ -124,5 +123,6 @@ const Login = () => {
 // - 버튼에 로딩 추가
 // - 처음들어왔을때 저번에 등록한 닉네임이 있다면
 // - 이미지들 S3 이용할 것 
+// - 배경이미지에 흐린 효과 추가
 
 export default Login;
