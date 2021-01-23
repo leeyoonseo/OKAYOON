@@ -47,32 +47,38 @@ const SystemToolsWrap = styled.div`
     vertical-align: top;
 `;
 
-const CircleButtonWrap = styled.div`
-    display:inline-block;
-
-    & > a{
-        display:block;
-        color:#333;
-    }
-`;
-
-const CircleButton = styled(Button)`
-    margin-bottom: 10px;
-    border-color: ${props => props.themecolor};
-    background: none;
+const SleepModeButton = styled.a`
+    color: ${props => props.themecolor};
 
     &:hover,
     &:focus {
-        border-color: ${props => props.themecolor};
-        background: none;
+        color: ${props => props.themecolor};
     }
+
+    &:after {
+        display: block;
+        margin-top:5px;
+        content: '잠자기모드';
+    }
+    
 `;
 
-const CircleButtonIcon = styled(LogoutOutlined)`
+const CircleIconWrap = styled.div`
+    margin: 0 auto;
+    width: 30px;
+    height: 30px;
+    border: 1px solid ${props => props.themecolor};
+    border-radius: 50%;
+`;
+
+const CircleIcon = styled(LogoutOutlined)`
+    font-size:18px;
     color: ${props => props.themecolor};
+    vertical-align: middle;
 `;
 
 const Login = () => {
+    const themecolor = DARK_MODE_COLOR;
     const headerHeight = 35;
     const footerHeight = 150;
     const [contentHeight, setContentHeight] = useState(null);
@@ -92,26 +98,22 @@ const Login = () => {
             <LayoutWrap>
                 <HeaderWrap fixedheight={headerHeight}>
                     <SystemToolsWrap>
-                        <SystemTools themecolor={DARK_MODE_COLOR} />    
+                        <SystemTools themecolor={themecolor} />    
                     </SystemToolsWrap>
                 </HeaderWrap>
 
                 <ContentWrap fixedheight={contentHeight}>
-                    <UserInfo themecolor={DARK_MODE_COLOR} />
+                    <UserInfo themecolor={themecolor} />
                 </ContentWrap>
 
                 <FooterWrap fixedheight={footerHeight}>
-                    <CircleButtonWrap>
-                        <CircleButton 
-                            shape="circle"
-                            icon={<CircleButtonIcon themecolor={DARK_MODE_COLOR} />} 
-                            themecolor={DARK_MODE_COLOR}
-                        />
-
-                        <Link href="./sleep">
-                            <a style={{ color: DARK_MODE_COLOR }}>잠자기</a>
-                        </Link>
-                    </CircleButtonWrap>
+                    <Link href="./sleep">
+                        <SleepModeButton themecolor={themecolor}>  
+                            <CircleIconWrap>
+                                <CircleIcon themecolor={themecolor} />
+                            </CircleIconWrap>
+                        </SleepModeButton>
+                    </Link>
                 </FooterWrap>
             </LayoutWrap>
         </>
