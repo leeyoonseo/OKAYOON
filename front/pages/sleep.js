@@ -25,6 +25,10 @@ const sleep = () => {
         window.addEventListener('keydown', () => {
             console.log('keydown');
         });
+
+        return () => {
+            window.removeEventListener('keydown');
+        }
     }, []);
 
     useEffect(() => {
