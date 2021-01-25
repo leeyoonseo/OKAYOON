@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import Router from 'next/router';
 import styled from 'styled-components';
 
 import DigitalClock from '../components/DigitalClock';
@@ -14,22 +15,16 @@ const SleepModeWrap = styled.div`
     background-size: cover;
 `;
 
+const GuideText = styled.span`
+    position: fixed;
+    bottom: 5%;
+    font-size: 12px;
+    color: #fff;
+    opacity: 0.8;
+`;
+
 const sleep = () => {
     const [windowHeight, setWindowHeight] = useState(null);
-
-
-    // todo 
-    // window 클릭 react에서는 어떻게하는지 찾아보자
-    useEffect(() => {
-        console.log('window');
-        window.addEventListener('keydown', () => {
-            console.log('keydown');
-        });
-
-        return () => {
-            window.removeEventListener('keydown');
-        }
-    }, []);
 
     useEffect(() => {
         const windowH = window.innerHeight;
@@ -40,8 +35,8 @@ const sleep = () => {
         console.log('onKeyPressWindow', e.key);
     }, []);
 
-    const onClickWindow = useCallback((e) => {
-        console.log('onClickWindow', e.target);
+    const onClickWindow = useCallback(() => {
+        Router.replace('./login');
     }, []);
 
     return(
@@ -51,6 +46,10 @@ const sleep = () => {
             onClick={onClickWindow}
         >
             <DigitalClock />       
+
+            <GuideText>
+                Click anywhere
+            </GuideText>
         </SleepModeWrap>
     );
 };
