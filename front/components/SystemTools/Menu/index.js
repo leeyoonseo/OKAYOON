@@ -38,7 +38,6 @@ const Menu = ({ themecolor }) => {
 
     const onClickOutside = useCallback(({ target }) => {
         if (popRef.current && !popRef.current.contains(target)) {
-            console.log('target', target);
             setIsOpen(false);
         }
     }, []);
@@ -56,7 +55,7 @@ const Menu = ({ themecolor }) => {
     }, []);
 
     return(
-        <MenuWrap ref={popRef} >
+        <MenuWrap ref={popRef}>
             <MenuButton onClick={onClickMenu}>
                 <MenuIcon themecolor={themecolor} />
             </MenuButton>

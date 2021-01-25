@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 
 import styled from 'styled-components';
 
@@ -18,12 +18,9 @@ const MenuPopupWrap = styled.div`
     }
 `;
 
-const MenuPopup = forwardRef((props, ref) => {
-    const { isOpen } = props;
-
+const MenuPopup = ({ isOpen }) => {
     return (
         <MenuPopupWrap
-            ref={ref}
             className={isOpen ? 'active' : ''}
         >
             <ul>
@@ -35,6 +32,6 @@ const MenuPopup = forwardRef((props, ref) => {
             </ul>
         </MenuPopupWrap>
     );
-});
+};
 
 export default MenuPopup;
