@@ -9,15 +9,17 @@ export const CommonModalWrap = styled(Layout)`
     top: 50%;
     left: 50%;
     width: ${props => props.sizew}px;
+    border-radius: 5px;
     height: ${props => props.sizeh}px;
     transform: translate(-50%, -50%);
     z-index: 100;
+    overflow: hidden;
 `;
 
 export const HeaderWrap = styled(Layout.Header)`
-    padding: 5px 3%;
+    padding: 10px 3%;
     position: relative;
-    height: 45px;
+    height: auto;
     line-height: 1;
     background: #dedede;
     color: #333;
@@ -62,23 +64,28 @@ const iconCommonStyled = `
     color: #fff;
     justify-content: center;
     align-items: center;
+    opacity: 0;
+
+    &:hover {
+        opacity: 0.5;
+    }
 `;
 
 export const CloseIcon = styled(CloseOutlined)`
     ${iconCommonStyled}
 `;
 
-export const MinIcon = styled(MinusOutlined)`
+export const MinimizationIcon = styled(MinusOutlined)`
     ${iconCommonStyled}
 `;
 
-export const MaxIcon = styled(FullscreenOutlined)`
+export const MaximizeIcon = styled(FullscreenOutlined)`
     ${iconCommonStyled}
 `;
 
 export const Title = styled.div`
     display: inline-block;
-    padding-top: 10px;
+    max-width: 300px;
     width: 100%;
     font-size: 13px;
     line-height: 1.5;

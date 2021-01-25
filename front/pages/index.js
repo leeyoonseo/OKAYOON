@@ -18,7 +18,7 @@ const Home = () => {
     
     useEffect(() => {
         if(!nickname){
-            Router.push('/login');
+            Router.replace('/login');
         }
     }, [nickname]);
 

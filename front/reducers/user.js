@@ -26,6 +26,25 @@ export const initialState = {
             src: 'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png',
             title: '5번',
         },
+        {
+            src: 'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png',
+            title: '1번',
+        },
+        {
+            src: 'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20140127_257%2Faosjahemdd_1390820129233pOn7o_JPEG%2Fd018e984a74511e2bd6322000a1fa42a_7_large.jpg&type=sc960_832',
+            title: '2번',
+        },
+        {
+            src: 'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png',
+            title: '3번',
+        },
+        {
+            src: 'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20140127_257%2Faosjahemdd_1390820129233pOn7o_JPEG%2Fd018e984a74511e2bd6322000a1fa42a_7_large.jpg&type=sc960_832',
+            title: '4번',
+        },{
+            src: 'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png',
+            title: '5번',
+        },
     ],
 
     userInfo: {

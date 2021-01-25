@@ -8,7 +8,7 @@ import { Avatar, Button, Modal } from 'antd';
 import { UserOutlined, CloseOutlined } from '@ant-design/icons';
 import { LOG_IN_REQUEST } from '../../reducers/user';
 
-import AvatarModalContent from './AvatarModalContent';
+import ModalContentAvatar from './ModalContentAvatar';
 import CommonModal from '../CommonModal/index';
 
 const UserInfoWrap = styled.div`
@@ -177,10 +177,16 @@ const UserInfo = () => {
 
             { isVisiblePopup && (
                 <CommonModal 
+                    buttonState={{
+                        Maximize: false,
+                        Minimization: false
+                    }}
+                    // Maximize={false}
+                    // Minimization={false}
                     visible={isVisiblePopup} 
                     sizew="500"
                     title="아바타 설정"
-                    content={<AvatarModalContent onClosePopup={onClosePopup} />}
+                    content={<ModalContentAvatar onClosePopup={onClosePopup} />}
                     bottom={<SourceText>이미지출처: https://www.pngwing.com/ko/free-png-zvldq/download</SourceText>}
                     onClosePopup={onClosePopup} 
                 />

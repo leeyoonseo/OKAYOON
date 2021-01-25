@@ -5,46 +5,51 @@ import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-
-const AvatarBox = styled.div`
-    margin-bottom: 6px;
-    display: inline-block;
-    width: calc(50% - 6px);
-    height: 150px;
-    box-sizing: border-box;
-    cursor: pointer;
-
-    &:nth-child(even){
-        margin-left: 3px;
-    }
-
-    &:nth-child(odd){
-        margin-right: 3px;
-    }
-
-    &:hover{
-        outline: 3px solid #333;
-    }
-
-    &:after{
-        content:'';
-        display:block;
-        clear:both;
-    }
-
-    img,
-    button{
-        display: inline-block;
-        width:100%;
-        height:100%;
+const ModalContentWrap = styled.div`
+    &:after {
+        display: block;
+        content: '';
+        clear: both;
     }
 `;
 
-const AvatarModalContent = ({ onClosePopup }) => {
+const AvatarBox = styled.div`
+    margin: 10px 10px 10px 0;
+    width: calc(25% - 8px);
+    height: 105px;
+    box-sizing: border-box;
+    float: left;
+
+    &:nth-child(4n) {
+        margin-right: 0 !important;
+    }
+
+    button{
+        padding: 0;
+        width:100%;
+        height:100%;
+        color: #777;
+        border: 1px solid #aaa;
+        cursor: pointer;
+
+        &:hover,
+        &:focus {
+            border-color: #333;
+            outline: none;
+        }
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
+`;
+
+const ModalContentAvatar = ({ onClosePopup }) => {
     const { sampleAvatarList } = useSelector((state) => state.user);
-  
+
     return(
-        <>
+        <ModalContentWrap>
             <AvatarBox 
                 onClick={onClosePopup(true, null)}
             >
@@ -59,17 +64,19 @@ const AvatarModalContent = ({ onClosePopup }) => {
                             key={`${v.title}-${i}`}
                             onClick={onClosePopup(true, i)}
                         >
-                            <img alt={v.title} src={v.src} />
+                            <button>
+                                <img alt={v.title} src={v.src} />
+                            </button>
                         </AvatarBox>
                     );  
                 })
             }
-        </>
+        </ModalContentWrap>
     );
 };
 
-AvatarModalContent.propTypes = {
+ModalContentAvatar.propTypes = {
     onClosePopup: PropTypes.func.isRequired,
 };
 
-export default AvatarModalContent;
+export default ModalContentAvatar;

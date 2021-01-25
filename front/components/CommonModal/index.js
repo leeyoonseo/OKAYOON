@@ -1,18 +1,20 @@
-import React, { useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import { 
     CommonModalWrap, HeaderWrap, ContentWrap, FooterWrap,
     ControlButtonWrap, ControlButton, 
-    CloseIcon, MinIcon, MaxIcon, 
+    CloseIcon, MinimizationIcon, MaximizeIcon, 
     Title
 } from './styles';
 
 const CommonModal = ({ 
+    buttonState,
     sizew, sizeh ,visible, 
     title, content, bottom,  
     onClosePopup 
 }) => {
+
     return (
         <CommonModalWrap 
             className={visible && "active"}
@@ -21,15 +23,24 @@ const CommonModal = ({
         >
             <HeaderWrap>
                 <ControlButtonWrap>
-                    <ControlButton bgcolor="#ff6059" onClick={onClosePopup(false)}>
+                    <ControlButton 
+                        bgcolor="#ff6059" 
+                        onClick={onClosePopup(false)}
+                    >
                         <CloseIcon />
                     </ControlButton>
-                    <ControlButton bgcolor="#ffbc28">
-                        <MinIcon />
-                    </ControlButton>
-                    <ControlButton bgcolor="#26ca3f">
-                        <MaxIcon />
-                    </ControlButton>
+
+                    {buttonState.Minimization && (
+                        <ControlButton bgcolor="#ffbc28">
+                            <MinimizationIcon />
+                        </ControlButton>
+                    )}
+                    
+                    {buttonState.Maximize && (
+                        <ControlButton bgcolor="#26ca3f">
+                            <MaximizeIcon />
+                        </ControlButton>
+                    )}
                 </ControlButtonWrap>
 
                 {title && <Title>{title}</Title>}
@@ -51,6 +62,7 @@ const CommonModal = ({
 };
 
 CommonModal.propTypes = {
+    buttonState: PropTypes.objectOf(PropTypes.bool),
     title: PropTypes.string,
     content: PropTypes.any,
     bottom: PropTypes.any,
@@ -61,6 +73,10 @@ CommonModal.propTypes = {
 };
 
 CommonModal.defaultProps = {
+    buttonState: {
+        Maximize: true,
+        Minimization: true,
+    },
     title: '모달 팝업',
     content: '컨텐츠 영역',
     bottom: '하단 영역',
