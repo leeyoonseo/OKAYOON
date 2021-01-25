@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Layout } from 'antd';
 import { CloseOutlined, MinusOutlined, FullscreenOutlined } from '@ant-design/icons';
 
-export const CommonModalWrap = styled(Layout)`
+export const ModalPopupWrap = styled(Layout)`
     display: block;
     position: absolute;
     top: 50%;
@@ -58,7 +58,7 @@ export const ControlButton = styled.button`
     }
 `;
 
-const iconCommonStyled = `
+const iconDefaultStyled = `
     display:flex;
     font-size: 10px;
     color: #fff;
@@ -72,15 +72,15 @@ const iconCommonStyled = `
 `;
 
 export const CloseIcon = styled(CloseOutlined)`
-    ${iconCommonStyled}
+    ${iconDefaultStyled}
 `;
 
 export const MinimizationIcon = styled(MinusOutlined)`
-    ${iconCommonStyled}
+    ${iconDefaultStyled}
 `;
 
 export const MaximizeIcon = styled(FullscreenOutlined)`
-    ${iconCommonStyled}
+    ${iconDefaultStyled}
 `;
 
 export const Title = styled.div`

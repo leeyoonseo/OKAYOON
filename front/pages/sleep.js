@@ -30,10 +30,6 @@ const sleep = () => {
         const windowH = window.innerHeight;
         setWindowHeight(windowH);
     }, [windowHeight]);
-    
-    const onKeyPressWindow = useCallback((e) => {
-        console.log('onKeyPressWindow', e.key);
-    }, []);
 
     const onClickWindow = useCallback(() => {
         Router.replace('./login');
@@ -42,13 +38,12 @@ const sleep = () => {
     return(
         <SleepModeWrap
             windowHeight={windowHeight}
-            onKeyPress={onKeyPressWindow}
             onClick={onClickWindow}
         >
             <DigitalClock />       
 
             <GuideText>
-                Click anywhere
+                Click anywhere!
             </GuideText>
         </SleepModeWrap>
     );

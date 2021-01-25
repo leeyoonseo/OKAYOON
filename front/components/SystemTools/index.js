@@ -12,7 +12,7 @@ import Clock from './Clock';
 import Search from './Search/index';
 import Menu from './Menu/index';
 
-const SystemToolsWrapper = styled.div`
+const SystemToolsWrap = styled.div`
     line-height: 1 !important;
 
     button{
@@ -61,7 +61,7 @@ const SystemTools = ({ themecolor }) => {
     });
 
     return(
-        <SystemToolsWrapper>
+        <SystemToolsWrap>
             <IconBox iconwidth={30}>
                 <Wifi themecolor={themecolor} />
             </IconBox>
@@ -90,7 +90,7 @@ const SystemTools = ({ themecolor }) => {
             <IconBox iconwidth={20}>
                 <Menu themecolor={themecolor} />
             </IconBox>
-        </SystemToolsWrapper>
+        </SystemToolsWrap>
     );
 };
 

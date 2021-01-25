@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -6,21 +6,30 @@ import Link from 'next/link';
 import UserInfo from '../components/UserInfo/index';
 import SystemTools from '../components/SystemTools';
 
-import { Button, Layout } from 'antd';
+import { Layout } from 'antd';
 import { LogoutOutlined } from '@ant-design/icons';
-import { DARK_MODE_COLOR, WHITE_MODE_COLOR } from '../theme/styles';
+import { DARK_MODE_COLOR } from '../theme/styles';
+
+const bgImageUrl = 'https://t1.daumcdn.net/cfile/tistory/229F4B335966F29A0F';
 
 const LayoutWrap = styled(Layout)`
-    background: url(https://t1.daumcdn.net/cfile/tistory/229F4B335966F29A0F)no-repeat;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${bgImageUrl});
     background-size: cover;
 `;
 
-const HeaderWrap = styled(Layout.Header)`
+const HeaderWrap = styled(Layout.Header)` 
+    posiiton: relative;
     padding: 5px 2%;
     height: ${props => props.fixedheight}px;
-    text-align:right;
     background: none;
     box-sizing: border-box;
+`;
+
+const HeaderTool = styled.div`
+    position: absolute;
+    right: 2%;
+    display: inline-block;
+    vertical-align: top;
 `;
 
 const ContentWrap = styled(Layout.Content)`
@@ -40,11 +49,6 @@ const FooterWrap = styled(Layout.Footer)`
     justify-content: center;
     background: none;
     box-sizing: border-box;
-`;
-
-const SystemToolsWrap = styled.div`
-    display: inline-block;
-    vertical-align: top;
 `;
 
 const SleepModeButton = styled.a`
@@ -96,9 +100,9 @@ const Login = () => {
             </Head>
             <LayoutWrap>
                 <HeaderWrap fixedheight={fixedHeaderH}>
-                    <SystemToolsWrap>
+                    <HeaderTool>
                         <SystemTools themecolor={themecolor} />    
-                    </SystemToolsWrap>
+                    </HeaderTool>
                 </HeaderWrap>
 
                 <ContentWrap fixedheight={contentHeight}>
@@ -120,6 +124,7 @@ const Login = () => {
 };
 
 // TODO
+// - index와 layout 공유하기(AppLayout 만들기)
 // - 버튼에 로딩 추가
 // - 처음들어왔을때 저번에 등록한 닉네임이 있다면
 // - 이미지들 S3 이용할 것 

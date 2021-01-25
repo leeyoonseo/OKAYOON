@@ -2,13 +2,13 @@ import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import { 
-    CommonModalWrap, HeaderWrap, ContentWrap, FooterWrap,
+    ModalPopupWrap, HeaderWrap, ContentWrap, FooterWrap,
     ControlButtonWrap, ControlButton, 
     CloseIcon, MinimizationIcon, MaximizeIcon, 
     Title
 } from './styles';
 
-const CommonModal = ({ 
+const ModalPopup = ({ 
     buttonState,
     sizew, sizeh ,visible, 
     title, content, bottom,  
@@ -16,7 +16,7 @@ const CommonModal = ({
 }) => {
 
     return (
-        <CommonModalWrap 
+        <ModalPopupWrap 
             className={visible && "active"}
             sizew={sizew}
             sizeh={sizeh}
@@ -25,6 +25,7 @@ const CommonModal = ({
                 <ControlButtonWrap>
                     <ControlButton 
                         bgcolor="#ff6059" 
+                        // #ff5f56
                         onClick={onClosePopup(false)}
                     >
                         <CloseIcon />
@@ -32,12 +33,14 @@ const CommonModal = ({
 
                     {buttonState.Minimization && (
                         <ControlButton bgcolor="#ffbc28">
+                            {/* #ffbd2e */}
                             <MinimizationIcon />
                         </ControlButton>
                     )}
                     
                     {buttonState.Maximize && (
                         <ControlButton bgcolor="#26ca3f">
+                            {/* #27c93f */}
                             <MaximizeIcon />
                         </ControlButton>
                     )}
@@ -57,11 +60,11 @@ const CommonModal = ({
                     {bottom}
                 </FooterWrap>
             )}
-        </CommonModalWrap>
+        </ModalPopupWrap>
     );
 };
 
-CommonModal.propTypes = {
+ModalPopup.propTypes = {
     buttonState: PropTypes.objectOf(PropTypes.bool),
     title: PropTypes.string,
     content: PropTypes.any,
@@ -72,7 +75,7 @@ CommonModal.propTypes = {
     onClosePopup: PropTypes.func.isRequired,
 };
 
-CommonModal.defaultProps = {
+ModalPopup.defaultProps = {
     buttonState: {
         Maximize: true,
         Minimization: true,
@@ -84,4 +87,4 @@ CommonModal.defaultProps = {
     sizeh: 'auto',
 };
 
-export default CommonModal;
+export default ModalPopup;

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useEffect, useCallback, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
@@ -9,7 +9,7 @@ import { UserOutlined, CloseOutlined } from '@ant-design/icons';
 import { LOG_IN_REQUEST } from '../../reducers/user';
 
 import ModalContentAvatar from './ModalContentAvatar';
-import CommonModal from '../CommonModal/index';
+import ModalPopup from '../ModalPopup/index';
 
 const UserInfoWrap = styled.div`
     display:inline-block;
@@ -119,6 +119,11 @@ const UserInfo = () => {
     const [nickname, onChangeNickname, setNickname] = useInput(userInfo?.nickname || '');
     const [avatar, setAvatar] = useState(userInfo?.avatar || null);
     const [isVisiblePopup, setIsVisiblePopup] = useState(false);
+    const inputEl = useRef(null);
+
+    useEffect(() => {
+        inputEl.current.focus();
+    }, []);
 
     const onOpenAvatarPopup = useCallback(() => setIsVisiblePopup(true), []);
     const onClosePopup = useCallback((isOk, avatarIndex = null) => () => {
@@ -145,10 +150,16 @@ const UserInfo = () => {
     }, []);
     const onClickAccess = useCallback(() => {
         const data = {};
+        const inputVal = inputEl.current.value;
 
-        if(!nickname.trim()){
+        if(!nickname.trim() && !inputVal.trim()){
             setNickname('Guest');
             data.nickname = 'Guest';
+        }
+
+        if(inputVal){
+            setNickname(inputVal);
+            data.nickname = inputVal;
         }
 
         if(avatar !== null){
@@ -176,13 +187,11 @@ const UserInfo = () => {
             /> */}
 
             { isVisiblePopup && (
-                <CommonModal 
+                <ModalPopup 
                     buttonState={{
                         Maximize: false,
                         Minimization: false
                     }}
-                    // Maximize={false}
-                    // Minimization={false}
                     visible={isVisiblePopup} 
                     sizew="500"
                     title="아바타 설정"
@@ -208,8 +217,10 @@ const UserInfo = () => {
                             <UserIcon />
 
                             <NicknameInput 
+                                type="text"
                                 maxLenght="10"
                                 placeholder="Please enter your nickname" 
+                                ref={inputEl}
                                 onKeyPress={onKeyPressInput}
                             />
                         </NicknameInputWrap>
