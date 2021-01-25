@@ -1,8 +1,12 @@
-import React, { useState, useCallback } from 'react';
+import React, { useRef, useEffect, useCallback, useState } from "react";
 import styled from 'styled-components';
+import MenuPopup from './MenuPopup';
+
 import { MenuOutlined } from '@ant-design/icons';
 
-import MenuPopup from './MenuPopup';
+const MenuWrap = styled.div`
+    position: relative;
+`;
 
 const MenuButton = styled.button`
     padding: 0;
@@ -29,80 +33,42 @@ const MenuIcon = styled(MenuOutlined)`
 `;
 
 const Menu = ({ themecolor }) => {
-    const [isShowPopup, setIsShowPopup] = useState(false);
+    const popRef = useRef(null);
+    const [isOpen, setIsOpen] = useState(false);
 
-    const onClicButton = useCallback(() => {
-        setIsShowPopup(!isShowPopup);
-    }, [isShowPopup]);
+    const onClickOutside = useCallback(({ target }) => {
+        if (popRef.current && !popRef.current.contains(target)) {
+            console.log('target', target);
+            setIsOpen(false);
+        }
+    }, []);
 
+    const onClickMenu = useCallback(() => {
+        setIsOpen(!isOpen);
+    }, [isOpen]);
 
+    useEffect(() => {
+        document.addEventListener("click", onClickOutside);
 
-    // const [isVisibleHelpMenu, setIsVisibleHelpMenu] = useState(false);
-
-    // let documentFunc = null;
-
-    // useEffect(() => {
-    //     const windowH = window.innerHeight;
-    //     setContentHeight(windowH - fixedHeaderH - fixexFooterH);
-
-    //     documentFunc = ({ target }) => {
-    //         const { parentNode } = target;
-    //         const isHelpItem = parentNode.classList.contains('help');
-
-    //         if(!isHelpItem){
-    //             setIsVisibleHelpMenu(false);
-    //         }
-    //     };
-
-    //     document.addEventListener('click', documentFunc);
-
-    //     return() => {
-    //         document.removeEventListener('click', documentFunc);
-    //     };
-    // }, []);
-
-    // const onClickHelp = useCallback(() => {
-    //     console.log('onClickHelp');
-    //     setIsVisibleHelpMenu(true);
-    // }, []);
+        return () => {
+            document.removeEventListener("click", onClickOutside);
+        };
+    }, []);
 
     return(
-        <>
-            <MenuButton onClick={onClicButton}>
-                <MenuIcon 
-                    className={isShowPopup && 'active'} 
-                    themecolor={themecolor}
-                />
+        <MenuWrap ref={popRef} >
+            <MenuButton onClick={onClickMenu}>
+                <MenuIcon themecolor={themecolor} />
             </MenuButton>
-            { isShowPopup && <MenuPopup /> }
-        </>
+
+            <MenuPopup isOpen={isOpen} />
+        </MenuWrap>
     );
 };
 
-export default Menu;    
+export default Menu;
 
-
-// <HelpWrap className="help">
-//                         <button onClick={onClickHelp}>
-//                             help
-//                         </button>
-                        
-//                         {/* <div 
-//                             className={isVisibleHelpMenu ? 'active' : ''}
-//                             // 테스트를 위한 임시
-//                             style={{
-//                                 width: '150px',
-//                                 height: '150px',
-//                                 background: '#fff',
-//                             }}
-//                         >
-//                             menu
-//                         </div> */}
-                        
-//                         {/* 
-//                             [TODO]
-//                             - 헬프버튼 클릭 시 
-//                             -- Welcome - 소개
-//                             -- Source - 사용한 라이브러리, 이미지 출처, 등등...
-//                         */}
-//                     </HelpWrap>
+// TODO
+// - welcome (소개)
+// - source (출처, 소스 정보, 라이브러리 정보등등..)
+// - logout (login 페이지로 이동)
