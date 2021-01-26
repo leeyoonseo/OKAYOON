@@ -1,9 +1,8 @@
 import React, { useEffect, useCallback, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
-
 import useInput from '../../hooks/useInput';
 
+import styled, { css } from 'styled-components';
 import { Avatar, Button, Modal } from 'antd';
 import { UserOutlined, CloseOutlined } from '@ant-design/icons';
 import { LOG_IN_REQUEST } from '../../reducers/user';
@@ -70,7 +69,7 @@ const Nickname = styled.div`
     box-sizing: border-box;
 `;
 
-const CloseButton = styled.button`
+const NicknameCloseButton = styled.button`
     padding: 0;
     margin-left: 5px;
     line-height: 1;
@@ -90,7 +89,7 @@ const CloseButton = styled.button`
 const CloseIcon = styled(CloseOutlined)`
 `;
 
-const UserInfoButton = styled(Button)`
+const defaultButtonStyle = css`
     color: #fff;
     background: none;
 
@@ -106,6 +105,14 @@ const UserInfoButton = styled(Button)`
     }
 `;
 
+const ResetButton = styled(Button)`
+    ${defaultButtonStyle}
+`;
+
+const AccessButton = styled(Button)`
+    ${defaultButtonStyle}
+`;
+
 const SourceText = styled.span`
     display:block;
     text-align:left;
@@ -115,19 +122,20 @@ const SourceText = styled.span`
 
 const UserInfo = () => {
     const dispatch = useDispatch();
-    const { logInLoading, sampleAvatarList, userInfo } = useSelector((state) => state.user);
+    const { logInLoading, userInfo } = useSelector((state) => state.user);
     const [nickname, onChangeNickname, setNickname] = useInput(userInfo?.nickname || '');
     const [avatar, setAvatar] = useState(userInfo?.avatar || null);
-    const [isVisiblePopup, setIsVisiblePopup] = useState(false);
+    const [isShowPopup, setIsShowPopup] = useState(false);
     const inputEl = useRef(null);
 
     useEffect(() => {
-        inputEl.current.focus();
+        inputEl && inputEl.current.focus();
     }, []);
 
-    const onOpenAvatarPopup = useCallback(() => setIsVisiblePopup(true), []);
+    const onClickAvatar = useCallback(() => setIsShowPopup(true), []);
+
     const onClosePopup = useCallback((isOk, avatarSrc = null) => () => {
-        setIsVisiblePopup(false);
+        setIsShowPopup(false);
 
         if(isOk){
             const src = (avatarSrc === null) ? null : avatarSrc;
@@ -135,10 +143,9 @@ const UserInfo = () => {
         }
     }, []);
 
-    const onKeyPressInput = useCallback((e) => {
-        if(e.key === 'Enter'){
-            console.log('onKeyPressInput', e.target.value);
-            setNickname(e.target.value);
+    const onKeyPressInput = useCallback(({ key, target }) => {
+        if(key === 'Enter'){
+            setNickname(target.value);
         }
     }, []);
 
@@ -148,9 +155,10 @@ const UserInfo = () => {
         setNickname('');
         setAvatar(null);
     }, []);
+
     const onClickAccess = useCallback(() => {
         const data = {};
-        const inputVal = inputEl.current.value;
+        const inputVal = inputEl ? inputEl.current.value : null;
 
         if(!nickname.trim() && !inputVal.trim()){
             setNickname('Guest');
@@ -178,21 +186,16 @@ const UserInfo = () => {
                 size={64} 
                 src={avatar ? avatar : null}
                 icon={<UserOutlined />} 
-                onClick={onOpenAvatarPopup}
+                onClick={onClickAvatar}
             />
 
-            {/* <AvatarPopup 
-                visible={isVisiblePopup} 
-                onClosePopup={onCloseAvatarPopup} 
-            /> */}
-
-            { isVisiblePopup && (
+            { isShowPopup && (
                 <ModalPopup 
                     buttonState={{
                         Maximize: false,
                         Minimization: false
                     }}
-                    visible={isVisiblePopup} 
+                    visible={isShowPopup} 
                     sizew="500"
                     title="아바타 설정"
                     content={<ModalContentAvatar onClosePopup={onClosePopup} />}
@@ -207,9 +210,10 @@ const UserInfo = () => {
                     ? (
                         <Nickname className="nickname">
                             <span>{nickname}</span>
-                            <CloseButton onClick={onRemoveNickname}>
+
+                            <NicknameCloseButton onClick={onRemoveNickname}>
                                 <CloseIcon />
-                            </CloseButton>
+                            </NicknameCloseButton>
                         </Nickname>
                     ) : (
 
@@ -228,13 +232,16 @@ const UserInfo = () => {
                 } 
             </NicknameWrap>
             
-            <UserInfoButton onClick={onClickReset}>
+            <ResetButton onClick={onClickReset}>
                 초기화
-            </UserInfoButton>
+            </ResetButton>
 
-            <UserInfoButton onClick={onClickAccess} loading={logInLoading}>
+            <AccessButton 
+                loading={logInLoading} 
+                onClick={onClickAccess} 
+            >
                 접속하기
-            </UserInfoButton>           
+            </AccessButton>           
         </UserInfoWrap>
     );
 };

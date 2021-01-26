@@ -1,3 +1,4 @@
+import Router from 'next/router';
 import { all, fork, put, takeLatest, delay } from 'redux-saga/effects';
 import { 
     EDIT_AVATAR_FAILURE, EDIT_AVATAR_REQUEST, EDIT_AVATAR_SUCCESS, 
@@ -18,6 +19,8 @@ function* logIn(action){
             type: LOG_IN_SUCCESS,
             data: action.data
         });
+
+        yield Router.replace('/');
 
     }catch(err){
         console.error(err);

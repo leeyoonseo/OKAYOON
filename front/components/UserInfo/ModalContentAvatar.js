@@ -1,9 +1,10 @@
 import React, { useCallback, useState } from 'react';
-import { Modal, Button  } from 'antd';
 import { useSelector } from 'react-redux';
-
 import PropTypes from 'prop-types';
+
 import styled from 'styled-components';
+import { Modal, Button  } from 'antd';
+
 
 // TODO: 홀수
 const sampleAvatarList = [
