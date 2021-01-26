@@ -5,6 +5,48 @@ import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+// TODO: 홀수
+const sampleAvatarList = [
+    {
+        src: 'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png',
+        title: '1번',
+    },
+    {
+        src: 'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20140127_257%2Faosjahemdd_1390820129233pOn7o_JPEG%2Fd018e984a74511e2bd6322000a1fa42a_7_large.jpg&type=sc960_832',
+        title: '2번',
+    },
+    {
+        src: 'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png',
+        title: '3번',
+    },
+    {
+        src: 'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20140127_257%2Faosjahemdd_1390820129233pOn7o_JPEG%2Fd018e984a74511e2bd6322000a1fa42a_7_large.jpg&type=sc960_832',
+        title: '4번',
+    },{
+        src: 'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png',
+        title: '5번',
+    },
+    {
+        src: 'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png',
+        title: '1번',
+    },
+    {
+        src: 'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20140127_257%2Faosjahemdd_1390820129233pOn7o_JPEG%2Fd018e984a74511e2bd6322000a1fa42a_7_large.jpg&type=sc960_832',
+        title: '2번',
+    },
+    {
+        src: 'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png',
+        title: '3번',
+    },
+    {
+        src: 'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20140127_257%2Faosjahemdd_1390820129233pOn7o_JPEG%2Fd018e984a74511e2bd6322000a1fa42a_7_large.jpg&type=sc960_832',
+        title: '4번',
+    },{
+        src: 'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png',
+        title: '5번',
+    },
+];
+
 const ModalContentWrap = styled.div`
     &:after {
         display: block;
@@ -34,8 +76,8 @@ const AvatarBox = styled.div`
 
         &:hover,
         &:focus {
-            border-color: #333;
             outline: none;
+            box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
         }
     }
 
@@ -46,7 +88,6 @@ const AvatarBox = styled.div`
 `;
 
 const ModalContentAvatar = ({ onClosePopup }) => {
-    const { sampleAvatarList } = useSelector((state) => state.user);
 
     return(
         <ModalContentWrap>
@@ -62,7 +103,7 @@ const ModalContentAvatar = ({ onClosePopup }) => {
                     return (
                         <AvatarBox
                             key={`${v.title}-${i}`}
-                            onClick={onClosePopup(true, i)}
+                            onClick={onClosePopup(true, v.src)}
                         >
                             <button>
                                 <img alt={v.title} src={v.src} />

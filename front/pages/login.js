@@ -20,7 +20,7 @@ const LayoutWrap = styled(Layout)`
 const HeaderWrap = styled(Layout.Header)` 
     posiiton: relative;
     padding: 5px 2%;
-    height: ${props => props.fixedheight}px;
+    height: ${props => props.h}px;
     background: none;
     box-sizing: border-box;
 `;
@@ -35,7 +35,7 @@ const HeaderTool = styled.div`
 const ContentWrap = styled(Layout.Content)`
     display: flex;
     padding: 0 2%;
-    height: ${props => props.fixedheight}px;
+    height: ${props => props.h}px;
     align-items: center;
     justify-content: center;
 `;
@@ -43,7 +43,7 @@ const ContentWrap = styled(Layout.Content)`
 const FooterWrap = styled(Layout.Footer)`
     display: flex;
     padding: 0 2%;
-    height: ${props => props.fixedheight}px;
+    height: ${props => props.h}px;
     text-align: center;
     align-items: center;
     justify-content: center;
@@ -51,7 +51,7 @@ const FooterWrap = styled(Layout.Footer)`
     box-sizing: border-box;
 `;
 
-const SleepModeButton = styled.a`
+const SleepModeWrap = styled.a`
     color: ${props => props.themecolor};
 
     &:hover,
@@ -64,10 +64,9 @@ const SleepModeButton = styled.a`
         margin-top:5px;
         content: '잠자기모드';
     }
-    
 `;
 
-const CircleIconWrap = styled.div`
+const SleepButton = styled.div`
     margin: 0 auto;
     width: 30px;
     height: 30px;
@@ -75,7 +74,7 @@ const CircleIconWrap = styled.div`
     border-radius: 50%;
 `;
 
-const CircleIcon = styled(LogoutOutlined)`
+const SleepIcon = styled(LogoutOutlined)`
     font-size:18px;
     color: ${props => props.themecolor};
     vertical-align: middle;
@@ -83,15 +82,16 @@ const CircleIcon = styled(LogoutOutlined)`
 
 const Login = () => {
     const themecolor = DARK_MODE_COLOR;
-    const fixedHeaderH = 35;
-    const fixexFooterH = 150;
-    const [contentHeight, setContentHeight] = useState(null);
+    const [contH, setContH] = useState(null);
+    
+    let windowH = null;
+    const headerH = 35;
+    const footerH = 150;
 
     useEffect(() => {
-        const windowH = window.innerHeight;
-        setContentHeight(windowH - fixedHeaderH - fixexFooterH);
+        windowH = window.innerHeight;
+        setContH(windowH - headerH - footerH);
     }, []);
-
 
     return (
         <>
@@ -99,23 +99,23 @@ const Login = () => {
                 <title>사용자 접속페이지 | OKAYOON</title>
             </Head>
             <LayoutWrap>
-                <HeaderWrap fixedheight={fixedHeaderH}>
+                <HeaderWrap h={headerH}>
                     <HeaderTool>
                         <SystemTools themecolor={themecolor} />    
                     </HeaderTool>
                 </HeaderWrap>
 
-                <ContentWrap fixedheight={contentHeight}>
+                <ContentWrap h={contH}>
                     <UserInfo themecolor={themecolor} />
                 </ContentWrap>
 
-                <FooterWrap fixedheight={fixexFooterH}>
+                <FooterWrap h={footerH}>
                     <Link href="./sleep">
-                        <SleepModeButton themecolor={themecolor}>  
-                            <CircleIconWrap>
-                                <CircleIcon themecolor={themecolor} />
-                            </CircleIconWrap>
-                        </SleepModeButton>
+                        <SleepModeWrap themecolor={themecolor}>  
+                            <SleepButton>
+                                <SleepIcon themecolor={themecolor} />
+                            </SleepButton>
+                        </SleepModeWrap>
                     </Link>
                 </FooterWrap>
             </LayoutWrap>

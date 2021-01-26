@@ -126,12 +126,12 @@ const UserInfo = () => {
     }, []);
 
     const onOpenAvatarPopup = useCallback(() => setIsVisiblePopup(true), []);
-    const onClosePopup = useCallback((isOk, avatarIndex = null) => () => {
+    const onClosePopup = useCallback((isOk, avatarSrc = null) => () => {
         setIsVisiblePopup(false);
 
         if(isOk){
-            const src = (avatarIndex === null) ? null : sampleAvatarList[avatarIndex].src;
-            setAvatar(src);
+            const src = (avatarSrc === null) ? null : avatarSrc;
+            setAvatar(avatarSrc);
         }
     }, []);
 
