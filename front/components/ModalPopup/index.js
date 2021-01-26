@@ -2,89 +2,83 @@ import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import { 
-    ModalPopupWrap, HeaderWrap, ContentWrap, FooterWrap,
-    ControlButtonWrap, ControlButton, 
+    ModalPopupWrap, ModelHeader, ModalTitle,
+    ModalContent, ModalFoter,
+    ModalControls, ModalControlButton, 
     CloseIcon, MinimizationIcon, MaximizeIcon, 
-    Title
+    
 } from './styles';
 
-const ModalPopup = ({ 
-    buttonState,
-    sizew, sizeh ,visible, 
-    title, content, bottom,  
+const ModalPopup = ({
+    button_disabled: buttonDisabled, 
+    modal_width: modalWidth, 
+    modal_height: modalHeight,  
+    visible,
+    title, content, footer,  
     onClosePopup 
 }) => {
 
     return (
         <ModalPopupWrap 
-            className={visible && "active"}
-            sizew={sizew}
-            sizeh={sizeh}
+            className={visible ? "active" : ''}
+            w={modalWidth}
+            h={modalHeight}
         >
-            <HeaderWrap>
-                <ControlButtonWrap>
-                    <ControlButton 
+            <ModelHeader>
+                <ModalControls>
+                    <ModalControlButton 
                         bgcolor="#ff6059" 
                         // #ff5f56
                         onClick={onClosePopup(false)}
                     >
                         <CloseIcon />
-                    </ControlButton>
+                    </ModalControlButton>
 
-                    {buttonState.Minimization && (
-                        <ControlButton bgcolor="#ffbc28">
+                    {!buttonDisabled.Minimization && (
+                        <ModalControlButton bgcolor="#ffbc28">
                             {/* #ffbd2e */}
                             <MinimizationIcon />
-                        </ControlButton>
+                        </ModalControlButton>
                     )}
                     
-                    {buttonState.Maximize && (
-                        <ControlButton bgcolor="#26ca3f">
+                    {!buttonDisabled.Maximize && (
+                        <ModalControlButton bgcolor="#26ca3f">
                             {/* #27c93f */}
                             <MaximizeIcon />
-                        </ControlButton>
+                        </ModalControlButton>
                     )}
-                </ControlButtonWrap>
+                </ModalControls>
 
-                {title && <Title>{title}</Title>}
-            </HeaderWrap>
+                {title && <ModalTitle>{title}</ModalTitle>}
+            </ModelHeader>
             
-            { content && (
-                <ContentWrap>
-                    {content}
-                </ContentWrap>
-            )}
-
-            { bottom && (
-                <FooterWrap>
-                    {bottom}
-                </FooterWrap>
-            )}
+            { content && <ModalContent>{content}</ModalContent>}
+            { footer && <ModalFoter>{footer}</ModalFoter>}
         </ModalPopupWrap>
     );
 };
 
 ModalPopup.propTypes = {
-    buttonState: PropTypes.objectOf(PropTypes.bool),
+    button_disabled: PropTypes.objectOf(PropTypes.bool),
+    modal_width: PropTypes.string,
+    modal_height: PropTypes.string,
+    visible: PropTypes.bool.isRequired,
     title: PropTypes.string,
     content: PropTypes.any,
-    bottom: PropTypes.any,
-    sizew: PropTypes.string,
-    sizeh: PropTypes.string,
-    visible: PropTypes.bool.isRequired,
+    footer: PropTypes.any,
     onClosePopup: PropTypes.func.isRequired,
 };
 
 ModalPopup.defaultProps = {
-    buttonState: {
-        Maximize: true,
-        Minimization: true,
+    button_disabled: {
+        Maximize: false,
+        Minimization: false,
     },
     title: '모달 팝업',
     content: '컨텐츠 영역',
-    bottom: '하단 영역',
-    sizew: '300',
-    sizeh: 'auto',
+    footer: '하단 영역',
+    modal_width: '300',
+    modal_height: 'auto',
 };
 
 export default ModalPopup;

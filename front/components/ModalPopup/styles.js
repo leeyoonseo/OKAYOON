@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { Layout } from 'antd';
 import { CloseOutlined, MinusOutlined, FullscreenOutlined } from '@ant-design/icons';
@@ -8,15 +8,15 @@ export const ModalPopupWrap = styled(Layout)`
     position: absolute;
     top: 50%;
     left: 50%;
-    width: ${props => props.sizew}px;
+    width: ${props => props.w}px;
     border-radius: 5px;
-    height: ${props => props.sizeh}px;
+    height: ${props => props.h}px;
     transform: translate(-50%, -50%);
     z-index: 100;
     overflow: hidden;
 `;
 
-export const HeaderWrap = styled(Layout.Header)`
+export const ModelHeader = styled(Layout.Header)`
     padding: 10px 3%;
     position: relative;
     height: auto;
@@ -25,25 +25,25 @@ export const HeaderWrap = styled(Layout.Header)`
     color: #333;
 `;
 
-export const ContentWrap = styled(Layout.Content)`
+export const ModalContent = styled(Layout.Content)`
     padding: 5px 3%;
     font-size: 13px;
     color: #333;
 `;
 
-export const FooterWrap = styled(Layout.Footer)`
+export const ModalFoter = styled(Layout.Footer)`
     padding: 5px 3%;
     font-size: 13px;
     color: #333;
     background: none;
 `;
 
-export const ControlButtonWrap = styled.div` 
+export const ModalControls = styled.div` 
     display: inline-block;
     position: absolute;
     left: 3%;
 `;
-export const ControlButton = styled.button`
+export const ModalControlButton = styled.button`
     padding: 0;
     width: 15px;
     height 15px;
@@ -58,7 +58,7 @@ export const ControlButton = styled.button`
     }
 `;
 
-const iconDefaultStyled = `
+const defaultIconStyle = css`
     display:flex;
     font-size: 10px;
     color: #fff;
@@ -72,18 +72,18 @@ const iconDefaultStyled = `
 `;
 
 export const CloseIcon = styled(CloseOutlined)`
-    ${iconDefaultStyled}
+    ${defaultIconStyle}
 `;
 
 export const MinimizationIcon = styled(MinusOutlined)`
-    ${iconDefaultStyled}
+    ${defaultIconStyle}
 `;
 
 export const MaximizeIcon = styled(FullscreenOutlined)`
-    ${iconDefaultStyled}
+    ${defaultIconStyle}
 `;
 
-export const Title = styled.div`
+export const ModalTitle = styled.div`
     display: inline-block;
     max-width: 300px;
     width: 100%;

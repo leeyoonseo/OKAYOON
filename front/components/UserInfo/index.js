@@ -7,8 +7,8 @@ import { Avatar, Button, Modal } from 'antd';
 import { UserOutlined, CloseOutlined } from '@ant-design/icons';
 import { LOG_IN_REQUEST } from '../../reducers/user';
 
-import ModalContentAvatar from './ModalContentAvatar';
 import ModalPopup from '../ModalPopup/index';
+import ModalContentAvatar from './ModalContentAvatar';
 
 const UserInfoWrap = styled.div`
     display:inline-block;
@@ -125,17 +125,17 @@ const UserInfo = () => {
     const { logInLoading, userInfo } = useSelector((state) => state.user);
     const [nickname, onChangeNickname, setNickname] = useInput(userInfo?.nickname || '');
     const [avatar, setAvatar] = useState(userInfo?.avatar || null);
-    const [isShowPopup, setIsShowPopup] = useState(false);
+    const [isVisible, setIsVisible] = useState(false);
     const inputEl = useRef(null);
 
     useEffect(() => {
         inputEl && inputEl.current.focus();
     }, []);
 
-    const onClickAvatar = useCallback(() => setIsShowPopup(true), []);
+    const onClickAvatar = useCallback(() => setIsVisible(true), []);
 
     const onClosePopup = useCallback((isOk, avatarSrc = null) => () => {
-        setIsShowPopup(false);
+        setIsVisible(false);
 
         if(isOk){
             const src = (avatarSrc === null) ? null : avatarSrc;
@@ -180,6 +180,8 @@ const UserInfo = () => {
         });
     }, [nickname, avatar]);
 
+    const test = {}
+
     return(
         <UserInfoWrap>
             <AvatarButton 
@@ -189,17 +191,17 @@ const UserInfo = () => {
                 onClick={onClickAvatar}
             />
 
-            { isShowPopup && (
+            { isVisible && (
                 <ModalPopup 
-                    buttonState={{
-                        Maximize: false,
-                        Minimization: false
+                    button_disabled={{
+                        Maximize: true,
+                        Minimization: true
                     }}
-                    visible={isShowPopup} 
-                    sizew="500"
+                    visible={isVisible} 
+                    modal_width="500"
                     title="아바타 설정"
                     content={<ModalContentAvatar onClosePopup={onClosePopup} />}
-                    bottom={<SourceText>이미지출처: https://www.pngwing.com/ko/free-png-zvldq/download</SourceText>}
+                    footer={<SourceText>이미지출처: https://www.pngwing.com/ko/free-png-zvldq/download</SourceText>}
                     onClosePopup={onClosePopup} 
                 />
             )}
