@@ -1,6 +1,9 @@
 import React, { useRef, useEffect, useCallback, useState } from "react";
+import Router from 'next/router';
 import styled from 'styled-components';
+
 import MenuPopup from './MenuPopup';
+import ModalPopup from '../../ModalPopup/index';
 
 import { MenuOutlined } from '@ant-design/icons';
 
@@ -42,9 +45,23 @@ const Menu = ({ themecolor }) => {
         }
     }, []);
 
-    const onClickMenu = useCallback(() => {
+    const onToggleMenu = useCallback(() => {
         setIsOpen(!isOpen);
     }, [isOpen]);
+
+    const onClickWelcome = useCallback(() => {
+        console.log('onClickWelcome')
+    }, []);
+
+    const onClickSource = useCallback(() => {
+        console.log('onClickSource')
+
+    }, []);
+
+    const onClickLogout = useCallback(() => {
+        console.log('onClickLogout')
+        Router.replace('./login');
+    }, []);
 
     useEffect(() => {
         document.addEventListener("click", onClickOutside);
@@ -56,11 +73,16 @@ const Menu = ({ themecolor }) => {
 
     return(
         <MenuWrap ref={popRef}>
-            <MenuButton onClick={onClickMenu}>
+            <MenuButton onClick={onToggleMenu}>
                 <MenuIcon themecolor={themecolor} />
             </MenuButton>
 
-            <MenuPopup isOpen={isOpen} />
+            <MenuPopup 
+                isOpen={isOpen} 
+                onClickWelcome={onClickWelcome}
+                onClickSource={onClickSource}
+                onClickLogout={onClickLogout}
+            />
         </MenuWrap>
     );
 };

@@ -1,4 +1,6 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
+import Router from 'next/router';
+
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -55,6 +57,9 @@ const SoundIcon = styled(SoundOutlined)`
 const SystemTools = ({ themecolor }) => {
     const dispatch = useDispatch();
     const { isMuted } = useSelector((state) => state.site);
+    const [pathname, setPathname] = useState('');
+
+    useEffect(() => setPathname(Router.pathname), [pathname]);
 
     const onClickSound = useCallback(() => {
         dispatch({ type: CHANGE_MUTED });
@@ -83,13 +88,18 @@ const SystemTools = ({ themecolor }) => {
                 <Clock themecolor={themecolor} />
             </IconBox>
 
-            <IconBox iconwidth={20}>
-                <Search themecolor={themecolor} />
-            </IconBox>
+            {!pathname.includes('login') && (
+                <>
+                    <IconBox iconwidth={20}>
+                        <Search themecolor={themecolor} />
+                    </IconBox>
 
-            <IconBox iconwidth={20}>
-                <Menu themecolor={themecolor} />
-            </IconBox>
+                    <IconBox iconwidth={20}>
+                        <Menu themecolor={themecolor} />
+                    </IconBox>
+                </>
+            )}
+            
         </SystemToolsWrap>
     );
 };

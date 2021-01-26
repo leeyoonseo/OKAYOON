@@ -1,6 +1,6 @@
 import React from 'react';
-
 import styled from 'styled-components';
+
 
 const MenuPopupWrap = styled.div`
     position: absolute;
@@ -18,20 +18,64 @@ const MenuPopupWrap = styled.div`
     }
 `;
 
-const MenuPopup = ({ isOpen }) => {
+const MenuList = styled.ul`
+    padding: 0;
+    list-style: none;
+`;
+
+const MenuListItem = styled.li`
+    padding: 10px 0;
+    text-align: center;
+`;
+
+const MenuButton = styled.button`
+    border: none;
+    background: none;
+    outline: none;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+        opacity: 0.5;
+        background: none;
+    }
+`;
+
+const MenuPopup = ({ 
+    isOpen,
+    onClickWelcome, 
+    onClickSource, 
+    onClickLogout, 
+}) => {
+    
     return (
         <MenuPopupWrap
             className={isOpen ? 'active' : ''}
         >
-            <ul>
-                <li>1</li>
-                <li>1</li>
-                <li>1</li>
-                <li>1</li>
-                <li>1</li>
-            </ul>
+            <MenuList>
+                <MenuListItem>
+                    <MenuButton onClick={onClickWelcome}>
+                        Welcome
+                    </MenuButton>
+                </MenuListItem>
+
+                <MenuListItem>
+                    <MenuButton onClick={onClickSource}>
+                        Source
+                    </MenuButton>
+                </MenuListItem>
+
+                <MenuListItem>
+                    <MenuButton onClick={onClickLogout}>
+                        Logout
+                    </MenuButton>
+                </MenuListItem>
+            </MenuList>
         </MenuPopupWrap>
     );
 };
 
 export default MenuPopup;
+
+// TODO
+// - 따로 껍데기만 가지고 갈지?
