@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 
-const lineDefaultStyle = `
+const lineDefaultStyle = css`
     border: 2px solid transparent;
     border-radius: 100%;
 `;

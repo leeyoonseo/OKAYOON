@@ -9,13 +9,14 @@ import { SmileOutlined, GithubOutlined } from '@ant-design/icons';
 import { WHITE_MODE_COLOR } from '../theme/styles';
 
 const LayoutWrap = styled(Layout)`
-    background: #ddd;
+    background: #ccc;
+    overflow: hidden;
 `;
 
 const HeaderWrap = styled(Layout.Header)`
     position: relative;
     padding: 5px 2%;
-    height: ${props => props.fixedheight}px;
+    height: ${props => props.h}px;
     line-height: 1;
     background: #777;
     box-sizing: border-box;
@@ -54,7 +55,7 @@ const HeaderTool = styled.div`
 const ContentWrap = styled(Layout.Content)`
     display: flex;
     padding: 0 2%;
-    height: ${props => props.fixedheight}px;
+    height: ${props => props.h}px;
     align-items: center;
     justify-content: center;
 `;
@@ -62,7 +63,7 @@ const ContentWrap = styled(Layout.Content)`
 const FooterWrap = styled(Layout.Footer)`
     display: flex;
     padding: 0 2%;
-    height: ${props => props.fixedheight}px;
+    height: ${props => props.h}px;
     text-align: center;
     align-items: center;
     justify-content: center;
@@ -72,13 +73,15 @@ const FooterWrap = styled(Layout.Footer)`
 
 const Home = () => {
     const themecolor = WHITE_MODE_COLOR;
-    const fixedHeaderH = 35;
-    const fixexFooterH = 150;
-    const [contentHeight, setContentHeight] = useState(null);
+    const [contH, setContH] = useState(null);
+
+    let windowH = null;
+    const headerH = 35;
+    const footerH = 150;
 
     useEffect(() => {
-        const windowH = window.innerHeight;
-        setContentHeight(windowH - fixedHeaderH - fixexFooterH);
+        windowH = window.innerHeight;
+        setContH(windowH - headerH - footerH);
     }, []);
 
     return (
@@ -87,7 +90,7 @@ const Home = () => {
                 <title>OKAYOON</title>
             </Head>
             <LayoutWrap>
-                <HeaderWrap fixedheight={fixedHeaderH}>
+                <HeaderWrap h={headerH}>
                     <SiteIdentity>
                         <span><SmileOutlined /></span>Kayoon.LEE
                     </SiteIdentity>
@@ -105,13 +108,15 @@ const Home = () => {
                     </HeaderTool>
                 </HeaderWrap>
 
-                <ContentWrap fixedheight={contentHeight}>
+                <ContentWrap h={contH}>
                     cont    
                 </ContentWrap>
 
-                <FooterWrap fixedheight={fixexFooterH}>
+                <FooterWrap h={footerH}>
                     footer
                 </FooterWrap>
+
+                
             </LayoutWrap>
         </>
     );

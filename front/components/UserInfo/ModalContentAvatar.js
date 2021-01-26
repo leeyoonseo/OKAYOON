@@ -88,15 +88,13 @@ const AvatarBox = styled.div`
     }
 `;
 
-const ModalContentAvatar = ({ onClosePopup }) => {
+const ModalContentAvatar = ({ onCloseModal }) => {
 
     return(
         <ModalContentWrap>
             <AvatarBox 
-                onClick={onClosePopup(true, null)}
+                onClick={onCloseModal(true, null)}
             >
-
-                {/* [TODO] 기본이미지 텍스트 수정, 스타일 수정 */}
                 <button>기본이미지</button>
             </AvatarBox>
             {
@@ -104,7 +102,7 @@ const ModalContentAvatar = ({ onClosePopup }) => {
                     return (
                         <AvatarBox
                             key={`${v.title}-${i}`}
-                            onClick={onClosePopup(true, v.src)}
+                            onClick={onCloseModal(true, v.src)}
                         >
                             <button>
                                 <img alt={v.title} src={v.src} />
@@ -118,7 +116,11 @@ const ModalContentAvatar = ({ onClosePopup }) => {
 };
 
 ModalContentAvatar.propTypes = {
-    onClosePopup: PropTypes.func.isRequired,
+    onCloseModal: PropTypes.func.isRequired,
 };
 
 export default ModalContentAvatar;
+
+// TODO:
+// - 기본 이미지 스타일 수정
+// - 이미지 s3 추가

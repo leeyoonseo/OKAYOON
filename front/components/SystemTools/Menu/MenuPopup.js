@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-
 
 const MenuPopupWrap = styled.div`
     position: absolute;
@@ -42,40 +42,45 @@ const MenuButton = styled.button`
 `;
 
 const MenuPopup = ({ 
-    isOpen,
-    onClickWelcome, 
-    onClickSource, 
-    onClickLogout, 
+    isVisibleMenu, onClickWelcome, onClickWSource
 }) => {
+    const onClickLogout = useCallback(() => Router.replace('./sleep'), []);
     
     return (
-        <MenuPopupWrap
-            className={isOpen ? 'active' : ''}
-        >
-            <MenuList>
-                <MenuListItem>
-                    <MenuButton onClick={onClickWelcome}>
-                        Welcome
-                    </MenuButton>
-                </MenuListItem>
+        <>
+            <MenuPopupWrap className={isVisibleMenu ? 'active' : ''}>
+                <MenuList>
+                    <MenuListItem>
+                        <MenuButton onClick={onClickWelcome}>
+                            Welcome
+                        </MenuButton>
+                    </MenuListItem>
 
-                <MenuListItem>
-                    <MenuButton onClick={onClickSource}>
-                        Source
-                    </MenuButton>
-                </MenuListItem>
+                    <MenuListItem>
+                        <MenuButton onClick={onClickWSource}>
+                            Source
+                        </MenuButton>
+                    </MenuListItem>
 
-                <MenuListItem>
-                    <MenuButton onClick={onClickLogout}>
-                        Logout
-                    </MenuButton>
-                </MenuListItem>
-            </MenuList>
-        </MenuPopupWrap>
+                    <MenuListItem>
+                        <MenuButton onClick={onClickLogout}>
+                            Sleep
+                        </MenuButton>
+                    </MenuListItem>
+                </MenuList>
+            </MenuPopupWrap>
+        </>
     );
 };
 
-export default MenuPopup;
+MenuPopup.propTypes = {
+    isVisibleMenu: PropTypes.bool.isRequired,
+    onClickWelcome: PropTypes.func,
+    onClickWSource: PropTypes.func,
+};
 
-// TODO
-// - 따로 껍데기만 가지고 갈지?
+MenuPopup.defaultProps = {
+    isVisibleMenu: false,
+};
+
+export default MenuPopup;

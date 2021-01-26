@@ -5,120 +5,17 @@ import useInput from '../../hooks/useInput';
 import styled, { css } from 'styled-components';
 import { Avatar, Button, Modal } from 'antd';
 import { UserOutlined, CloseOutlined } from '@ant-design/icons';
+
+import {
+    UserInfoWrap, AvatarButton, UserIcon, 
+    NicknameWrap,NicknameInputWrap, NicknameInput, Nickname,
+    NicknameCloseButton, CloseIcon, ResetButton, AccessButton, SourceText,
+} from './style';
+
 import { LOG_IN_REQUEST } from '../../reducers/user';
 
 import ModalPopup from '../ModalPopup/index';
 import ModalContentAvatar from './ModalContentAvatar';
-
-const UserInfoWrap = styled.div`
-    display:inline-block;
-    width: 300px;
-    text-align: center;
-`;
-
-const AvatarButton = styled(Avatar)`
-    margin-bottom: 10px;
-    cursor: pointer;
-    opacity: 0.8;
-`;
-
-const NicknameWrap = styled.div`
-    margin-bottom: 10px;
-`;
-
-const UserIcon = styled(UserOutlined)`
-    color: #fff;
-    opacity: 0.8;
-`;
-
-const NicknameInputWrap = styled.div`
-    padding: 6px;
-    height: 36px;
-    border: 1px solid #fff;
-    border-radius: 3px;
-    opacity: 0.8;
-    box-sizing: border-box;
-`;
-
-const NicknameInput = styled.input`
-    padding: 0 5px;
-    margin-left: 5px;
-    width: 80%;
-    height: 24px;
-    border: none;
-    background: none;
-    color: #fff;
-
-    &:hover,
-    &:focus {
-        outline: none;
-
-    }    
-
-    &::placeholder {
-        color: #fff;
-    }
-`;
-
-const Nickname = styled.div`
-    margin-bottom: 10px;
-    color: #fff;
-
-    height: 36px;
-    padding: 6px 0;
-    box-sizing: border-box;
-`;
-
-const NicknameCloseButton = styled.button`
-    padding: 0;
-    margin-left: 5px;
-    line-height: 1;
-    color: #fff;
-    border: none;
-    background: none;
-    cursor: pointer;
-    outline: none;
-
-    &:hover,
-    &:focus { 
-        color: #fff;
-        border: none;
-    }
-`;
-
-const CloseIcon = styled(CloseOutlined)`
-`;
-
-const defaultButtonStyle = css`
-    color: #fff;
-    background: none;
-
-    & + button {
-        margin-left: 5px;
-    }
-
-    &:hover,
-    &:focus {
-        color: #fff;
-        background: none;
-        border-color: #fff;
-    }
-`;
-
-const ResetButton = styled(Button)`
-    ${defaultButtonStyle}
-`;
-
-const AccessButton = styled(Button)`
-    ${defaultButtonStyle}
-`;
-
-const SourceText = styled.span`
-    display:block;
-    text-align:left;
-    font-size:60%;
-    color:#aaa;
-`;
 
 const UserInfo = () => {
     const dispatch = useDispatch();
@@ -134,7 +31,7 @@ const UserInfo = () => {
 
     const onClickAvatar = useCallback(() => setIsVisible(true), []);
 
-    const onClosePopup = useCallback((isOk, avatarSrc = null) => () => {
+    const onCloseModal = useCallback((isOk, avatarSrc = null) => () => {
         setIsVisible(false);
 
         if(isOk){
@@ -191,20 +88,22 @@ const UserInfo = () => {
                 onClick={onClickAvatar}
             />
 
-            { isVisible && (
-                <ModalPopup 
-                    button_disabled={{
-                        Maximize: true,
-                        Minimization: true
-                    }}
-                    visible={isVisible} 
-                    modal_width="500"
-                    title="아바타 설정"
-                    content={<ModalContentAvatar onClosePopup={onClosePopup} />}
-                    footer={<SourceText>이미지출처: https://www.pngwing.com/ko/free-png-zvldq/download</SourceText>}
-                    onClosePopup={onClosePopup} 
-                />
-            )}
+            <ModalPopup 
+                button_disabled={{
+                    Maximize: true,
+                    Minimization: true
+                }}
+                visible={isVisible} 
+                modal_width="500px"
+                modal_height="500px"
+                title="아바타 설정"
+                onClose={onCloseModal} 
+            >
+                <ModalContentAvatar onCloseModal={onCloseModal} />
+                <SourceText>
+                    이미지출처: https://www.pngwing.com/ko/free-png-zvldq/download
+                </SourceText>
+            </ModalPopup>
 
             <NicknameWrap>
                 {

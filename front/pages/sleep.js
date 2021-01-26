@@ -8,7 +8,7 @@ const bgImageUrl = 'https://cdn.pixabay.com/photo/2020/11/07/01/28/abstract-5719
 
 const SleepModeWrap = styled.div`
     display: flex;
-    height: ${props => props.windowHeight}px;
+    height: ${props => props.h}px;
     justify-content: center;
     align-items: center;
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${bgImageUrl});
@@ -24,21 +24,22 @@ const GuideText = styled.span`
 `;
 
 const sleep = () => {
-    const [windowHeight, setWindowHeight] = useState(null);
+    const [windowH, setWindowH] = useState(null);
 
     useEffect(() => {
         const windowH = window.innerHeight;
-        setWindowHeight(windowH);
-    }, [windowHeight]);
+        setWindowH(windowH);
 
-    const onClickWindow = useCallback(() => {
+    }, [windowH]);
+
+    const onClickBackground = useCallback(() => {
         Router.replace('./login');
     }, []);
 
     return(
         <SleepModeWrap
-            windowHeight={windowHeight}
-            onClick={onClickWindow}
+            h={windowH}
+            onClick={onClickBackground}
         >
             <DigitalClock />       
 

@@ -95,7 +95,9 @@ const SystemTools = ({ themecolor }) => {
                     </IconBox>
 
                     <IconBox iconwidth={20}>
-                        <Menu themecolor={themecolor} />
+                        <Menu 
+                            themecolor={themecolor}
+                        />
                     </IconBox>
                 </>
             )}

@@ -1,12 +1,15 @@
 import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classNames';
+
+import styled from 'styled-components';
 
 import { 
     ModalPopupWrap, ModelHeader, ModalTitle,
     ModalContent, ModalFoter,
     ModalControls, ModalControlButton, 
     CloseIcon, MinimizationIcon, MaximizeIcon, 
-    
+    MiniWrap,
 } from './styles';
 
 const ModalPopup = ({
@@ -14,35 +17,53 @@ const ModalPopup = ({
     modal_width: modalWidth, 
     modal_height: modalHeight,  
     visible,
-    title, content, footer,  
-    onClosePopup 
+    title, children, 
+    onClose
 }) => {
+    const [maxStatus, setMaxStatus] = useState(false);
+    const [minStatus, setMinStatus] = useState(false);
+
+    const maximizeSize = '90%';
+
+    const modalClasses = classNames({
+      'active': visible,
+      'min': minStatus,
+    });
+
+    const onMinimization = useCallback(() => setMinStatus(!minStatus), [minStatus]);
+    const onMaximize = useCallback(() => setMaxStatus(!maxStatus), [maxStatus]);
 
     return (
         <ModalPopupWrap 
-            className={visible ? "active" : ''}
-            w={modalWidth}
-            h={modalHeight}
+            className={modalClasses}
+            w={maxStatus ? maximizeSize : modalWidth}
+            h={maxStatus ? maximizeSize : modalHeight}
         >
             <ModelHeader>
                 <ModalControls>
                     <ModalControlButton 
                         bgcolor="#ff6059" 
                         // #ff5f56
-                        onClick={onClosePopup(false)}
+                        onClick={onClose(false)}
                     >
                         <CloseIcon />
                     </ModalControlButton>
 
                     {!buttonDisabled.Minimization && (
-                        <ModalControlButton bgcolor="#ffbc28">
+                        <ModalControlButton 
+                            bgcolor="#ffbc28"
+                            onClick={onMinimization}
+                        >
                             {/* #ffbd2e */}
                             <MinimizationIcon />
                         </ModalControlButton>
                     )}
                     
                     {!buttonDisabled.Maximize && (
-                        <ModalControlButton bgcolor="#26ca3f">
+                        <ModalControlButton 
+                            bgcolor="#26ca3f"
+                            onClick={onMaximize}
+                        >
                             {/* #27c93f */}
                             <MaximizeIcon />
                         </ModalControlButton>
@@ -51,9 +72,18 @@ const ModalPopup = ({
 
                 {title && <ModalTitle>{title}</ModalTitle>}
             </ModelHeader>
-            
-            { content && <ModalContent>{content}</ModalContent>}
-            { footer && <ModalFoter>{footer}</ModalFoter>}
+
+            <ModalContent>
+                {children}
+            </ModalContent>
+
+            { minStatus && (
+                <button onClick={onMinimization}>
+                    <span className="hidden">
+                        최소화 해제버튼
+                    </span>
+                </button>
+            )}
         </ModalPopupWrap>
     );
 };
@@ -64,9 +94,8 @@ ModalPopup.propTypes = {
     modal_height: PropTypes.string,
     visible: PropTypes.bool.isRequired,
     title: PropTypes.string,
-    content: PropTypes.any,
-    footer: PropTypes.any,
-    onClosePopup: PropTypes.func.isRequired,
+    children: PropTypes.any.isRequired,
+    onClose: PropTypes.func,
 };
 
 ModalPopup.defaultProps = {
@@ -74,11 +103,13 @@ ModalPopup.defaultProps = {
         Maximize: false,
         Minimization: false,
     },
-    title: '모달 팝업',
-    content: '컨텐츠 영역',
-    footer: '하단 영역',
-    modal_width: '300',
-    modal_height: 'auto',
+    children: '컨텐츠 영역',
+    modal_width: '300px',
+    modal_height: '300px',
 };
 
 export default ModalPopup;
+
+// TODO:
+// - 위치 이동 
+// - 여러개 최소화 시킬 경우 위치 재 정렬. 어떻게 할 지?
