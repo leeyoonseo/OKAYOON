@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import MenuPopup from './MenuPopup';
 import ModalPopup from '../../ModalPopup/index';
 import ModalContentWelcome from './ModalContentWelcome';
-import ModalContentSource from './ModalContentSource';
+import ModalContentInfo from './ModalContentInfo';
 
 import { MenuOutlined } from '@ant-design/icons';
 
@@ -41,7 +41,7 @@ const Menu = ({ themecolor }) => {
     const menuRef = useRef(null);
     const [isVisibleMenu, setIsVisibleMenu] = useState(false);
     const [isVisibleWelcome, setIsVisibleWelcome] = useState(false);
-    const [isVisibleSource, setIsVisibleSource] = useState(false);
+    const [isVisibleInfo, setIsVisibleInfo] = useState(false);
 
      useEffect(() => {
         document.addEventListener("click", onClickOutside);
@@ -64,9 +64,9 @@ const Menu = ({ themecolor }) => {
         setIsVisibleMenu(false);
     }, []);
 
-    const onCloseSource = useCallback((isOk) => () => setIsVisibleSource(false), []);
-    const onClickWSource = useCallback(() => {
-        setIsVisibleSource(true);
+    const onCloseInfo = useCallback((isOk) => () => setIsVisibleInfo(false), []);
+    const onClickInfo = useCallback(() => {
+        setIsVisibleInfo(true);
         setIsVisibleMenu(false);
     }, []);
 
@@ -79,7 +79,7 @@ const Menu = ({ themecolor }) => {
             <MenuPopup 
                 isVisibleMenu={isVisibleMenu}
                 onClickWelcome={onClickWelcome}
-                onClickWSource={onClickWSource}
+                onClickInfo={onClickInfo}
             />
 
             <ModalPopup 
@@ -93,13 +93,13 @@ const Menu = ({ themecolor }) => {
             </ModalPopup>
 
             <ModalPopup 
-                visible={isVisibleSource} 
+                visible={isVisibleInfo} 
                 modal_width="300px"
                 modal_height="300px"
                 title="기술"
-                onClose={onCloseSource}
+                onClose={onCloseInfo}
             >
-                <ModalContentSource />
+                <ModalContentInfo />
             </ModalPopup>
 
         </MenuWrap>
@@ -111,5 +111,5 @@ export default Menu;
 // TODO:
 // - 최소화 문제로 인해 각각 컴포넌트를 렌더링해야하는가? (별도로)
 // - welcome (소개)
-// - source (출처, 소스 정보, 라이브러리 정보등등..)
+// - Info (출처, 소스 정보, 라이브러리 정보등등..)
 // - logout (login 페이지로 이동)

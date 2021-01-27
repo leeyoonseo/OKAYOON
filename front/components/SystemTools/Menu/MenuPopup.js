@@ -42,7 +42,7 @@ const MenuButton = styled.button`
 `;
 
 const MenuPopup = ({ 
-    isVisibleMenu, onClickWelcome, onClickWSource
+    isVisibleMenu, onClickWelcome, onClickInfo
 }) => {
     const onClickLogout = useCallback(() => Router.replace('./sleep'), []);
     
@@ -57,8 +57,8 @@ const MenuPopup = ({
                     </MenuListItem>
 
                     <MenuListItem>
-                        <MenuButton onClick={onClickWSource}>
-                            Source
+                        <MenuButton onClick={onClickInfo}>
+                            Info
                         </MenuButton>
                     </MenuListItem>
 
@@ -76,7 +76,7 @@ const MenuPopup = ({
 MenuPopup.propTypes = {
     isVisibleMenu: PropTypes.bool.isRequired,
     onClickWelcome: PropTypes.func,
-    onClickWSource: PropTypes.func,
+    onClickInfo: PropTypes.func,
 };
 
 MenuPopup.defaultProps = {

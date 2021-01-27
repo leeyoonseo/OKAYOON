@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Head from 'next/head';
 
-import SystemTools from '../components/SystemTools';
-
 import { Layout } from 'antd';
 import { SmileOutlined, GithubOutlined } from '@ant-design/icons';
 import { WHITE_MODE_COLOR } from '../theme/styles';
+
+import SystemTools from '../components/SystemTools';
+import AppMenu from '../components/AppMenu/index';
 
 const LayoutWrap = styled(Layout)`
     background: #ccc;
@@ -65,7 +66,7 @@ const FooterWrap = styled(Layout.Footer)`
     padding: 0 2%;
     height: ${props => props.h}px;
     text-align: center;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
     background: none;
     box-sizing: border-box;
@@ -113,7 +114,7 @@ const Home = () => {
                 </ContentWrap>
 
                 <FooterWrap h={footerH}>
-                    footer
+                    <AppMenu />
                 </FooterWrap>
 
                 
