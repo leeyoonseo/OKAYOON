@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import { Avatar, Button, Modal } from 'antd';
 import { UserOutlined, CloseOutlined } from '@ant-design/icons';
 
-export const UserInfoWrap = styled.div`
+export const Wrap = styled.div`
     display:inline-block;
     width: 300px;
     text-align: center;
@@ -14,7 +14,7 @@ export const AvatarButton = styled(Avatar)`
     opacity: 0.8;
 `;
 
-export const NicknameWrap = styled.div`
+export const NicknameArea = styled.div`
     margin-bottom: 10px;
 `;
 
@@ -61,7 +61,7 @@ export const Nickname = styled.div`
     box-sizing: border-box;
 `;
 
-export const NicknameCloseButton = styled.button`
+export const CloseButton = styled.button`
     padding: 0;
     margin-left: 5px;
     line-height: 1;
@@ -76,9 +76,6 @@ export const NicknameCloseButton = styled.button`
         color: #fff;
         border: none;
     }
-`;
-
-export const CloseIcon = styled(CloseOutlined)`
 `;
 
 export const defaultButtonStyle = css`
@@ -105,9 +102,9 @@ export const AccessButton = styled(Button)`
     ${defaultButtonStyle}
 `;
 
-export const SourceText = styled.span`
-    display:block;
-    text-align:left;
-    font-size:60%;
-    color:#aaa;
-`;
+// export const SourceText = styled.span`
+//     display:block;
+//     text-align:left;
+//     font-size:60%;
+//     color:#aaa;
+// `;

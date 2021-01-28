@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import styled, { css } from 'styled-components';
 
 // TODO: 이미지로 변경?
-import { Tooltip } from 'antd';
 import { 
     PictureFilled, EditFilled, TabletFilled, 
     MessageFilled, CrownFilled, DeleteFilled,
@@ -10,7 +9,9 @@ import {
     DeleteTwoTone,
 } from '@ant-design/icons';
 
-import TriggerButton from './TriggerButton';
+import Items from './Items';
+import ModalPopup from '../ModalPopup/index';
+import Guestbook from '../App/Guestbook';
 
 const Wrap = styled.div`
     display: flex;
@@ -21,11 +22,6 @@ const Wrap = styled.div`
     border-radius: 5px 5px 0 0;
     align-items: center;
     justify-content: space-around;
-`;
-
-const AppItems = styled.div`
-    width:60px;
-    height:60px;
 `;
 
 const defaultIconStyle = css`
@@ -70,18 +66,29 @@ const IconTitle = styled.span`
 `;
 
 const index = () => {
+    const [isVisibleGuestbook,  setIsVisibleGuestbook] = useState(false);
+    const onToggleGuestbook = useCallback((status) => () => {
+        setIsVisibleGuestbook(status);
+    }, []);
+
     return (
         <Wrap>
-            {/* TODO: Tooltip과 AppItems를 같이 사용할 방법 없나 */}
-            <Tooltip placement="top" color="#777" title={<IconTitle>방명록</IconTitle>}>
-                <AppItems>
-                    <TriggerButton>
-                            <GuestbookIcon />
-                    </TriggerButton>
-                </AppItems>
-            </Tooltip>
+            <Items
+                title={<IconTitle>방명록</IconTitle>}
+                icon={<GuestbookIcon />}
+                onClick={onToggleGuestbook(true)}
+            >
+                <ModalPopup 
+                    visible={isVisibleGuestbook} 
+                    modal_width="500px"
+                    modal_height="500px"
+                    title="방명록"
+                    onClose={onToggleGuestbook(false)} 
+                />
+            </Items>
+                
 
-            <AppItems>
+            {/* <Items>
                 <TriggerButton>
                     <Tooltip placement="top" color="#777" title={<IconTitle>블로그</IconTitle>}>
                         <BlogIcon />
@@ -127,7 +134,7 @@ const index = () => {
                         <DeleteIcon />
                     </Tooltip>
                 </TriggerButton>
-            </AppItems>
+            </AppItems> */}
         </Wrap>
         );
 }

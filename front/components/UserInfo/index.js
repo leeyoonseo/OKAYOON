@@ -2,17 +2,14 @@ import React, { useEffect, useCallback, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useInput from '../../hooks/useInput';
 
-import styled, { css } from 'styled-components';
-import { Avatar, Button, Modal } from 'antd';
-import { UserOutlined, CloseOutlined } from '@ant-design/icons';
-
-import {
-    UserInfoWrap, AvatarButton, UserIcon, 
-    NicknameWrap,NicknameInputWrap, NicknameInput, Nickname,
-    NicknameCloseButton, CloseIcon, ResetButton, AccessButton, SourceText,
-} from './style';
-
 import { LOG_IN_REQUEST } from '../../reducers/user';
+
+import { UserOutlined } from '@ant-design/icons';
+import {
+    Wrap, AvatarButton, UserIcon, 
+    NicknameArea,NicknameInputWrap, NicknameInput, Nickname,
+    CloseButton, ResetButton, AccessButton, SourceText,
+} from './style';
 
 import ModalPopup from '../ModalPopup/index';
 import ModalContentAvatar from './ModalContentAvatar';
@@ -77,10 +74,8 @@ const UserInfo = () => {
         });
     }, [nickname, avatar]);
 
-    const test = {}
-
     return(
-        <UserInfoWrap>
+        <Wrap>
             <AvatarButton 
                 size={64} 
                 src={avatar ? avatar : null}
@@ -88,7 +83,7 @@ const UserInfo = () => {
                 onClick={onClickAvatar}
             />
 
-            <ModalPopup 
+            {/* <ModalPopup 
                 button_disabled={{
                     Maximize: true,
                     Minimization: true
@@ -99,22 +94,22 @@ const UserInfo = () => {
                 title="아바타 설정"
                 onClose={onCloseModal} 
             >
-                <ModalContentAvatar onCloseModal={onCloseModal} />
+                <ModalAvatarContent onCloseModal={onCloseModal} />
                 <SourceText>
                     이미지출처: https://www.pngwing.com/ko/free-png-zvldq/download
                 </SourceText>
-            </ModalPopup>
+            </ModalPopup> */}
 
-            <NicknameWrap>
+            <NicknameArea>
                 {
                     nickname 
                     ? (
                         <Nickname className="nickname">
                             <span>{nickname}</span>
 
-                            <NicknameCloseButton onClick={onRemoveNickname}>
-                                <CloseIcon />
-                            </NicknameCloseButton>
+                            <CloseButton onClick={onRemoveNickname}>
+                                <CloseOutlined />
+                            </CloseButton>
                         </Nickname>
                     ) : (
 
@@ -131,7 +126,7 @@ const UserInfo = () => {
                         </NicknameInputWrap>
                     )
                 } 
-            </NicknameWrap>
+            </NicknameArea>
             
             <ResetButton onClick={onClickReset}>
                 초기화
@@ -143,7 +138,7 @@ const UserInfo = () => {
             >
                 접속하기
             </AccessButton>           
-        </UserInfoWrap>
+        </Wrap>
     );
 };
 

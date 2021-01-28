@@ -1,13 +1,9 @@
-import React, { useCallback, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
-
 import styled from 'styled-components';
-import { Modal, Button  } from 'antd';
-
 
 // TODO: 홀수
-const sampleAvatarList = [
+const sampleList = [
     {
         src: 'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png',
         title: '1번',
@@ -48,7 +44,7 @@ const sampleAvatarList = [
     },
 ];
 
-const ModalContentWrap = styled.div`
+const Wrap = styled.div`
     &:after {
         display: block;
         content: '';
@@ -56,7 +52,7 @@ const ModalContentWrap = styled.div`
     }
 `;
 
-const AvatarBox = styled.div`
+const Items = styled.div`
     margin: 10px 10px 10px 0;
     width: calc(25% - 8px);
     height: 105px;
@@ -88,38 +84,51 @@ const AvatarBox = styled.div`
     }
 `;
 
-const ModalContentAvatar = ({ onCloseModal }) => {
+const SourceText = styled.span`
+    display:block;
+    text-align:left;
+    font-size:60%;
+    color:#aaa;
+`;
+
+const ModalAvatarContent = ({ onClick, callback }) => {
+
+    const onClikcItem = useCallback((status, src = null) => {
+        onClick(status);
+        src && callback(src);
+    }, []);
 
     return(
-        <ModalContentWrap>
-            <AvatarBox 
-                onClick={onCloseModal(true, null)}
+        <Wrap>
+            <Items 
+                onClick={onClikcItem(true, null)}
             >
                 <button>기본이미지</button>
-            </AvatarBox>
+            </Items>
             {
-                sampleAvatarList.map((v, i) => {
+                sampleList.map((v, i) => {
                     return (
-                        <AvatarBox
+                        <Items
                             key={`${v.title}-${i}`}
-                            onClick={onCloseModal(true, v.src)}
+                            onClick={onClikcItem(true, v.src)}
                         >
                             <button>
                                 <img alt={v.title} src={v.src} />
                             </button>
-                        </AvatarBox>
+                        </Items>
                     );  
                 })
             }
-        </ModalContentWrap>
+            <SourceText>이미지출처: https://www.pngwing.com/ko/free-png-zvldq/download</SourceText>
+        </Wrap>
     );
 };
 
-ModalContentAvatar.propTypes = {
+ModalAvatarContent.propTypes = {
     onCloseModal: PropTypes.func.isRequired,
 };
 
-export default ModalContentAvatar;
+export default ModalAvatarContent;
 
 // TODO:
 // - 기본 이미지 스타일 수정

@@ -1,40 +1,39 @@
 import { all, fork, put, takeLatest, delay } from 'redux-saga/effects';
 import { 
-    // CHANGE_MUTED, 
+    CREATE_MODAL_REQUEST, CREATE_MODAL_SUCCESS, CREATE_MODAL_FAILURE,
 } from '../reducers/site';
 
-// function changeMutedAPI(data){
-//     // 통신 작업할 것
-// };
+function createModalAPI(data){
+    // 통신 작업할 것
+};
 
-// function* changeMuted(action){
-//     try{
-//         // const result = yield call(changeMutedAPI);
-//         // 임시
-//         yield delay(1000);
-//         console.log('change sagas',action.data )
-//         yield put({
-//             type: CHANGE_THEME_SUCCESS,
-//             data: action.data
-//         });
+function* createModal(action){
+    try{
+        // const result = yield call(createModalAPI);
+        // 임시
+        yield delay(1000);
+        yield put({
+            type: CREATE_MODAL_SUCCESS,
+            data: action.data
+        });
 
-//     }catch(err){
-        // console.error(err);
-        // yield put({
-        //     type: CHANGE_THEME_FAILURE,
-        //     error: err.response.data
-        // })
-//     }
-// }
+    }catch(err){
+        console.error(err);
+        yield put({
+            type: CREATE_MODAL_FAILURE,
+            error: err.response.data
+        })
+    }
+}
 
-// function* watchChangeMuted(){ 
-//     yield takeLatest(CHANGE_MUTED, changeMuted);
-// }
+function* watchCreateModal(){ 
+    yield takeLatest(CREATE_MODAL_REQUEST, createModal);
+}
 
 
 export default function* userSaga(){
     yield all([
-        // fork(watchChangeMuted),
+        fork(watchCreateModal),
     ]);
 }
 

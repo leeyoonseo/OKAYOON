@@ -2,6 +2,8 @@ import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classNames';
 
+import styled from 'styled-components';
+
 import { 
     ModalPopupWrap, ModelHeader, ModalTitle,
     ModalContent, ModalFoter,
@@ -39,45 +41,26 @@ import {
  * @param {function} onClick: 모달 여닫기 이벤트
  */
 const ModalPopup = ({
-    key,
-    index,
-    css,
-    title,
-    content: Content,
+    visible, 
     button_disabled: buttonDisabled, 
+    modal_width: modalWidth, 
+    modal_height: modalHeight,  
+    title, 
+    children, 
+    // onClose,
     onClick,
 }) => {
-    // css: {
-    //     visible: false,
-    //     x: '50%',
-    //     y: '50%',
-    //     width: '500px',
-    //     height: '500px',
-    //     zIndex: 1,
-    // },
-    // title: "아바타 설정",
-    // content: ModalContentAvatar,
-    // buttonDisabled : {
-    //     Maximize: true,
-    //     Minimization: true
-    // },
-    // onClick: function(status) {
-    //     console.log('onTogglePopup!!', status);
-    //     console.log('this.visible', this);
-    // },
-    const { visible, x, y, width, height, zIndex } = css;
-
     const [maxStatus, setMaxStatus] = useState(false);
     const [minStatus, setMinStatus] = useState(false);
 
-    // const maximizeSize = '90%';
+    const maximizeSize = '90%';
     const modalClasses = classNames({
         'active': visible,
         'min': minStatus,
     });
 
-    // const onMinimization = useCallback(() => setMinStatus(!minStatus), [minStatus]);
-    // const onMaximize = useCallback(() => setMaxStatus(!maxStatus), [maxStatus]);
+    const onMinimization = useCallback(() => setMinStatus(!minStatus), [minStatus]);
+    const onMaximize = useCallback(() => setMaxStatus(!maxStatus), [maxStatus]);
     
     return (
         <ModalPopupWrap 
@@ -134,25 +117,25 @@ const ModalPopup = ({
     );
 };
 
-// ModalPopup.propTypes = {
-//     button_disabled: PropTypes.objectOf(PropTypes.bool),
-//     modal_width: PropTypes.string,
-//     modal_height: PropTypes.string,
-//     visible: PropTypes.bool.isRequired,
-//     title: PropTypes.string,
-//     children: PropTypes.any.isRequired,
-//     onClick: PropTypes.func,
-// };
+ModalPopup.propTypes = {
+    button_disabled: PropTypes.objectOf(PropTypes.bool),
+    modal_width: PropTypes.string,
+    modal_height: PropTypes.string,
+    visible: PropTypes.bool.isRequired,
+    title: PropTypes.string,
+    children: PropTypes.any.isRequired,
+    onClick: PropTypes.func,
+};
 
-// ModalPopup.defaultProps = {
-//     button_disabled: {
-//         Maximize: false,
-//         Minimization: false,
-//     },
-//     children: '컨텐츠 영역',
-//     modal_width: '300px',
-//     modal_height: '300px',
-// };
+ModalPopup.defaultProps = {
+    button_disabled: {
+        Maximize: false,
+        Minimization: false,
+    },
+    children: '컨텐츠 영역',
+    modal_width: '300px',
+    modal_height: '300px',
+};
 
 export default ModalPopup;
 

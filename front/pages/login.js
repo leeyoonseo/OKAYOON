@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import styled from 'styled-components';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -6,18 +6,25 @@ import Link from 'next/link';
 import UserInfo from '../components/UserInfo/index';
 import SystemTools from '../components/SystemTools';
 
+//test
+import Test from '../components/SystemTools/Wifi';
+
 import { Layout } from 'antd';
 import { LogoutOutlined } from '@ant-design/icons';
 import { DARK_MODE_COLOR } from '../theme/styles';
+import { useSelector } from 'react-redux';
+
+import ModalPopup from '../components/ModalPopup';
+import ModalContentAvatar from '../components/UserInfo/ModalContentAvatar';
 
 const bgImageUrl = 'https://t1.daumcdn.net/cfile/tistory/229F4B335966F29A0F';
 
-const LayoutWrap = styled(Layout)`
+const Wrap = styled(Layout)`
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${bgImageUrl});
     background-size: cover;
 `;
 
-const HeaderWrap = styled(Layout.Header)` 
+const Header = styled(Layout.Header)` 
     posiiton: relative;
     padding: 5px 2%;
     height: ${props => props.h}px;
@@ -25,14 +32,14 @@ const HeaderWrap = styled(Layout.Header)`
     box-sizing: border-box;
 `;
 
-const HeaderTool = styled.div`
+const Tools = styled.div`
     position: absolute;
     right: 2%;
     display: inline-block;
     vertical-align: top;
 `;
 
-const ContentWrap = styled(Layout.Content)`
+const Content = styled(Layout.Content)`
     display: flex;
     padding: 0 2%;
     height: ${props => props.h}px;
@@ -40,7 +47,7 @@ const ContentWrap = styled(Layout.Content)`
     justify-content: center;
 `;
 
-const FooterWrap = styled(Layout.Footer)`
+const Footer = styled(Layout.Footer)`
     display: flex;
     padding: 0 2%;
     height: ${props => props.h}px;
@@ -51,7 +58,7 @@ const FooterWrap = styled(Layout.Footer)`
     box-sizing: border-box;
 `;
 
-const SleepModeWrap = styled.a`
+const ButtonWrap = styled.a`
     color: ${props => props.themecolor};
 
     &:hover,
@@ -74,13 +81,45 @@ const SleepButton = styled.div`
     border-radius: 50%;
 `;
 
-const SleepIcon = styled(LogoutOutlined)`
+const Icon = styled(LogoutOutlined)`
     font-size:18px;
     color: ${props => props.themecolor};
     vertical-align: middle;
 `;
 
+// max 5
+
+const devModals = [
+    {
+        css: {
+            visible: false,
+            x: '50%',
+            y: '50%',
+            width: '500px',
+            height: '500px',
+            zIndex: 1,
+        },
+        title: "아바타 설정",
+        content: ModalContentAvatar,
+        buttonDisabled : {
+            Maximize: true,
+            Minimization: true
+        },
+        onClick: function(status) {
+            console.log('onTogglePopup!!', status);
+            console.log('this.visible', this);
+        },
+        // index, x, y, content, 
+    },
+    null,
+    null,
+    null,
+    null,
+    null
+];
+
 const Login = () => {
+    const { modals } = useSelector((state) => state.site);
     const themecolor = DARK_MODE_COLOR;
     const [contH, setContH] = useState(null);
     
@@ -93,32 +132,87 @@ const Login = () => {
         setContH(windowH - headerH - footerH);
     }, []);
 
+    const callbackFunc = useCallback((status) => {
+        console.log('callbackFunc', status);
+    }, []);
+
     return (
         <>
             <Head>
                 <title>사용자 접속페이지 | OKAYOON</title>
             </Head>
-            <LayoutWrap>
-                <HeaderWrap h={headerH}>
-                    <HeaderTool>
+            <Wrap>
+                <Header h={headerH}>
+                    <Tools>
                         <SystemTools themecolor={themecolor} />    
-                    </HeaderTool>
-                </HeaderWrap>
+                    </Tools>
+                </Header>
 
-                <ContentWrap h={contH}>
+                <Content h={contH}>
                     <UserInfo themecolor={themecolor} />
-                </ContentWrap>
+    {/* //css: {
+    //     visible: false,
+    //     x: '50%',
+    //     y: '50%',
+    //     width: '500px',
+    //     height: '500px',
+    //     zIndex: 1,
+    // },
+    // title: "아바타 설정",
+    // content: ModalContentAvatar,
+    // buttonDisabled : {
+    //     Maximize: true,
+    //     Minimization: true
+    // },
+    // onClick: function(status) {
+    //     console.log('onTogglePopup!!', status);
+    //     console.log('this.visible', this);
+    // }, */}
 
-                <FooterWrap h={footerH}>
+                    {devModals?.map((v, i) => {
+                        if(v !== null){
+                            return (
+                                <ModalPopup
+                                    key={`modal_${v.title}_${i}`}
+                                    index={i}
+                                    css={v.css}
+                                    button_disabled={v.buttonDisabled}
+                                    title={v.title}
+                                    content={<v.content onClick={v.onClick} callback={callbackFunc}/>}
+                                    onClick={v.onClick}
+                                />
+                            );
+                        }
+                    })}
+                    {/* <ModalPopup 
+                        index={}
+                        button_disabled={{
+                            Maximize: true,
+                            Minimization: true
+                        }}
+                        visible={isVisible} 
+                        modal_width="500px"
+                        modal_height="500px"
+                        title="아바타 설정"
+                        onClose={onCloseModal} 
+                    >
+                        <ModalAvatarContent onCloseModal={onCloseModal} />
+                        <SourceText>
+                            이미지출처: https://www.pngwing.com/ko/free-png-zvldq/download
+                        </SourceText>
+                    </ModalPopup> */}
+                </Content>
+
+                <Footer h={footerH}>
                     <Link href="./sleep">
-                        <SleepModeWrap themecolor={themecolor}>  
+                        <ButtonWrap themecolor={themecolor}>  
                             <SleepButton>
-                                <SleepIcon themecolor={themecolor} />
+                                <Icon themecolor={themecolor} />
                             </SleepButton>
-                        </SleepModeWrap>
+                        </ButtonWrap>
                     </Link>
-                </FooterWrap>
-            </LayoutWrap>
+                </Footer>
+            </Wrap>
         </>
     );
 };

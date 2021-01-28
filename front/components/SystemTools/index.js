@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { SoundOutlined } from '@ant-design/icons';
-import { CHANGE_MUTED } from '../../reducers/site';
 
 import Wifi from './Wifi';
 import Battery from './Battery';

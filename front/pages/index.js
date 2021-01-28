@@ -7,7 +7,7 @@ import { SmileOutlined, GithubOutlined } from '@ant-design/icons';
 import { WHITE_MODE_COLOR } from '../theme/styles';
 
 import SystemTools from '../components/SystemTools';
-import AppMenu from '../components/AppMenu/index';
+import AppList from '../components/AppList/index';
 
 const LayoutWrap = styled(Layout)`
     background: #ccc;
@@ -114,10 +114,8 @@ const Home = () => {
                 </ContentWrap>
 
                 <FooterWrap h={footerH}>
-                    <AppMenu />
+                    <AppList />
                 </FooterWrap>
-
-                
             </LayoutWrap>
         </>
     );

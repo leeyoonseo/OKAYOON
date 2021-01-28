@@ -2,11 +2,11 @@ import React, { useCallback, useEffect, useState } from 'react';
 import Router from 'next/router';
 import styled from 'styled-components';
 
-import DigitalClock from '../components/DigitalClock';
+import Clock from '../components/DigitalClock';
 
 const bgImageUrl = 'https://cdn.pixabay.com/photo/2020/11/07/01/28/abstract-5719221_1280.jpg';
 
-const SleepModeWrap = styled.div`
+const Wrap = styled.div`
     display: flex;
     height: ${props => props.h}px;
     justify-content: center;
@@ -15,7 +15,7 @@ const SleepModeWrap = styled.div`
     background-size: cover;
 `;
 
-const GuideText = styled.span`
+const Text = styled.span`
     position: fixed;
     bottom: 5%;
     font-size: 12px;
@@ -29,24 +29,21 @@ const sleep = () => {
     useEffect(() => {
         const windowH = window.innerHeight;
         setWindowH(windowH);
-
     }, [windowH]);
 
-    const onClickBackground = useCallback(() => {
-        Router.replace('./login');
-    }, []);
+    const onClick = useCallback(() => Router.replace('./login'), []);
 
     return(
-        <SleepModeWrap
+        <Wrap
             h={windowH}
-            onClick={onClickBackground}
+            onClick={onClick}
         >
-            <DigitalClock />       
+            <Clock />       
 
-            <GuideText>
+            <Text>
                 Click anywhere!
-            </GuideText>
-        </SleepModeWrap>
+            </Text>
+        </Wrap>
     );
 };
 
