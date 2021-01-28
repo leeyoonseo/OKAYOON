@@ -1,12 +1,9 @@
 import produce from '../util/produce';
 
 export const initialState = {
-    // changeThemeLoading: false, // 테마 변경 시도 중
-    // changeThemeDone: false,
-    // changeThemeError: false,
-
     isMuted: false, // 음소거
     theme: null, // 사이트 테마
+
 
     battery: null,
     time: null,
@@ -17,8 +14,8 @@ export const initialState = {
 // export const CHANGE_THEME_SUCCESS = 'CHANGE_THEME_SUCCESS';
 // export const CHANGE_THEME_FAILURE = 'CHANGE_THEME_FAILURE';
 
-// 음소거
-export const CHANGE_MUTED = 'CHANGE_MUTED';
+
+export const CHANGE_MUTED = 'CHANGE_MUTED'; // 음소거
 
 const reducer = (state = initialState, action) => produce(state,(draft) => {
     switch(action.type){

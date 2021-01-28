@@ -1,13 +1,21 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-import Guestbook from './Guestbook';
+// TODO: 이미지로 변경?
+import { Tooltip } from 'antd';
+import { 
+    PictureFilled, EditFilled, TabletFilled, 
+    MessageFilled, CrownFilled, DeleteFilled,
+    ChromeFilled,
+    DeleteTwoTone,
+} from '@ant-design/icons';
 
-const AppMenuWrap = styled.div`
-display: flex;
+import TriggerButton from './TriggerButton';
 
-    width: 100%;
-    height: 50%;
+const Wrap = styled.div`
+    display: flex;
+    width: 80%;
+    height: 60%;
     background: #eee;
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
     border-radius: 5px 5px 0 0;
@@ -16,45 +24,112 @@ display: flex;
 `;
 
 const AppItems = styled.div`
-    width:50px;
-    height:50px;
-    background: red;
+    width:60px;
+    height:60px;
+`;
+
+const defaultIconStyle = css`
+    font-size: 32px;
+    line-height: 1;
+    color: #777;
+`;
+
+const GuestbookIcon = styled(TabletFilled)`
+    ${defaultIconStyle}
+`;  
+
+const BlogIcon = styled(ChromeFilled)`
+    ${defaultIconStyle}
+`;
+
+const GalleryIcon = styled(PictureFilled)`
+    ${defaultIconStyle}
+`;
+
+const MemoIcon = styled(EditFilled)`
+    ${defaultIconStyle}
+`;
+
+const ChattingIcon = styled(MessageFilled)`
+    ${defaultIconStyle}
+`;
+
+const GameIcon = styled(CrownFilled)`
+    ${defaultIconStyle}
+`;
+
+const DeleteIcon = styled(DeleteFilled)`
+    ${defaultIconStyle}
+`;
+
+const IconTitle = styled.span`
+    margin-top: 2px;
+    display: block;
+    font-size: 12px;
+    color: #fff;
 `;
 
 const index = () => {
     return (
-        <AppMenuWrap>
+        <Wrap>
+            {/* TODO: Tooltip과 AppItems를 같이 사용할 방법 없나 */}
+            <Tooltip placement="top" color="#777" title={<IconTitle>방명록</IconTitle>}>
+                <AppItems>
+                    <TriggerButton>
+                            <GuestbookIcon />
+                    </TriggerButton>
+                </AppItems>
+            </Tooltip>
 
             <AppItems>
-                {/* 방명록 */}
-                <Guestbook />
+                <TriggerButton>
+                    <Tooltip placement="top" color="#777" title={<IconTitle>블로그</IconTitle>}>
+                        <BlogIcon />
+                    </Tooltip>
+                </TriggerButton>
             </AppItems>
 
             <AppItems>
-                블로그
+                <TriggerButton>
+                    <Tooltip placement="top" color="#777" title={<IconTitle>갤러리</IconTitle>}>
+                        <GalleryIcon />
+                    </Tooltip>
+                </TriggerButton>
             </AppItems>
 
             <AppItems>
-                갤러리
+                <TriggerButton>
+                    <Tooltip placement="top" color="#777" title={<IconTitle>메모</IconTitle>}>
+                        <MemoIcon />
+                    </Tooltip>
+                </TriggerButton>
             </AppItems>
 
             <AppItems>
-                메모
+                <TriggerButton>
+                    <Tooltip placement="top" color="#777" title={<IconTitle>채팅</IconTitle>}>
+                        <ChattingIcon />
+                    </Tooltip>
+                </TriggerButton>
             </AppItems>
 
             <AppItems>
-                채팅
+                <TriggerButton>
+                    <Tooltip placement="top" color="#777" title={<IconTitle>게임</IconTitle>}>
+                        <GameIcon />
+                    </Tooltip>
+                </TriggerButton>
             </AppItems>
 
             <AppItems>
-                게임
+                <TriggerButton>
+                    <Tooltip placement="top" color="#777" title={<IconTitle>휴지통</IconTitle>}>
+                        <DeleteIcon />
+                    </Tooltip>
+                </TriggerButton>
             </AppItems>
-
-            <AppItems>
-                휴지통
-            </AppItems>
-        </AppMenuWrap>
-  );
+        </Wrap>
+        );
 }
 
 export default index;
