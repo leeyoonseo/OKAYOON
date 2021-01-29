@@ -93,10 +93,11 @@ const devModals = [
         visible: false,
         // x, y, z
         location: ['50%', '50%', 1],
-        css: {
-            width: '500px',
-            height: '500px',
-        },
+
+        // TODO: 이것을 하나로  할 방법은 없나
+        sizeW: '500px',
+        sizeH: '500px',
+        
         title: "아바타 설정",
         content: ModalContentAvatar,
         buttonDisabled : {
@@ -107,7 +108,6 @@ const devModals = [
             console.log('onTogglePopup!!', status);
             console.log('this.visible', this);
         },
-        // index, x, y, content, 
     },
     null,
     null,
@@ -167,14 +167,13 @@ const Login = () => {
         // },
     */}
 
+{/* TODO: login은 팝업 하나임, 현재 테스트 진행 중 */}
                     {devModals?.map((v, i) => {
                         if(v !== null){
+                            v.key = `${v.title}_${i}`;
+
                             return (
-                                <ModalPopup
-                                    key={`modal_${v.title}_${i}`}
-                                    index={i}
-                                    {...v}
-                                />
+                                <ModalPopup {...v}/>
                             );
                         }
                     })}

@@ -39,15 +39,7 @@ import {
  * @param {function} onClick: 모달 여닫기 이벤트
  */
 const ModalPopup = (props) => {
-    console.log('props',props);
-    
-    // location: [{
-    //     x: '50%'
-    // },{
-    //     y: '50%'
-    // },{
-    //     z: 1
-    // }],
+    // location: ['50%', '50%', 1],
     // visible: false,
     // css: {
     //     width: '500px',
@@ -63,30 +55,41 @@ const ModalPopup = (props) => {
     //     console.log('onTogglePopup!!', status);
     //     console.log('this.visible', this);
     // },
+    const {
+        location, 
+        visible, 
+        sizeW, 
+        sizeH, 
+        title, 
+        content, 
+        buttonDisabled, 
+        onClick: onClickModal, 
+    } = props;
 
-    // TODO: 기본에 포함되서 렉걸림 네이밍 다시하기
-    // const { visible, x, y, width, height, zIndex } = css;
+    const [maxStatus, setMaxStatus] = useState(false);
+    const [minStatus, setMinStatus] = useState(false);
 
-    // const [maxStatus, setMaxStatus] = useState(false);
-    // const [minStatus, setMinStatus] = useState(false);
+    const maximizeSize = '90%';
+    const classes = classNames({
+        'active': visible,
+        'min': minStatus,
+    });
 
-    // // const maximizeSize = '90%';
-    // const modalClasses = classNames({
-    //     'active': visible,
-    //     'min': minStatus,
-    // });
-
-    // const onMinimization = useCallback(() => setMinStatus(!minStatus), [minStatus]);
-    // const onMaximize = useCallback(() => setMaxStatus(!maxStatus), [maxStatus]);
+    const onMinimization = useCallback(() => setMinStatus(!minStatus), [minStatus]);
+    const onMaximize = useCallback(() => setMaxStatus(!maxStatus), [maxStatus]);
     
     return (
-        <>
-        ModalPopupWrap
-        </>
+        <ModalPopupWrap
+            className={classes}
+            w={maxStatus ? maximizeSize : sizeW}
+            h={maxStatus ? maximizeSize : sizeH}
+        >   
+            modal입니다.
+        </ModalPopupWrap>
         // <ModalPopupWrap 
         //     className={modalClasses}
-        //     w={maxStatus ? maximizeSize : modalWidth}
-        //     h={maxStatus ? maximizeSize : modalHeight}
+        //     // w={maxStatus ? maximizeSize : css[width]}
+        //     // h={maxStatus ? maximizeSize : css[height]}
         // >
         //     <ModelHeader>
         //         <ModalControls>
