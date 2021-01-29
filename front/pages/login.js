@@ -88,16 +88,14 @@ const Icon = styled(LogoutOutlined)`
 `;
 
 // max 5
-
 const devModals = [
     {
+        visible: false,
+        // x, y, z
+        location: ['50%', '50%', 1],
         css: {
-            visible: false,
-            x: '50%',
-            y: '50%',
             width: '500px',
             height: '500px',
-            zIndex: 1,
         },
         title: "아바타 설정",
         content: ModalContentAvatar,
@@ -150,24 +148,24 @@ const Login = () => {
 
                 <Content h={contH}>
                     <UserInfo themecolor={themecolor} />
-    {/* //css: {
-    //     visible: false,
-    //     x: '50%',
-    //     y: '50%',
-    //     width: '500px',
-    //     height: '500px',
-    //     zIndex: 1,
-    // },
-    // title: "아바타 설정",
-    // content: ModalContentAvatar,
-    // buttonDisabled : {
-    //     Maximize: true,
-    //     Minimization: true
-    // },
-    // onClick: function(status) {
-    //     console.log('onTogglePopup!!', status);
-    //     console.log('this.visible', this);
-    // }, */}
+    {/*
+        // visible: false,
+        // location: ['50%', '50%', 1],
+        // css: {
+        //     width: '500px',
+        //     height: '500px',
+        // },
+        // title: "아바타 설정",
+        // content: ModalContentAvatar,
+        // buttonDisabled : {
+        //     Maximize: true,
+        //     Minimization: true
+        // },
+        // onClick: function(status) {
+        //     console.log('onTogglePopup!!', status);
+        //     console.log('this.visible', this);
+        // },
+    */}
 
                     {devModals?.map((v, i) => {
                         if(v !== null){
@@ -175,11 +173,7 @@ const Login = () => {
                                 <ModalPopup
                                     key={`modal_${v.title}_${i}`}
                                     index={i}
-                                    css={v.css}
-                                    button_disabled={v.buttonDisabled}
-                                    title={v.title}
-                                    content={<v.content onClick={v.onClick} callback={callbackFunc}/>}
-                                    onClick={v.onClick}
+                                    {...v}
                                 />
                             );
                         }
