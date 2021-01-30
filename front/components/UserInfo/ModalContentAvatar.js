@@ -1,9 +1,13 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import { CHANGE_USERINFO_REQUEST } from '../../reducers/user';
+import { DELETE_MODAL_REQUEST } from '../../reducers/site';
+
 // TODO: 홀수
-const sampleList = [
+const avatarSample = [
     {
         src: 'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png',
         title: '1번',
@@ -91,26 +95,20 @@ const SourceText = styled.span`
     color:#aaa;
 `;
 
-const ModalAvatarContent = ({ onClick, callback }) => {
-
-    const onClikcItem = useCallback((status, src = null) => {
-        onClick(status);
-        src && callback(src);
-    }, []);
-
+const ModalAvatarContent = ({ onCloseModal }) => {
     return(
         <Wrap>
             <Items 
-                onClick={onClikcItem(true, null)}
+                onClick={onCloseModal(false, null)}
             >
                 <button>기본이미지</button>
             </Items>
             {
-                sampleList.map((v, i) => {
+                avatarSample.map((v, i) => {
                     return (
                         <Items
                             key={`${v.title}-${i}`}
-                            onClick={onClikcItem(true, v.src)}
+                            onClick={onCloseModal(false, v.src)}
                         >
                             <button>
                                 <img alt={v.title} src={v.src} />
@@ -124,9 +122,9 @@ const ModalAvatarContent = ({ onClick, callback }) => {
     );
 };
 
-ModalAvatarContent.propTypes = {
-    onCloseModal: PropTypes.func.isRequired,
-};
+// ModalAvatarContent.propTypes = {
+//     onCloseModal: PropTypes.func.isRequired,
+// };
 
 export default ModalAvatarContent;
 

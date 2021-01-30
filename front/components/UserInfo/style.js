@@ -3,8 +3,8 @@ import { Avatar, Button, Modal } from 'antd';
 import { UserOutlined, CloseOutlined } from '@ant-design/icons';
 
 export const Wrap = styled.div`
-    display:inline-block;
-    width: 300px;
+    display:block;
+    // width: 300px;
     text-align: center;
 `;
 
@@ -77,34 +77,3 @@ export const CloseButton = styled.button`
         border: none;
     }
 `;
-
-export const defaultButtonStyle = css`
-    color: #fff;
-    background: none;
-
-    & + button {
-        margin-left: 5px;
-    }
-
-    &:hover,
-    &:focus {
-        color: #fff;
-        background: none;
-        border-color: #fff;
-    }
-`;
-
-export const ResetButton = styled(Button)`
-    ${defaultButtonStyle}
-`;
-
-export const AccessButton = styled(Button)`
-    ${defaultButtonStyle}
-`;
-
-// export const SourceText = styled.span`
-//     display:block;
-//     text-align:left;
-//     font-size:60%;
-//     color:#aaa;
-// `;

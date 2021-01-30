@@ -1,16 +1,11 @@
 import produce from '../util/produce';
 
 export const initialState = {
-    modalpopupLoading: false,
-    modalpopupDone: false,
-    modalpopupError: false,
+    modalLoading: false,
+    modalDone: false,
+    modalError: false,
 
-    // 모달 켜진 갯수 배열로 정리? 
-    // [null, null, null, null, null]
-    // index, x, y, content, 
-    modals: null, 
-
-
+    modals: [], 
 
     isMuted: false, // 음소거
     theme: null, // 사이트 테마
@@ -20,11 +15,6 @@ export const initialState = {
     time: null,
 };
 
-// 사이트 테마 변경
-// export const CHANGE_THEME_REQUEST = 'CHANGE_THEME_REQUEST';
-// export const CHANGE_THEME_SUCCESS = 'CHANGE_THEME_SUCCESS';
-// export const CHANGE_THEME_FAILURE = 'CHANGE_THEME_FAILURE';
-
 export const CREATE_MODAL_REQUEST = 'CREATE_MODAL_REQUEST';
 export const CREATE_MODAL_SUCCESS = 'CREATE_MODAL_SUCCESS';
 export const CREATE_MODAL_FAILURE = 'CREATE_MODAL_FAILURE';
@@ -33,51 +23,72 @@ export const DELETE_MODAL_REQUEST = 'DELETE_MODAL_REQUEST';
 export const DELETE_MODAL_SUCCESS = 'DELETE_MODAL_SUCCESS';
 export const DELETE_MODAL_FAILURE = 'DELETE_MODAL_FAILURE';
 
+export const TOGGLE_MODAL_REQUEST = 'TOGGLE_MODAL_REQUEST';
+export const TOGGLE_MODAL_SUCCESS = 'TOGGLE_MODAL_SUCCESS';
+export const TOGGLE_MODAL_FAILURE = 'TOGGLE_MODAL_FAILURE';
 
 // export const CHANGE_MUTED = 'CHANGE_MUTED'; // 음소거
 
 const reducer = (state = initialState, action) => produce(state,(draft) => {
     switch(action.type){
         case CREATE_MODAL_REQUEST:
-            draft.modalpopupLoading = true;
-            draft.modalpopupDone = false;
-            draft.modalpopupError = false;
+            draft.modalLoading = true;
+            draft.modalDone = false;
+            draft.modalError = false;
             break;
 
         case CREATE_MODAL_SUCCESS:
-            draft.modalpopupLoading = false;
-            draft.modalpopupDone = true;
-            draft.modalpopupError = false;
+            draft.modalLoading = false;
+            draft.modalDone = true;
+            draft.modalError = false;
+            draft.modals.push(action.data);
             break;
 
         case CREATE_MODAL_FAILURE:
-            draft.modalpopupLoading = false;
-            draft.modalpopupDone = false;
-            draft.modalpopupError = true;
+            draft.modalLoading = false;
+            draft.modalDone = false;
+            draft.modalError = true;
             break;
 
-        // case CHANGE_THEME_REQUEST: 
-        //     draft.changeThemeLoading = true;
-        //     draft.changeThemeDone = false;
-        //     draft.changeThemeError = false;
+        case DELETE_MODAL_REQUEST:
+            draft.modalLoading = true;
+            draft.modalDone = false;
+            draft.modalError = false;
+            break;
 
-        //     break;
+        case DELETE_MODAL_SUCCESS:
+            draft.modalLoading = false;
+            draft.modalDone = true;
+            draft.modalError = false;
+            draft.modals = draft.modals.filter((v) => v.id !== action.data);
+            break;
 
-        // case CHANGE_THEME_SUCCESS: 
-        //     draft.changeThemeLoading = false;
-        //     draft.changeThemeDone = true;
-        //     draft.changeThemeError = false;
-        //     console.log('site reducers', action.data)
-        //     draft.theme = action.data;
+        case DELETE_MODAL_FAILURE:
+            draft.modalLoading = false;
+            draft.modalDone = false;
+            draft.modalError = true;
+            break;
 
-        //     break;
+        case TOGGLE_MODAL_REQUEST:
+                draft.modalLoading = true;
+                draft.modalDone = false;
+                draft.modalError = false;
+                break;
 
-        // case CHANGE_THEME_FAILURE: 
-        //     draft.changeThemeLoading = false;
-        //     draft.changeThemeDone = false;
-        //     draft.changeThemeError = true;
+        case TOGGLE_MODAL_SUCCESS: {
+            draft.modalLoading = false;
+            draft.modalDone = true;
+            draft.modalError = false;
+            const modal = draft.modals.find((v) => v.id === action.data);
+            modal.visible = !modal.visible;
+            break;
+        }
 
-        //     break;
+        case TOGGLE_MODAL_FAILURE:
+            draft.modalLoading = false;
+            draft.modalDone = false;
+            draft.modalError = true;
+            break;
 
         default:
             break;
@@ -85,3 +96,6 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
 });
 
 export default reducer;
+
+// TODO:
+// 사이트 테마 변경

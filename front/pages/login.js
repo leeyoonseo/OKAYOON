@@ -1,15 +1,18 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import useInput from '../hooks/useInput';
+
+import styled, { css } from 'styled-components';
 import Head from 'next/head';
 import Link from 'next/link';
+
+import { LOG_IN_REQUEST } from '../reducers/user';
+import { CREATE_MODAL_REQUEST } from '../reducers/site';
 
 import UserInfo from '../components/UserInfo/index';
 import SystemTools from '../components/SystemTools';
 
-//test
-import Test from '../components/SystemTools/Wifi';
-
-import { Layout } from 'antd';
+import { Layout, Button } from 'antd';
 import { LogoutOutlined } from '@ant-design/icons';
 import { DARK_MODE_COLOR } from '../theme/styles';
 import { useSelector } from 'react-redux';
@@ -47,6 +50,35 @@ const Content = styled(Layout.Content)`
     justify-content: center;
 `;
 
+const ContentInner = styled.div`
+    width: 300px;
+
+    & > div + div {
+        margin-top: 15px;
+    }
+`;
+
+const UserButtons = styled.div`
+    text-align: center;
+
+    button {
+        padding: 5px 10px;
+        color: #fff;
+        background: none;
+        border: 1px solid #fff;
+        cursor: pointer;
+
+        &:hover,
+        &:focus {
+            opacity: 0.8;
+        }
+    }
+
+    & > button + button {
+        margin-left: 10px;
+    }
+`;
+
 const Footer = styled(Layout.Footer)`
     display: flex;
     padding: 0 2%;
@@ -58,12 +90,13 @@ const Footer = styled(Layout.Footer)`
     box-sizing: border-box;
 `;
 
-const ButtonWrap = styled.a`
+const SleepButtonWrap = styled.a`
     color: ${props => props.themecolor};
 
     &:hover,
     &:focus {
         color: ${props => props.themecolor};
+        opacity: 0.8;
     }
 
     &:after {
@@ -87,40 +120,20 @@ const Icon = styled(LogoutOutlined)`
     vertical-align: middle;
 `;
 
-// max 5
-const devModals = [
-    {
-        visible: false,
-        // x, y, z
-        location: ['50%', '50%', 1],
-
-        // TODO: 이것을 하나로  할 방법은 없나
-        sizeW: '500px',
-        sizeH: '500px',
-        
-        title: "아바타 설정",
-        content: ModalContentAvatar,
-        buttonDisabled : {
-            Maximize: true,
-            Minimization: true
-        },
-        onClick: function(status) {
-            console.log('onTogglePopup!!', status);
-            console.log('this.visible', this);
-        },
-    },
-    null,
-    null,
-    null,
-    null,
-    null
-];
-
 const Login = () => {
+    const dispatch = useDispatch();
+    const inputEl = useRef(null);
+
+    const { logInLoading, userInfo } = useSelector((state) => state.user);
     const { modals } = useSelector((state) => state.site);
-    const themecolor = DARK_MODE_COLOR;
+
+    const [isVisibleModal, setVisibleModal] = useState(false);
+
     const [contH, setContH] = useState(null);
-    
+    const [avatar, setAvatar] = useState(userInfo?.avatar || '');
+    const [nickname, onChangeNickname, setNickname] = useInput(userInfo?.nickname || '');
+
+    const themecolor = DARK_MODE_COLOR;
     let windowH = null;
     const headerH = 35;
     const footerH = 150;
@@ -128,11 +141,60 @@ const Login = () => {
     useEffect(() => {
         windowH = window.innerHeight;
         setContH(windowH - headerH - footerH);
+
+        dispatch({
+            type: CREATE_MODAL_REQUEST,
+            data:  {
+                id: 'LU_M_0', // 페이지컴포넌트_모달_인덱스
+                // location: ['50%', '50%', 1],
+                size: {
+                    w: '500px',
+                    h: '500px'
+                },
+                title: "아바타 설정",
+                content: ModalContentAvatar,
+                buttonDisabled : {
+                    Maximize: true,
+                    Minimization: true
+                }
+            }
+        });
     }, []);
 
-    const callbackFunc = useCallback((status) => {
-        console.log('callbackFunc', status);
+    const onToggleModal = useCallback((status, src = null) => () => {
+        setAvatar(src);
+        setVisibleModal(status);
     }, []);
+
+    const onClickReset = useCallback(() => {
+        setNickname('');
+        setAvatar(null);
+
+        inputEl.current.value = '';
+        inputEl.current.focus();
+    }, []);
+
+    const onClickAccess = useCallback(() => {
+        const data = {};
+        const inputVal = inputEl.current.value;
+
+        if(!nickname.trim() && !inputVal.trim()){
+            setNickname('Guest');
+            data.nickname = 'Guest';
+        }else{
+            setNickname(inputVal);
+            data.nickname = inputVal;
+        }
+
+        if(avatar !== null){
+            data.avatar = avatar;
+        }
+
+        dispatch({
+            type: LOG_IN_REQUEST,
+            data
+        });
+    }, [nickname, avatar]);
 
     return (
         <>
@@ -147,62 +209,44 @@ const Login = () => {
                 </Header>
 
                 <Content h={contH}>
-                    <UserInfo themecolor={themecolor} />
-    {/*
-        // visible: false,
-        // location: ['50%', '50%', 1],
-        // css: {
-        //     width: '500px',
-        //     height: '500px',
-        // },
-        // title: "아바타 설정",
-        // content: ModalContentAvatar,
-        // buttonDisabled : {
-        //     Maximize: true,
-        //     Minimization: true
-        // },
-        // onClick: function(status) {
-        //     console.log('onTogglePopup!!', status);
-        //     console.log('this.visible', this);
-        // },
-    */}
+                    <ContentInner>
+                        <UserInfo 
+                            avatar={avatar} 
+                            nickname={nickname} 
+                            onChangeNickname={onChangeNickname}
+                            forwordRef={inputEl}
+                            onClickModal={onToggleModal} 
+                        />
 
-{/* TODO: login은 팝업 하나임, 현재 테스트 진행 중 */}
-                    {devModals?.map((v, i) => {
-                        if(v !== null){
-                            v.key = `${v.title}_${i}`;
+                        <UserButtons>
+                            <button onClick={onClickReset}>초기화</button>
+                            <button onClick={onClickAccess}>접속</button>
+                        </UserButtons>
+                    </ContentInner>
 
+                    {modals?.map((v) => {
+                        if(v){
                             return (
-                                <ModalPopup {...v}/>
+                                <ModalPopup 
+                                    key={v.id} 
+                                    visible={isVisibleModal} 
+                                    onCloseModal={onToggleModal} 
+                                    {...v}
+                                >
+                                    <v.content onCloseModal={onToggleModal} />
+                                </ModalPopup>
                             );
                         }
                     })}
-                    {/* <ModalPopup 
-                        index={}
-                        button_disabled={{
-                            Maximize: true,
-                            Minimization: true
-                        }}
-                        visible={isVisible} 
-                        modal_width="500px"
-                        modal_height="500px"
-                        title="아바타 설정"
-                        onClose={onCloseModal} 
-                    >
-                        <ModalAvatarContent onCloseModal={onCloseModal} />
-                        <SourceText>
-                            이미지출처: https://www.pngwing.com/ko/free-png-zvldq/download
-                        </SourceText>
-                    </ModalPopup> */}
                 </Content>
 
                 <Footer h={footerH}>
                     <Link href="./sleep">
-                        <ButtonWrap themecolor={themecolor}>  
+                        <SleepButtonWrap themecolor={themecolor}>  
                             <SleepButton>
                                 <Icon themecolor={themecolor} />
                             </SleepButton>
-                        </ButtonWrap>
+                        </SleepButtonWrap>
                     </Link>
                 </Footer>
             </Wrap>

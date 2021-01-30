@@ -82,7 +82,7 @@ const Menu = ({ themecolor }) => {
                 onClickInfo={onClickInfo}
             />
 
-            <ModalPopup 
+            {/* <ModalPopup 
                 visible={isVisibleWelcome} 
                 modal_width="300px"
                 modal_height="300px"
@@ -90,8 +90,8 @@ const Menu = ({ themecolor }) => {
                 onClose={onCloseWelcome}
             >
                 <ModalContentWelcome />
-            </ModalPopup>
-
+            </ModalPopup> */}
+{/* 
             <ModalPopup 
                 visible={isVisibleInfo} 
                 modal_width="300px"
@@ -100,7 +100,7 @@ const Menu = ({ themecolor }) => {
                 onClose={onCloseInfo}
             >
                 <ModalContentInfo />
-            </ModalPopup>
+            </ModalPopup> */}
 
         </MenuWrap>
     );

@@ -3,25 +3,25 @@ import styled, { css, keyframes } from 'styled-components';
 import { Layout } from 'antd';
 import { CloseOutlined, MinusOutlined, FullscreenOutlined } from '@ant-design/icons';
 
-const fadeOut = keyframes`
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: 0;
-    }
-`;
+// const fadeOut = keyframes`
+//     from {
+//         opacity: 1;
+//     }
+//     to {
+//         opacity: 0;
+//     }
+// `;
 
-const fadeIn = keyframes`
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-`;
+// const fadeIn = keyframes`
+//     from {
+//         opacity: 0;
+//     }
+//     to {
+//         opacity: 1;
+//     }
+// `;
 
-export const ModalPopupWrap = styled(Layout)`
+export const Wrap = styled(Layout)`
     display: none;
     position: fixed;
     top: 50%;
@@ -61,7 +61,7 @@ export const ModalPopupWrap = styled(Layout)`
     }
 `;
 
-export const ModelHeader = styled(Layout.Header)`
+export const Header = styled(Layout.Header)`
     padding: 10px 3%;
     position: relative;
     height: auto;
@@ -71,7 +71,7 @@ export const ModelHeader = styled(Layout.Header)`
     color: #333;
 `;
 
-export const ModalContent = styled(Layout.Content)`
+export const Content = styled(Layout.Content)`
     padding: 5px 3%;
     height: 100%;
     font-size: 13px;
@@ -80,19 +80,19 @@ export const ModalContent = styled(Layout.Content)`
     overflow-y: auto;
 `;
 
-export const ModalFoter = styled(Layout.Footer)`
-    padding: 5px 3%;
-    font-size: 13px;
-    color: #333;
-    background: none;
-`;
+// export const Footer = styled(Layout.Footer)`
+//     padding: 5px 3%;
+//     font-size: 13px;
+//     color: #333;
+//     background: none;
+// `;
 
-export const ModalControls = styled.div` 
+export const Controls = styled.div` 
     display: inline-block;
     position: absolute;
     left: 3%;
 `;
-export const ModalControlButton = styled.button`
+export const ControlButton = styled.button`
     padding: 0;
     width: 15px;
     height 15px;
@@ -132,7 +132,7 @@ export const MaximizeIcon = styled(FullscreenOutlined)`
     ${defaultIconStyle}
 `;
 
-export const ModalTitle = styled.div`
+export const Title = styled.div`
     display: inline-block;
     max-width: 300px;
     width: 100%;

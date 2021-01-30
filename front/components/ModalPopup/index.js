@@ -1,14 +1,15 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classNames';
 
 import { 
-    ModalPopupWrap, ModelHeader, ModalTitle,
-    ModalContent, ModalFoter,
-    ModalControls, ModalControlButton, 
+    Wrap, Header, Title,
+    Content, 
+    Controls, ControlButton, 
     CloseIcon, MinimizationIcon, MaximizeIcon, 
     MiniWrap,
 } from './styles';
+import { useDispatch } from 'react-redux';
 
 /** 
  * @example 
@@ -39,37 +40,21 @@ import {
  * @param {function} onClick: 모달 여닫기 이벤트
  */
 const ModalPopup = (props) => {
-    // location: ['50%', '50%', 1],
-    // visible: false,
-    // css: {
-    //     width: '500px',
-    //     height: '500px',
-    // },
-    // title: "아바타 설정",
-    // content: ModalContentAvatar,
-    // buttonDisabled : {
-    //     Maximize: true,
-    //     Minimization: true
-    // },
-    // onClick: function(status) {
-    //     console.log('onTogglePopup!!', status);
-    //     console.log('this.visible', this);
-    // },
+    const dispatch = useDispatch();
     const {
+        onCloseModal,
+        visible,
         location, 
-        visible, 
-        sizeW, 
-        sizeH, 
+        size, 
         title, 
-        content, 
+        children,
         buttonDisabled, 
-        onClick: onClickModal, 
     } = props;
 
+    const maximizeSize = '90%';
     const [maxStatus, setMaxStatus] = useState(false);
     const [minStatus, setMinStatus] = useState(false);
 
-    const maximizeSize = '90%';
     const classes = classNames({
         'active': visible,
         'min': minStatus,
@@ -77,66 +62,60 @@ const ModalPopup = (props) => {
 
     const onMinimization = useCallback(() => setMinStatus(!minStatus), [minStatus]);
     const onMaximize = useCallback(() => setMaxStatus(!maxStatus), [maxStatus]);
-    
+
     return (
-        <ModalPopupWrap
+        <Wrap
             className={classes}
-            w={maxStatus ? maximizeSize : sizeW}
-            h={maxStatus ? maximizeSize : sizeH}
+            // x={location.x ? location.x : '50%' }
+            // y={location.y ? location.y : '50%'}
+            // z={location.z ? location.z : 1}
+            w={maxStatus ? maximizeSize : size.w}
+            h={maxStatus ? maximizeSize : size.h}
         >   
-            modal입니다.
-        </ModalPopupWrap>
-        // <ModalPopupWrap 
-        //     className={modalClasses}
-        //     // w={maxStatus ? maximizeSize : css[width]}
-        //     // h={maxStatus ? maximizeSize : css[height]}
-        // >
-        //     <ModelHeader>
-        //         <ModalControls>
-        //             <ModalControlButton 
-        //                 bgcolor="#ff6059" 
-        //                 // #ff5f56
-        //                 onClick={onClick(false)}
-        //             >
-        //                 <CloseIcon />
-        //             </ModalControlButton>
+            <Header>
+                <Controls>
+                    <ControlButton 
+                        bgcolor="#ff6059" 
+                        onClick={onCloseModal(false)}
+                    >
+                        <CloseIcon />
+                    </ControlButton>
 
-        //             {!buttonDisabled.Minimization && (
-        //                 <ModalControlButton 
-        //                     bgcolor="#ffbc28"
-        //                     onClick={onMinimization}
-        //                 >
-        //                     {/* #ffbd2e */}
-        //                     <MinimizationIcon />
-        //                 </ModalControlButton>
-        //             )}
+                    {!buttonDisabled.Minimization && (
+                        <ControlButton 
+                            bgcolor="#ffbc28"
+                            onClick={onMinimization}
+                        >
+                            <MinimizationIcon />
+                        </ControlButton>
+                    )}
                     
-        //             {!buttonDisabled.Maximize && (
-        //                 <ModalControlButton 
-        //                     bgcolor="#26ca3f"
-        //                     onClick={onMaximize}
-        //                 >
-        //                     {/* #27c93f */}
-        //                     <MaximizeIcon />
-        //                 </ModalControlButton>
-        //             )}
-        //         </ModalControls>
+                    {!buttonDisabled.Maximize && (
+                        <ControlButton 
+                            bgcolor="#26ca3f"
+                            onClick={onMaximize}
+                        >
+                            <MaximizeIcon />
+                        </ControlButton>
+                    )}
+                </Controls>
 
-        //         {title && <ModalTitle>{title}</ModalTitle>}
-        //     </ModelHeader>
+                {title && <Title>{title}</Title>}
+            </Header>
 
-        //     <ModalContent>
-        //         {children}
-        //     </ModalContent>
+            <Content>
+                {children}
+            </Content>
 
-        //     { minStatus && (
-        //         <button onClick={onMinimization}>
-        //             <span className="hidden">
-        //                 최소화 해제버튼
-        //             </span>
-        //         </button>
-        //     )}
-        // </ModalPopupWrap>
+            { minStatus && (
+                <button onClick={onMinimization}>
+                    <span className="hidden">
+                        최소화 해제버튼
+                    </span>
+                </button>
+            )}
+        </Wrap>
+        
     );
 };
 
