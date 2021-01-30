@@ -2,14 +2,9 @@ import React, { useRef, useEffect, useCallback, useState } from "react";
 import Router from 'next/router';
 import styled from 'styled-components';
 
-import MenuPopup from './MenuPopup';
-import ModalPopup from '../../ModalPopup/index';
-import ModalContentWelcome from './ModalContentWelcome';
-import ModalContentInfo from './ModalContentInfo';
-
 import { MenuOutlined } from '@ant-design/icons';
 
-const MenuWrap = styled.div`
+const Wrap = styled.div`
     position: relative;
 `;
 
@@ -37,13 +32,50 @@ const MenuIcon = styled(MenuOutlined)`
     color: ${props => props.themecolor};
 `;
 
+const MenuTooltip = styled.div`
+    position: absolute;
+    top: 30px;
+    right: 0;
+    padding-top: 15px;
+    display: none;
+    width: 80px;
+    height: 125px;
+    background: rgba(0, 0, 0, 0.4); 
+    clip-path: polygon(90% 10%,100% 10%,100% 100%,0 100%,0 10%,74% 10%,90% 0);
+
+    &.active {
+        display: block;
+    }
+`;
+
+const List = styled.ul`
+    padding: 0;
+    list-style: none;
+`;
+
+const Item = styled.li`
+    padding: 10px 0;
+    text-align: center;
+`;
+
+const ItemButton = styled.button`
+    border: none;
+    background: none;
+    outline: none;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+        opacity: 0.5;
+        background: none;
+    }
+`;
+
 const Menu = ({ themecolor }) => {
     const menuRef = useRef(null);
-    const [isVisibleMenu, setIsVisibleMenu] = useState(false);
-    const [isVisibleWelcome, setIsVisibleWelcome] = useState(false);
-    const [isVisibleInfo, setIsVisibleInfo] = useState(false);
+    const [isVisibleTooltip, setIsVisibleTooltip] = useState(false);
 
-     useEffect(() => {
+    useEffect(() => {
         document.addEventListener("click", onClickOutside);
 
         return () => {
@@ -53,34 +85,47 @@ const Menu = ({ themecolor }) => {
 
     const onClickOutside = useCallback(({ target }) => {
         if (menuRef.current && !menuRef.current.contains(target)) {
-            setIsVisibleMenu(false);
+            setIsVisibleTooltip(false);
         }
     }, []);
 
-    const onToggleMenu = useCallback(() => setIsVisibleMenu(!isVisibleMenu), [isVisibleMenu]);
-    const onCloseWelcome = useCallback((isOk) => () => setIsVisibleWelcome(false), []);
-    const onClickWelcome = useCallback(() => {
-        setIsVisibleWelcome(true);
-        setIsVisibleMenu(false);
-    }, []);
+    const onToggleMenu = useCallback(() => setIsVisibleTooltip(!isVisibleTooltip), [isVisibleTooltip]);
+    const onClickLogout = useCallback(() => Router.replace('./sleep'), []);
 
-    const onCloseInfo = useCallback((isOk) => () => setIsVisibleInfo(false), []);
-    const onClickInfo = useCallback(() => {
-        setIsVisibleInfo(true);
-        setIsVisibleMenu(false);
-    }, []);
 
     return(
-        <MenuWrap ref={menuRef}>
+        <Wrap ref={menuRef}>
             <MenuButton onClick={onToggleMenu}>
                 <MenuIcon themecolor={themecolor} />
             </MenuButton>
 
-            <MenuPopup 
-                isVisibleMenu={isVisibleMenu}
-                onClickWelcome={onClickWelcome}
-                onClickInfo={onClickInfo}
-            />
+            {isVisibleTooltip && (
+                    <MenuTooltip className={isVisibleTooltip ? 'active' : ''}>
+                        <List>
+                            <Item>
+                                <ItemButton 
+                                    // onClick={onClickWelcome}
+                                >
+                                    Welcome
+                                </ItemButton>
+                            </Item>
+        
+                            <Item>
+                                <ItemButton 
+                                    // onClick={onClickInfo}
+                                >
+                                    Info
+                                </ItemButton>
+                            </Item>
+        
+                            <Item>
+                                <ItemButton onClick={onClickLogout}>
+                                    Sleep
+                                </ItemButton>
+                            </Item>
+                        </List>
+                    </MenuTooltip>
+                )}
 
             {/* <ModalPopup 
                 visible={isVisibleWelcome} 
@@ -102,7 +147,7 @@ const Menu = ({ themecolor }) => {
                 <ModalContentInfo />
             </ModalPopup> */}
 
-        </MenuWrap>
+        </Wrap>
     );
 };
 

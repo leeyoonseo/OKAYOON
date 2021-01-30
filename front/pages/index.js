@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Head from 'next/head';
 
@@ -9,12 +10,12 @@ import { WHITE_MODE_COLOR } from '../theme/styles';
 import SystemTools from '../components/SystemTools';
 import AppList from '../components/AppList/index';
 
-const LayoutWrap = styled(Layout)`
+const Wrap = styled(Layout)`
     background: #ccc;
     overflow: hidden;
 `;
 
-const HeaderWrap = styled(Layout.Header)`
+const Header = styled(Layout.Header)`
     position: relative;
     padding: 5px 2%;
     height: ${props => props.h}px;
@@ -46,14 +47,14 @@ const GitAnchor = styled.a`
     }
 `;
 
-const HeaderTool = styled.div`
+const AsideHeader = styled.div`
     position: absolute;
     right: 2%;
     display: inline-block;
     vertical-align: top;
 `;
 
-const ContentWrap = styled(Layout.Content)`
+const Content = styled(Layout.Content)`
     display: flex;
     padding: 0 2%;
     height: ${props => props.h}px;
@@ -61,7 +62,7 @@ const ContentWrap = styled(Layout.Content)`
     justify-content: center;
 `;
 
-const FooterWrap = styled(Layout.Footer)`
+const Footer = styled(Layout.Footer)`
     display: flex;
     padding: 0 2%;
     height: ${props => props.h}px;
@@ -74,6 +75,8 @@ const FooterWrap = styled(Layout.Footer)`
 
 const Home = () => {
     const themecolor = WHITE_MODE_COLOR;
+
+    const { modals } = useSelector((state) => state.site);
     const [contH, setContH] = useState(null);
 
     let windowH = null;
@@ -81,6 +84,8 @@ const Home = () => {
     const footerH = 150;
 
     useEffect(() => {
+        console.log(modals);
+
         windowH = window.innerHeight;
         setContH(windowH - headerH - footerH);
     }, []);
@@ -90,8 +95,8 @@ const Home = () => {
             <Head>
                 <title>OKAYOON</title>
             </Head>
-            <LayoutWrap>
-                <HeaderWrap h={headerH}>
+            <Wrap>
+                <Header h={headerH}>
                     <SiteIdentity>
                         <span><SmileOutlined /></span>Kayoon.LEE
                     </SiteIdentity>
@@ -104,19 +109,32 @@ const Home = () => {
                         <GithubOutlined style={{ color: themecolor }}/>
                     </GitAnchor>
 
-                    <HeaderTool>
+                    <AsideHeader>
                         <SystemTools themecolor={themecolor} />    
-                    </HeaderTool>
-                </HeaderWrap>
+                    </AsideHeader>
+                </Header>
 
-                <ContentWrap h={contH}>
-                    cont    
-                </ContentWrap>
+                <Content h={contH}>
+                    {modals?.map((v) => {
+                        if(v){
+                            return (
+                                <ModalPopup 
+                                    key={v.id} 
+                                    visible={isVisibleModal} 
+                                    onCloseModal={onToggleModal} 
+                                    {...v}
+                                >
+                                    <v.content onCloseModal={onToggleModal} />
+                                </ModalPopup>
+                            );
+                        }
+                    })}
+                </Content>
 
-                <FooterWrap h={footerH}>
+                <Footer h={footerH}>
                     <AppList />
-                </FooterWrap>
-            </LayoutWrap>
+                </Footer>
+            </Wrap>
         </>
     );
 };

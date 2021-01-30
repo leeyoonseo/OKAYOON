@@ -78,13 +78,13 @@ const index = () => {
                 icon={<GuestbookIcon />}
                 onClick={onToggleGuestbook(true)}
             >
-                <ModalPopup 
+                {/* <ModalPopup 
                     visible={isVisibleGuestbook} 
                     modal_width="500px"
                     modal_height="500px"
                     title="방명록"
                     onClose={onToggleGuestbook(false)} 
-                />
+                /> */}
             </Items>
                 
 
