@@ -76,7 +76,7 @@ const ModalPopup = (props) => {
                 <Controls>
                     <ControlButton 
                         bgcolor="#ff6059" 
-                        onClick={onCloseModal(false)}
+                        onClick={onCloseModal()}
                     >
                         <CloseIcon />
                     </ControlButton>

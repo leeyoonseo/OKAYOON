@@ -5,6 +5,11 @@ export const initialState = {
     modalDone: false,
     modalError: false,
 
+    modalToggleLoading: false,
+    modalToggleDone: false,
+    modalToggleError: false,
+
+
     modals: [], 
 
     isMuted: false, // 음소거
@@ -26,6 +31,7 @@ export const DELETE_MODAL_FAILURE = 'DELETE_MODAL_FAILURE';
 export const TOGGLE_MODAL_REQUEST = 'TOGGLE_MODAL_REQUEST';
 export const TOGGLE_MODAL_SUCCESS = 'TOGGLE_MODAL_SUCCESS';
 export const TOGGLE_MODAL_FAILURE = 'TOGGLE_MODAL_FAILURE';
+
 
 // export const CHANGE_MUTED = 'CHANGE_MUTED'; // 음소거
 
@@ -50,44 +56,26 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             draft.modalError = true;
             break;
 
-        case DELETE_MODAL_REQUEST:
-            draft.modalLoading = true;
-            draft.modalDone = false;
-            draft.modalError = false;
-            break;
-
-        case DELETE_MODAL_SUCCESS:
-            draft.modalLoading = false;
-            draft.modalDone = true;
-            draft.modalError = false;
-            draft.modals = draft.modals.filter((v) => v.id !== action.data);
-            break;
-
-        case DELETE_MODAL_FAILURE:
-            draft.modalLoading = false;
-            draft.modalDone = false;
-            draft.modalError = true;
-            break;
-
         case TOGGLE_MODAL_REQUEST:
-                draft.modalLoading = true;
-                draft.modalDone = false;
-                draft.modalError = false;
-                break;
+            draft.modalToggleLoading = true;
+            draft.modalToggleDone = false;
+            draft.modalToggleError = false;
+            break;
 
         case TOGGLE_MODAL_SUCCESS: {
-            draft.modalLoading = false;
-            draft.modalDone = true;
-            draft.modalError = false;
             const modal = draft.modals.find((v) => v.id === action.data);
             modal.visible = !modal.visible;
+
+            draft.modalToggleLoading = false;
+            draft.modalToggleDone = true;
+            draft.modalToggleError = false;
             break;
         }
 
         case TOGGLE_MODAL_FAILURE:
-            draft.modalLoading = false;
-            draft.modalDone = false;
-            draft.modalError = true;
+            draft.modalToggleLoading = false;
+            draft.modalToggleDone = false;
+            draft.modalToggleError = true;
             break;
 
         default:

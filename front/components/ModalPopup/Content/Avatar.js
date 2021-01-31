@@ -3,8 +3,8 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { CHANGE_USERINFO_REQUEST } from '../../reducers/user';
-import { DELETE_MODAL_REQUEST } from '../../reducers/site';
+import { CHANGE_USERINFO_REQUEST } from '../../../reducers/user';
+import { DELETE_MODAL_REQUEST } from '../../../reducers/site';
 
 // TODO: 홀수
 const avatarSample = [
@@ -99,7 +99,7 @@ const ModalAvatarContent = ({ onCloseModal }) => {
     return(
         <Wrap>
             <Items 
-                onClick={onCloseModal(false, null)}
+                onClick={onCloseModal(null)}
             >
                 <button>기본이미지</button>
             </Items>
@@ -108,7 +108,7 @@ const ModalAvatarContent = ({ onCloseModal }) => {
                     return (
                         <Items
                             key={`${v.title}-${i}`}
-                            onClick={onCloseModal(false, v.src)}
+                            onClick={onCloseModal(v.src)}
                         >
                             <button>
                                 <img alt={v.title} src={v.src} />
@@ -127,6 +127,23 @@ const ModalAvatarContent = ({ onCloseModal }) => {
 // };
 
 export default ModalAvatarContent;
+
+export const AVATAR_MODAL_ID = 'LU_M_0';
+export const AVATAR_MODAL_DATA = {
+    id: AVATAR_MODAL_ID, // 페이지컴포넌트_모달_인덱스
+    // location: ['50%', '50%', 1],
+    visible: false,
+    size: {
+        w: '500px',
+        h: '500px'
+    },
+    title: "아바타 설정",
+    content: ModalAvatarContent,
+    buttonDisabled : {
+        Maximize: true,
+        Minimization: true
+    },   
+};
 
 // TODO:
 // - 기본 이미지 스타일 수정

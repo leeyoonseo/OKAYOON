@@ -73,7 +73,7 @@ const ItemButton = styled.button`
 
 const Menu = ({ themecolor }) => {
     const menuRef = useRef(null);
-    const [isVisibleTooltip, setIsVisibleTooltip] = useState(false);
+    const [isVisibleMenu, setIsVisiMenu] = useState(false);
 
     useEffect(() => {
         document.addEventListener("click", onClickOutside);
@@ -85,11 +85,11 @@ const Menu = ({ themecolor }) => {
 
     const onClickOutside = useCallback(({ target }) => {
         if (menuRef.current && !menuRef.current.contains(target)) {
-            setIsVisibleTooltip(false);
+            setIsVisiMenu(false);
         }
     }, []);
 
-    const onToggleMenu = useCallback(() => setIsVisibleTooltip(!isVisibleTooltip), [isVisibleTooltip]);
+    const onToggleMenu = useCallback(() => setIsVisiMenu(!isVisibleMenu), [isVisibleMenu]);
     const onClickLogout = useCallback(() => Router.replace('./sleep'), []);
 
 
@@ -99,8 +99,8 @@ const Menu = ({ themecolor }) => {
                 <MenuIcon themecolor={themecolor} />
             </MenuButton>
 
-            {isVisibleTooltip && (
-                    <MenuTooltip className={isVisibleTooltip ? 'active' : ''}>
+            {isVisibleMenu && (
+                    <MenuTooltip className={isVisibleMenu ? 'active' : ''}>
                         <List>
                             <Item>
                                 <ItemButton 

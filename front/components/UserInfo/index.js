@@ -27,7 +27,7 @@ const UserInfo = ({ avatar, nickname, onChangeNickname, forwordRef, onClickModal
                 size={64} 
                 src={avatar ? avatar : null}
                 icon={<UserOutlined />} 
-                onClick={onClickModal(true)}
+                onClick={onClickModal()}
             />
 
             <NicknameArea>

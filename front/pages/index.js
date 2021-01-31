@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import Router from 'next/router';
 import Head from 'next/head';
 
 import { Layout } from 'antd';
@@ -77,17 +78,33 @@ const Home = () => {
     const themecolor = WHITE_MODE_COLOR;
 
     const { modals } = useSelector((state) => state.site);
-    const [contH, setContH] = useState(null);
+    const { userInfo } = useSelector((state) => state.user);
 
+    const [isVisibleWelcome, setIsVisibleWelcome] = useState(null);
+    
+    useEffect(() => {
+        if(!userInfo.nickname.trim()){
+            Router.replace('./login');
+        }
+    }, [ userInfo ]);
+
+    const [contH, setContH] = useState(null);
     let windowH = null;
     const headerH = 35;
     const footerH = 150;
 
     useEffect(() => {
-        console.log(modals);
+        console.log('modals', modals);
 
         windowH = window.innerHeight;
         setContH(windowH - headerH - footerH);
+    }, []);
+
+    const onToggleModal = useCallback((status) => (e) => {
+
+        console.log('e', e.target.id)
+        // setAvatar(src);
+        // setVisibleModal(status);
     }, []);
 
     return (
@@ -115,11 +132,12 @@ const Home = () => {
                 </Header>
 
                 <Content h={contH}>
-                    {modals?.map((v) => {
+                    {/* {modals?.map((v) => {
                         if(v){
                             return (
                                 <ModalPopup 
                                     key={v.id} 
+                                    id={v.id}
                                     visible={isVisibleModal} 
                                     onCloseModal={onToggleModal} 
                                     {...v}
@@ -128,7 +146,7 @@ const Home = () => {
                                 </ModalPopup>
                             );
                         }
-                    })}
+                    })} */}
                 </Content>
 
                 <Footer h={footerH}>

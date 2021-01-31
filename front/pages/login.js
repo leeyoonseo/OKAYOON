@@ -2,23 +2,23 @@ import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import useInput from '../hooks/useInput';
 
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import Head from 'next/head';
 import Link from 'next/link';
 
 import { LOG_IN_REQUEST } from '../reducers/user';
-import { CREATE_MODAL_REQUEST } from '../reducers/site';
+import { CREATE_MODAL_REQUEST, TOGGLE_MODAL_REQUEST } from '../reducers/site';
 
 import UserInfo from '../components/UserInfo/index';
 import SystemTools from '../components/SystemTools';
 
-import { Layout, Button } from 'antd';
+import { Layout, Button, Spin } from 'antd';
 import { LogoutOutlined } from '@ant-design/icons';
 import { DARK_MODE_COLOR } from '../theme/styles';
 import { useSelector } from 'react-redux';
 
 import ModalPopup from '../components/ModalPopup';
-import ModalContentAvatar from '../components/UserInfo/ModalContentAvatar';
+import { AVATAR_MODAL_ID, AVATAR_MODAL_DATA } from '../components/ModalPopup/Content/Avatar';
 
 const bgImageUrl = 'https://t1.daumcdn.net/cfile/tistory/229F4B335966F29A0F';
 
@@ -58,23 +58,26 @@ const ContentInner = styled.div`
     }
 `;
 
-const UserButtons = styled.div`
+const UserButtonArea = styled.div`
     text-align: center;
+`;
 
-    button {
-        padding: 5px 10px;
+const UserButton = styled(Button)`
+    padding: 5px 10px;
+    color: #fff;
+    background: none;
+    border: 1px solid #fff;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
         color: #fff;
+        border-color: #fff;
         background: none;
-        border: 1px solid #fff;
-        cursor: pointer;
-
-        &:hover,
-        &:focus {
-            opacity: 0.8;
-        }
+        opacity: 0.8;
     }
 
-    & > button + button {
+    & + button {
         margin-left: 10px;
     }
 `;
@@ -120,12 +123,17 @@ const Icon = styled(LogoutOutlined)`
     vertical-align: middle;
 `;
 
+const LoadingSpin = styled(Spin)`
+    position: fixed;
+    z-index: 99999;
+`;
+
 const Login = () => {
     const dispatch = useDispatch();
     const inputEl = useRef(null);
 
     const { logInLoading, userInfo } = useSelector((state) => state.user);
-    const { modals } = useSelector((state) => state.site);
+    const { modalToggleLoading, modals } = useSelector((state) => state.site);
 
     const [isVisibleModal, setVisibleModal] = useState(false);
 
@@ -142,28 +150,22 @@ const Login = () => {
         windowH = window.innerHeight;
         setContH(windowH - headerH - footerH);
 
-        dispatch({
-            type: CREATE_MODAL_REQUEST,
-            data:  {
-                id: 'LU_M_0', // 페이지컴포넌트_모달_인덱스
-                // location: ['50%', '50%', 1],
-                size: {
-                    w: '500px',
-                    h: '500px'
-                },
-                title: "아바타 설정",
-                content: ModalContentAvatar,
-                buttonDisabled : {
-                    Maximize: true,
-                    Minimization: true
-                }
-            }
-        });
+        const haveSameModalData = modals.some((v) => v.id === AVATAR_MODAL_ID);
+
+        if(!haveSameModalData){
+            dispatch({
+                type: CREATE_MODAL_REQUEST,
+                data: AVATAR_MODAL_DATA
+            });
+        }
     }, []);
 
-    const onToggleModal = useCallback((status, src = null) => () => {
+    const onToggleModal = useCallback((src = null) => () => {
         setAvatar(src);
-        setVisibleModal(status);
+        dispatch({
+            type: TOGGLE_MODAL_REQUEST,
+            data: AVATAR_MODAL_ID
+        });
     }, []);
 
     const onClickReset = useCallback(() => {
@@ -218,17 +220,19 @@ const Login = () => {
                             onClickModal={onToggleModal} 
                         />
 
-                        <UserButtons>
-                            <button onClick={onClickReset}>초기화</button>
-                            <button onClick={onClickAccess}>접속</button>
-                        </UserButtons>
+                        <UserButtonArea>
+                            <UserButton onClick={onClickReset}>초기화</UserButton>
+                            <UserButton onClick={onClickAccess} loading={logInLoading}>접속</UserButton>
+                        </UserButtonArea>
                     </ContentInner>
 
+                    {modalToggleLoading && <LoadingSpin />}
                     {modals?.map((v) => {
                         if(v){
                             return (
                                 <ModalPopup 
                                     key={v.id} 
+                                    id={v.id}
                                     visible={isVisibleModal} 
                                     onCloseModal={onToggleModal} 
                                     {...v}

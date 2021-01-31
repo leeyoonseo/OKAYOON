@@ -1,7 +1,8 @@
 import { all, fork, put, takeLatest, delay } from 'redux-saga/effects';
 import { 
     CREATE_MODAL_REQUEST, CREATE_MODAL_SUCCESS, CREATE_MODAL_FAILURE,
-    DELETE_MODAL_REQUEST, DELETE_MODAL_SUCCESS, DELETE_MODAL_FAILURE,
+    DELETE_MODAL_REQUEST, DELETE_MODAL_SUCCESS, DELETE_MODAL_FAILURE, 
+    TOGGLE_MODAL_REQUEST, TOGGLE_MODAL_SUCCESS, TOGGLE_MODAL_FAILURE,
 } from '../reducers/site';
 
 function CreateModalAPI(data){
@@ -60,10 +61,39 @@ function* watchDeleteModal(){
     yield takeLatest(DELETE_MODAL_REQUEST, DeleteModal);
 }
 
+function ToggleModalAPI(data){
+    // 통신 작업할 것
+};
+
+function* ToggleModal(action){
+    try{
+        // const result = yield call(ToggleModalAPI);
+        // 임시
+        console.log('ToggleModal', action.data);
+        yield delay(1000);
+        yield put({
+            type: TOGGLE_MODAL_SUCCESS,
+            data: action.data
+        });
+
+    }catch(err){
+        console.error(err);
+        yield put({
+            type: TOGGLE_MODAL_FAILURE,
+            error: err.response.data
+        })
+    }
+}
+
+function* watchToggleModal(){ 
+    yield takeLatest(TOGGLE_MODAL_REQUEST, ToggleModal);
+}
+
 export default function* userSaga(){
     yield all([
         fork(watchCreateModal),
         fork(watchDeleteModal),
+        fork(watchToggleModal),
     ]);
 }
 
