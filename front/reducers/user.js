@@ -1,4 +1,5 @@
 import produce from '../util/produce';
+import Router from 'next/router';
 
 export const initialState = {
     logInLoading: false, // 로그인 시도
@@ -44,11 +45,9 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             draft.logInLoading = false;
             draft.logInDone = true;
             draft.logInError = false;
-            draft.userInfo.nickname = action.data.nickname;
-            
-            if(action.data.avatar){
-                draft.userInfo.avatar = action.data.avatar;
-            }
+            draft.userInfo = action.data;
+
+            Router.replace('/');
             break;
         }
 

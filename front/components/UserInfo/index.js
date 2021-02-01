@@ -3,22 +3,32 @@ import { useDispatch, useSelector } from 'react-redux';
 import useInput from '../../hooks/useInput';
 
 
-import { UserOutlined, CloseOutlined } from '@ant-design/icons';
+import { UserOutlined, CloseOutlined, CheckOutlined } from '@ant-design/icons';
 import {
-    Wrap, AvatarButton, UserIcon, 
-    NicknameArea,NicknameInputWrap, NicknameInput, Nickname,
-    CloseButton, ResetButton, AccessButton, SourceText,
+    Wrap, AvatarButton, 
+    NicknameArea,NicknameInputWrap, NicknameInput, UserIcon, Nickname,
+    CloseButton, CheckButton
 } from './style';
 
-const UserInfo = ({ avatar, nickname, onChangeNickname, forwordRef, onClickModal }) => {
+const UserInfo = ({ avatar, nickname, setNickname, forwordRef, onClickModal }) => {
+    const dispatch = useDispatch();
     const { userInfo } = useSelector((state) => state.user);
 
     useEffect(() => {
-        forwordRef && forwordRef.current.focus();
+        forwordRef.current && forwordRef.current.focus();
+
+        if(userInfo.nickname){
+            setNickname(userInfo.nickname);
+        }
     }, []);
 
     const onRemoveNickname = useCallback(() => {
-        onChangeNickname('');
+        setNickname('');
+    }, []);
+
+    const onSaveNickname = useCallback(() => {
+        const val = forwordRef.current.value; 
+        setNickname(val);
     }, []);
 
     return(
@@ -27,12 +37,12 @@ const UserInfo = ({ avatar, nickname, onChangeNickname, forwordRef, onClickModal
                 size={64} 
                 src={avatar ? avatar : null}
                 icon={<UserOutlined />} 
-                onClick={onClickModal()}
+                onClick={onClickModal}
             />
 
             <NicknameArea>
                 {
-                    userInfo.nickname 
+                    nickname 
                     ? (
                         <Nickname className="nickname">
                             <span>{nickname}</span>
@@ -42,7 +52,6 @@ const UserInfo = ({ avatar, nickname, onChangeNickname, forwordRef, onClickModal
                             </CloseButton>
                         </Nickname>
                     ) : (
-
                         <NicknameInputWrap>
                             <UserIcon />
 
@@ -51,8 +60,11 @@ const UserInfo = ({ avatar, nickname, onChangeNickname, forwordRef, onClickModal
                                 maxLenght="10"
                                 placeholder="Please your nickname" 
                                 ref={forwordRef}
-                                onChange={onChangeNickname}
                             />
+
+                            <CheckButton onClick={onSaveNickname}>
+                                <CheckOutlined />
+                            </CheckButton>
                         </NicknameInputWrap>
                     )
                 } 

@@ -18,13 +18,7 @@ export const NicknameArea = styled.div`
     margin-bottom: 10px;
 `;
 
-export const UserIcon = styled(UserOutlined)`
-    color: #fff;
-    opacity: 0.8;
-`;
-
 export const NicknameInputWrap = styled.div`
-    padding: 6px;
     height: 36px;
     border: 1px solid #fff;
     border-radius: 3px;
@@ -32,9 +26,18 @@ export const NicknameInputWrap = styled.div`
     box-sizing: border-box;
 `;
 
+export const UserIcon = styled(UserOutlined)`
+    display: inline-block;
+    width: 10%; 
+    color: #fff;
+    text-align: right;
+    opacity: 0.8;
+    box-sizing: border-box;
+`;
+
 export const NicknameInput = styled.input`
+    margin: 6px 0;
     padding: 0 5px;
-    margin-left: 5px;
     width: 80%;
     height: 24px;
     border: none;
@@ -59,6 +62,22 @@ export const Nickname = styled.div`
     height: 36px;
     padding: 6px 0;
     box-sizing: border-box;
+`;
+
+export const CheckButton = styled.button`
+    width: 10%;
+    height: 100%;
+    color: #fff;
+    border: none;
+    border-left: 1px solid #fff;
+    background: none;
+    outline: none; 
+    cursor: pointer;
+
+    &:hover,
+    &:focus { 
+        background: none;
+    }
 `;
 
 export const CloseButton = styled.button`

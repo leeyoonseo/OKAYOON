@@ -125,7 +125,13 @@ const Icon = styled(LogoutOutlined)`
 
 const LoadingSpin = styled(Spin)`
     position: fixed;
+    color: #fff;
     z-index: 99999;
+    opacity: 0.5;
+
+    i { 
+        background: #fff;
+    }
 `;
 
 const Login = () => {
@@ -138,8 +144,8 @@ const Login = () => {
     const [isVisibleModal, setVisibleModal] = useState(false);
 
     const [contH, setContH] = useState(null);
-    const [avatar, setAvatar] = useState(userInfo?.avatar || '');
-    const [nickname, onChangeNickname, setNickname] = useInput(userInfo?.nickname || '');
+    const [avatar, setAvatar] = useState(userInfo.avatar ? userInfo.avatar : null);
+    const [nickname, onChangeNickname, setNickname] = useInput(userInfo.nickname ? userInfo.nickname : '');
 
     const themecolor = DARK_MODE_COLOR;
     let windowH = null;
@@ -160,8 +166,16 @@ const Login = () => {
         }
     }, []);
 
-    const onToggleModal = useCallback((src = null) => () => {
-        setAvatar(src);
+    const onClickModal = useCallback(() => {
+        dispatch({
+            type: TOGGLE_MODAL_REQUEST,
+            data: AVATAR_MODAL_ID
+        });
+    }, []);
+
+    const onCloseModal = useCallback((status, src = null) => () =>  {
+        status && setAvatar(src);
+        
         dispatch({
             type: TOGGLE_MODAL_REQUEST,
             data: AVATAR_MODAL_ID
@@ -178,23 +192,20 @@ const Login = () => {
 
     const onClickAccess = useCallback(() => {
         const data = {};
-        const inputVal = inputEl.current.value;
 
-        if(!nickname.trim() && !inputVal.trim()){
+        if(!nickname){
             setNickname('Guest');
             data.nickname = 'Guest';
-        }else{
-            setNickname(inputVal);
-            data.nickname = inputVal;
+            
+        }else {
+            data.nickname = nickname;
         }
 
-        if(avatar !== null){
-            data.avatar = avatar;
-        }
+        data.avatar = avatar;
 
         dispatch({
             type: LOG_IN_REQUEST,
-            data
+            data: data
         });
     }, [nickname, avatar]);
 
@@ -215,18 +226,21 @@ const Login = () => {
                         <UserInfo 
                             avatar={avatar} 
                             nickname={nickname} 
-                            onChangeNickname={onChangeNickname}
+                            setNickname={setNickname}
                             forwordRef={inputEl}
-                            onClickModal={onToggleModal} 
+                            onClickModal={onClickModal} 
                         />
 
                         <UserButtonArea>
                             <UserButton onClick={onClickReset}>초기화</UserButton>
-                            <UserButton onClick={onClickAccess} loading={logInLoading}>접속</UserButton>
+                            <UserButton 
+                                onClick={onClickAccess} 
+                                loading={logInLoading}
+                            >접속</UserButton>
                         </UserButtonArea>
                     </ContentInner>
 
-                    {modalToggleLoading && <LoadingSpin />}
+                    {modalToggleLoading && <LoadingSpin tip="Loading..." size="large"/>}
                     {modals?.map((v) => {
                         if(v){
                             return (
@@ -234,10 +248,10 @@ const Login = () => {
                                     key={v.id} 
                                     id={v.id}
                                     visible={isVisibleModal} 
-                                    onCloseModal={onToggleModal} 
+                                    onCloseModal={onCloseModal} 
                                     {...v}
                                 >
-                                    <v.content onCloseModal={onToggleModal} />
+                                    <v.content onCloseModal={onCloseModal} />
                                 </ModalPopup>
                             );
                         }

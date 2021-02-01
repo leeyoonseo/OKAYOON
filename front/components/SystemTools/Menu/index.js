@@ -90,7 +90,7 @@ const Menu = ({ themecolor }) => {
     }, []);
 
     const onToggleMenu = useCallback(() => setIsVisiMenu(!isVisibleMenu), [isVisibleMenu]);
-    const onClickLogout = useCallback(() => Router.replace('./sleep'), []);
+    const onClickLogout = useCallback(() => Router.replace('./login'), []);
 
 
     return(
@@ -120,7 +120,7 @@ const Menu = ({ themecolor }) => {
         
                             <Item>
                                 <ItemButton onClick={onClickLogout}>
-                                    Sleep
+                                    Logout
                                 </ItemButton>
                             </Item>
                         </List>

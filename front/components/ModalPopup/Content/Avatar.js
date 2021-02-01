@@ -99,7 +99,7 @@ const ModalAvatarContent = ({ onCloseModal }) => {
     return(
         <Wrap>
             <Items 
-                onClick={onCloseModal(null)}
+                onClick={onCloseModal(true, null)}
             >
                 <button>기본이미지</button>
             </Items>
@@ -108,7 +108,7 @@ const ModalAvatarContent = ({ onCloseModal }) => {
                     return (
                         <Items
                             key={`${v.title}-${i}`}
-                            onClick={onCloseModal(v.src)}
+                            onClick={onCloseModal(true, v.src)}
                         >
                             <button>
                                 <img alt={v.title} src={v.src} />
