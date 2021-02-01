@@ -13,7 +13,10 @@ export default Gallery;
 export const GALLERY_MODAL_ID = 'MG_M_0'; // 페이지컴포넌트_모달_인덱스
 export const GALLERY_MODAL_DATA = {
     id: GALLERY_MODAL_ID,
-    location: ['50%', '50%'],
+    location: {
+        x: '50%',
+        y: '50%'
+    },
     visible: false,
     size: {
         w: '200px',

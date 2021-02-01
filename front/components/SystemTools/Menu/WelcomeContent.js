@@ -14,8 +14,8 @@ export const WELCOME_MODAL_ID = 'MW_M_0'; // 페이지컴포넌트_모달_인덱
 export const WELCOME_MODAL_DATA = {
     id: WELCOME_MODAL_ID,
     location: {
-        x: 50,
-        y: 50
+        x: '50%',
+        y: '50%'
     },
     visible: false,
     size: {

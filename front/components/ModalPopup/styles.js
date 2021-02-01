@@ -20,12 +20,11 @@ import { CloseOutlined, MinusOutlined, FullscreenOutlined } from '@ant-design/ic
 //         opacity: 1;
 //     }
 // `;
-
-export const Wrap = styled(Layout)`
+export const Wrap = styled.div`
     display: none;
     position: fixed;
-    top: ${props => props.x}%;
-    left: ${props => props.y}%;
+    top: ${props => props.x};
+    left: ${props => props.y};
     width: ${props => props.w};
     height: ${props => props.h};
     border-radius: 5px;
@@ -61,6 +60,11 @@ export const Wrap = styled(Layout)`
     }
 `;
 
+export const WrapInner = styled(Layout)`
+    width: 100%;
+    height: 100%;
+`;
+
 export const Header = styled(Layout.Header)`
     padding: 10px 3%;
     position: relative;
@@ -69,6 +73,10 @@ export const Header = styled(Layout.Header)`
     line-height: 1;
     background: #dedede;
     color: #333;
+
+    &.active {
+        cursor: move;
+    }
 `;
 
 export const Content = styled(Layout.Content)`

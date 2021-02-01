@@ -56,7 +56,6 @@ const Menu = ({ themecolor }) => {
     }, [modals]);
 
     const onClickItem = useCallback((id) => () => {
-        console.log('onClickItem', id)
         createModal(id);
         setIsVisiMenu(false);
             
