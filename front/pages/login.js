@@ -153,19 +153,20 @@ const Login = () => {
         }
     }, []);
 
-    const onClickModal = useCallback(() => {
-        dispatch({
-            type: TOGGLE_MODAL_REQUEST,
-            data: AVATAR_MODAL_ID
-        });
-    }, []);
+    /**
+     * @params {string} id: 팝업 아이디
+     * @params src: 아바타 이미지 주소 
+     * - 1. Avatar 컴포넌트 기본이미지 세팅은 문자열 'default'를 전달받는 것을 기준으로 한다.
+     */
+    const onToggleModal = useCallback((id, src = null) => () => {
+        if(src !== null){
+            if(src === 'default') src = null; // 1.
+            setAvatar(src);
+        }
 
-    const onCloseModal = useCallback((status, src = null) => () =>  {
-        status && setAvatar(src);
-        
         dispatch({
             type: TOGGLE_MODAL_REQUEST,
-            data: AVATAR_MODAL_ID
+            data: id
         });
     }, []);
 
@@ -215,7 +216,8 @@ const Login = () => {
                             nickname={nickname} 
                             setNickname={setNickname}
                             forwordRef={inputEl}
-                            onClickModal={onClickModal} 
+                            id={AVATAR_MODAL_ID}
+                            onClickModal={onToggleModal} 
                         />
 
                         <UserButtonArea>
@@ -235,10 +237,10 @@ const Login = () => {
                                     key={v.id} 
                                     id={v.id}
                                     visible={v.visible} 
-                                    onCloseModal={onCloseModal} 
+                                    onCloseModal={onToggleModal} 
                                     {...v}
                                 >
-                                    <v.content onCloseModal={onCloseModal} />
+                                    <v.content id={v.id} onCloseModal={onToggleModal} />
                                 </ModalPopup>
                             );
                         }

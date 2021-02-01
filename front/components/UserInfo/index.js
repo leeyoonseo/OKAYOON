@@ -10,7 +10,7 @@ import {
     CloseButton, CheckButton
 } from './style';
 
-const UserInfo = ({ avatar, nickname, setNickname, forwordRef, onClickModal }) => {
+const UserInfo = ({ id, avatar, nickname, setNickname, forwordRef, onClickModal }) => {
     const dispatch = useDispatch();
     const { userInfo } = useSelector((state) => state.user);
 
@@ -37,7 +37,7 @@ const UserInfo = ({ avatar, nickname, setNickname, forwordRef, onClickModal }) =
                 size={64} 
                 src={avatar ? avatar : null}
                 icon={<UserOutlined />} 
-                onClick={onClickModal}
+                onClick={onClickModal(id)}
             />
 
             <NicknameArea>

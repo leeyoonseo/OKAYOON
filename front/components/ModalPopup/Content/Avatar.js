@@ -95,11 +95,11 @@ const SourceText = styled.span`
     color:#aaa;
 `;
 
-const ModalAvatarContent = ({ onCloseModal }) => {
+const ModalAvatarContent = ({ id, onCloseModal }) => {
     return(
         <Wrap>
             <Items 
-                onClick={onCloseModal(true, null)}
+                onClick={onCloseModal(id, 'default')}
             >
                 <button>기본이미지</button>
             </Items>
@@ -108,7 +108,7 @@ const ModalAvatarContent = ({ onCloseModal }) => {
                     return (
                         <Items
                             key={`${v.title}-${i}`}
-                            onClick={onCloseModal(true, v.src)}
+                            onClick={onCloseModal(id, v.src)}
                         >
                             <button>
                                 <img alt={v.title} src={v.src} />

@@ -15,6 +15,7 @@ import { useDispatch } from 'react-redux';
 const ModalPopup = (props) => {
     const dispatch = useDispatch();
     const {
+        id,
         onCloseModal,
         visible,
         location, 
@@ -49,7 +50,7 @@ const ModalPopup = (props) => {
                 <Controls>
                     <ControlButton 
                         bgcolor="#ff6059" 
-                        onClick={onCloseModal(false)}
+                        onClick={onCloseModal(id)}
                     >
                         <CloseIcon />
                     </ControlButton>

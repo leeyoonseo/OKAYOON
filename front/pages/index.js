@@ -1,8 +1,10 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Router from 'next/router';
 import Head from 'next/head';
+
+import { TOGGLE_MODAL_REQUEST } from '../reducers/site';
 
 import { Layout } from 'antd';
 import { SmileOutlined, GithubOutlined } from '@ant-design/icons';
@@ -11,7 +13,7 @@ import { WHITE_MODE_COLOR } from '../theme/styles';
 import SystemTools from '../components/SystemTools';
 import AppList from '../components/AppList/index';
 import ModalPopup from '../components/ModalPopup/index';
-import { WELCOME_MODAL_ID, WELCOME_MODAL_DATA } from '../components/ModalPopup/Content/Welcome';
+import Loading from '../components/Loading';
 
 const Wrap = styled(Layout)`
     background: #ccc;
@@ -78,26 +80,34 @@ const Footer = styled(Layout.Footer)`
 
 const Home = () => {
     const themecolor = WHITE_MODE_COLOR;
-
+    const dispatch = useDispatch();
     const { modals, modalToggleLoading } = useSelector((state) => state.site);
     const { userInfo } = useSelector((state) => state.user);
-
-    useEffect(() => {
-        if(!userInfo.nickname.trim()){
-            Router.replace('./login');
-        }
-    }, [ userInfo ]);
-
     const [contH, setContH] = useState(null);
     let windowH = null;
     const headerH = 35;
     const footerH = 150;
 
-    useEffect(() => {
-        console.log('index, modals', modals);
+    // TODO: 페이지 작업 완료 후 확인
+    // useEffect(() => {
+    //     if(!userInfo.nickname.trim()){
+    //         Router.replace('./login');
+    //     }
+    // }, [ userInfo ]);
 
+    useEffect(() => {
         windowH = window.innerHeight;
         setContH(windowH - headerH - footerH);
+    }, []);
+
+    /**
+     * @params {string} id: 팝업 아이디
+     */
+    const onToggleModal = useCallback((id) => () => {
+        dispatch({
+            type: TOGGLE_MODAL_REQUEST,
+            data: id
+        });
     }, []);
 
     return (
@@ -133,11 +143,12 @@ const Home = () => {
                                     key={v.id} 
                                     id={v.id}
                                     visible={v.visible} 
-                                    // onCloseModal={onCloseModal} 
+                                    onCloseModal={onToggleModal} 
                                     {...v}
                                 >
                                     <v.content 
-                                        // onCloseModal={onCloseModal}
+                                        id={v.id}
+                                        onCloseModal={onToggleModal}
                                     />  
                                 </ModalPopup>
                             );

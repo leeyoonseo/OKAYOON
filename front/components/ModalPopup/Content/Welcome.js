@@ -10,7 +10,7 @@ const ModalWelcomeContent = () => {
 
 export default ModalWelcomeContent;
 
-export const WELCOME_MODAL_ID = 'IW_M_0'; // 페이지컴포넌트_모달_인덱스
+export const WELCOME_MODAL_ID = 'MW_M_0'; // 페이지컴포넌트_모달_인덱스
 export const WELCOME_MODAL_DATA = {
     id: WELCOME_MODAL_ID,
     // location: ['50%', '50%', 1],

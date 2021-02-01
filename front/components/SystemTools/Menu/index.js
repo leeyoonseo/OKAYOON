@@ -2,9 +2,10 @@ import React, { useRef, useEffect, useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Router from 'next/router';
 
-import { CREATE_MODAL_REQUEST } from '../../../reducers/site';
+import { CREATE_MODAL_REQUEST, TOGGLE_MODAL_REQUEST } from '../../../reducers/site';
 
 import { WELCOME_MODAL_ID, WELCOME_MODAL_DATA } from '../../ModalPopup/Content/Welcome';
+import { INFO_MODAL_ID, INFO_MODAL_DATA } from '../../ModalPopup/Content/Info';
 
 import { 
     Wrap, MenuButton, MenuIcon, MenuTooltip, 
@@ -25,17 +26,17 @@ const Menu = ({ themecolor }) => {
         };
     }, []);
 
-    useEffect(() => {
-        const modal = modals.find((v) => v.id === WELCOME_MODAL_ID);
-        console.log('menu, index modals', modal);
+    // useEffect(() => {
+    //     const modal = modals.find((v) => v.id === WELCOME_MODAL_ID);
+    //     console.log('menu, index modals', modal);
 
-        if(!modal){
-            dispatch({
-                type: CREATE_MODAL_REQUEST,
-                data: WELCOME_MODAL_DATA
-            })
-        }
-    }, []);
+    //     if(!modal){
+    //         dispatch({
+    //             type: CREATE_MODAL_REQUEST,
+    //             data: WELCOME_MODAL_DATA
+    //         })
+    //     }
+    // }, []);
 
     const onClickOutside = useCallback(({ target }) => {
         if (menuRef.current && !menuRef.current.contains(target)) {
@@ -46,10 +47,37 @@ const Menu = ({ themecolor }) => {
     const onToggleMenu = useCallback(() => setIsVisiMenu(!isVisibleMenu), [isVisibleMenu]);
     const onClickLogout = useCallback(() => Router.replace('./login'), []);
 
-    const onClickWelcome = useCallback(() => {
-        console.log('onClickWelcome.');
+    const createModal = useCallback((id) => {
+        if(modals.find((v) => v.id === id)){
+            return false;
+        }
+        
+        let data = '';
+        
+        // D: Welcome
+        if(id === WELCOME_MODAL_ID){
+            data = WELCOME_MODAL_DATA;
+        } else if(id === INFO_MODAL_ID){
+            data = INFO_MODAL_DATA;
+        }
+
+        console.log('==================createModal');
+        dispatch({
+            type: CREATE_MODAL_REQUEST,
+            data: data
+        })
+    }, [modals]);
+
+    const onClickItem = useCallback((id) => () => {
+        console.log('onClickItem', id)
+        createModal(id);
         setIsVisiMenu(false);
-    }, []);
+            
+        dispatch({
+            type: TOGGLE_MODAL_REQUEST,
+            data: id
+        });
+    }, [modals]);
 
     return(
         <Wrap ref={menuRef}>
@@ -62,7 +90,7 @@ const Menu = ({ themecolor }) => {
                         <List>
                             <Item>
                                 <ItemButton 
-                                    onClick={onClickWelcome}    
+                                    onClick={onClickItem(WELCOME_MODAL_ID)}    
                                 >
                                     Welcome
                                 </ItemButton>
@@ -70,7 +98,7 @@ const Menu = ({ themecolor }) => {
         
                             <Item>
                                 <ItemButton 
-                                    // onClick={onClickInfo}
+                                    onClick={onClickItem(INFO_MODAL_ID)}
                                 >
                                     Info
                                 </ItemButton>
