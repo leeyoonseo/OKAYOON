@@ -10,6 +10,8 @@ import { WHITE_MODE_COLOR } from '../theme/styles';
 
 import SystemTools from '../components/SystemTools';
 import AppList from '../components/AppList/index';
+import ModalPopup from '../components/ModalPopup/index';
+import { WELCOME_MODAL_ID, WELCOME_MODAL_DATA } from '../components/ModalPopup/Content/Welcome';
 
 const Wrap = styled(Layout)`
     background: #ccc;
@@ -77,11 +79,9 @@ const Footer = styled(Layout.Footer)`
 const Home = () => {
     const themecolor = WHITE_MODE_COLOR;
 
-    const { modals } = useSelector((state) => state.site);
+    const { modals, modalToggleLoading } = useSelector((state) => state.site);
     const { userInfo } = useSelector((state) => state.user);
 
-    const [isVisibleWelcome, setIsVisibleWelcome] = useState(null);
-    
     useEffect(() => {
         if(!userInfo.nickname.trim()){
             Router.replace('./login');
@@ -94,17 +94,10 @@ const Home = () => {
     const footerH = 150;
 
     useEffect(() => {
-        console.log('modals', modals);
+        console.log('index, modals', modals);
 
         windowH = window.innerHeight;
         setContH(windowH - headerH - footerH);
-    }, []);
-
-    const onToggleModal = useCallback((status) => (e) => {
-
-        console.log('e', e.target.id)
-        // setAvatar(src);
-        // setVisibleModal(status);
     }, []);
 
     return (
@@ -132,21 +125,24 @@ const Home = () => {
                 </Header>
 
                 <Content h={contH}>
-                    {/* {modals?.map((v) => {
+                    {modalToggleLoading && <Loading />}
+                    {modals?.map((v) => {
                         if(v){
                             return (
                                 <ModalPopup 
                                     key={v.id} 
                                     id={v.id}
-                                    visible={isVisibleModal} 
-                                    onCloseModal={onToggleModal} 
+                                    visible={v.visible} 
+                                    // onCloseModal={onCloseModal} 
                                     {...v}
                                 >
-                                    <v.content onCloseModal={onToggleModal} />
+                                    <v.content 
+                                        // onCloseModal={onCloseModal}
+                                    />  
                                 </ModalPopup>
                             );
                         }
-                    })} */}
+                    })}
                 </Content>
 
                 <Footer h={footerH}>

@@ -11,14 +11,14 @@ import { CREATE_MODAL_REQUEST, TOGGLE_MODAL_REQUEST } from '../reducers/site';
 
 import UserInfo from '../components/UserInfo/index';
 import SystemTools from '../components/SystemTools';
+import Loading from '../components/Loading';
+import ModalPopup from '../components/ModalPopup';
+import { AVATAR_MODAL_ID, AVATAR_MODAL_DATA } from '../components/ModalPopup/Content/Avatar';
 
-import { Layout, Button, Spin } from 'antd';
+import { Layout, Button } from 'antd';
 import { LogoutOutlined } from '@ant-design/icons';
 import { DARK_MODE_COLOR } from '../theme/styles';
 import { useSelector } from 'react-redux';
-
-import ModalPopup from '../components/ModalPopup';
-import { AVATAR_MODAL_ID, AVATAR_MODAL_DATA } from '../components/ModalPopup/Content/Avatar';
 
 const bgImageUrl = 'https://t1.daumcdn.net/cfile/tistory/229F4B335966F29A0F';
 
@@ -123,25 +123,12 @@ const Icon = styled(LogoutOutlined)`
     vertical-align: middle;
 `;
 
-const LoadingSpin = styled(Spin)`
-    position: fixed;
-    color: #fff;
-    z-index: 99999;
-    opacity: 0.5;
-
-    i { 
-        background: #fff;
-    }
-`;
-
 const Login = () => {
     const dispatch = useDispatch();
     const inputEl = useRef(null);
 
     const { logInLoading, userInfo } = useSelector((state) => state.user);
     const { modalToggleLoading, modals } = useSelector((state) => state.site);
-
-    const [isVisibleModal, setVisibleModal] = useState(false);
 
     const [contH, setContH] = useState(null);
     const [avatar, setAvatar] = useState(userInfo.avatar ? userInfo.avatar : null);
@@ -240,14 +227,14 @@ const Login = () => {
                         </UserButtonArea>
                     </ContentInner>
 
-                    {modalToggleLoading && <LoadingSpin tip="Loading..." size="large"/>}
+                    {modalToggleLoading && <Loading />}
                     {modals?.map((v) => {
                         if(v){
                             return (
                                 <ModalPopup 
                                     key={v.id} 
                                     id={v.id}
-                                    visible={isVisibleModal} 
+                                    visible={v.visible} 
                                     onCloseModal={onCloseModal} 
                                     {...v}
                                 >

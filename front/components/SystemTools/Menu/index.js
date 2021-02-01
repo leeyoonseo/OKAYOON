@@ -1,77 +1,19 @@
 import React, { useRef, useEffect, useCallback, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Router from 'next/router';
-import styled from 'styled-components';
 
-import { MenuOutlined } from '@ant-design/icons';
+import { CREATE_MODAL_REQUEST } from '../../../reducers/site';
 
-const Wrap = styled.div`
-    position: relative;
-`;
+import { WELCOME_MODAL_ID, WELCOME_MODAL_DATA } from '../../ModalPopup/Content/Welcome';
 
-const MenuButton = styled.button`
-    padding: 0;
-    background: none;
-    border: none;
-    cursor: pointer;
-    outline: none;
-
-    &:hover,
-    &:focus {
-        background: none;
-    }
-
-    &:hover,
-    &:focus,
-    &.active{
-        opacity: 0.5;
-    }
-`;
-
-const MenuIcon = styled(MenuOutlined)`
-    font-size: 17px;
-    color: ${props => props.themecolor};
-`;
-
-const MenuTooltip = styled.div`
-    position: absolute;
-    top: 30px;
-    right: 0;
-    padding-top: 15px;
-    display: none;
-    width: 80px;
-    height: 125px;
-    background: rgba(0, 0, 0, 0.4); 
-    clip-path: polygon(90% 10%,100% 10%,100% 100%,0 100%,0 10%,74% 10%,90% 0);
-
-    &.active {
-        display: block;
-    }
-`;
-
-const List = styled.ul`
-    padding: 0;
-    list-style: none;
-`;
-
-const Item = styled.li`
-    padding: 10px 0;
-    text-align: center;
-`;
-
-const ItemButton = styled.button`
-    border: none;
-    background: none;
-    outline: none;
-    cursor: pointer;
-
-    &:hover,
-    &:focus {
-        opacity: 0.5;
-        background: none;
-    }
-`;
+import { 
+    Wrap, MenuButton, MenuIcon, MenuTooltip, 
+    List, Item, ItemButton,
+} from './style';
 
 const Menu = ({ themecolor }) => {
+    const dispatch = useDispatch();
+    const { modals } = useSelector((state) => state.site);
     const menuRef = useRef(null);
     const [isVisibleMenu, setIsVisiMenu] = useState(false);
 
@@ -83,6 +25,18 @@ const Menu = ({ themecolor }) => {
         };
     }, []);
 
+    useEffect(() => {
+        const modal = modals.find((v) => v.id === WELCOME_MODAL_ID);
+        console.log('menu, index modals', modal);
+
+        if(!modal){
+            dispatch({
+                type: CREATE_MODAL_REQUEST,
+                data: WELCOME_MODAL_DATA
+            })
+        }
+    }, []);
+
     const onClickOutside = useCallback(({ target }) => {
         if (menuRef.current && !menuRef.current.contains(target)) {
             setIsVisiMenu(false);
@@ -92,6 +46,10 @@ const Menu = ({ themecolor }) => {
     const onToggleMenu = useCallback(() => setIsVisiMenu(!isVisibleMenu), [isVisibleMenu]);
     const onClickLogout = useCallback(() => Router.replace('./login'), []);
 
+    const onClickWelcome = useCallback(() => {
+        console.log('onClickWelcome.');
+        setIsVisiMenu(false);
+    }, []);
 
     return(
         <Wrap ref={menuRef}>
@@ -104,7 +62,7 @@ const Menu = ({ themecolor }) => {
                         <List>
                             <Item>
                                 <ItemButton 
-                                    // onClick={onClickWelcome}
+                                    onClick={onClickWelcome}    
                                 >
                                     Welcome
                                 </ItemButton>

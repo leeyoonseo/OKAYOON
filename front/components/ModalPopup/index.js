@@ -11,34 +11,7 @@ import {
 } from './styles';
 import { useDispatch } from 'react-redux';
 
-/** 
- * @example 
- * <ModalPopup 
-    visible={isVisible}
-    button_disabled={{
-        Maximize: true,
-        Minimization: true
-    }}
-    modal_width="500px"
-    modal_height="500px"
-    title="아바타 설정"
-    onClose={onCloseModal} 
->
-    <Guestbook />
-</ModalPopup>
-*/
-
-/**
- * @param {object} button_disabled: 버튼 비활성화
- * @param {boolean} button_disabled.Maximize: 최대화 버튼 비활성화 여부
- * @param {boolean} button_disabled.Minimization: 최소화 버튼 비활성화 여부
- * @param {string} modal_width: 모달 너비
- * @param {string} modal_height: 모달 높이
- * @param {boolean} visible: 모달 노출 여부
- * @param {string} title: 타이틀 텍스트
- * @param {any} children: 모달 컨텐츠
- * @param {function} onClick: 모달 여닫기 이벤트
- */
+// TODO: params, props관련 주석달까?
 const ModalPopup = (props) => {
     const dispatch = useDispatch();
     const {
