@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ModalWelcomeContent = () => {
+const WelcomeContent = () => {
     return (
         <div>
             Welcome!
@@ -8,7 +8,7 @@ const ModalWelcomeContent = () => {
     );
 };
 
-export default ModalWelcomeContent;
+export default WelcomeContent;
 
 export const WELCOME_MODAL_ID = 'MW_M_0'; // 페이지컴포넌트_모달_인덱스
 export const WELCOME_MODAL_DATA = {
@@ -20,7 +20,7 @@ export const WELCOME_MODAL_DATA = {
         h: '300px'
     },
     title: "Welcome",
-    content: ModalWelcomeContent,
+    content: WelcomeContent,
     buttonDisabled : {
         Maximize: true,
         Minimization: true

@@ -15,7 +15,7 @@ const LoadingSpin = styled(Spin)`
 `;
 
 const Loading = () => {
-    return <LoadingSpin tip="Loading..." size="large"/>;
+    return <LoadingSpin size="large"/>;
 };
 
 export default Loading;

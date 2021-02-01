@@ -3,8 +3,8 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { CHANGE_USERINFO_REQUEST } from '../../../reducers/user';
-import { DELETE_MODAL_REQUEST } from '../../../reducers/site';
+import { CHANGE_USERINFO_REQUEST } from '../../reducers/user';
+import { DELETE_MODAL_REQUEST } from '../../reducers/site';
 
 // TODO: 홀수
 const avatarSample = [
@@ -95,7 +95,7 @@ const SourceText = styled.span`
     color:#aaa;
 `;
 
-const ModalAvatarContent = ({ id, onCloseModal }) => {
+const AvatarContent = ({ id, onCloseModal }) => {
     return(
         <Wrap>
             <Items 
@@ -122,11 +122,11 @@ const ModalAvatarContent = ({ id, onCloseModal }) => {
     );
 };
 
-// ModalAvatarContent.propTypes = {
+// AvatarContent.propTypes = {
 //     onCloseModal: PropTypes.func.isRequired,
 // };
 
-export default ModalAvatarContent;
+export default AvatarContent;
 
 export const AVATAR_MODAL_ID = 'LU_M_0';
 export const AVATAR_MODAL_DATA = {
@@ -138,7 +138,7 @@ export const AVATAR_MODAL_DATA = {
         h: '500px'
     },
     title: "아바타 설정",
-    content: ModalAvatarContent,
+    content: AvatarContent,
     buttonDisabled : {
         Maximize: true,
         Minimization: true

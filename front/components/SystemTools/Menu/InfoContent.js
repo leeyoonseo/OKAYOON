@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ModalInfoContent = () => {
+const InfoContent = () => {
     return (
         <div>
             사용: react, redux-saga, reducer, next, antd, styled-components, eslint, github,
@@ -9,7 +9,7 @@ const ModalInfoContent = () => {
     );
 };
 
-export default ModalInfoContent;
+export default InfoContent;
 
 export const INFO_MODAL_ID = 'MI_M_0'; // 페이지컴포넌트_모달_인덱스
 export const INFO_MODAL_DATA = {
@@ -21,7 +21,7 @@ export const INFO_MODAL_DATA = {
         h: '300px'
     },
     title: "Info",
-    content: ModalInfoContent,
+    content: InfoContent,
     buttonDisabled : {
         Maximize: true,
         Minimization: true
