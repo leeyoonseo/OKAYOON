@@ -1,142 +1,129 @@
 import React, { useCallback, useState } from 'react';
-import styled, { css } from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
 
-// TODO: 이미지로 변경?
-import { 
-    PictureFilled, EditFilled, TabletFilled, 
-    MessageFilled, CrownFilled, DeleteFilled,
-    ChromeFilled,
-    DeleteTwoTone,
-} from '@ant-design/icons';
+import { CREATE_MODAL_REQUEST, TOGGLE_MODAL_REQUEST } from '../../reducers/site';
 
 import Items from './Items';
-import ModalPopup from '../ModalPopup/index';
-import Guestbook from '../App/Guestbook';
+import { GUESTBOOK_MODAL_ID, GUESTBOOK_MODAL_DATA } from '../App/Guestbook';
+import { BLOG_MODAL_ID, BLOG_MODAL_DATA } from '../App/Blog';
+import { CHATTING_MODAL_ID, CHATTING_MODAL_DATA } from '../App/Chatting';
+import { DELETE_MODAL_ID, DELETE_MODAL_DATA } from '../App/Delete';
+import { GALLERY_MODAL_ID, GALLERY_MODAL_DATA } from '../App/Gallery';
+import { GAME_MODAL_ID, GAME_MODAL_DATA } from '../App/Game';
+import { MEMO_MODAL_ID, MEMO_MODAL_DATA } from '../App/Memo';
 
-const Wrap = styled.div`
-    display: flex;
-    width: 80%;
-    height: 60%;
-    background: #eee;
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
-    border-radius: 5px 5px 0 0;
-    align-items: center;
-    justify-content: space-around;
-`;
-
-const defaultIconStyle = css`
-    font-size: 32px;
-    line-height: 1;
-    color: #777;
-`;
-
-const GuestbookIcon = styled(TabletFilled)`
-    ${defaultIconStyle}
-`;  
-
-const BlogIcon = styled(ChromeFilled)`
-    ${defaultIconStyle}
-`;
-
-const GalleryIcon = styled(PictureFilled)`
-    ${defaultIconStyle}
-`;
-
-const MemoIcon = styled(EditFilled)`
-    ${defaultIconStyle}
-`;
-
-const ChattingIcon = styled(MessageFilled)`
-    ${defaultIconStyle}
-`;
-
-const GameIcon = styled(CrownFilled)`
-    ${defaultIconStyle}
-`;
-
-const DeleteIcon = styled(DeleteFilled)`
-    ${defaultIconStyle}
-`;
-
-const IconTitle = styled.span`
-    margin-top: 2px;
-    display: block;
-    font-size: 12px;
-    color: #fff;
-`;
+import { 
+    Wrap, GuestbookIcon, BlogIcon, GalleryIcon, MemoIcon, 
+    ChattingIcon, GameIcon, DeleteIcon, IconTitle,
+} from './style';
 
 const index = () => {
-    const [isVisibleGuestbook,  setIsVisibleGuestbook] = useState(false);
-    const onToggleGuestbook = useCallback((status) => () => {
-        setIsVisibleGuestbook(status);
-    }, []);
+    const dispatch = useDispatch();
+    const { modals } = useSelector((state) => state.site);
+    
+    const createModal = useCallback((id) => {
+        if(modals.find((v) => v.id === id)){
+            return false;
+        }
+    
+        // const data = id.split('_')[0] + '_MODAL_DATA';
+        let data = '';
+
+        switch(id) {
+            case GUESTBOOK_MODAL_ID:
+                data = GUESTBOOK_MODAL_DATA;
+                break;
+
+            case BLOG_MODAL_ID:
+                data = BLOG_MODAL_DATA;
+                break;
+
+            case CHATTING_MODAL_ID:
+                data = CHATTING_MODAL_DATA;
+                break;
+        
+            case DELETE_MODAL_ID:
+                data = DELETE_MODAL_DATA;
+                break;
+
+            case GALLERY_MODAL_ID:
+                data = GALLERY_MODAL_DATA;
+                break;
+            
+            case GAME_MODAL_ID:
+                data = GAME_MODAL_DATA;
+                break;
+
+            case MEMO_MODAL_ID:
+                data = MEMO_MODAL_DATA;
+                break;
+
+            default:
+                break;
+        }
+
+        console.log('==================createModal');
+        dispatch({
+            type: CREATE_MODAL_REQUEST,
+            data: data
+        })
+    }, [modals]);
+
+    const onClickItem = useCallback((id) => () => {
+        console.log('onClickItem', id)
+        createModal(id);
+            
+        dispatch({
+            type: TOGGLE_MODAL_REQUEST,
+            data: id
+        });
+    }, [modals]);
 
     return (
         <Wrap>
             <Items
                 title={<IconTitle>방명록</IconTitle>}
                 icon={<GuestbookIcon />}
-                onClick={onToggleGuestbook(true)}
-            >
-                {/* <ModalPopup 
-                    visible={isVisibleGuestbook} 
-                    modal_width="500px"
-                    modal_height="500px"
-                    title="방명록"
-                    onClose={onToggleGuestbook(false)} 
-                /> */}
-            </Items>
+                onClick={onClickItem(GUESTBOOK_MODAL_ID)}
+            />
+
+            <Items
+                title={<IconTitle>블로그</IconTitle>}
+                icon={<BlogIcon />}
+                onClick={onClickItem(BLOG_MODAL_ID)}
+            />
                 
+            <Items
+                title={<IconTitle>갤러리</IconTitle>}
+                icon={<GalleryIcon />}
+                onClick={onClickItem(GALLERY_MODAL_ID)}
+            />
 
-            {/* <Items>
-                <TriggerButton>
-                    <Tooltip placement="top" color="#777" title={<IconTitle>블로그</IconTitle>}>
-                        <BlogIcon />
-                    </Tooltip>
-                </TriggerButton>
-            </AppItems>
+            <Items
+                title={<IconTitle>메모</IconTitle>}
+                icon={<MemoIcon />}
+                onClick={onClickItem(MEMO_MODAL_ID)}
+            />
 
-            <AppItems>
-                <TriggerButton>
-                    <Tooltip placement="top" color="#777" title={<IconTitle>갤러리</IconTitle>}>
-                        <GalleryIcon />
-                    </Tooltip>
-                </TriggerButton>
-            </AppItems>
+            <Items
+                title={<IconTitle>채팅</IconTitle>}
+                icon={<ChattingIcon />}
+                onClick={onClickItem(CHATTING_MODAL_ID)}
+            />
 
-            <AppItems>
-                <TriggerButton>
-                    <Tooltip placement="top" color="#777" title={<IconTitle>메모</IconTitle>}>
-                        <MemoIcon />
-                    </Tooltip>
-                </TriggerButton>
-            </AppItems>
+            <Items
+                title={<IconTitle>게임</IconTitle>}
+                icon={<GameIcon />}
+                onClick={onClickItem(GAME_MODAL_ID)}
+            />
 
-            <AppItems>
-                <TriggerButton>
-                    <Tooltip placement="top" color="#777" title={<IconTitle>채팅</IconTitle>}>
-                        <ChattingIcon />
-                    </Tooltip>
-                </TriggerButton>
-            </AppItems>
-
-            <AppItems>
-                <TriggerButton>
-                    <Tooltip placement="top" color="#777" title={<IconTitle>게임</IconTitle>}>
-                        <GameIcon />
-                    </Tooltip>
-                </TriggerButton>
-            </AppItems>
-
-            <AppItems>
-                <TriggerButton>
-                    <Tooltip placement="top" color="#777" title={<IconTitle>휴지통</IconTitle>}>
-                        <DeleteIcon />
-                    </Tooltip>
-                </TriggerButton>
-            </AppItems> */}
+            <Items
+                title={<IconTitle>휴지통</IconTitle>}
+                icon={<DeleteIcon />}
+                onClick={onClickItem(DELETE_MODAL_ID)}
+            />
         </Wrap>
-        );
+    );
 }
 
 export default index;

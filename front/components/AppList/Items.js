@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Tooltip } from 'antd';
-import ModalPopup from '../ModalPopup/index';
 
 const ItemButton = styled.button`
     width:60px;

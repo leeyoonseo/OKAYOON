@@ -9,7 +9,7 @@ export const initialState = {
     modalToggleDone: false,
     modalToggleError: false,
 
-
+    modalIndex: 1000,
     modals: [], 
 
     isMuted: false, // 음소거
@@ -47,6 +47,7 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             draft.modalLoading = false;
             draft.modalDone = true;
             draft.modalError = false;
+
             draft.modals.push(action.data);
             break;
 
@@ -65,6 +66,11 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
         case TOGGLE_MODAL_SUCCESS: {
             const modal = draft.modals.find((v) => v.id === action.data);
             modal.visible = !modal.visible;
+
+            if(modal.visible){
+                draft.modalIndex = draft.modalIndex + 1;
+                modal.zIndex = draft.modalIndex;
+            }
 
             draft.modalToggleLoading = false;
             draft.modalToggleDone = true;

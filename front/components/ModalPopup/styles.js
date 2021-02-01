@@ -24,13 +24,13 @@ import { CloseOutlined, MinusOutlined, FullscreenOutlined } from '@ant-design/ic
 export const Wrap = styled(Layout)`
     display: none;
     position: fixed;
-    top: 50%;
-    left: 50%;
+    top: ${props => props.x}%;
+    left: ${props => props.y}%;
     width: ${props => props.w};
     height: ${props => props.h};
     border-radius: 5px;
     transform: translate(-50%, -50%);
-    z-index: 100;
+    z-index: ${props => props.z};
     overflow: hidden;
     box-shadow: 1px 1px 10px rgba(0,0,0,0.5);
 

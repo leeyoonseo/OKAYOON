@@ -13,8 +13,8 @@ function* CreateModal(action){
     try{
         // const result = yield call(CreateModalAPI);
         // 임시
-        console.log('CreateModal', action.data);
-        yield delay(1000);
+        // console.log('CreateModal', action.data);
+        // yield delay(1000);
         yield put({
             type: CREATE_MODAL_SUCCESS,
             data: action.data
@@ -33,33 +33,33 @@ function* watchCreateModal(){
     yield takeLatest(CREATE_MODAL_REQUEST, CreateModal);
 }
 
-function DeleteModalAPI(data){
-    // 통신 작업할 것
-};
+// function DeleteModalAPI(data){
+//     // 통신 작업할 것
+// };
 
-function* DeleteModal(action){
-    try{
-        // const result = yield call(DeleteModalAPI);
-        // 임시
-        console.log('DeleteModal', action.data);
-        yield delay(1000);
-        yield put({
-            type: DELETE_MODAL_SUCCESS,
-            data: action.data
-        });
+// function* DeleteModal(action){
+//     try{
+//         // const result = yield call(DeleteModalAPI);
+//         // 임시
+//         console.log('DeleteModal', action.data);
+//         yield delay(1000);
+//         yield put({
+//             type: DELETE_MODAL_SUCCESS,
+//             data: action.data
+//         });
 
-    }catch(err){
-        console.error(err);
-        yield put({
-            type: DELETE_MODAL_FAILURE,
-            error: err.response.data
-        })
-    }
-}
+//     }catch(err){
+//         console.error(err);
+//         yield put({
+//             type: DELETE_MODAL_FAILURE,
+//             error: err.response.data
+//         })
+//     }
+// }
 
-function* watchDeleteModal(){ 
-    yield takeLatest(DELETE_MODAL_REQUEST, DeleteModal);
-}
+// function* watchDeleteModal(){ 
+//     yield takeLatest(DELETE_MODAL_REQUEST, DeleteModal);
+// }
 
 function ToggleModalAPI(data){
     // 통신 작업할 것
@@ -69,8 +69,8 @@ function* ToggleModal(action){
     try{
         // const result = yield call(ToggleModalAPI);
         // 임시
-        console.log('ToggleModal', action.data);
-        yield delay(1000);
+        // console.log('ToggleModal', action.data);
+        // yield delay(1000);
         yield put({
             type: TOGGLE_MODAL_SUCCESS,
             data: action.data
@@ -92,7 +92,7 @@ function* watchToggleModal(){
 export default function* userSaga(){
     yield all([
         fork(watchCreateModal),
-        fork(watchDeleteModal),
+        // fork(watchDeleteModal),
         fork(watchToggleModal),
     ]);
 }

@@ -12,18 +12,18 @@ import {
 import { useDispatch } from 'react-redux';
 
 // TODO: params, props관련 주석달까?
-const ModalPopup = (props) => {
+const ModalPopup = ({
+    id,
+    onCloseModal,
+    visible,
+    location,
+    zIndex, 
+    size, 
+    title, 
+    children,
+    buttonDisabled, 
+}) => {
     const dispatch = useDispatch();
-    const {
-        id,
-        onCloseModal,
-        visible,
-        location, 
-        size, 
-        title, 
-        children,
-        buttonDisabled, 
-    } = props;
 
     const maximizeSize = '90%';
     const [maxStatus, setMaxStatus] = useState(false);
@@ -40,9 +40,9 @@ const ModalPopup = (props) => {
     return (
         <Wrap
             className={classes}
-            // x={location.x ? location.x : '50%' }
-            // y={location.y ? location.y : '50%'}
-            // z={location.z ? location.z : 1}
+            x={location.x ? location.x : 50}
+            y={location.y ? location.x : 50}
+            z={zIndex ? zIndex : 1000}
             w={maxStatus ? maximizeSize : size.w}
             h={maxStatus ? maximizeSize : size.h}
         >   

@@ -141,8 +141,6 @@ const Home = () => {
                             return (
                                 <ModalPopup 
                                     key={v.id} 
-                                    id={v.id}
-                                    visible={v.visible} 
                                     onCloseModal={onToggleModal} 
                                     {...v}
                                 >

@@ -26,18 +26,6 @@ const Menu = ({ themecolor }) => {
         };
     }, []);
 
-    // useEffect(() => {
-    //     const modal = modals.find((v) => v.id === WELCOME_MODAL_ID);
-    //     console.log('menu, index modals', modal);
-
-    //     if(!modal){
-    //         dispatch({
-    //             type: CREATE_MODAL_REQUEST,
-    //             data: WELCOME_MODAL_DATA
-    //         })
-    //     }
-    // }, []);
-
     const onClickOutside = useCallback(({ target }) => {
         if (menuRef.current && !menuRef.current.contains(target)) {
             setIsVisiMenu(false);
@@ -54,7 +42,6 @@ const Menu = ({ themecolor }) => {
         
         let data = '';
         
-        // D: Welcome
         if(id === WELCOME_MODAL_ID){
             data = WELCOME_MODAL_DATA;
         } else if(id === INFO_MODAL_ID){
