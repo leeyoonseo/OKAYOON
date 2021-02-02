@@ -3,28 +3,13 @@ import styled, { css, keyframes } from 'styled-components';
 import { Layout } from 'antd';
 import { CloseOutlined, MinusOutlined, FullscreenOutlined } from '@ant-design/icons';
 
-// const fadeOut = keyframes`
-//     from {
-//         opacity: 1;
-//     }
-//     to {
-//         opacity: 0;
-//     }
-// `;
-
-// const fadeIn = keyframes`
-//     from {
-//         opacity: 0;
-//     }
-//     to {
-//         opacity: 1;
-//     }
-// `;
 export const Wrap = styled.div`
     display: none;
     position: fixed;
-    top: ${props => props.x};
-    left: ${props => props.y};
+    top:'50%';
+    left: '50%';
+    // top: ${props => props.top > 0 ? props.top : '50%'};
+    // left: ${props => props.left > 0 ? props.left : '50%'};
     width: ${props => props.w};
     height: ${props => props.h};
     border-radius: 5px;
@@ -33,7 +18,7 @@ export const Wrap = styled.div`
     overflow: hidden;
     box-shadow: 1px 1px 10px rgba(0,0,0,0.5);
 
-    &.active {
+    &.visible {
         display: block;
     }
 
@@ -65,8 +50,7 @@ export const WrapInner = styled(Layout)`
     height: 100%;
 `;
 
-export const Header = styled(Layout.Header)`
-    padding: 10px 3%;
+export const Header = styled.div`
     position: relative;
     height: auto;
     text-align: center;
@@ -74,9 +58,17 @@ export const Header = styled(Layout.Header)`
     background: #dedede;
     color: #333;
 
-    &.active {
+    &.moving {
         cursor: move;
     }
+`;
+
+export const HeaderInner = styled(Layout.Header)`
+    padding: 10px 3%;
+    width: 100%;
+    height: 100%;
+    line-height: 1;
+    background: none;
 `;
 
 export const Content = styled(Layout.Content)`

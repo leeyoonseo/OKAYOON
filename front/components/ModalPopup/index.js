@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classNames';
 
 import { 
-    Wrap, WrapInner, Header, 
+    Wrap, WrapInner, Header, HeaderInner,
     Title,
     Content, 
     Controls, ControlButton, 
@@ -24,109 +24,115 @@ const ModalPopup = ({
     children,
     buttonDisabled, 
 }) => {
-    const dispatch = useDispatch();
-    const [modalX, setModalX] = useState(location.x || '50%');
-    const [modalY, setModalY] = useState(location.y || '50%');
-
     const maximizeSize = '90%';
     const [maxStatus, setMaxStatus] = useState(false);
     const [minStatus, setMinStatus] = useState(false);
-    const [moveStatus, setMoveStatus] = useState(false);
-    const modalRef = useRef(null);
-
-    const classes = classNames({
-        'active': visible,
-        'min': minStatus,
-    });
-
-    // useEffect(() => {
-    //     document.addEventListener("mousedown", onClickOutside);
-
-    //     return () => {
-    //         document.removeEventListener("mousedown", onClickOutside);
-    //     };
-    // }, [moveStatus]);
-
-    // const onClickOutside = useCallback(({ target }) => {
-    //     console.log('onClickOutside modalRef',modalRef);
-    //     // console.log('onClickOutside target',target);
-    //     // if (menuRef.current && !menuRef.current.contains(target)) {
-    //     //     setIsVisiMenu(false);
-    //     // }
-    // }, []);
 
     const onMinimization = useCallback(() => setMinStatus(!minStatus), [minStatus]);
     const onMaximize = useCallback(() => setMaxStatus(!maxStatus), [maxStatus]);
 
-    const onMoveStart = useCallback((e) => {
-        setMoveStatus(true);
-        // const { offsetTop, offsetLeft } = modalRef.current
-        // console.log('modalRef', modalRef, offsetTop, offsetLeft);
-        // console.log('clientX', e.target.clientX, offsetLeft);
-        // console.log('offsetTop', offsetTop);
-        // console.log('offsetLeft', offsetLeft);
-    }, []);
+    // const [clientStartX, setClientStartX] = useState(0);
+    // const [clientStartY, setClientStartY] = useState(0);
+    // const [clientLastX, setClientLastX] = useState(0);
+    // const [clientLastY, setClientLastY] = useState(0);
 
-    const onMoveEnd = useCallback((e) => {
-        setMoveStatus(false);
-    }, []);
+    
+    // const [offsetX, setOffsetX] = useState(0);
+    // const [offsetY, setOffsetY] = useState(0);
+    const modalRef = useRef(null);
+    const headerRef = useRef(null);
+    // const [moveStatus, setMoveStatus] = useState(false);
+    let lastX = 0; 
+    let lastY = 0; 
+    let startX = 0; 
+    let startY = 0; 
 
-    const onMove = useCallback((e) => {
-        if(moveStatus){
-            console.log('onMove', e.clientX, e.clientY);
-            setModalX(`${e.screenX}px`);
-            setModalY(`${e.screenY}px`);
-        }
-    }, [moveStatus]);
+    const wrapClasses = classNames({
+        'visible': visible,
+        'min': minStatus,
+    });
+
+    // TODO: useCallback 추가
+    const onMove = (e) => {
+        console.log('onMove');
+        e.preventDefault(); 
+        lastX = startX - e.clientX; 
+        lastY = startY - e.clientY; 
+
+        startX = e.clientX; 
+        startY = e.clientY; 
+
+        // TODO: Status로 할 방법은 없느냐?
+        modalRef.current.style.top = `${modalRef.current.offsetTop - lastY}px`;
+        modalRef.current.style.left = `${modalRef.current.offsetLeft - lastX}px`;
+    };
+
+    // TODO: useCallback 추가
+    const onRemoveEvent = () => {
+        console.log('onRemoveEvent');
+        document.removeEventListener('mouseup', onRemoveEvent); 
+        document.removeEventListener('mousemove', onMove); 
+    };
+
+    // TODO: useCallback 추가
+    const onMouseDown = (e) => {
+        console.log('onMouseDown');
+
+        e.preventDefault(); 
+        startX = e.clientX; 
+        startY = e.clientY; 
+
+        document.addEventListener('mouseup', onRemoveEvent); 
+        document.addEventListener('mousemove', onMove);
+    };
 
     return (
         <Wrap
             ref={modalRef}
-            className={classes}
-            x={modalX}
-            y={modalY}
+            className={wrapClasses}
             z={zIndex ? zIndex : 1000}
             w={maxStatus ? maximizeSize : size.w}
             h={maxStatus ? maximizeSize : size.h}
+            // top={offsetY}
+            // left={offsetX}
         >
             <WrapInner>   
                 <Header
-                    className={moveStatus ? 'active' : ''}
-                    onMouseDown={onMoveStart} 
-                    onMouseUp={onMoveEnd}
-                    onMouseLeave={onMoveEnd}
-                    onMouseMove={onMove}
+                    ref={headerRef}
+                    onMouseDown={onMouseDown}
                 >
-                    <Controls>
-                        <ControlButton 
-                            bgcolor="#ff6059" 
-                            onClick={onCloseModal(id)}
-                        >
-                            <CloseIcon />
-                        </ControlButton>
-
-                        {!buttonDisabled.Minimization && (
+                    <HeaderInner>
+                        <Controls>
                             <ControlButton 
-                                bgcolor="#ffbc28"
-                                onClick={onMinimization}
+                                bgcolor="#ff6059" 
+                                onClick={onCloseModal(id)}
                             >
-                                <MinimizationIcon />
+                                <CloseIcon />
                             </ControlButton>
-                        )}
-                        
-                        {!buttonDisabled.Maximize && (
-                            <ControlButton 
-                                bgcolor="#26ca3f"
-                                onClick={onMaximize}
-                            >
-                                <MaximizeIcon />
-                            </ControlButton>
-                        )}
-                    </Controls>
 
-                    {title && <Title>{title}</Title>}
+                            {!buttonDisabled.Minimization && (
+                                <ControlButton 
+                                    bgcolor="#ffbc28"
+                                    onClick={onMinimization}
+                                >
+                                    <MinimizationIcon />
+                                </ControlButton>
+                            )}
+                            
+                            {!buttonDisabled.Maximize && (
+                                <ControlButton 
+                                    bgcolor="#26ca3f"
+                                    onClick={onMaximize}
+                                >
+                                    <MaximizeIcon />
+                                </ControlButton>
+                            )}
+                        </Controls>
+
+                        {title && <Title>{title}</Title>}
+                    </HeaderInner>
                 </Header>
-
+                
                 <Content>
                     {children}
                 </Content>
