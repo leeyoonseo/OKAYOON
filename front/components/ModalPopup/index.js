@@ -1,60 +1,45 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classNames';
-
 import { 
     Wrap, WrapInner, Header, HeaderInner,
     Title,
     Content, 
     Controls, ControlButton, 
-    CloseIcon, MinimizationIcon, MaximizeIcon, 
-    MiniWrap,
+    CloseIcon, 
+    MaximizeIcon, 
 } from './styles';
-import { useDispatch } from 'react-redux';
 
 // TODO: params, props관련 주석달까?
 const ModalPopup = ({
     id,
-    onCloseModal,
     visible,
-    location,
     zIndex, 
     size, 
     title, 
     children,
     buttonDisabled, 
+    onCloseModal,
 }) => {
-    const maximizeSize = '90%';
+
     const [maxStatus, setMaxStatus] = useState(false);
-    const [minStatus, setMinStatus] = useState(false);
-
-    const onMinimization = useCallback(() => setMinStatus(!minStatus), [minStatus]);
-    const onMaximize = useCallback(() => setMaxStatus(!maxStatus), [maxStatus]);
-
-    // const [clientStartX, setClientStartX] = useState(0);
-    // const [clientStartY, setClientStartY] = useState(0);
-    // const [clientLastX, setClientLastX] = useState(0);
-    // const [clientLastY, setClientLastY] = useState(0);
-
-    
-    // const [offsetX, setOffsetX] = useState(0);
-    // const [offsetY, setOffsetY] = useState(0);
     const modalRef = useRef(null);
     const headerRef = useRef(null);
-    // const [moveStatus, setMoveStatus] = useState(false);
+    const maximizeSize = '90%';
     let lastX = 0; 
     let lastY = 0; 
     let startX = 0; 
     let startY = 0; 
 
-    const wrapClasses = classNames({
-        'visible': visible,
-        'min': minStatus,
-    });
+    useEffect(() => {
+        if(!visible){
+            modalRef.current.style.top = '50%';
+            modalRef.current.style.left = '50%';
+        }
+    }, [visible]);
 
-    // TODO: useCallback 추가
-    const onMove = (e) => {
-        console.log('onMove');
+    const onMaximize = useCallback(() => setMaxStatus(!maxStatus), [maxStatus]);
+
+    const onMove = useCallback((e) => {
         e.preventDefault(); 
         lastX = startX - e.clientX; 
         lastY = startY - e.clientY; 
@@ -62,39 +47,31 @@ const ModalPopup = ({
         startX = e.clientX; 
         startY = e.clientY; 
 
-        // TODO: Status로 할 방법은 없느냐?
         modalRef.current.style.top = `${modalRef.current.offsetTop - lastY}px`;
         modalRef.current.style.left = `${modalRef.current.offsetLeft - lastX}px`;
-    };
+    }, []);
 
-    // TODO: useCallback 추가
-    const onRemoveEvent = () => {
-        console.log('onRemoveEvent');
+    const onRemoveEvent = useCallback(() => {
         document.removeEventListener('mouseup', onRemoveEvent); 
         document.removeEventListener('mousemove', onMove); 
-    };
+    }, []);
 
-    // TODO: useCallback 추가
-    const onMouseDown = (e) => {
-        console.log('onMouseDown');
-
+    const onMouseDown = useCallback((e) => {
         e.preventDefault(); 
         startX = e.clientX; 
         startY = e.clientY; 
 
         document.addEventListener('mouseup', onRemoveEvent); 
         document.addEventListener('mousemove', onMove);
-    };
+    }, []);
 
     return (
         <Wrap
             ref={modalRef}
-            className={wrapClasses}
-            z={zIndex ? zIndex : 1000}
+            className={visible ? 'visible' : ''}
+            z={zIndex}
             w={maxStatus ? maximizeSize : size.w}
             h={maxStatus ? maximizeSize : size.h}
-            // top={offsetY}
-            // left={offsetX}
         >
             <WrapInner>   
                 <Header
@@ -109,15 +86,6 @@ const ModalPopup = ({
                             >
                                 <CloseIcon />
                             </ControlButton>
-
-                            {!buttonDisabled.Minimization && (
-                                <ControlButton 
-                                    bgcolor="#ffbc28"
-                                    onClick={onMinimization}
-                                >
-                                    <MinimizationIcon />
-                                </ControlButton>
-                            )}
                             
                             {!buttonDisabled.Maximize && (
                                 <ControlButton 
@@ -136,41 +104,37 @@ const ModalPopup = ({
                 <Content>
                     {children}
                 </Content>
-
-                { minStatus && (
-                    <button onClick={onMinimization}>
-                        <span className="hidden">
-                            최소화 해제버튼
-                        </span>
-                    </button>
-                )}
             </WrapInner> 
         </Wrap>
     );
 };
 
-// ModalPopup.propTypes = {
-//     button_disabled: PropTypes.objectOf(PropTypes.bool),
-//     modal_width: PropTypes.string,
-//     modal_height: PropTypes.string,
-//     visible: PropTypes.bool.isRequired,
-//     title: PropTypes.string,
-//     children: PropTypes.any.isRequired,
-//     onClick: PropTypes.func,
-// };
+ModalPopup.propTypes = {
+    id: PropTypes.string.isRequired,
+    onCloseModal: PropTypes.func.isRequired,
+    visible: PropTypes.bool,
+    zIndex: PropTypes.number, // 1000
+    size: PropTypes.objectOf(PropTypes.string),
+    title: PropTypes.string,
+    children: PropTypes.any,
+    buttonDisabled: PropTypes.objectOf(PropTypes.bool),
+};
 
-// ModalPopup.defaultProps = {
-//     button_disabled: {
-//         Maximize: false,
-//         Minimization: false,
-//     },
-//     children: '컨텐츠 영역',
-//     modal_width: '300px',
-//     modal_height: '300px',
-// };
+ModalPopup.defaultProps = {
+    visible: false,
+    zIndex: 1000,
+    size: {
+        w: '500px',
+        h: '500px'
+    },
+    title: 'Modal',
+    childeren: '콘텐츠를 입력해주세요.',
+    buttonDisabled: {
+        Maximize: false,
+    },
+};
 
 export default ModalPopup;
 
 // TODO:
-// - 위치 이동 
-// - 여러개 최소화 시킬 경우 위치 재 정렬. 어떻게 할 지?`
+// - 최소화 고민해보기.. 최소화 위치 어떻게 정렬할지도 같이 고민해야할 것..

@@ -2,12 +2,10 @@ import React, { useEffect, useCallback, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useInput from '../../hooks/useInput';
 
-
 import { UserOutlined, CloseOutlined, CheckOutlined } from '@ant-design/icons';
 import {
-    Wrap, AvatarButton, 
-    NicknameArea,NicknameInputWrap, NicknameInput, UserIcon, Nickname,
-    CloseButton, CheckButton
+    Wrap, AvatarButton, NicknameArea,NicknameInputWrap, 
+    NicknameInput, UserIcon, Nickname, CloseButton, CheckButton
 } from './style';
 
 const UserInfo = ({ id, avatar, nickname, setNickname, forwordRef, onClickModal }) => {
@@ -75,5 +73,6 @@ const UserInfo = ({ id, avatar, nickname, setNickname, forwordRef, onClickModal 
 
 export default UserInfo;
 
-// TODO
+// TODO:
 // - props 전달할때 대문자 못씀?
+// - 색 디자인 새로하자 밝게?

@@ -131,10 +131,6 @@ export default AvatarContent;
 export const AVATAR_MODAL_ID = 'LU_M_0';
 export const AVATAR_MODAL_DATA = {
     id: AVATAR_MODAL_ID, // 페이지컴포넌트_모달_인덱스
-    // location: {
-    //     x: '50%',
-    //     y: '50%'
-    // },
     visible: false,
     size: {
         w: '500px',
@@ -144,7 +140,6 @@ export const AVATAR_MODAL_DATA = {
     content: AvatarContent,
     buttonDisabled : {
         Maximize: true,
-        Minimization: true
     },   
 };
 

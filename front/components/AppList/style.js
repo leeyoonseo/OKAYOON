@@ -58,3 +58,35 @@ export const IconTitle = styled.span`
     font-size: 12px;
     color: #fff;
 `;
+
+export const ItemButton = styled.button`
+    width:60px;
+    height:60px;
+    background: #ddd;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+
+    &:not(:disabled):hover,
+    &:not(:disabled):focus {
+        box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+    }
+
+    &:disabled {
+        position: relative;
+        cursor: default;
+
+        &:after {
+            position: absolute;
+            top: 0;
+            left: 0;
+            content: '';
+            display: block;
+            width: 100%;
+            height: 100%;
+            opacity: 0.5;
+            background: #fff;
+        }
+    }
+`;

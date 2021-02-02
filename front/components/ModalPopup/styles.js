@@ -6,10 +6,8 @@ import { CloseOutlined, MinusOutlined, FullscreenOutlined } from '@ant-design/ic
 export const Wrap = styled.div`
     display: none;
     position: fixed;
-    top:'50%';
-    left: '50%';
-    // top: ${props => props.top > 0 ? props.top : '50%'};
-    // left: ${props => props.left > 0 ? props.left : '50%'};
+    top: 50%;
+    left: 50%;
     width: ${props => props.w};
     height: ${props => props.h};
     border-radius: 5px;
@@ -22,27 +20,30 @@ export const Wrap = styled.div`
         display: block;
     }
 
-    &.min {
-        top: auto;
-        bottom: 0;
-        width: 150px;
-        height: 25px;
-        background: #dedede;
-        border-radius: 5px 5px 0 0;
-        transition: all 0.3s;
+    // &.min {
+    //     bottom: 85px;
+    //     width: 150px;
+    //     height: 25px;
+    //     background: #dedede;
+    //     border-radius: 5px 5px 0 0;
+    //     transition: all 0.3s;
 
-        button {
-            position: absolute;
-            top: 0;
-            left: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            outline: none;
-            border: none;
-            cursor: pointer;
-        }
-    }
+    //     div {
+    //         display: none;
+    //     }
+
+    //     button {
+    //         position: absolute;
+    //         top: 0;
+    //         left: 0;
+    //         padding: 0;
+    //         width: 100%;
+    //         height: 100%;
+    //         outline: none;
+    //         border: none;
+    //         cursor: pointer;
+    //     }
+    // }
 `;
 
 export const WrapInner = styled(Layout)`
@@ -57,10 +58,7 @@ export const Header = styled.div`
     line-height: 1;
     background: #dedede;
     color: #333;
-
-    &.moving {
-        cursor: move;
-    }
+    cursor: default;
 `;
 
 export const HeaderInner = styled(Layout.Header)`
@@ -72,7 +70,7 @@ export const HeaderInner = styled(Layout.Header)`
 `;
 
 export const Content = styled(Layout.Content)`
-    padding: 5px 3%;
+    padding: 3%;
     height: 100%;
     font-size: 13px;
     color: #333;
@@ -124,10 +122,6 @@ export const CloseIcon = styled(CloseOutlined)`
     ${defaultIconStyle}
 `;
 
-export const MinimizationIcon = styled(MinusOutlined)`
-    ${defaultIconStyle}
-`;
-
 export const MaximizeIcon = styled(FullscreenOutlined)`
     ${defaultIconStyle}
 `;
@@ -138,26 +132,4 @@ export const Title = styled.div`
     width: 100%;
     font-size: 13px;
     line-height: 1.5;
-`;
-
-// 최소화
-export const MiniWrap = styled.div`
-    position: absolute;
-    bottom: 2%;
-    left: 2%;
-    width: 150px;
-    height: 25px;
-    line-height: 1;
-    background: #dedede;
-    border-radius: 5px 5px 0 0;
-    overflow: hidden;
-
-    button {
-        padding: 0;
-        width: 100%;
-        height: 100%;
-        outline: none;
-        border: none;
-        cursor: pointer;
-    }
 `;

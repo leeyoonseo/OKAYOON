@@ -1,35 +1,36 @@
 import React from 'react';
-import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
+import { ItemButton } from './style';
 import { Tooltip } from 'antd';
 
-const ItemButton = styled.button`
-    width:60px;
-    height:60px;
-    background: #ddd;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    outline: none;
-    cursor: pointer;
-
-    &:hover,
-    &:focus {
-        box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
-    }
-`;
-
-const Items = ({ icon, title, onClick, children }) => {
+const Items = ({ disabled, icon, title, onClick }) => {
     return (
-        <>
-            <Tooltip placement="top" color="#777" title={title}>
-                <ItemButton onClick={onClick}>
-                    {icon}
-                </ItemButton>
-            </Tooltip>
-
-            {children}
-        </>
+        <Tooltip 
+            placement="top" 
+            color="#777" 
+            title={title}
+        >
+            <ItemButton
+                disabled={disabled}
+                onClick={onClick}
+            >
+                {icon}
+            </ItemButton>
+        </Tooltip>
     );
+};
+
+Items.propTypes = {
+    disabled: PropTypes.bool, 
+    icon: PropTypes.object.isRequired, 
+    title: PropTypes.any, 
+    onClick: PropTypes.func.isRequired, 
+};
+
+Items.defaultProps = {
+    disabled: false,
+    title: 'title',
 };
 
 export default Items;

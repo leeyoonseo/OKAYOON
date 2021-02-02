@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CREATE_MODAL_REQUEST, TOGGLE_MODAL_REQUEST } from '../../reducers/site';
 
 import Items from './Items';
-import { GUESTBOOK_MODAL_ID, GUESTBOOK_MODAL_DATA } from '../App/Guestbook';
+import { GUESTBOOK_MODAL_ID, GUESTBOOK_MODAL_DATA } from '../App/Guestbook/index';
 import { BLOG_MODAL_ID, BLOG_MODAL_DATA } from '../App/Blog';
 import { CHATTING_MODAL_ID, CHATTING_MODAL_DATA } from '../App/Chatting';
 import { DELETE_MODAL_ID, DELETE_MODAL_DATA } from '../App/Delete';
@@ -70,7 +70,6 @@ const index = () => {
     }, [modals]);
 
     const onClickItem = useCallback((id) => () => {
-        console.log('onClickItem', id)
         createModal(id);
             
         dispatch({
@@ -82,42 +81,49 @@ const index = () => {
     return (
         <Wrap>
             <Items
+                // disabled={true}
                 title={<IconTitle>방명록</IconTitle>}
                 icon={<GuestbookIcon />}
                 onClick={onClickItem(GUESTBOOK_MODAL_ID)}
             />
 
             <Items
+                disabled={true}
                 title={<IconTitle>블로그</IconTitle>}
                 icon={<BlogIcon />}
                 onClick={onClickItem(BLOG_MODAL_ID)}
             />
                 
             <Items
+                disabled={true}
                 title={<IconTitle>갤러리</IconTitle>}
                 icon={<GalleryIcon />}
                 onClick={onClickItem(GALLERY_MODAL_ID)}
             />
 
             <Items
+                disabled={true}
                 title={<IconTitle>메모</IconTitle>}
                 icon={<MemoIcon />}
                 onClick={onClickItem(MEMO_MODAL_ID)}
             />
 
             <Items
+                disabled={true}
                 title={<IconTitle>채팅</IconTitle>}
                 icon={<ChattingIcon />}
                 onClick={onClickItem(CHATTING_MODAL_ID)}
             />
 
             <Items
+                disabled={true}
                 title={<IconTitle>게임</IconTitle>}
                 icon={<GameIcon />}
                 onClick={onClickItem(GAME_MODAL_ID)}
             />
 
             <Items
+                disabled={true}
                 title={<IconTitle>휴지통</IconTitle>}
                 icon={<DeleteIcon />}
                 onClick={onClickItem(DELETE_MODAL_ID)}
