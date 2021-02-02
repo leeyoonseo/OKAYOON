@@ -2,99 +2,55 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import { Button, Form, Input } from 'antd';
 import { PictureOutlined } from '@ant-design/icons';
 
 const FormWrap = styled.form`
-
+    
 `;
 
 const Textarea = styled.textarea`
+    padding: 10px;
+    width: 100%;    
+    min-height: 100px;
+    color: #666;
+    border: none;
+    border-radius: 3px;
+    outline: none;
+`;
 
+const BottomArea = styled.div`
+    margin-top: 10px;
+    text-align: right;
+
+    button {
+        cursor: pointer;
+        outline: none;
+    }
+
+    input + button,
+    button + button {
+        margin-left: 10px;
+    }
 `;
 
 const PasswordInput = styled.input`
-
+    padding: 0 10px;
+    width: 30%;
+    height: 30px;
+    color: #666;
+    border: none;
+    border-bottom: 1px solid #999;
+    background: none;
+    outline: none;
 `;
 
-const ButtonArea = styled.div``;
+const Button = styled.button`
+    padding: 0;
+    color: #666;
+    border: none;
+`;
 
-const PicktureButton = styled.button``;
-const PicktureIcon = styled(PictureOutlined)``;
-const SubmitButton = styled.button``;
 
-// const FormWrap = styled(Form)`
-//     margin: 0;
-
-//     input, 
-//     textarea,
-//     button {
-//         font-size: 12px;
-//     }
-
-//     input:hover,
-//     textarea:hover {
-
-//     }
-
-//     input:focus,
-//     textarea:focus,
-//     input:active,
-//     textarea:active {
-//         border: none;
-//         box-shadow: none;
-//     }
-// `;
-
-// const Textarea = styled(Input.TextArea)`
-//     margin-bottom: 10px;
-//     height: 100px !important;
-//     border: none;
-//     outline: none;
-// `;
-
-// const PasswordInput = styled(Input)`
-//     width: 30%;
-//     float: left;
-//     border: none;
-//     outline: none;
-// `;
-
-// const ButtonArea = styled.div`
-//     width: 70%;
-//     float: right;
-//     text-align: right;
-
-//     button {
-//         cursor: pointer;
-//     }
-
-//     button + button {
-//         margin-left: 10px;
-//     }
-// `;
-
-// const PicktureButton = styled.button`
-//     padding: 0;
-//     line-height: 1;
-//     vertical-align: middle;
-//     background: none;
-//     outline: none;
-//     border: none;
-// `;
-
-// const PicktureIcon = styled(PictureOutlined)`
-//     font-size: 20px;
-//     color: #555;
-// `;
-
-// const SubmitButton = styled.button`
-//     width: 50px;
-//     color: #fff;
-//     background: #999;
-//     border: 1px solid #999;
-//     outline: none;
-// `;
 
 const GuestForm = () => {
     return (
@@ -104,9 +60,6 @@ const GuestForm = () => {
             // onFinish={onSubmit}
         >
 
-            <textarea>
-
-            </textarea>
             <Textarea
                 // value={text}
                 // onChange={onChangeText}
@@ -114,27 +67,27 @@ const GuestForm = () => {
                 placeholder="오늘 기분은 어떠세요?"
             />
 
-            <PasswordInput 
-                type="text" 
-                placeholder="비밀번호"
-                maxLength={10}
-            />
-            
-            <ButtonArea>
+            <BottomArea>
+                <PasswordInput 
+                    type="text" 
+                    placeholder="비밀번호"
+                    maxLength={10}
+                />
+
                 <input type="file" name="image" multiple hidden 
                     // ref={imageInput} onChange={onChangeImages} 
                 />
-                <PicktureButton 
+                <Button 
                     // onClick={onClickImageUpload}
                 >
-                    <PicktureIcon />
-                </PicktureButton>
-                <SubmitButton 
+                    이미지업로드
+                </Button>
+                <Button 
                     type="submit" 
                 >
                     등록
-                </SubmitButton>
-            </ButtonArea>
+                </Button>
+            </BottomArea>
             {/* <div>
                 {imagePaths.map((v, i) => (
                 <div key={v} style={{ display: 'inline-block' }}>
