@@ -91,7 +91,7 @@ const GuestForm = () => {
     const pwInputRef = useRef(null);
 
     const CLASSNAME_EMPTY = 'empty';
-    const maxTextLength = 200;
+    const maxTextLength = 100;
     let validationFailureNum = 0;
 
     useEffect(() => {
@@ -203,3 +203,6 @@ const GuestForm = () => {
 };
 
 export default GuestForm;
+
+// TODO:
+// - 보안 작업 (스크립트 금지 등)
