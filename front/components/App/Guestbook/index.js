@@ -1,12 +1,23 @@
-import React from 'react';
-import GuestForm from './GuestForm';
+import React, { useEffect } from 'react';
+import Form from './Form';
 import Card from './Card';
+import { useSelector } from 'react-redux';
 
 const Guestbook = () => {
+    const { guestbook } = useSelector((state) => state.guestbook);
+
+    useEffect(() => {
+
+    }, []);
+
     return (
         <div>
-            <GuestForm />
-            <Card />
+            <Form />
+            {guestbook.map((v) => {
+                return(
+                    <Card {...v} />
+                )
+            })}
         </div>
     );
 };

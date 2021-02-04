@@ -6,38 +6,25 @@ import { Avatar } from 'antd';
 import { UserOutlined, EllipsisOutlined } from '@ant-design/icons';
 
 const Wrap = styled.div`
+    position: relative;
     margin-top: 5%;
-    padding: 2%;
-    height: 150px;
+    padding: 4%;
     border-radius: 3px;
     box-sizing: border-box;
     background: #fff;
-
-    &:after {
-        content: '';
-        display: block;
-        clear: both;
-    }
 `;
 
 const Side = styled.div`
     display: inline-block;
     width: 65px;
-    height: 90%;
-`;
-
-const AvatarWrap = styled.div`
-    display: flex;
-    height: 100%;       
-    align-items: center;
 `;
 
 const Container = styled.div`
-    padding: 2%;
+    padding: 0 2% 2% 2%;
     display: inline-block;
     position: relative;
     width: calc(100% - 65px);
-    vertical-align: top;
+    vertical-align: middle;
 `;
 
 const Header = styled.div`    
@@ -47,6 +34,11 @@ const Header = styled.div`
 
 const Nickname = styled.span`
     font-weight: 700;
+`;
+
+const Date = styled.span`
+    margin-left: 5px;
+    font-size: 11px;
 `;
 
 const MenuButton = styled.button`
@@ -72,10 +64,11 @@ const MenuWrap = styled.div`
     top: 100%;
     right: -30px;
     width: 80px;
-    color: #333;
-    background: rgba(0, 0, 0, 0.3);
+    color: #fff;
+    background: rgba(0, 0, 0, 0.5);
     border-radius: 5px;
     clip-path: polygon(65% 15%,100% 15%,100% 100%,0 100%,0 15%,45% 15%,55% 0%);
+    z-index: 999;
 
     &.visible { 
         display: block;
@@ -101,9 +94,7 @@ const MenuWrap = styled.div`
 
 const Content = styled.div``;
 
-const Footer = styled.div`
-    text-align: right;
-`;
+
 
 const Card = () => {
 
@@ -133,18 +124,17 @@ const Card = () => {
     return (
         <Wrap>
             <Side>
-                <AvatarWrap>
-                    <Avatar 
-                        size={64} 
-                        src={me.avatar ? me.avatar : null}
-                        icon={<UserOutlined />} 
-                    />
-                </AvatarWrap>
+                <Avatar 
+                    size={64} 
+                    src={me.avatar ? me.avatar : null}
+                    icon={<UserOutlined />} 
+                />
             </Side>
 
             <Container>
                 <Header>
                     <Nickname>닉네임</Nickname>
+                    <Date>2020.01.01 AM 3:00</Date>
 
                     <div ref={menuRef}>
                         <MenuButton onClick={onClickButton}>
@@ -161,11 +151,7 @@ const Card = () => {
                 <Content>
                     컨텐츠
                 </Content>
-            </Container>
-
-            <Footer>
-                2020.01.01 AM 3:00
-            </Footer>
+            </Container>            
         </Wrap>
     );
 };

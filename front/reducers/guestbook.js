@@ -1,6 +1,32 @@
 import produce from '../util/produce';
 
 export const initialState = {
+
+    guestbook: [
+        {
+            nickname: '할로아',
+            avatar: null,
+            content : '콘텐츠 작성을 해보겠습니다. 반가워요^^',
+            createDt: '2020.04.11 AM 11:12',
+            password: '1234',
+        },
+        {
+            nickname: '고스톱을치러가볼까고스톱을치러가볼까',
+            avatar: 'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png',
+            // D 이거 최대글자임
+            content : '반가워요^^반가워요^^반가워요^^반가워요^^반가워요^^반가워요^^반가워요^^반가워요^^반가워요^^반가워요^^반가워요^^반가워요^^반가워요^^반가워요^^반가워요^^반가워요^^반가워요',
+            createDt: '2020.04.11 PM 03:12',
+            password: '0000',
+        },
+        {
+            nickname: 'da가나다',
+            avatar: null,
+            content : '콘텐츠 작성을 해보겠습니다. 반가워요^^',
+            createDt: '2020.04.11 AM 11:12',
+            password: 'da',
+        },
+    ],
+    
     addGuestbookLoading: false,
     addGuestbookDone: false,
     addGuestbookError: false,
