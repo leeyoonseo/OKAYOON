@@ -1,10 +1,12 @@
 import React from 'react';
 import GuestForm from './GuestForm';
+import Card from './Card';
 
 const Guestbook = () => {
     return (
         <div>
             <GuestForm />
+            <Card />
         </div>
     );
 };
