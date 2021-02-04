@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styled from 'styled-components';
 import { Avatar } from 'antd';
 import { UserOutlined, EllipsisOutlined } from '@ant-design/icons';
+import { REMOVE_GUESTBOOK_REQUEST } from '../../../reducers/guestbook';
 
 const Wrap = styled.div`
     position: relative;
@@ -103,6 +104,7 @@ const Card = ({
     createDt,
     password,
 }) => {
+    const dispatch = useDispatch();
 
     // TODO: 유저가 내가 아니라 포스트 등록한 유저여야함
     // const { me } = useSelector((state) => state.guestbook);
@@ -123,9 +125,18 @@ const Card = ({
         }
     }, []);
 
-    const onClickButton = useCallback(() => {
+    const onOpenMenu = useCallback(() => {
         setIsVisibleMenu(!isVisibleMenu);
     }, [isVisibleMenu]);
+
+    const onRemove = useCallback(() => {
+        console.log('onRemove');
+
+        dispatch({
+            type: REMOVE_GUESTBOOK_REQUEST,
+            // data: id
+        });
+    }, []);
 
     return (
         <Wrap>
@@ -143,13 +154,13 @@ const Card = ({
                     <Date>{createDt}</Date>
 
                     <div ref={menuRef}>
-                        <MenuButton onClick={onClickButton}>
+                        <MenuButton onClick={onOpenMenu}>
                             <EllipsisOutlined />
                         </MenuButton>                        
 
                         <MenuWrap className={isVisibleMenu ? 'visible' : ''}>
                             <button>수정</button>
-                            <button>삭제</button>
+                            <button onClick={onRemove}>삭제</button>
                         </MenuWrap>
                     </div>
                 </Header>

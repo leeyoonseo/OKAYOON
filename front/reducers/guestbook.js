@@ -40,6 +40,10 @@ export const ADD_GUESTBOOK_REQUEST = 'ADD_GUESTBOOK_REQUEST';
 export const ADD_GUESTBOOK_SUCCESS = 'ADD_GUESTBOOK_SUCCESS';
 export const ADD_GUESTBOOK_FAILURE = 'ADD_GUESTBOOK_FAILURE';
 
+export const REMOVE_GUESTBOOK_REQUEST = 'REMOVE_GUESTBOOK_REQUEST';
+export const REMOVE_GUESTBOOK_SUCCESS = 'REMOVE_GUESTBOOK_SUCCESS';
+export const REMOVE_GUESTBOOK_FAILURE = 'REMOVE_GUESTBOOK_FAILURE';
+
 export const LOAD_GUESTBOOK_REQUEST = 'LOAD_GUESTBOOK_REQUEST';
 export const LOAD_GUESTBOOK_SUCCESS = 'LOAD_GUESTBOOK_SUCCESS';
 export const LOAD_GUESTBOOK_FAILURE = 'ADD_GUESTBOOK_FAILURE';
@@ -54,7 +58,7 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
 
         case ADD_GUESTBOOK_SUCCESS:
             draft.guestbook.unshift(action.data);
-            
+
             draft.addGuestbookLoading = false;
             draft.addGuestbookDone = true;
             draft.addGuestbookError = false;
@@ -64,6 +68,28 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             draft.addGuestbookLoading = false;
             draft.addGuestbookDone = false;
             draft.addGuestbookError = true;
+            break;
+
+        case REMOVE_GUESTBOOK_REQUEST:
+            draft.removeGuestbookLoading = true;
+            draft.removeGuestbookDone = false;
+            draft.removeGuestbookError = false;
+            break;
+
+        case REMOVE_GUESTBOOK_SUCCESS: {
+            // TODO: id 찾기
+            // draft.guestbook = draft.guestbook.filter((v) => v.id !== action.data.GuestbookId);
+
+            draft.removeGuestbookLoading = false;
+            draft.removeGuestbookDone = true;
+            draft.removeGuestbookError = false;
+            break;
+        }
+
+        case REMOVE_GUESTBOOK_FAILURE:
+            draft.removeGuestbookLoading = false;
+            draft.removeGuestbookDone = false;
+            draft.removeGuestbookError = true;
             break;
 
         case LOAD_GUESTBOOK_REQUEST:
