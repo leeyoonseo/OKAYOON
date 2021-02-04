@@ -109,14 +109,15 @@ const GuestForm = () => {
         >
 
             <Textarea
-                // value={text}
                 onChange={changeTextareaVal}
                 maxLength={maxTextareaLength}
                 placeholder="오늘 기분은 어떠세요?"
             />
 
             <BottomArea>
-                <LimitLetters className={textareaLength === maxTextareaLength ? 'maximum' : ''}>
+                <LimitLetters 
+                    className={textareaLength === maxTextareaLength ? 'maximum' : ''}
+                >
                     {textareaLength}/{maxTextareaLength}
                 </LimitLetters>
 

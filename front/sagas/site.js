@@ -71,6 +71,7 @@ function* ToggleModal(action){
         // 임시
         // console.log('ToggleModal', action.data);
         // yield delay(1000);
+
         yield put({
             type: TOGGLE_MODAL_SUCCESS,
             data: action.data

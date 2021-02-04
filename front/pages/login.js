@@ -151,6 +151,14 @@ const Login = () => {
                 data: AVATAR_MODAL_DATA
             });
         }
+
+        return () => {
+            // TODO: null 전달 시 열려있는 모든 modal 닫기
+            dispatch({
+                type: TOGGLE_MODAL_REQUEST,
+                data: null,
+            });
+        }
     }, []);
 
     /**

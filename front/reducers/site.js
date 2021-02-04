@@ -64,12 +64,16 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             break;
 
         case TOGGLE_MODAL_SUCCESS: {
-            const modal = draft.modals.find((v) => v.id === action.data);
-            modal.visible = !modal.visible;
+            if(action.data === null && draft.modals.length > 0) {
+                draft.modals.map((v) => v.visible = false);
+            }else {
+                const modal = draft.modals.find((v) => v.id === action.data);
+                modal.visible = !modal.visible;
 
-            if(modal.visible){
-                draft.modalIndex = draft.modalIndex + 1;
-                modal.zIndex = draft.modalIndex;
+                if(modal.visible){
+                    draft.modalIndex = draft.modalIndex + 1;
+                    modal.zIndex = draft.modalIndex;
+                }
             }
 
             draft.modalToggleLoading = false;

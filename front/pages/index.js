@@ -98,6 +98,14 @@ const Home = () => {
     useEffect(() => {
         windowH = window.innerHeight;
         setContH(windowH - headerH - footerH);
+
+        return () => {
+            // TODO: null 전달 시 열려있는 모든 modal 닫기
+            dispatch({
+                type: TOGGLE_MODAL_REQUEST,
+                data: null,
+            });
+        }
     }, []);
 
     /**

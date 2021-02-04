@@ -9,7 +9,6 @@ import {
 } from './style';
 
 const UserInfo = ({ id, avatar, nickname, setNickname, forwordRef, onClickModal }) => {
-    const dispatch = useDispatch();
     const { userInfo } = useSelector((state) => state.user);
 
     useEffect(() => {
