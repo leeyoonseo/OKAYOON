@@ -9,6 +9,15 @@ export const initialState = {
             content : '콘텐츠 작성을 해보겠습니다. 반가워요^^',
             createDt: '2020.04.11 AM 11:12',
             password: '1234',
+            comment: [
+                {
+                    nickname: '테스트1',
+                    avatar: 'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png',
+                    password: '1234',
+                    content: '댓글입니다.',
+                    createDt: '2020.04.11 AM 11:12',
+                }
+            ]
         },
         {
             nickname: '고스톱을치러가볼까고스톱을치러가볼까',
@@ -17,6 +26,7 @@ export const initialState = {
             content : '반가워요^^반가워요^^반가워요^^반가워요^^반가워요^^반가워요^^반가워요^^반가워요^^반가워요^^반가워요^^반가워요^^반가워요^^반가워요^^반가워요^^반가워요^^반가워요^^반가워요',
             createDt: '2020.04.11 PM 03:12',
             password: '0000',
+            comment: [],
         },
         {
             nickname: 'da가나다',
@@ -24,6 +34,7 @@ export const initialState = {
             content : '콘텐츠 작성을 해보겠습니다. 반가워요^^',
             createDt: '2020.04.11 AM 11:12',
             password: 'da',
+            comment: [],
         },
     ],
     

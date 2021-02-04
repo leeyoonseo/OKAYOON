@@ -6,10 +6,6 @@ import { useSelector } from 'react-redux';
 const Guestbook = () => {
     const { guestbook } = useSelector((state) => state.guestbook);
 
-    useEffect(() => {
-
-    }, []);
-
     return (
         <div>
             <Form />

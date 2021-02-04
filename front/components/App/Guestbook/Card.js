@@ -1,10 +1,13 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
 import { Avatar } from 'antd';
-import { UserOutlined, EllipsisOutlined } from '@ant-design/icons';
+import { UserOutlined, EllipsisOutlined, CommentOutlined } from '@ant-design/icons';
 import { REMOVE_GUESTBOOK_REQUEST } from '../../../reducers/guestbook';
+
+import Comment from './Comment';
 
 const Wrap = styled.div`
     position: relative;
@@ -21,7 +24,7 @@ const Side = styled.div`
 `;
 
 const Container = styled.div`
-    padding: 0 2% 2% 2%;
+    padding: 0 0 2% 2%;
     display: inline-block;
     position: relative;
     width: calc(100% - 65px);
@@ -30,6 +33,7 @@ const Container = styled.div`
 
 const Header = styled.div`    
     position: relative;
+    text-align: left;
     line-height: 1.25;
     margin-bottom: 5px;
 `;
@@ -93,9 +97,24 @@ const MenuWrap = styled.div`
     }
 `;
 
-const Content = styled.div``;
+const Content = styled.div`
+    text-align: left;
+`;
 
+const Footer = styled.div`
+    text-align: right;
+`;
 
+const CommentButton = styled.button`
+    padding: 0;
+    display: inline-block;
+    font-size: 17px;
+    line-height: 1;
+    background: none;
+    outline: none;
+    border: none;
+    cursor: pointer;
+`;
 
 const Card = ({
     nickname,
@@ -103,12 +122,14 @@ const Card = ({
     content,
     createDt,
     password,
+    comment,
 }) => {
     const dispatch = useDispatch();
 
     // TODO: 유저가 내가 아니라 포스트 등록한 유저여야함
     // const { me } = useSelector((state) => state.guestbook);
     const [isVisibleMenu, setIsVisibleMenu] = useState(false);
+    const [isVisibleComment, setIsVisibleComment] = useState(false);
     const menuRef = useRef(null);
 
     useEffect(() => {
@@ -128,6 +149,10 @@ const Card = ({
     const onOpenMenu = useCallback(() => {
         setIsVisibleMenu(!isVisibleMenu);
     }, [isVisibleMenu]);
+
+    const onOpenComment = useCallback(() => {
+        setIsVisibleComment(!isVisibleComment);
+    }, [isVisibleComment]);
 
     const onRemove = useCallback(() => {
         console.log('onRemove');
@@ -168,9 +193,35 @@ const Card = ({
                 <Content>
                     {content}
                 </Content>
-            </Container>            
+            </Container>     
+
+            {comment !== null &&(
+                <Footer>
+                    <CommentButton
+                        onClick={onOpenComment}
+                    >
+                        <CommentOutlined />
+                    </CommentButton>
+
+                    {isVisibleComment && <Comment comment={comment} />}
+                </Footer>       
+            )}
         </Wrap>
     );
 };
+
+Card.propTypes = {
+    comment: PropTypes.arrayOf(PropTypes.shape({
+        nickname: PropTypes.string,
+        avatar: PropTypes.any,
+        createDt: PropTypes.string,
+        content: PropTypes.string,  
+    })),
+
+}
+
+Card.defaultProps = {
+    comment: null,
+}
 
 export default Card;
