@@ -82,7 +82,7 @@ const Home = () => {
     const themecolor = WHITE_MODE_COLOR;
     const dispatch = useDispatch();
     const { modals, modalToggleLoading } = useSelector((state) => state.site);
-    const { userInfo } = useSelector((state) => state.user);
+    const { me } = useSelector((state) => state.user);
     const [contH, setContH] = useState(null);
     let windowH = null;
     const headerH = 35;
@@ -90,10 +90,10 @@ const Home = () => {
 
     // TODO: 페이지 작업 완료 후 확인
     // useEffect(() => {
-    //     if(!userInfo.nickname.trim()){
+    //     if(!me.nickname.trim()){
     //         Router.replace('./login');
     //     }
-    // }, [ userInfo ]);
+    // }, [ me ]);
 
     useEffect(() => {
         windowH = window.innerHeight;

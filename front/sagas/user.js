@@ -1,8 +1,8 @@
 import Router from 'next/router';
 import { all, fork, put, takeLatest, delay } from 'redux-saga/effects';
 import { 
-    EDIT_AVATAR_FAILURE, EDIT_AVATAR_REQUEST, EDIT_AVATAR_SUCCESS, 
-    LOG_IN_FAILURE, LOG_IN_REQUEST, LOG_IN_SUCCESS 
+    CHANGE_AVATAR_FAILURE, CHANGE_AVATAR_REQUEST, CHANGE_AVATAR_SUCCESS, 
+    LOG_IN_FAILURE, LOG_IN_REQUEST, LOG_IN_SUCCESS,
 } from '../reducers/user';
 
 function logInAPI(data){

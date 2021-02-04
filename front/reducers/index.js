@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 
 import user from './user';
 import site from './site';
+import guestbook from './guestbook';
 
 const rootReducer = (state, action) => {
     switch (action.type){
@@ -13,7 +14,8 @@ const rootReducer = (state, action) => {
         default: {
             const combineReducer = combineReducers({
                 user,
-                site
+                site,
+                guestbook
             });
 
             return combineReducer(state, action);

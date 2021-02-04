@@ -5,28 +5,29 @@ import styled from 'styled-components';
 import { Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
-// export const AvatarButton = styled(Avatar)`
-//     margin-bottom: 10px;
-//     cursor: pointer;
-//     opacity: 0.8;
-// `;
+const Wrap = styled.div`
+    
+
+    
+`;
 
 const Card = () => {
-    const { userInfo } = useSelector((state) => state.user);
+
+    // TODO: 유저가 내가 아니라 포스트 등록한 유저여야함
+    const { me } = useSelector((state) => state.user);
 
     useEffect(() => {
-        console.log('Card', userInfo);
+        console.log('Card', me);
     }, []);
 
     return (
-        <div>
+        <Wrap className="card">
             <Avatar 
                 size={64} 
-                src={userInfo.avatar ? userInfo.avatar : null}
+                src={me.avatar ? me.avatar : null}
                 icon={<UserOutlined />} 
-                // onClick={onClickModal(id)}
             />
-        </div>
+        </Wrap>
     );
 };
 

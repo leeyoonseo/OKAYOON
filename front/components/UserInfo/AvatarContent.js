@@ -3,8 +3,8 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { CHANGE_USERINFO_REQUEST } from '../../reducers/user';
-import { DELETE_MODAL_REQUEST } from '../../reducers/site';
+// import { CHANGE_USERINFO_REQUEST } from '../../reducers/user';
+// import { DELETE_MODAL_REQUEST } from '../../reducers/site';
 
 // TODO: 홀수
 const avatarSample = [

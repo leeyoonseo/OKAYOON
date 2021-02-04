@@ -7,6 +7,8 @@ const Guestbook = () => {
         <div>
             <GuestForm />
             <Card />
+            <Card />
+            <Card />
         </div>
     );
 };

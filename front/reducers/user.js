@@ -6,11 +6,11 @@ export const initialState = {
     logInDone: false,
     logInError: null,
 
-    changeUserInfoLoading: false,
-    changeUserInfoDone: false,
-    changeUserInfoError: null,
+    changeMeLoading: false,
+    changeMeDone: false,
+    changeMeError: null,
 
-    userInfo: {
+    me: {
         nickname: '',
         avatar: null,
     },
@@ -45,7 +45,7 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             draft.logInLoading = false;
             draft.logInDone = true;
             draft.logInError = false;
-            draft.userInfo = action.data;
+            draft.me = action.data;
 
             Router.replace('/');
             break;
@@ -58,22 +58,22 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             break;
 
         case CHANGE_AVATAR_REQUEST: 
-            draft.changeUserInfoLoading = true;
-            draft.changeUserInfoDone = false;
-            draft.changeUserInfoError = false;
+            draft.changeMeLoading = true;
+            draft.changeMeDone = false;
+            draft.changeMeError = false;
             break;
                 
         case CHANGE_AVATAR_SUCCESS: 
-            draft.changeUserInfoLoading = false;
-            draft.changeUserInfoDone = true;
-            draft.changeUserInfoError = false;
-            draft.userInfo.avatar = action.data;
+            draft.changeMeLoading = false;
+            draft.changeMeDone = true;
+            draft.changeMeError = false;
+            draft.me.avatar = action.data;
             break;
 
         case CHANGE_AVATAR_FAILURE:
-            draft.changeUserInfoLoading = false;
-            draft.changeUserInfoDone = false;
-            draft.changeUserInfoError = true;
+            draft.changeMeLoading = false;
+            draft.changeMeDone = false;
+            draft.changeMeError = true;
             break;
 
         default: 

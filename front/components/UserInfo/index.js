@@ -9,13 +9,13 @@ import {
 } from './style';
 
 const UserInfo = ({ id, avatar, nickname, setNickname, forwordRef, onClickModal }) => {
-    const { userInfo } = useSelector((state) => state.user);
+    const { me } = useSelector((state) => state.user);
 
     useEffect(() => {
         forwordRef.current && forwordRef.current.focus();
 
-        if(userInfo.nickname){
-            setNickname(userInfo.nickname);
+        if(me.nickname){
+            setNickname(me.nickname);
         }
     }, []);
 

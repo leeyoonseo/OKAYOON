@@ -127,12 +127,12 @@ const Login = () => {
     const dispatch = useDispatch();
     const inputEl = useRef(null);
 
-    const { logInLoading, userInfo } = useSelector((state) => state.user);
+    const { logInLoading, me } = useSelector((state) => state.user);
     const { modalToggleLoading, modals } = useSelector((state) => state.site);
 
     const [contH, setContH] = useState(null);
-    const [avatar, setAvatar] = useState(userInfo.avatar ? userInfo.avatar : null);
-    const [nickname, onChangeNickname, setNickname] = useInput(userInfo.nickname ? userInfo.nickname : '');
+    const [avatar, setAvatar] = useState(me.avatar ? me.avatar : null);
+    const [nickname, onChangeNickname, setNickname] = useInput(me.nickname ? me.nickname : '');
 
     const themecolor = DARK_MODE_COLOR;
     let windowH = null;

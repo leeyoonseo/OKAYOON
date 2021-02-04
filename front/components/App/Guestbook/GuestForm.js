@@ -1,23 +1,25 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import useInput from '../../../hooks/useInput';
 
 import styled from 'styled-components';
 
 import { EyeOutlined } from '@ant-design/icons';
-
-
-const FormWrap = styled.form`
-    
-`;
+import { ADD_GUESTBOOK_REQUEST } from '../../../reducers/guestbook';
 
 const Textarea = styled.textarea`
     padding: 10px;
     width: 100%;    
     min-height: 100px;
     color: #666;
-    border: none;
+    border: 1px solid #f0f2f5;
     border-radius: 3px;
+    box-sizing: border-box;
     outline: none;
+
+    &.empty {
+        border: 1px solid red;
+    }
 `;
 
 const BottomArea = styled.div`
@@ -54,6 +56,10 @@ const PasswordInput = styled.input`
     border-bottom: 1px solid #999;
     background: none;
     outline: none;
+
+    &.empty {
+        border-bottom: 1px solid red;
+    }
 `;
 
 const HiddenCheckPWButton = styled.button`
@@ -76,25 +82,65 @@ const Button = styled.button`
 `;
 
 const GuestForm = () => {
-    const [textareaVal, changeTextareaVal, setTextareaVal] = useInput('');
-    const [textareaLength, setTextareaLength] = useState(0);
+    const dispatch = useDispatch();
+    const { me } = useSelector((state) => state.user);
+    const [textVal, changeTextVal] = useInput('');
+    const [passwordVal, changePasswordVal] = useInput('');
     const [checkHiddenPW, setCheckHiddenPW] = useState(false);
-    
-    const maxTextareaLength = 200;
-    
+    const textareaRef = useRef(null);
+    const pwInputRef = useRef(null);
+
+    const CLASSNAME_EMPTY = 'empty';
+    const maxTextLength = 200;
+    let validationFailureNum = 0;
+
     useEffect(() => {
-        setTextareaLength(textareaVal.length);
-    }, [textareaVal]);
+        // validationFailureNum = 0;
+        textareaRef.current.focus();
+    }, []);
 
     const onClickImageUpload = useCallback((e) => {
         e.preventDefault();
         console.log('onClickImageUpload');
     }, []);
 
+    const onFocus = useCallback(({ target }) => {
+        if(target.classList.contains(CLASSNAME_EMPTY)) {
+            target.classList.remove(CLASSNAME_EMPTY);
+        }
+    }, []);
+
+    const formValidation = useCallback(() => {
+        // textarea
+        if(!textVal || !textVal.trim()) {
+            ++validationFailureNum;
+            textareaRef.current.classList.add(CLASSNAME_EMPTY);
+        }
+
+        // pw
+        if(!passwordVal || !passwordVal.trim()) {
+            ++validationFailureNum;
+            pwInputRef.current.classList.add(CLASSNAME_EMPTY);
+        }
+
+        return (!validationFailureNum) ? true : false;
+    }, [textVal, passwordVal]);
+
     const onSubmit = useCallback((e) => {
         e.preventDefault();
-        console.log('onSubmit');
-    }, []);
+        const result = formValidation();
+
+
+        if(result) {
+            return dispatch({
+                type: ADD_GUESTBOOK_REQUEST,
+                data: {
+                    content: textVal,
+                    password: passwordVal,
+                },
+            });
+        }
+    }, [textVal, passwordVal]);
 
     const onChangeHiddenPW = useCallback((e) => {
         e.preventDefault();
@@ -102,27 +148,28 @@ const GuestForm = () => {
     }, [checkHiddenPW]);
 
     return (
-        <FormWrap 
-            // style={{ margin: '10px 0 20px' }} 
-            // encType="multipart/form-data" 
-            // onSubmit={onSubmit} 
-        >
+        <form>
 
             <Textarea
-                onChange={changeTextareaVal}
-                maxLength={maxTextareaLength}
+                ref={textareaRef}
+                onFocus={onFocus}
+                onChange={changeTextVal}
+                maxLength={maxTextLength}
                 placeholder="오늘 기분은 어떠세요?"
             />
 
             <BottomArea>
                 <LimitLetters 
-                    className={textareaLength === maxTextareaLength ? 'maximum' : ''}
+                    className={textVal.length === maxTextLength ? 'maximum' : ''}
                 >
-                    {textareaLength}/{maxTextareaLength}
+                    {textVal.length}/{maxTextLength}
                 </LimitLetters>
 
                 <PasswordInput 
+                    ref={pwInputRef}
                     type={checkHiddenPW ? 'text' : 'password'} 
+                    onFocus={onFocus}
+                    onChange={changePasswordVal}
                     placeholder="비밀번호"
                     maxLength={20}
                 />
@@ -137,9 +184,7 @@ const GuestForm = () => {
                 <Button onClick={onClickImageUpload}>
                     이미지업로드
                 </Button>
-                <Button 
-                    onClick={onSubmit}
-                >
+                <Button onClick={onSubmit}>
                     등록
                 </Button>
             </BottomArea>
@@ -153,7 +198,7 @@ const GuestForm = () => {
                 </div>
                 ))}
             </div> */}
-        </FormWrap>
+        </form>
     );
 };
 
