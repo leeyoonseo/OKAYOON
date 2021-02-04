@@ -1,4 +1,4 @@
-import { all, fork, put, takeLatest } from 'redux-saga/effects';
+import { all, fork, put, takeLatest, delay } from 'redux-saga/effects';
 import { 
     ADD_GUESTBOOK_REQUEST, ADD_GUESTBOOK_SUCCESS, ADD_GUESTBOOK_FAILURE, 
     LOAD_GUESTBOOK_REQUEST, LOAD_GUESTBOOK_SUCCESS, LOAD_GUESTBOOK_FAILURE,
@@ -13,8 +13,8 @@ function* AddGuestbook(action){
         // const result = yield call(AddGuestbookAPI);
         // 임시
         // console.log('AddGuestbook', action.data);
-        // yield delay(1000);
-        console.log('AddGuestbook', action.data);
+        yield delay(1000);
+        // console.log('AddGuestbook', action.data);
         yield put({
             type: ADD_GUESTBOOK_SUCCESS,
             data: action.data

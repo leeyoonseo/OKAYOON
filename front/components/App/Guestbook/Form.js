@@ -2,9 +2,9 @@ import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useInput from '../../../hooks/useInput';
 
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-import { EyeOutlined } from '@ant-design/icons';
+import { ConsoleSqlOutlined, EyeOutlined } from '@ant-design/icons';
 import { ADD_GUESTBOOK_REQUEST } from '../../../reducers/guestbook';
 
 const Textarea = styled.textarea`
@@ -74,18 +74,35 @@ const HiddenCheckPWButton = styled.button`
         background: none;
     }
 `;
-
-const Button = styled.button`
+const defaultButtonStyle = css`
     padding: 0;
     border: none;
     background: none;
+    font-size: 12px;
+    outline: none;
+    border: none;
+
+    &:hover,
+    &:focus {
+        color: #666;
+        background: none;
+    }
+`;
+
+const ImageUploadButton = styled.button`
+    ${defaultButtonStyle}
+`;
+
+const SubmitButton = styled.button`
+    ${defaultButtonStyle}
 `;
 
 const GuestForm = () => {
     const dispatch = useDispatch();
+    const { addGuestbookDone } = useSelector((state) => state.guestbook);
     const { me } = useSelector((state) => state.user);
-    const [textVal, changeTextVal] = useInput('');
-    const [passwordVal, changePasswordVal] = useInput('');
+    const [textVal, changeTextVal, setTextVal] = useInput('');
+    const [passwordVal, changePasswordVal, setPasswordVal] = useInput('');
     const [checkHiddenPW, setCheckHiddenPW] = useState(false);
     const textareaRef = useRef(null);
     const pwInputRef = useRef(null);
@@ -95,9 +112,15 @@ const GuestForm = () => {
     let validationFailureNum = 0;
 
     useEffect(() => {
-        // validationFailureNum = 0;
         textareaRef.current.focus();
     }, []);
+
+    useEffect(() => {
+        if(addGuestbookDone){
+            setTextVal('');
+            setPasswordVal('');
+        }
+    }, [addGuestbookDone]);
 
     const onClickImageUpload = useCallback((e) => {
         e.preventDefault();
@@ -130,11 +153,13 @@ const GuestForm = () => {
         e.preventDefault();
         const result = formValidation();
 
-
         if(result) {
             return dispatch({
                 type: ADD_GUESTBOOK_REQUEST,
                 data: {
+                    nickname: me.nickname,
+                    avatar: me.avatar,
+                    createDt: '2020.04.11 AM 11:12',
                     content: textVal,
                     password: passwordVal,
                 },
@@ -153,6 +178,7 @@ const GuestForm = () => {
             <Textarea
                 ref={textareaRef}
                 onFocus={onFocus}
+                value={textVal}
                 onChange={changeTextVal}
                 maxLength={maxTextLength}
                 placeholder="오늘 기분은 어떠세요?"
@@ -169,6 +195,7 @@ const GuestForm = () => {
                     ref={pwInputRef}
                     type={checkHiddenPW ? 'text' : 'password'} 
                     onFocus={onFocus}
+                    value={passwordVal}
                     onChange={changePasswordVal}
                     placeholder="비밀번호"
                     maxLength={20}
@@ -181,12 +208,17 @@ const GuestForm = () => {
                 {/* <input type="file" name="image" multiple hidden 
                     // ref={imageInput} onChange={onChangeImages} 
                 /> */}
-                <Button onClick={onClickImageUpload}>
+                <ImageUploadButton 
+                    onClick={onClickImageUpload}
+                >
                     이미지업로드
-                </Button>
-                <Button onClick={onSubmit}>
+                </ImageUploadButton>
+                
+                <SubmitButton 
+                    onClick={onSubmit} 
+                >
                     등록
-                </Button>
+                </SubmitButton>
             </BottomArea>
             {/* <div>
                 {imagePaths.map((v, i) => (

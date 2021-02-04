@@ -29,6 +29,7 @@ const Container = styled.div`
 
 const Header = styled.div`    
     position: relative;
+    line-height: 1.25;
     margin-bottom: 5px;
 `;
 
@@ -37,7 +38,6 @@ const Nickname = styled.span`
 `;
 
 const Date = styled.span`
-    margin-left: 5px;
     font-size: 11px;
 `;
 
@@ -61,7 +61,7 @@ const MenuWrap = styled.div`
     padding: 3% 0 1% 0;
     display: none;
     position: absolute;
-    top: 100%;
+    top: 50%;
     right: -30px;
     width: 80px;
     color: #fff;
@@ -96,10 +96,16 @@ const Content = styled.div``;
 
 
 
-const Card = () => {
+const Card = ({
+    nickname,
+    avatar,
+    content,
+    createDt,
+    password,
+}) => {
 
     // TODO: 유저가 내가 아니라 포스트 등록한 유저여야함
-    const { me } = useSelector((state) => state.user);
+    // const { me } = useSelector((state) => state.guestbook);
     const [isVisibleMenu, setIsVisibleMenu] = useState(false);
     const menuRef = useRef(null);
 
@@ -126,15 +132,15 @@ const Card = () => {
             <Side>
                 <Avatar 
                     size={64} 
-                    src={me.avatar ? me.avatar : null}
+                    src={avatar ? avatar : null}
                     icon={<UserOutlined />} 
                 />
             </Side>
 
             <Container>
                 <Header>
-                    <Nickname>닉네임</Nickname>
-                    <Date>2020.01.01 AM 3:00</Date>
+                    <Nickname>{nickname}</Nickname><br />
+                    <Date>{createDt}</Date>
 
                     <div ref={menuRef}>
                         <MenuButton onClick={onClickButton}>
@@ -149,7 +155,7 @@ const Card = () => {
                 </Header>
                 
                 <Content>
-                    컨텐츠
+                    {content}
                 </Content>
             </Container>            
         </Wrap>

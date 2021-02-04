@@ -13,9 +13,10 @@ const Guestbook = () => {
     return (
         <div>
             <Form />
-            {guestbook.map((v) => {
+            {guestbook.map((v, i) => {
                 return(
-                    <Card {...v} />
+                    // TODO: Key 수정하기
+                    <Card key={i} {...v} />
                 )
             })}
         </div>
