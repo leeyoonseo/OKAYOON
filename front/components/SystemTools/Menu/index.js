@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Router from 'next/router';
+import PropTypes from 'prop-types';
 
 import { CREATE_MODAL_REQUEST, TOGGLE_MODAL_REQUEST } from '../../../reducers/site';
 
@@ -72,55 +73,42 @@ const Menu = ({ themecolor }) => {
             </MenuButton>
 
             {isVisibleMenu && (
-                    <MenuTooltip className={isVisibleMenu ? 'active' : ''}>
-                        <List>
-                            <Item>
-                                <ItemButton 
-                                    onClick={onClickItem(WELCOME_MODAL_ID)}    
-                                >
-                                    Welcome
-                                </ItemButton>
-                            </Item>
-        
-                            <Item>
-                                <ItemButton 
-                                    onClick={onClickItem(INFO_MODAL_ID)}
-                                >
-                                    Info
-                                </ItemButton>
-                            </Item>
-        
-                            <Item>
-                                <ItemButton onClick={onClickLogout}>
-                                    Logout
-                                </ItemButton>
-                            </Item>
-                        </List>
-                    </MenuTooltip>
-                )}
-
-            {/* <ModalPopup 
-                visible={isVisibleWelcome} 
-                modal_width="300px"
-                modal_height="300px"
-                title="Welcome"
-                onClose={onCloseWelcome}
-            >
-                <ModalContentWelcome />
-            </ModalPopup> */}
-{/* 
-            <ModalPopup 
-                visible={isVisibleInfo} 
-                modal_width="300px"
-                modal_height="300px"
-                title="기술"
-                onClose={onCloseInfo}
-            >
-                <ModalContentInfo />
-            </ModalPopup> */}
-
+                <MenuTooltip className={isVisibleMenu ? 'active' : ''}>
+                    <List>
+                        <Item>
+                            <ItemButton 
+                                onClick={onClickItem(WELCOME_MODAL_ID)}    
+                            >
+                                Welcome
+                            </ItemButton>
+                        </Item>
+    
+                        <Item>
+                            <ItemButton 
+                                onClick={onClickItem(INFO_MODAL_ID)}
+                            >
+                                Info
+                            </ItemButton>
+                        </Item>
+    
+                        <Item>
+                            <ItemButton onClick={onClickLogout}>
+                                Logout
+                            </ItemButton>
+                        </Item>
+                    </List>
+                </MenuTooltip>
+            )}
         </Wrap>
     );
+};
+
+Menu.propTypes = {
+    themecolor: PropTypes.string,
+};
+
+Menu.defaultProps = {
+    themecolor: '#333',
 };
 
 export default Menu;

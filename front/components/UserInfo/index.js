@@ -1,6 +1,7 @@
 import React, { useEffect, useCallback, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useInput from '../../hooks/useInput';
+import PropTypes from 'prop-types';
 
 import { UserOutlined, CloseOutlined, CheckOutlined } from '@ant-design/icons';
 import {
@@ -68,6 +69,21 @@ const UserInfo = ({ id, avatar, nickname, setNickname, forwordRef, onClickModal 
             </NicknameArea>
         </Wrap>
     );
+};
+
+UserInfo.propTypes = {
+    // TODO: ID 사용중인가?
+    // id: PropTypes.string, 
+    avatar: PropTypes.string, 
+    nickname: PropTypes.string, 
+    setNickname: PropTypes.object.isRequired, 
+    forwordRef: PropTypes.node.isRequired, 
+    onClickModal: PropTypes.func.isRequired,
+};
+
+UserInfo.defaultProps = {
+    avatar: null,
+    nickname: 'Guest',
 };
 
 export default UserInfo;

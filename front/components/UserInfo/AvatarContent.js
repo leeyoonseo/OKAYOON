@@ -122,9 +122,9 @@ const AvatarContent = ({ id, onCloseModal }) => {
     );
 };
 
-// AvatarContent.propTypes = {
-//     onCloseModal: PropTypes.func.isRequired,
-// };
+AvatarContent.propTypes = {
+    onCloseModal: PropTypes.func.isRequired,
+};
 
 export default AvatarContent;
 

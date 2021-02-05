@@ -35,7 +35,7 @@ export const initialState = {
             createDt: '2020.04.11 AM 11:12',
             password: 'da',
             comment: [],
-        },
+            },
     ],
     
     addGuestbookLoading: false,
