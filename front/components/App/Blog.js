@@ -10,17 +10,7 @@ const Blog = () => {
 
 export default Blog;
 
-export const BLOG_MODAL_ID = 'MB_M_0'; // 페이지컴포넌트_모달_인덱스
-export const BLOG_MODAL_DATA = {
-    id: BLOG_MODAL_ID,
-    visible: false,
-    size: {
-        w: '200px',
-        h: '300px'
-    },
-    title: "블로그",
-    content: Blog,
-};
+
 
 // TODO:
 // DB 연결

@@ -4,13 +4,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CREATE_MODAL_REQUEST, TOGGLE_MODAL_REQUEST } from '../../reducers/site';
 
 import Items from './Items';
-import { GUESTBOOK_MODAL_ID, GUESTBOOK_MODAL_DATA } from '../App/Guestbook/index';
-import { BLOG_MODAL_ID, BLOG_MODAL_DATA } from '../App/Blog';
-import { CHATTING_MODAL_ID, CHATTING_MODAL_DATA } from '../App/Chatting';
-import { DELETE_MODAL_ID, DELETE_MODAL_DATA } from '../App/Delete';
-import { GALLERY_MODAL_ID, GALLERY_MODAL_DATA } from '../App/Gallery';
-import { GAME_MODAL_ID, GAME_MODAL_DATA } from '../App/Game';
-import { MEMO_MODAL_ID, MEMO_MODAL_DATA } from '../App/Memo';
+
+import { 
+    GUESTBOOK_MODAL_ID, GUESTBOOK_MODAL_DATA,
+    BLOG_MODAL_ID, BLOG_MODAL_DATA,
+    CHATTING_MODAL_ID, CHATTING_MODAL_DATA,
+    DELETE_MODAL_ID, DELETE_MODAL_DATA,
+    GALLERY_MODAL_ID, GALLERY_MODAL_DATA,
+    GAME_MODAL_ID, GAME_MODAL_DATA,
+    MEMO_MODAL_ID, MEMO_MODAL_DATA,
+} from '../ModalPopup/data';
 
 import { 
     Wrap, GuestbookIcon, BlogIcon, GalleryIcon, MemoIcon, 

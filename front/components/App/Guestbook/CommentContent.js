@@ -11,6 +11,7 @@ const CommentContent = ({
 
     return (
         <Card
+            bgColor="#f0f2f5"
             nickname={nickname}
             avatar={avatar}
             content={content}

@@ -128,20 +128,6 @@ AvatarContent.propTypes = {
 
 export default AvatarContent;
 
-export const AVATAR_MODAL_ID = 'LU_M_0';
-export const AVATAR_MODAL_DATA = {
-    id: AVATAR_MODAL_ID, // 페이지컴포넌트_모달_인덱스
-    visible: false,
-    size: {
-        w: '500px',
-        h: '500px'
-    },
-    title: "아바타 설정",
-    content: AvatarContent,
-    buttonDisabled : {
-        Maximize: true,
-    },   
-};
 
 // TODO:
 // - 기본 이미지 스타일 수정

@@ -15,7 +15,8 @@ const Wrap = styled.div`
     padding: 4%;
     border-radius: 3px;
     box-sizing: border-box;
-    background: #fff;
+    // background: #fff;
+    background: ${props => props.bgColor};
 `;
 
 const Side = styled.div`
@@ -116,6 +117,9 @@ const CommentButton = styled.button`
     cursor: pointer;
 `;
 
+const CommentWrap = styled.div`
+`;
+
 const Card = ({
     nickname,
     avatar,
@@ -123,6 +127,7 @@ const Card = ({
     createDt,
     password,
     comment,
+    bgColor,
 }) => {
     const dispatch = useDispatch();
 
@@ -164,7 +169,7 @@ const Card = ({
     }, []);
 
     return (
-        <Wrap>
+        <Wrap bgColor={bgColor}>
             <Side>
                 <Avatar 
                     size={64} 
@@ -203,7 +208,11 @@ const Card = ({
                         <CommentOutlined />
                     </CommentButton>
 
-                    {isVisibleComment && <Comment comment={comment} />}
+                    {isVisibleComment && (
+                        <CommentWrap>
+                            <Comment comment={comment} />
+                        </CommentWrap>
+                    )}
                 </Footer>       
             )}
         </Wrap>
@@ -216,11 +225,13 @@ Card.propTypes = {
         avatar: PropTypes.any,
         createDt: PropTypes.string,
         content: PropTypes.string,  
+        bgColor: PropTypes.string,
     })),
 
 }
 
 Card.defaultProps = {
+    bgColor: '#fff',
     comment: null,
 }
 

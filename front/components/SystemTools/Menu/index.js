@@ -5,8 +5,10 @@ import PropTypes from 'prop-types';
 
 import { CREATE_MODAL_REQUEST, TOGGLE_MODAL_REQUEST } from '../../../reducers/site';
 
-import { WELCOME_MODAL_ID, WELCOME_MODAL_DATA } from './WelcomeContent';
-import { INFO_MODAL_ID, INFO_MODAL_DATA } from './InfoContent';
+import { 
+    WELCOME_MODAL_ID, WELCOME_MODAL_DATA, 
+    INFO_MODAL_ID, INFO_MODAL_DATA,
+} from '../../ModalPopup/data';
 
 import { 
     Wrap, MenuButton, MenuIcon, MenuTooltip, 

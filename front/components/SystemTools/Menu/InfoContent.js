@@ -11,17 +11,3 @@ const InfoContent = () => {
 
 export default InfoContent;
 
-export const INFO_MODAL_ID = 'MI_M_0'; // 페이지컴포넌트_모달_인덱스
-export const INFO_MODAL_DATA = {
-    id: INFO_MODAL_ID,
-    visible: false,
-    size: {
-        w: '300px',
-        h: '300px'
-    },
-    title: "Info",
-    content: InfoContent,
-    buttonDisabled : {
-        Maximize: true,
-    },   
-};

@@ -14,6 +14,7 @@ const UserInfo = ({ id, avatar, nickname, setNickname, forwordRef, onClickModal 
 
     useEffect(() => {
         forwordRef.current && forwordRef.current.focus();
+        console.log('type', typeof forwordRef);
 
         if(me.nickname){
             setNickname(me.nickname);
@@ -76,8 +77,8 @@ UserInfo.propTypes = {
     // id: PropTypes.string, 
     avatar: PropTypes.string, 
     nickname: PropTypes.string, 
-    setNickname: PropTypes.object.isRequired, 
-    forwordRef: PropTypes.node.isRequired, 
+    setNickname: PropTypes.func.isRequired, 
+    forwordRef: PropTypes.object,
     onClickModal: PropTypes.func.isRequired,
 };
 

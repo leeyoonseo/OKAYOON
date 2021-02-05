@@ -13,7 +13,7 @@ import UserInfo from '../components/UserInfo/index';
 import SystemTools from '../components/SystemTools';
 import Loading from '../components/Loading';
 import ModalPopup from '../components/ModalPopup';
-import { AVATAR_MODAL_ID, AVATAR_MODAL_DATA } from '../components/UserInfo/AvatarContent';
+import { AVATAR_MODAL_ID, AVATAR_MODAL_DATA } from '../components/ModalPopup/data';
 
 import { Layout, Button } from 'antd';
 import { LogoutOutlined } from '@ant-design/icons';

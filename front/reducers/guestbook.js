@@ -16,6 +16,13 @@ export const initialState = {
                     password: '1234',
                     content: '댓글입니다.',
                     createDt: '2020.04.11 AM 11:12',
+                },
+                {
+                    nickname: '도롱뇽',
+                    avatar: null,
+                    password: '1234',
+                    content: '오늘도 좋은하루 되십쇼',
+                    createDt: '2020.04.11 pm 3:12',
                 }
             ]
         },
