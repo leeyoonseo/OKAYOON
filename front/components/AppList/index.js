@@ -91,9 +91,8 @@ const index = () => {
             />
 
             <Items
-                disabled={true}
                 title={<IconTitle>블로그</IconTitle>}
-                icon={<BlogIcon />}
+                icon={<BlogIcon src="https://okayoon.tistory.com/"/>}
                 onClick={onClickItem(BLOG_MODAL_ID)}
             />
                 

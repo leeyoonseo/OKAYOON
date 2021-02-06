@@ -81,8 +81,8 @@ export const BLOG_MODAL_DATA = {
     id: BLOG_MODAL_ID,
     visible: false,
     size: {
-        w: '200px',
-        h: '300px'
+        w: '700px',
+        h: '600px'
     },
     title: "블로그",
     content: Blog,
