@@ -9,6 +9,7 @@ const Guestbook = () => {
     return (
         <div>
             <Form />
+
             {guestbook.map((v, i) => {
                 return(
                     // TODO: Key 수정하기
@@ -23,3 +24,4 @@ export default Guestbook;
 
 // TODO:
 // DB 연결
+// - 방명록 리스트 데이터로드 스크롤링방식으로 변경하자!!, 10개씩?

@@ -5,9 +5,10 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Avatar } from 'antd';
 import { UserOutlined, EllipsisOutlined, CommentOutlined } from '@ant-design/icons';
-import { REMOVE_GUESTBOOK_REQUEST } from '../../../reducers/guestbook';
+import { REMOVE_GUESTBOOK_REQUEST, EDIT_GUESTBOOK_REQUEST } from '../../../reducers/guestbook';
 
-import Comment from './Comment';
+import CommentForm from './CommentForm';
+import CommentContent from './CommentContent';
 
 const Wrap = styled.div`
     position: relative;
@@ -15,8 +16,7 @@ const Wrap = styled.div`
     padding: 4%;
     border-radius: 3px;
     box-sizing: border-box;
-    // background: #fff;
-    background: ${props => props.bgColor};
+    background: #fff;
 `;
 
 const Side = styled.div`
@@ -117,9 +117,6 @@ const CommentButton = styled.button`
     cursor: pointer;
 `;
 
-const CommentWrap = styled.div`
-`;
-
 const Card = ({
     nickname,
     avatar,
@@ -127,7 +124,6 @@ const Card = ({
     createDt,
     password,
     comment,
-    bgColor,
 }) => {
     const dispatch = useDispatch();
 
@@ -159,8 +155,21 @@ const Card = ({
         setIsVisibleComment(!isVisibleComment);
     }, [isVisibleComment]);
 
+    const onEdit = useCallback(() => {
+        console.log('onEdit');
+        setIsVisibleMenu(false);
+
+        // dispatch({
+        //     type: EDIT_GUESTBOOK_REQUEST,
+        //     data: {
+
+        //     }
+        // })
+    }, []);
+
     const onRemove = useCallback(() => {
         console.log('onRemove');
+        setIsVisibleMenu(false);
 
         dispatch({
             type: REMOVE_GUESTBOOK_REQUEST,
@@ -169,7 +178,7 @@ const Card = ({
     }, []);
 
     return (
-        <Wrap bgColor={bgColor}>
+        <Wrap>
             <Side>
                 <Avatar 
                     size={64} 
@@ -189,7 +198,7 @@ const Card = ({
                         </MenuButton>                        
 
                         <MenuWrap className={isVisibleMenu ? 'visible' : ''}>
-                            <button>수정</button>
+                            <button onClick={onEdit}>수정</button>
                             <button onClick={onRemove}>삭제</button>
                         </MenuWrap>
                     </div>
@@ -209,9 +218,22 @@ const Card = ({
                     </CommentButton>
 
                     {isVisibleComment && (
-                        <CommentWrap>
-                            <Comment comment={comment} />
-                        </CommentWrap>
+                        <>
+                            {/* <Comment comment={comment} /> */}
+
+                            <CommentForm />
+
+                            {comment.map((v, i) => (
+                                <CommentContent 
+                                    // TODO: key 수정
+                                    key={i}
+                                    nickname={v.nickname} 
+                                    avatar={v.avatar} 
+                                    content={v.content} 
+                                    createDt={v.createDt}
+                                />
+                            ))}
+                        </>
                     )}
                 </Footer>       
             )}
@@ -225,13 +247,11 @@ Card.propTypes = {
         avatar: PropTypes.any,
         createDt: PropTypes.string,
         content: PropTypes.string,  
-        bgColor: PropTypes.string,
     })),
 
 }
 
 Card.defaultProps = {
-    bgColor: '#fff',
     comment: null,
 }
 

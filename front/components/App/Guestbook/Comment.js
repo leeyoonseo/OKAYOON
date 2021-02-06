@@ -6,14 +6,14 @@ import CommentContent from './CommentContent';
 
 const Comment = (props) => {
 
-    console.log('!!!', props.comment);
-    useCallback(() => {
-        console.log('comment props', props.comment);
-    }, []);
+    // console.log('!!!', props.comment);
+    // useCallback(() => {
+    //     console.log('comment props', props.comment);
+    // }, []);
 
     return (
         <>
-            <CommentForm />
+            {/* <CommentForm />
 
             {props.comment.map((v, i) => (
                 <CommentContent 
@@ -24,7 +24,7 @@ const Comment = (props) => {
                     content={v.content} 
                     createDt={v.createDt}
                 />
-            ))}
+            ))} */}
         </>
     );
 };

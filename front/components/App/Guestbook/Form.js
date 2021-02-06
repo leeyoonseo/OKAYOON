@@ -4,7 +4,7 @@ import useInput from '../../../hooks/useInput';
 
 import styled, { css } from 'styled-components';
 
-import { ConsoleSqlOutlined, EyeOutlined } from '@ant-design/icons';
+import { EyeOutlined } from '@ant-design/icons';
 import { ADD_GUESTBOOK_REQUEST } from '../../../reducers/guestbook';
 
 const Textarea = styled.textarea`
@@ -182,7 +182,7 @@ const GuestForm = () => {
                 name="content"
                 onChange={changeTextVal}
                 maxLength={maxTextLength}
-                placeholder="오늘 기분은 어떠세요?"
+                placeholder="안녕하세요, 오늘의 기분은 어떠신가요?"
             />
 
             <BottomArea>
