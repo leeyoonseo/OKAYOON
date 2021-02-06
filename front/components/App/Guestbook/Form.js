@@ -162,6 +162,7 @@ const GuestForm = () => {
                     createDt: '2020.04.11 AM 11:12',
                     content: textVal,
                     password: passwordVal,
+                    comment: [],
                 },
             });
         }
@@ -173,12 +174,12 @@ const GuestForm = () => {
     }, [checkHiddenPW]);
 
     return (
-        <form>
-
+        <form onSubmit={onSubmit}>
             <Textarea
                 ref={textareaRef}
                 onFocus={onFocus}
                 value={textVal}
+                name="content"
                 onChange={changeTextVal}
                 maxLength={maxTextLength}
                 placeholder="오늘 기분은 어떠세요?"
@@ -192,6 +193,8 @@ const GuestForm = () => {
                 </LimitLetters>
 
                 <PasswordInput 
+                    name="password"
+
                     ref={pwInputRef}
                     type={checkHiddenPW ? 'text' : 'password'} 
                     onFocus={onFocus}
@@ -205,18 +208,17 @@ const GuestForm = () => {
                     <EyeOutlined />
                 </HiddenCheckPWButton>
 
-                {/* <input type="file" name="image" multiple hidden 
+                <input type="file" name="image" multiple hidden 
+                    name="password"
                     // ref={imageInput} onChange={onChangeImages} 
-                /> */}
+                />
                 <ImageUploadButton 
                     onClick={onClickImageUpload}
                 >
                     이미지업로드
                 </ImageUploadButton>
                 
-                <SubmitButton 
-                    onClick={onSubmit} 
-                >
+                <SubmitButton type="submit">
                     등록
                 </SubmitButton>
             </BottomArea>

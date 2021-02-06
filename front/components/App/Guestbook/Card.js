@@ -109,7 +109,7 @@ const Footer = styled.div`
 const CommentButton = styled.button`
     padding: 0;
     display: inline-block;
-    font-size: 17px;
+    font-size: 16px;
     line-height: 1;
     background: none;
     outline: none;
