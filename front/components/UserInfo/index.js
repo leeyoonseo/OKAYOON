@@ -56,7 +56,7 @@ const UserInfo = ({ id, avatar, nickname, setNickname, forwordRef, onClickModal 
 
                             <NicknameInput 
                                 type="text"
-                                maxLenght="10"
+                                maxLength="20"
                                 placeholder="Please your nickname" 
                                 ref={forwordRef}
                             />

@@ -176,7 +176,7 @@ const CommentForm = () => {
                 value={textVal}
                 name="content"
                 onChange={changeTextVal}
-                maxLength={maxTextLength - 1}
+                maxLength={maxTextLength}
                 placeholder="댓글을 작성해주세요."
             />
 
