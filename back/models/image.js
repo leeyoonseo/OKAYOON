@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Image.associate = (db) => {
-        db.Image.belongTo(db.Guestbook);
+        db.Image.belongsTo(db.Guestbook);
         
 
     };

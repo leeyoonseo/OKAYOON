@@ -12,6 +12,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(100),
             allowNull: false, 
         },
+        superkey: {
+            type: DataTypes.STRING(100),
+            allowNull: false, 
+        },
         content: {
             type: DataTypes.STRING(100),
             allowNull: false, 
@@ -19,11 +23,11 @@ module.exports = (sequelize, DataTypes) => {
 
     }, {
         charset: 'utf8mb4', 
-        collate: 'utf8_general_ci',
+        collate: 'utf8mb4_general_ci',
     });
 
     Comment.associate = (db) => {
-        db.Comment.belongTo(db.Guestbook);
+        db.Comment.belongsTo(db.Guestbook);
     };
 
     return Comment;

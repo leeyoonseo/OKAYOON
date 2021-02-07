@@ -5,6 +5,10 @@ const db = {};
 
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
 
+db.Guestbook = require('./guestbook')(sequelize, Sequelize);
+db.Comment = require('./comment')(sequelize, Sequelize);
+db.Image = require('./image')(sequelize, Sequelize);
+
 Object.keys(db).forEach(modelName => {
     if (db[modelName].associate) {
         db[modelName].associate(db);

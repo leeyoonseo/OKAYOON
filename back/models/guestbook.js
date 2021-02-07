@@ -12,6 +12,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(100),
             allowNull: false, 
         },
+        superkey: {
+            type: DataTypes.STRING(100),
+            allowNull: false, 
+        },
         content: {
             type: DataTypes.STRING(100),
             allowNull: false, 
@@ -19,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
 
     }, {
         charset: 'utf8mb4',
-        collate: 'utf8_general_ci',
+        collate: 'utf8mb4_general_ci',
     });
 
     Guestbook.associate = (db) => {
@@ -36,3 +40,5 @@ module.exports = (sequelize, DataTypes) => {
 // 내용 (바뀜)
 // 만든날짜 
 // 코멘트
+
+// 슈퍼키(관리자만 알고 있는 key로 게시글 삭제 시 사용할 계획)
