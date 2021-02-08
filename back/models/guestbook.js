@@ -12,10 +12,6 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(100),
             allowNull: false, 
         },
-        superkey: {
-            type: DataTypes.STRING(100),
-            allowNull: false, 
-        },
         content: {
             type: DataTypes.STRING(100),
             allowNull: false, 
@@ -27,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Guestbook.associate = (db) => {
+        db.Guestbook.belongsTo(db.Admin);
         db.Guestbook.hasMany(db.Comment);
         db.Guestbook.hasMany(db.Image);
     };

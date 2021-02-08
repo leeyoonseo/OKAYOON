@@ -2,7 +2,16 @@ import produce from '../util/produce';
 import Router from 'next/router';
 
 export const initialState = {
-    logInLoading: false, // 로그인 시도
+    admin: {},
+    logInAdminLoading: false, // 로그인 시도 (관리자)
+    logInAdminDone: false,
+    logInAdminError: null,
+
+    me: {
+        nickname: '',
+        avatar: null,
+    },
+    logInLoading: false, // 로그인 시도 (손님)
     logInDone: false,
     logInError: null,
 
@@ -10,18 +19,19 @@ export const initialState = {
     changeMeDone: false,
     changeMeError: null,
 
-    me: {
-        nickname: '',
-        avatar: null,
-    },
-    
 
+    
 };
 
-// 로그인
+// [D] 로그인 (손님)
 export const LOG_IN_REQUEST = 'LOG_IN_REQUEST';
 export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
 export const LOG_IN_FAILURE = 'LOG_IN_FAILURE';
+
+// [D] 로그인 (관리자)
+export const LOG_IN_ADMIN_REQUEST = 'LOG_IN_ADMIN_REQUEST';
+export const LOG_IN_ADMIN_SUCCESS = 'LOG_IN_ADMIN_SUCCESS';
+export const LOG_IN_ADMIN_FAILURE = 'LOG_IN_ADMIN_FAILURE';
 
 // TODO: 합치기 가능?
 export const CHANGE_AVATAR_REQUEST = 'CHANGE_AVATAR_REQUEST';
@@ -55,6 +65,28 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             draft.logInLoading = false;
             draft.logInDone = false;
             draft.logInError = true;
+            break;
+
+        case LOG_IN_ADMIN_REQUEST: 
+            draft.logInAdminLoading = true;
+            draft.logInAdminDone = false;
+            draft.logInAdminError = false;
+            break;
+                
+        case LOG_IN_ADMIN_SUCCESS: {
+            draft.logInAdminLoading = false;
+            draft.logInAdminDone = true;
+            draft.logInAdminError = false;
+            draft.admin = action.data;
+
+            Router.replace('/');
+            break;
+        }
+
+        case LOG_IN_ADMIN_FAILURE:
+            draft.logInAdminLoading = false;
+            draft.logInAdminDone = false;
+            draft.logInAdminError = true;
             break;
 
         case CHANGE_AVATAR_REQUEST: 

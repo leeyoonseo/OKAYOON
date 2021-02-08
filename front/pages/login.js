@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import useInput from '../hooks/useInput';
 
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Head from 'next/head';
 import Link from 'next/link';
 
@@ -13,10 +13,11 @@ import UserInfo from '../components/UserInfo/index';
 import SystemTools from '../components/SystemTools';
 import Loading from '../components/Loading';
 import ModalPopup from '../components/ModalPopup';
+import AdminPopup from '../components/AdminPopup';
 import { AVATAR_MODAL_ID, AVATAR_MODAL_DATA } from '../components/ModalPopup/data';
 
 import { Layout, Button } from 'antd';
-import { LogoutOutlined } from '@ant-design/icons';
+import { LogoutOutlined, SmileOutlined } from '@ant-design/icons';
 import { DARK_MODE_COLOR } from '../theme/styles';
 import { useSelector } from 'react-redux';
 
@@ -93,7 +94,7 @@ const Footer = styled(Layout.Footer)`
     box-sizing: border-box;
 `;
 
-const SleepButtonWrap = styled.a`
+const btmButtonDefaultStyle = css`
     color: ${props => props.themecolor};
 
     &:hover,
@@ -105,11 +106,24 @@ const SleepButtonWrap = styled.a`
     &:after {
         display: block;
         margin-top:5px;
-        content: '잠자기모드';
+        content: '${props => props.text}';
     }
 `;
 
-const SleepButton = styled.div`
+const SleepButton = styled.a`
+    ${btmButtonDefaultStyle}
+`;
+
+const AdminButton = styled.button`
+    ${btmButtonDefaultStyle}
+    margin-left: 25px;
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+`;
+
+const ButtonInner = styled.div`
     margin: 0 auto;
     width: 30px;
     height: 30px;
@@ -117,10 +131,18 @@ const SleepButton = styled.div`
     border-radius: 50%;
 `;
 
-const Icon = styled(LogoutOutlined)`
+const defaultIconStyle = css`
     font-size:18px;
     color: ${props => props.themecolor};
     vertical-align: middle;
+`;
+
+const SleepIcon = styled(LogoutOutlined)`
+    ${defaultIconStyle}
+`;
+
+const AdminIcon = styled(SmileOutlined)`
+    ${defaultIconStyle}
 `;
 
 const Login = () => {
@@ -132,6 +154,7 @@ const Login = () => {
 
     const [contH, setContH] = useState(null);
     const [avatar, setAvatar] = useState(me.avatar ? me.avatar : null);
+    const [opendAdminPopup, setOpendAdminPopup] = useState(false);
     const [nickname, onChangeNickname, setNickname] = useInput(me.nickname ? me.nickname : '');
 
     const themecolor = DARK_MODE_COLOR;
@@ -205,6 +228,10 @@ const Login = () => {
         });
     }, [nickname, avatar]);
 
+    const onClickAdmin = useCallback(() => {
+        setOpendAdminPopup(!opendAdminPopup);
+    }, [opendAdminPopup]);
+
     return (
         <>
             <Head>
@@ -257,12 +284,31 @@ const Login = () => {
 
                 <Footer h={footerH}>
                     <Link href="./sleep">
-                        <SleepButtonWrap themecolor={themecolor}>  
-                            <SleepButton>
-                                <Icon themecolor={themecolor} />
-                            </SleepButton>
-                        </SleepButtonWrap>
+                        <SleepButton 
+                            text="잠자기모드"
+                            themecolor={themecolor}
+                        >  
+                            <ButtonInner>
+                                <SleepIcon themecolor={themecolor} />
+                            </ButtonInner>
+                        </SleepButton>
                     </Link>
+
+                    <AdminButton
+                        text="관리자"
+                        themecolor={themecolor}
+                        onClick={onClickAdmin}
+                    >
+                        <ButtonInner>
+                            <AdminIcon themecolor={themecolor}/>
+                        </ButtonInner>
+                    </AdminButton>
+
+                    {opendAdminPopup && (
+                        <AdminPopup 
+                            onClose={onClickAdmin}
+                        />
+                    )}
                 </Footer>
             </Wrap>
         </>

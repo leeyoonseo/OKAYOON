@@ -90,7 +90,7 @@ function* watchToggleModal(){
     yield takeLatest(TOGGLE_MODAL_REQUEST, ToggleModal);
 }
 
-export default function* userSaga(){
+export default function* siteSaga(){
     yield all([
         fork(watchCreateModal),
         // fork(watchDeleteModal),

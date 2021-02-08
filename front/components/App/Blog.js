@@ -28,57 +28,10 @@ const Iframe = styled.iframe`
     background: #fff;
 `;      
 
-const Blog = ({ src }) => {
-    useEffect(() => {
-        console.log('blog');
-    }, []);
-
-    const [isOver, setIsOver] = useState(false);
-    const cursorRef = useRef(null);
-
-    let clientX = 0;
-    let clientY = 0;
-
-    const setMouseCursorPos = useCallback((e) => {
-        clientX = e.clientX;
-        clientY = e.clientY;
-
-        console.log('X, Y', clientX, clientY);
-
-        // cursorRef.style.left = `${clientX}px`;
-        // cursorRef.style.top = `${clientY}px`;
-    }, []);
-
-    const onMouseMove = useCallback((e) => {
-        console.log('mouseover cursorRef', cursorRef);
-        setMouseCursorPos(e);
-
-    }, []);
-
-    const onMouseOver = useCallback(() => {
-        setIsOver(true);
-    }, []);
-
-    const onMouseLeave = useCallback(() => {
-        console.log('mouseleave');
-        setIsOver(false);
-    }, []);
-
+const Blog = () => {
     return (
-        <IframeWrap 
-            onMouseOver={onMouseOver}
-            onMouseLeave={onMouseLeave}
-        >
-            <Iframe 
-            onMouseMove={onMouseMove}
-
-                cursor={<HeartFilled />}
-                src="http://okayoon.tistory.com/"
-            />
-
-            <MouseCursor 
-                ref={cursorRef}
-            />
+        <IframeWrap>
+            <Iframe src="http://okayoon.tistory.com/"/>
         </IframeWrap>
     );
 };

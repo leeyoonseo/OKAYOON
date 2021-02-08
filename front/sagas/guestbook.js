@@ -1,4 +1,5 @@
-import { all, fork, put, takeLatest, delay } from 'redux-saga/effects';
+import axios from 'axios';
+import { all, fork, put, takeLatest, delay, call } from 'redux-saga/effects';
 import { 
     LOAD_GUESTBOOK_REQUEST, LOAD_GUESTBOOK_SUCCESS, LOAD_GUESTBOOK_FAILURE, 
     ADD_GUESTBOOK_REQUEST, ADD_GUESTBOOK_SUCCESS, ADD_GUESTBOOK_FAILURE, 
@@ -10,20 +11,22 @@ import {
     REMOVE_COMMENT_REQUEST, REMOVE_COMMENT_SUCCESS, REMOVE_COMMENT_FAILURE, 
 } from '../reducers/guestbook';
 
-function LoadGuestbookAPI(data){
-    // 통신 작업할 것
+function LoadGuestbookAPI(){
+    return axios.get('guestbook');
+  // 통신 작업할 것
 };
 
 function* LoadGuestbook(action){
     try{
-        // const result = yield call(LoadGuestbookAPI);
+        const result = yield call(LoadGuestbookAPI);
+        console.log('LoadGuestbook result', result)
         // 임시
-        console.log('LoadGuestbook', action.data);
-        yield delay(1000);
-        yield put({
-            type: LOAD_GUESTBOOK_SUCCESS,
-            data: action.data
-        });
+        // console.log('LoadGuestbook', action.data);
+        // yield delay(1000);
+        // yield put({
+        //     type: LOAD_GUESTBOOK_SUCCESS,
+        //     data: result.data
+        // });
 
     }catch(err){
         console.error(err);
@@ -39,20 +42,19 @@ function* watchLoadGuestbook(){
 }
 
 function AddGuestbookAPI(data){
-    // 통신 작업할 것
+    return axios.post('http://localhost:3065/guestbook', data);
 };
 
 function* AddGuestbook(action){
     try{
-        // const result = yield call(AddGuestbookAPI);
+        const result = yield call(AddGuestbookAPI, action.data);
+        console.log('AddGuestbook result', result);
         // 임시
-        // console.log('AddGuestbook', action.data);
-        yield delay(1000);
-        // console.log('AddGuestbook', action.data);
-        yield put({
-            type: ADD_GUESTBOOK_SUCCESS,
-            data: action.data
-        });
+        // yield delay(1000);
+        // yield put({
+        //     type: ADD_GUESTBOOK_SUCCESS,
+        //     data: result.data
+        // });
 
     }catch(err){
         console.error(err);
@@ -208,7 +210,7 @@ function* watchRemoveComment(){
     yield takeLatest(REMOVE_COMMENT_REQUEST, RemoveComment);
 }
 
-export default function* userSaga(){
+export default function* guestbookSaga(){
     yield all([
         fork(watchLoadGuestbook),
         fork(watchAddGuestbook),

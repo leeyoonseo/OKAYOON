@@ -12,10 +12,6 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(100),
             allowNull: false, 
         },
-        superkey: {
-            type: DataTypes.STRING(100),
-            allowNull: false, 
-        },
         content: {
             type: DataTypes.STRING(100),
             allowNull: false, 
@@ -28,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
 
     Comment.associate = (db) => {
         db.Comment.belongsTo(db.Guestbook);
+        db.Comment.belongsTo(db.Admin);
     };
 
     return Comment;

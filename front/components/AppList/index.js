@@ -92,12 +92,11 @@ const index = () => {
 
             <Items
                 title={<IconTitle>블로그</IconTitle>}
-                icon={<BlogIcon src="https://okayoon.tistory.com/"/>}
+                icon={<BlogIcon />}
                 onClick={onClickItem(BLOG_MODAL_ID)}
             />
                 
             <Items
-                disabled={true}
                 title={<IconTitle>갤러리</IconTitle>}
                 icon={<GalleryIcon />}
                 onClick={onClickItem(GALLERY_MODAL_ID)}

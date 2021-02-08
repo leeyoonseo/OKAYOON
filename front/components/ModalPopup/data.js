@@ -126,8 +126,8 @@ export const GALLERY_MODAL_DATA = {
     id: GALLERY_MODAL_ID,
     visible: false,
     size: {
-        w: '200px',
-        h: '300px'
+        w: '800px',
+        h: '600px'
     },
     title: "사진첩",
     content: Gallery,
