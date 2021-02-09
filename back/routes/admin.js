@@ -1,25 +1,27 @@
 const express = require('express');
 const router = express.Router();
-const { Guestbook, Image, Comment } = require('../models');
+const passport = require('passport');
 
-router.post('/', async (req, res, next) => { // POST /admin
-    try {
-        // const exAdmin = await Admin.findOne({
-        //     where: {
-        //         adminId: req.body.adminId,
-        //     }
-        // });
+router.post('/login', (req, res, next) => { // POST /admin/login
+    passport.authenticate('local', (err, user, info) => {
+        if (err) {
+            console.error(err);
+            return next(err);
+        }
 
-        // if(exAdmin) {
-        //     return res.status(403).send('관리자에 로그인할 수 없습니다.');
-        // }
+        if (info) {
+            return res.status(401).send(info.reason);
+        }
 
-        res.status(200).send('ok');
+        return req.login(user, async (loginErr) => {
+            if (loginErr) {
+                console.error(error);
+                return next(loginErr);
+            }
 
-    } catch (error) {
-        console.error(error);
-        next(error);
-    }
+            return res.status(200).json(user);
+        });
+    })(req, res, next);
 });
 
 module.exports = router;

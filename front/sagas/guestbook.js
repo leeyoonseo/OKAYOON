@@ -42,7 +42,7 @@ function* watchLoadGuestbook(){
 }
 
 function AddGuestbookAPI(data){
-    return axios.post('http://localhost:3065/guestbook', data);
+    return axios.post('/guestbook', data);
 };
 
 function* AddGuestbook(action){

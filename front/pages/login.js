@@ -13,7 +13,7 @@ import UserInfo from '../components/UserInfo/index';
 import SystemTools from '../components/SystemTools';
 import Loading from '../components/Loading';
 import ModalPopup from '../components/ModalPopup';
-import AdminPopup from '../components/AdminPopup';
+import AdminLoginForm from '../components/AdminLoginForm';
 import { AVATAR_MODAL_ID, AVATAR_MODAL_DATA } from '../components/ModalPopup/data';
 
 import { Layout, Button } from 'antd';
@@ -305,7 +305,7 @@ const Login = () => {
                     </AdminButton>
 
                     {opendAdminPopup && (
-                        <AdminPopup 
+                        <AdminLoginForm 
                             onClose={onClickAdmin}
                         />
                     )}

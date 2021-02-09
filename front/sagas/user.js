@@ -34,18 +34,19 @@ function* logIn(action){
 }
 
 function adminLogInAPI(data){
-    return axios.post('/admin', data);
+    return axios.post('/admin/login', data);
 };
 
 function* adminLogIn(action){
     try{
         const result = yield call(adminLogInAPI, action.data);
+        
         // 임시
         // yield delay(1000);
 
         yield put({
             type: LOG_IN_ADMIN_SUCCESS,
-            // data: result.data
+            data: result.data
         });
 
         yield Router.replace('/');

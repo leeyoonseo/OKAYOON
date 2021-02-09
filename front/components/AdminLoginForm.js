@@ -48,11 +48,11 @@ const AdminButton = styled(Button)`
 const AdminPopup = ({ onClose }) => {
     const dispatch = useDispatch();
     const { logInAdminLoading, logInAdminError } = useSelector((state) => state.user);
-    const adminIdRef = useRef(null);
+    const nicknameRef = useRef(null);
     const passwordRef = useRef(null);
 
     useEffect(() => {
-        adminIdRef.current.focus();
+        nicknameRef.current.focus();
     }, []);
 
     useEffect(() => {
@@ -62,17 +62,17 @@ const AdminPopup = ({ onClose }) => {
     }, [logInAdminLoading, logInAdminError]);
 
     const onSubmit = useCallback(() => {
-        const idVal = adminIdRef.current.value;
-        const passwordVal = passwordRef.current.value;
-        console.log('onSubmit', idVal, passwordVal);
+        const nickname = nicknameRef.current.value;
+        const password = passwordRef.current.value;
+        console.log('onSubmit', nickname, password);
         
-        if(!idVal || !idVal.trim()) {
+        if(!nickname || !nickname.trim()) {
             alert('관리자 id를 입력해주세요.');
-            adminIdRef.current.focus();
+            nicknameRef.current.focus();
             return;
         }
         
-        if(!passwordVal || !passwordVal.trim()) {
+        if(!password || !password.trim()) {
             alert('관리자 password를 입력해주세요.');
             passwordRef.current.focus();
             return;
@@ -81,8 +81,8 @@ const AdminPopup = ({ onClose }) => {
         dispatch({
             type: LOG_IN_ADMIN_REQUEST,
             data: {
-                adminId: idVal,
-                password: passwordVal
+                nickname: nickname,
+                password: password
             }
         });
     }, []);
@@ -94,7 +94,7 @@ const AdminPopup = ({ onClose }) => {
                     type="text"
                     name="admin-id"
                     placeholder="id"
-                    ref={adminIdRef}
+                    ref={nicknameRef}
                     maxLength={20}
                 />
                 <Input 
