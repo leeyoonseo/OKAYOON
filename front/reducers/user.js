@@ -38,10 +38,10 @@ export const CHANGE_AVATAR_REQUEST = 'CHANGE_AVATAR_REQUEST';
 export const CHANGE_AVATAR_SUCCESS = 'CHANGE_AVATAR_SUCCESS';
 export const CHANGE_AVATAR_FAILURE = 'CHANGE_AVATAR_FAILURE';
 
-export const loginRequestAction = (data) => ({
-    type: LOG_IN_REQUEST,
-    data,
-});
+// export const loginRequestAction = (data) => ({
+//     type: LOG_IN_REQUEST,
+//     data,
+// });
 
 const reducer = (state = initialState, action) => produce(state,(draft) => {
     switch(action.type){
@@ -87,6 +87,8 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             draft.logInAdminLoading = false;
             draft.logInAdminDone = false;
             draft.logInAdminError = true;
+
+            alert(action.error);
             break;
 
         case CHANGE_AVATAR_REQUEST: 

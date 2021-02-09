@@ -45,7 +45,7 @@ const AdminButton = styled(Button)`
     }
 `;
 
-const AdminPopup = ({ onClose }) => {
+const AdminLoginForm = ({ onClose }) => {
     const dispatch = useDispatch();
     const { logInAdminLoading, logInAdminError } = useSelector((state) => state.user);
     const nicknameRef = useRef(null);
@@ -56,15 +56,12 @@ const AdminPopup = ({ onClose }) => {
     }, []);
 
     useEffect(() => {
-        if(logInAdminLoading && logInAdminError) {
-            onClose();
-        }
-    }, [logInAdminLoading, logInAdminError]);
+        logInAdminLoading && onClose();
+    }, [logInAdminLoading]);
 
     const onSubmit = useCallback(() => {
         const nickname = nicknameRef.current.value;
         const password = passwordRef.current.value;
-        console.log('onSubmit', nickname, password);
         
         if(!nickname || !nickname.trim()) {
             alert('관리자 id를 입력해주세요.');
@@ -117,4 +114,4 @@ const AdminPopup = ({ onClose }) => {
     );
 };
 
-export default AdminPopup;
+export default AdminLoginForm;
