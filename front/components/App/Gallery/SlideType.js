@@ -4,25 +4,6 @@ import styled, { css } from 'styled-components';
 
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 
-const sampleImages = [
-    {
-        src: "https://www.artinsight.co.kr/data/tmp/1910/20191029212614_fawslbwd.jpg",
-        title: "1"
-    },
-    {
-        src: "https://www.artinsight.co.kr/data/tmp/1910/20191029212649_esiekzxf.jpg",
-        title: "2"
-    },
-    {
-        src: "https://www.artinsight.co.kr/data/tmp/1910/20191029212707_zcrkccgp.jpg",
-        title: "3"
-    },
-    {
-        src: "https://www.artinsight.co.kr/data/tmp/1910/20191029212724_pacwfbiz.jpg",
-        title: "4"
-    },
-];
-
 const Wrap = styled.div`
     position: relative;
     padding-bottom: 70px;
@@ -129,7 +110,7 @@ const Paging = styled.span`
     filter: grayscale(1);
 `;
 
-const slide = () => {
+const SlideType = ({ images }) => {
     const slickRef = useRef(null);
 
     const settings = {
@@ -141,7 +122,7 @@ const slide = () => {
         slidesToScroll: 1,
         adaptiveHeight: true,
         customPaging: function(i) {
-            const imgSrc = sampleImages[i].src;
+            const imgSrc = images[i].src;
             return (
                 <PagingAnchor>
                     <Paging src={imgSrc} />
@@ -161,7 +142,7 @@ const slide = () => {
     return (
         <Wrap>
             <Slick ref={slickRef} {...settings}>
-                {sampleImages.map((v, i) => {
+                {images.map((v, i) => {
                     return (
                         <SlickItems key={`${v.title}_${i}`}>
                             <img src={v.src} />
@@ -185,4 +166,7 @@ const slide = () => {
     );
 };
 
-export default slide;
+export default SlideType;
+
+// TODO:
+// - 이미지가 많을 경우 페이징 버튼 부분 처리

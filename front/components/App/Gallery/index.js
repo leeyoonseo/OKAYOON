@@ -3,9 +3,29 @@ import styled, { css } from 'styled-components';
 
 import { AppstoreOutlined, SplitCellsOutlined, ProfileOutlined } from '@ant-design/icons';
 
-import Slide from './Slide';
-import Card from './Card';
-import List from './List';
+import SlideType from './SlideType';
+import CardType from './CardType';
+import ListType from './ListType';
+
+// TODO:
+const sampleImages = [
+    {
+        src: "https://www.artinsight.co.kr/data/tmp/1910/20191029212614_fawslbwd.jpg",
+        title: "1"
+    },
+    {
+        src: "https://www.artinsight.co.kr/data/tmp/1910/20191029212649_esiekzxf.jpg",
+        title: "2"
+    },
+    {
+        src: "https://www.artinsight.co.kr/data/tmp/1910/20191029212707_zcrkccgp.jpg",
+        title: "3"
+    },
+    {
+        src: "https://www.artinsight.co.kr/data/tmp/1910/20191029212724_pacwfbiz.jpg",
+        title: "4"
+    },
+];
 
 const Footer = styled.div`
     position: fixed;
@@ -25,8 +45,8 @@ const Footer = styled.div`
 
 const Button = styled.button`
     padding: 0;
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     border: 1px solid #666;
     border-radius: 3px;
     outline: none;
@@ -47,6 +67,10 @@ const getIconColor = (status, name) => {
     return status === name ? '#fff' : '#666';
 };
 
+const defaultIconStyle = css`
+    
+`;
+
 const CardIcon = styled(AppstoreOutlined)`
     color: ${props => getIconColor(props.status, props.name)};
 `;
@@ -60,7 +84,7 @@ const ListIcon = styled(ProfileOutlined)`
 `;
 
 const Gallery = () => {
-    const [status, setStatus] = useState('slide');
+    const [status, setStatus] = useState('card'); // TODO: slide를 기본으로 변경할 것
     const NAME_CARD = 'card';
     const NAME_SLIDE = 'slide';
     const NAME_List = 'list';
@@ -69,13 +93,13 @@ const Gallery = () => {
 
     const renderViewComponent = useCallback(() => {
         if (status === NAME_SLIDE) {
-            return <Slide />;
+            return <SlideType images={sampleImages} />;
 
         } else if (status === NAME_CARD) {
-            return <Card />;
+            return <CardType images={sampleImages} />;
 
         } else if (status === NAME_List) {
-            return <List />;
+            return <ListType images={sampleImages} />;
         }
     }, [status]);
 
@@ -125,6 +149,6 @@ const Gallery = () => {
 
 export default Gallery;
 
-
 // TODO:
-// DB 연결
+// - DB 연결
+// - 샘플 이미지 수정할 것
