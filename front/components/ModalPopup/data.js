@@ -119,7 +119,7 @@ export const DELETE_MODAL_DATA = {
 };
 
 // [D] App, 사진첩
-import Gallery from '../App/Gallery';
+import Gallery from '../App/Gallery/index';
 
 export const GALLERY_MODAL_ID = 'MG_M_0';
 export const GALLERY_MODAL_DATA = {
