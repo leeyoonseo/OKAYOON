@@ -1,71 +1,50 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Row, Col } from 'antd';
 
-import ImageZoom from './ImageZoom';
+const Wrap = styled.div`
+    padding-bottom: 6%;
+    column-count: 4;
+    column-gap: 1em;
+`;
 
-const ImageWrap = styled.span`
-    display: inline-block;
-    padding: 1%;
-    width: 100%;
-    height: 150px;
-    box-sizing: border-box;
+const Items = styled.div`
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1em; 
     cursor: pointer;
 `;
+
+const Figure = styled.div`
+    display: inline-block;
+    filter: grayscale(0.8);
+
+    &:hover { 
+        filter: none;
+    }
+`;
+
 const Image = styled.img`
     width: 100%;
-    height: 100%;
 `;
 
 const CardType = ({ images }) => {
+    const sample = [
+        'https://cdn.pixabay.com/photo/2020/09/02/20/52/dock-5539524__340.jpg',
+        'https://cdn.pixabay.com/photo/2021/02/03/13/54/cupcake-5978060__340.jpg',
+        'https://cdn.pixabay.com/photo/2020/05/25/20/14/holland-iris-5220407__340.jpg',
+        'https://cdn.pixabay.com/photo/2020/10/08/17/39/waves-5638587__340.jpg',
+        'https://cdn.pixabay.com/photo/2019/01/30/11/17/zebra-3964360__340.jpg',
+        'https://cdn.pixabay.com/photo/2021/02/01/13/37/cars-5970663__340.png',
+        'https://cdn.pixabay.com/photo/2019/06/05/10/34/mimosa-4253396__340.jpg',
+        'https://cdn.pixabay.com/photo/2020/08/04/14/42/sky-5463015__340.jpg',
+        'https://cdn.pixabay.com/photo/2021/02/03/13/54/cupcake-5978060__340.jpg',
+        'https://cdn.pixabay.com/photo/2020/01/09/01/00/the-eye-on-the-greek-4751572__340.png',
+        'https://cdn.pixabay.com/photo/2021/01/30/12/19/couple-5963678__340.png',
+        'https://cdn.pixabay.com/photo/2021/01/23/07/53/dogs-5941898__340.jpg',
+        'https://cdn.pixabay.com/photo/2020/06/15/01/06/sunset-5299957__340.jpg',
+    ];
     const [opendZoom, setOpendZoom] = useState(false);
     const [zoomSrc, setZoomSrc] = useState('');
-    // const cardImages = [];
-    const LIMIT_ROW_NUM = 4;
-
-    // useEffect(() => {
-    //     const repeat = Math.ceil(images.length / LIMIT_ROW_NUM);
-    //     let sliceItems = '';
-
-    //     for (let i = 0; i < repeat; i++) {
-    //         sliceItems = images.slice(i * LIMIT_ROW_NUM, (i + 1) * LIMIT_ROW_NUM);
-    //         cardImages.push(sliceItems); 
-    //     }
-
-    //     console.log('images',images);
-    //     console.log('cardImages',cardImages);
-
-    // }, [images, cardImages]);
-
-    const renderCard = useCallback(() => {
-        const repeat = Math.ceil(images.length / LIMIT_ROW_NUM);
-        const arr = [];
-
-        for (let i = 0; i < repeat; i++) {
-            arr.push(
-                images.slice(i * LIMIT_ROW_NUM, (i + 1) * LIMIT_ROW_NUM)
-            ); 
-        }
-
-        return arr.map((v, i) => {
-            return (
-                <Row key={`card_row_${i}`}>
-                    {v.map((m, j) => {
-                        return (
-                            <Col 
-                                span={6}
-                                key={`${m.title}_${j}`}
-                            >
-                                <ImageWrap onClick={onClickZoom(m.src)}>
-                                    <Image src={m.src} />
-                                </ImageWrap>
-                            </Col>
-                        )
-                    })}
-                </Row>
-            )
-        });        
-    }, [images]);
 
     const onClickZoom = useCallback((src) => () => {
         setZoomSrc(src);
@@ -83,54 +62,18 @@ const CardType = ({ images }) => {
 
     return (
         <>  
-            {images.map((a) => {
-                console.log('images', a);
-            })}
-
-            {renderCard()}
-            {/* {cardImages.map((v) => {
-                return (
-                    {v}
-                )
-            })}
-            {cardImages && cardImages.map((v, i) => {
-                return (
-                    <>
-                    dasddsada
-                    <Row key={`card_row_${i}`}>
-                        {v.map((m, j) => {
-                            return (
-                                <Col 
-                                    span={6}
-                                    key={`${m.title}_${j}`}
-                                >
-                                    <ImageWrap onClick={onClickZoom(m.src)}>
-                                        <Image src={m.src} />
-                                    </ImageWrap>
-                                </Col>
-                            )
-                        })}
-                    </Row>
-                    </>
-                )
-            })} */}
-
-            {/* <Row>
-                {images.map((v, i) => {
-                    return(
-                        <Col 
-                            span={6}
-                            key={`${v.title}_${i}`}
-                        >
-                            <ImageWrap
-                                onClick={onClickZoom(v.src)}
-                            >
-                                <Image src={v.src} />
-                            </ImageWrap>
-                        </Col>
+            <Wrap>
+                {sample.map((v, i) => {
+                    return (
+                        <Items key={i}>
+                            <Figure>
+                                <Image src={v} />
+                            </Figure>
+                        </Items>
                     )
                 })}
-            </Row> */}
+            </Wrap>
+
 {/* renderZoom
             {opendZoom && (
                 
