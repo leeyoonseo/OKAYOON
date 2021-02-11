@@ -25,6 +25,14 @@ const sampleImages = [
         src: "https://www.artinsight.co.kr/data/tmp/1910/20191029212724_pacwfbiz.jpg",
         title: "4"
     },
+    {
+        src: "https://www.artinsight.co.kr/data/tmp/1910/20191029212724_pacwfbiz.jpg",
+        title: "5"
+    },
+    {
+        src: "https://www.artinsight.co.kr/data/tmp/1910/20191029212614_fawslbwd.jpg",
+        title: "6"
+    },
 ];
 
 const Footer = styled.div`

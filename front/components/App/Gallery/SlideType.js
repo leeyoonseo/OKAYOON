@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 import Slick from 'react-slick';
 import styled, { css } from 'styled-components';
 
@@ -120,7 +120,6 @@ const SlideType = ({ images }) => {
         infinite: true,
         slidesToShow: 1,
         slidesToScroll: 1,
-        adaptiveHeight: true,
         customPaging: function(i) {
             const imgSrc = images[i].src;
             return (
@@ -131,13 +130,8 @@ const SlideType = ({ images }) => {
         },
     };
 
-    const previous = () => {
-        slickRef.current.slickPrev();
-    };
-
-    const next = () => {
-        slickRef.current.slickNext();
-    };
+    const previous = useCallback(() => slickRef.current.slickPrev(), []);
+    const next = useCallback(() => slickRef.current.slickNext(), []);
 
     return (
         <Wrap>
