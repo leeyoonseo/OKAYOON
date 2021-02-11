@@ -27,7 +27,7 @@ const Image = styled.img`
     width: 100%;
 `;
 
-const CardType = ({ images }) => {
+const CardType = () => {
     const sample = [
         'https://cdn.pixabay.com/photo/2020/09/02/20/52/dock-5539524__340.jpg',
         'https://cdn.pixabay.com/photo/2021/02/03/13/54/cupcake-5978060__340.jpg',
@@ -43,49 +43,19 @@ const CardType = ({ images }) => {
         'https://cdn.pixabay.com/photo/2021/01/23/07/53/dogs-5941898__340.jpg',
         'https://cdn.pixabay.com/photo/2020/06/15/01/06/sunset-5299957__340.jpg',
     ];
-    const [opendZoom, setOpendZoom] = useState(false);
-    const [zoomSrc, setZoomSrc] = useState('');
-
-    const onClickZoom = useCallback((src) => () => {
-        setZoomSrc(src);
-        setOpendZoom(!opendZoom);
-
-    }, [opendZoom]);
-
-    const renderZoom = useCallback(() => {
-        if (opendZoom && zoomSrc !== '') {
-            return (
-                <ZoomImage />
-            )
-        }
-    }, [opendZoom, zoomSrc]);
-
+   
     return (
-        <>  
-            <Wrap>
-                {sample.map((v, i) => {
-                    return (
-                        <Items key={i}>
-                            <Figure>
-                                <Image src={v} />
-                            </Figure>
-                        </Items>
-                    )
-                })}
-            </Wrap>
-
-{/* renderZoom
-            {opendZoom && (
-                
-            )} */}
-            
-            {/* {opendZoom && (
-                <ImageZoom 
-                    onClose={onClickZoom}
-                    images={images} 
-                />
-            )} */}
-        </>
+        <Wrap>
+            {sample.map((v, i) => {
+                return (
+                    <Items key={i}>
+                        <Figure>
+                            <Image src={v} />
+                        </Figure>
+                    </Items>
+                )
+            })}
+        </Wrap>
     );
 };
 
