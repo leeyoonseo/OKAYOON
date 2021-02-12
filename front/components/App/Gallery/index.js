@@ -9,30 +9,58 @@ import ListType from './ListType';
 
 // TODO:
 const sampleImages = [
-    {
-        src: "https://www.artinsight.co.kr/data/tmp/1910/20191029212614_fawslbwd.jpg",
-        title: "1"
-    },
-    {
-        src: "https://www.artinsight.co.kr/data/tmp/1910/20191029212649_esiekzxf.jpg",
-        title: "2"
-    },
-    {
-        src: "https://www.artinsight.co.kr/data/tmp/1910/20191029212707_zcrkccgp.jpg",
-        title: "3"
-    },
-    {
-        src: "https://www.artinsight.co.kr/data/tmp/1910/20191029212724_pacwfbiz.jpg",
-        title: "4"
-    },
-    {
-        src: "https://www.artinsight.co.kr/data/tmp/1910/20191029212724_pacwfbiz.jpg",
-        title: "5"
-    },
-    {
-        src: "https://www.artinsight.co.kr/data/tmp/1910/20191029212614_fawslbwd.jpg",
-        title: "6"
-    },
+        { 
+            src: 'https://cdn.pixabay.com/photo/2020/09/02/20/52/dock-5539524__340.jpg', 
+            title : '1번',
+        },
+        { 
+            src: 'https://cdn.pixabay.com/photo/2021/02/03/13/54/cupcake-5978060__340.jpg', 
+            title : '2번',
+        },
+        { 
+            src: 'https://cdn.pixabay.com/photo/2020/05/25/20/14/holland-iris-5220407__340.jpg', 
+            title : '3번',
+        },
+        { 
+            src: 'https://cdn.pixabay.com/photo/2020/10/08/17/39/waves-5638587__340.jpg', 
+            title : '4번',
+        },
+        { 
+            src: 'https://cdn.pixabay.com/photo/2019/01/30/11/17/zebra-3964360__340.jpg', 
+            title : '5번',
+        },
+        { 
+            src: 'https://cdn.pixabay.com/photo/2021/02/01/13/37/cars-5970663__340.png', 
+            title : '6번',
+        },
+        { 
+            src: 'https://cdn.pixabay.com/photo/2019/06/05/10/34/mimosa-4253396__340.jpg', 
+            title : '7번',
+        },
+        { 
+            src: 'https://cdn.pixabay.com/photo/2020/08/04/14/42/sky-5463015__340.jpg', 
+            title : '8번',
+        },
+        { 
+            src: 'https://cdn.pixabay.com/photo/2021/02/03/13/54/cupcake-5978060__340.jpg', 
+            title : '9번',
+        },
+        { 
+            src: 'https://cdn.pixabay.com/photo/2020/01/09/01/00/the-eye-on-the-greek-4751572__340.png', 
+            title : '10번',
+        },
+        { 
+            src: 'https://cdn.pixabay.com/photo/2021/01/30/12/19/couple-5963678__340.png', 
+            title : '11번',
+        },
+        { 
+            src: 'https://cdn.pixabay.com/photo/2021/01/23/07/53/dogs-5941898__340.jpg', 
+            title : '12번',
+        },
+        { 
+            src: 'https://cdn.pixabay.com/photo/2020/06/15/01/06/sunset-5299957__340.jpg', 
+            title : '13번',
+        },
 ];
 
 const Footer = styled.div`
