@@ -5,6 +5,15 @@ import styled, { css } from 'styled-components';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 
 const Wrap = styled.div`
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+`;
+
+const Inner = styled.div`
+    position: relative;
+    top: -25px;
     overflow: hidden;
 
     & > div + div {
@@ -12,7 +21,7 @@ const Wrap = styled.div`
     }
 `;
 
-const Inner = styled.div`
+const SlickWrap = styled.div`
     position: relative;
 
     .paging_items {
@@ -134,62 +143,64 @@ const SlideType = ({ images }) => {
     return (
         <Wrap>
             <Inner>
-                <Slick 
-                    ref={mainSlickRef} 
-                    asNavFor={pagingSlick}
-                    {...mainSettings}
-                >
-                    {images.map((v, i) => {
-                        return (
-                            <MainSlickItems key={`${v.title}_${i}`}>
-                                <img src={v.src} />
-                            </MainSlickItems>
-                        )
-                    })}
-                </Slick>
+                <SlickWrap>
+                    <Slick 
+                        ref={mainSlickRef} 
+                        asNavFor={pagingSlick}
+                        {...mainSettings}
+                    >
+                        {images.map((v, i) => {
+                            return (
+                                <MainSlickItems key={`${v.title}_${i}`}>
+                                    <img src={v.src} />
+                                </MainSlickItems>
+                            )
+                        })}
+                    </Slick>
 
-                <>
-                    <PrevButton onClick={onClickPrev(mainSlickRef)}>
-                        <PrevIcon />
-                        <span className="hidden">이전</span>
-                    </PrevButton>
+                    <>
+                        <PrevButton onClick={onClickPrev(mainSlickRef)}>
+                            <PrevIcon />
+                            <span className="hidden">이전</span>
+                        </PrevButton>
 
-                    <NextButton onClick={onClickNext(mainSlickRef)}>
-                        <NextIcon />
-                        <span className="hidden">다음</span>
-                    </NextButton>
-                </>
-            </Inner>
+                        <NextButton onClick={onClickNext(mainSlickRef)}>
+                            <NextIcon />
+                            <span className="hidden">다음</span>
+                        </NextButton>
+                    </>
+                </SlickWrap>
 
-            <Inner>
-                <Slick
-                    ref={pagingSlickRef}
-                    asNavFor={mainSlick}
-                    {...pagingSettings}
-                >
-                    {images.map((v, i) => {
-                        return (
-                            <PagingItems 
-                                key={`${v.title}_${i}`}
-                                className="paging_items"
-                            >
-                                <img src={v.src} />
-                            </PagingItems>
-                        )
-                    })}
-                </Slick>
+                <SlickWrap>
+                    <Slick
+                        ref={pagingSlickRef}
+                        asNavFor={mainSlick}
+                        {...pagingSettings}
+                    >
+                        {images.map((v, i) => {
+                            return (
+                                <PagingItems 
+                                    key={`${v.title}_${i}`}
+                                    className="paging_items"
+                                >
+                                    <img src={v.src} />
+                                </PagingItems>
+                            )
+                        })}
+                    </Slick>
 
-                <>
-                    <PrevButton onClick={onClickPrev(pagingSlickRef)}>
-                        <PrevIcon />
-                        <span className="hidden">이전</span>
-                    </PrevButton>
+                    <>
+                        <PrevButton onClick={onClickPrev(pagingSlickRef)}>
+                            <PrevIcon />
+                            <span className="hidden">이전</span>
+                        </PrevButton>
 
-                    <NextButton onClick={onClickNext(pagingSlickRef)}>
-                        <NextIcon />
-                        <span className="hidden">다음</span>
-                    </NextButton>
-                </>
+                        <NextButton onClick={onClickNext(pagingSlickRef)}>
+                            <NextIcon />
+                            <span className="hidden">다음</span>
+                        </NextButton>
+                    </>
+                </SlickWrap>
             </Inner>
         </Wrap>
     );
