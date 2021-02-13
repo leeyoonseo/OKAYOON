@@ -120,7 +120,7 @@ const ListIcon = styled(ProfileOutlined)`
 `;
 
 const Gallery = () => {
-    const [status, setStatus] = useState('card'); // TODO: slide를 기본으로 변경할 것
+    const [status, setStatus] = useState('slide'); // TODO: slide를 기본으로 변경할 것
     const NAME_CARD = 'card';
     const NAME_SLIDE = 'slide';
     const NAME_List = 'list';

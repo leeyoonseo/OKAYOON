@@ -18,6 +18,10 @@ const Okayoon = ({ Component }) => {
             overflow: hidden; 
             border: 0; 
         }
+
+        .slick-slide {
+            display: inline-block;
+        }
     `;
 
     return(

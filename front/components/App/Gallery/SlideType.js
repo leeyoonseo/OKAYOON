@@ -1,55 +1,65 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Slick from 'react-slick';
 import styled, { css } from 'styled-components';
 
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 
 const Wrap = styled.div`
-    position: relative;
-    padding-bottom: 70px;
     overflow: hidden;
 
-    .slick-slide {
-        display: inline-block;
+    & > div + div {
+        margin-top: 20px;
     }
-
-    .slick-dots.slick-thumb {
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        padding: 0;
-        margin: 0;
-        list-style: none;
-        transform: translate(-50%);
-
-        li {
-            position: relative;
-            display: inline-block;
-
-            &.slick-active {
-                span {
-                    filter: none;
-                }
-            }
-        }
-    }  
 `;
 
-const SlickItems = styled.div`
+const Inner = styled.div`
+    position: relative;
+
+    .paging_items {
+        filter: grayscale(1);
+
+        &:hover {
+            filter: none;
+        }
+    }
+
+    .slick-current .paging_items {
+        filter: none;
+    }
+`;
+
+const defaultItemStyle = css`
     width: 100%;    
-    height: 400px;
     text-align: center;
 
     img {
-        max-width: 100%;
         height: 100%;
         vertical-align: top;
     }
 `;
 
+const MainSlickItems = styled.div`
+    ${defaultItemStyle}    
+    height: 350px;
+
+    img {
+        max-width: 100%;
+    }
+`;
+
+const PagingItems = styled.div`
+    ${defaultItemStyle}    
+    height: 80px;
+    cursor: pointer;
+    
+    img {
+        width: 100%;
+    }
+`;
+
 const defaultButtonStyle = css`
     position: absolute;
-    top: calc(50% - 50px);
+    top: 50%;
     padding: 0;
     width: 30px;
     height: 30px;
@@ -58,6 +68,7 @@ const defaultButtonStyle = css`
     border-radius: 50%;
     background: none;
     outline: none;
+    transform:translateY(-50%);
     cursor: pointer;
 `;
 
@@ -89,78 +100,99 @@ const NextIcon = styled(RightOutlined)`
     ${defaultIconStyle}
 `;
 
-const PagingAnchor = styled.a`
-    display: block;
-    width: 50px;
-    height: 50px;
-
-    img {
-        width: 100%;
-        height: 100%;
-    }
-`;
-
-const Paging = styled.span`
-    display: inline-block;
-    width: 100%;
-    height: 100%;
-    vertical-align: middle;
-    background: url(${props => props.src})no-repeat;
-    background-size: 100% 100%;
-    filter: grayscale(1);
-`;
-
 const SlideType = ({ images }) => {
-    const slickRef = useRef(null);
+    const [mainSlick, setMainSlick] = useState(null);
+    const [pagingSlick, setPagingSlick] = useState(null);
+    const mainSlickRef = useRef(null);
+    const pagingSlickRef = useRef(null);
 
-    const settings = {
-        dots: true,
-        dotsClass: "slick-dots slick-thumb",
+    useEffect(() => {
+        setMainSlick(mainSlickRef.current);
+        setPagingSlick(pagingSlickRef.current);
+    }, []);
+
+    const mainSettings = {
+        dots: false,
         arrows: false,
         infinite: true,
         slidesToShow: 1,
         slidesToScroll: 1,
-        customPaging: function(i) {
-            const imgSrc = images[i].src;
-            return (
-                <PagingAnchor>
-                    <Paging src={imgSrc} />
-                </PagingAnchor>
-            );
-        },
     };
 
-    const previous = useCallback(() => slickRef.current.slickPrev(), []);
-    const next = useCallback(() => slickRef.current.slickNext(), []);
+    const pagingSettings = {
+        dots: false,
+        arrows: false,
+        centerMode: true,
+        slidesToShow: 8,
+        swipeToSlide: true,
+        focusOnSelect: true,
+    };
+
+    const onClickPrev = useCallback((ref) => () => ref.current.slickPrev(), []);
+    const onClickNext = useCallback((ref) => () => ref.current.slickNext(), []);
 
     return (
         <Wrap>
-            <Slick ref={slickRef} {...settings}>
-                {images.map((v, i) => {
-                    return (
-                        <SlickItems key={`${v.title}_${i}`}>
-                            <img src={v.src} />
-                        </SlickItems>
-                    )
-                })}
-            </Slick>
+            <Inner>
+                <Slick 
+                    ref={mainSlickRef} 
+                    asNavFor={pagingSlick}
+                    {...mainSettings}
+                >
+                    {images.map((v, i) => {
+                        return (
+                            <MainSlickItems key={`${v.title}_${i}`}>
+                                <img src={v.src} />
+                            </MainSlickItems>
+                        )
+                    })}
+                </Slick>
 
-            <>
-                <PrevButton onClick={previous}>
-                    <PrevIcon />
-                    <span className="hidden">이전</span>
-                </PrevButton>
+                <>
+                    <PrevButton onClick={onClickPrev(mainSlickRef)}>
+                        <PrevIcon />
+                        <span className="hidden">이전</span>
+                    </PrevButton>
 
-                <NextButton onClick={next}>
-                    <NextIcon />
-                    <span className="hidden">다음</span>
-                </NextButton>
-            </>
+                    <NextButton onClick={onClickNext(mainSlickRef)}>
+                        <NextIcon />
+                        <span className="hidden">다음</span>
+                    </NextButton>
+                </>
+            </Inner>
+
+            <Inner>
+                <Slick
+                    ref={pagingSlickRef}
+                    asNavFor={mainSlick}
+                    {...pagingSettings}
+                >
+                    {images.map((v, i) => {
+                        return (
+                            <PagingItems 
+                                key={`${v.title}_${i}`}
+                                className="paging_items"
+                            >
+                                <img src={v.src} />
+                            </PagingItems>
+                        )
+                    })}
+                </Slick>
+
+                <>
+                    <PrevButton onClick={onClickPrev(pagingSlickRef)}>
+                        <PrevIcon />
+                        <span className="hidden">이전</span>
+                    </PrevButton>
+
+                    <NextButton onClick={onClickNext(pagingSlickRef)}>
+                        <NextIcon />
+                        <span className="hidden">다음</span>
+                    </NextButton>
+                </>
+            </Inner>
         </Wrap>
     );
 };
 
 export default SlideType;
-
-// TODO:
-// - 이미지가 많을 경우 페이징 버튼 부분 처리
