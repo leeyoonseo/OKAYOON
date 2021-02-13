@@ -7,7 +7,7 @@ import SlideType from './SlideType';
 import CardType from './CardType';
 import ListType from './ListType';
 
-// TODO:
+// TODO: state로 관리할 것
 const sampleImages = [
         { 
             src: 'https://cdn.pixabay.com/photo/2020/09/02/20/52/dock-5539524__340.jpg', 
@@ -122,10 +122,6 @@ const getIconColor = (status, name) => {
     return status === name ? '#fff' : '#666';
 };
 
-const defaultIconStyle = css`
-    
-`;
-
 const CardIcon = styled(AppstoreOutlined)`
     color: ${props => getIconColor(props.status, props.name)};
 `;
@@ -142,7 +138,7 @@ const Gallery = () => {
     const CARD = 'card';
     const SLIDE = 'slide';
     const LIST = 'list';
-    const [status, setStatus] = useState(LIST); // TODO: slide를 기본으로 변경할 것
+    const [status, setStatus] = useState(SLIDE);
 
     const changeClassName = useCallback((name) => status === name ? 'active' : '', [status]);
 
