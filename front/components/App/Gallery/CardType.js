@@ -38,8 +38,8 @@ const CardType = ({ images }) => {
         setImageSrc(null);
     }, []);
 
-    const onClickZoom = useCallback((i) => () => {
-        setImageSrc(images[i].src);
+    const onClickZoom = useCallback((src) => () => {
+        setImageSrc(src);
         setOpendZoom(!opendZoom);
     }, [opendZoom]);
 
@@ -50,7 +50,7 @@ const CardType = ({ images }) => {
                     return (
                         <Items 
                             key={`${v.title}_${i}`}
-                            onClick={onClickZoom(i)}
+                            onClick={onClickZoom(v.src)}
                         >
                             <Figure>
                                 <Image src={v.src} />
