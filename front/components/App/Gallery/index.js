@@ -120,21 +120,21 @@ const ListIcon = styled(ProfileOutlined)`
 `;
 
 const Gallery = () => {
-    const [status, setStatus] = useState('slide'); // TODO: slide를 기본으로 변경할 것
-    const NAME_CARD = 'card';
-    const NAME_SLIDE = 'slide';
-    const NAME_List = 'list';
+    const CARD = 'card';
+    const SLIDE = 'slide';
+    const LIST = 'list';
+    const [status, setStatus] = useState(LIST); // TODO: slide를 기본으로 변경할 것
 
     const changeClassName = useCallback((name) => status === name ? 'active' : '', [status]);
 
     const renderViewComponent = useCallback(() => {
-        if (status === NAME_SLIDE) {
+        if (status === SLIDE) {
             return <SlideType images={sampleImages} />;
 
-        } else if (status === NAME_CARD) {
+        } else if (status === CARD) {
             return <CardType images={sampleImages} />;
 
-        } else if (status === NAME_List) {
+        } else if (status === LIST) {
             return <ListType images={sampleImages} />;
         }
     }, [status]);
@@ -147,33 +147,33 @@ const Gallery = () => {
             
             <Footer>
                 <Button     
-                    className={changeClassName(NAME_CARD)}
-                    onClick={onClickButton(NAME_CARD)}
+                    className={changeClassName(CARD)}
+                    onClick={onClickButton(CARD)}
                 >
                     <CardIcon 
-                        name={NAME_CARD}
+                        name={CARD}
                         status={status} 
                     />
                     <span className="hidden">카드</span>
                 </Button>
 
                 <Button 
-                    className={changeClassName(NAME_SLIDE)}
-                    onClick={onClickButton(NAME_SLIDE)}
+                    className={changeClassName(SLIDE)}
+                    onClick={onClickButton(SLIDE)}
                 >
                     <SlideIcon 
-                        name={NAME_SLIDE}
+                        name={SLIDE}
                         status={status} 
                     />
                     <span className="hidden">슬라이드</span>
                 </Button>
 
                 <Button 
-                    className={changeClassName(NAME_List)}
-                    onClick={onClickButton(NAME_List)}
+                    className={changeClassName(LIST)}
+                    onClick={onClickButton(LIST)}
                 >
                     <ListIcon 
-                        name={NAME_List}
+                        name={LIST}
                         status={status} 
                     />
                     <span className="hidden">목록</span>
