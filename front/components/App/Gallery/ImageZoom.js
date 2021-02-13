@@ -1,113 +1,58 @@
-import React, { useState } from 'react';
-import Slick from 'react-slick';
-
+import React from 'react';
 import styled from 'styled-components';
+
 import { CloseOutlined } from '@ant-design/icons';
 
-export const Overlay = styled.div`
-//   position: fixed;
-//   z-index: 5000;
-//   top: 0;
-//   left: 0;
-//   right: 0;
-//   bottom: 0;
+const Wrap = styled.div`
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba( 0, 0, 0, 0.3);
+
+
+    transform: translate(-50%, -50%);
+    z-index: 1000;
 `;
 
-export const Header = styled.header`
-//   height: 44px;
-//   background: white;
-//   position: relative;
-//   padding: 0;
-//   text-align: center;
-  
-//   & h1 {
-//     margin: 0;
-//     font-size: 17px;
-//     color: #333;
-//     line-height: 44px;
-//   }
+const Inner = styled.div`
+    position: relative;
+    background: #fff;   
 `;
 
-export const CloseBtn = styled(CloseOutlined)`
-//   position: absolute;
-//   right: 0;
-//   top: 0;
-//   padding: 15px;
-//   line-height: 14px;
-//   cursor: pointer;
+const CloseButton = styled.button`
+    position: absolute;
+    top: 2%;
+    left: 2%;
+    padding: 0;
+    line-height: 1;
+    border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
 `;
 
-export const SlickWrapper = styled.div`
-//   height: calc(100% - 44px);
-//   background: #090909;
+const CloseIcon = styled(CloseOutlined)`
+    font-size: 16px;
+    color: #666;
 `;
 
-export const ImgWrapper = styled.div`
-//   padding: 32px;
-//   text-align: center;
-  
-//   & img {
-//     margin: 0 auto;
-//     max-height: 750px;
-//   }
-`;
+const ImageZoom = ({ src, onClose }) => {
+    return (
+        <Wrap>
+            <Inner>
+                <CloseButton onClick={onClose}>
+                    <CloseIcon />
+                </CloseButton>
 
-export const Indicator = styled.div`
-//   text-align: center;
-  
-//   & > div {
-//     width: 75px;
-//     height: 30px;
-//     line-height: 30px;
-//     border-radius: 15px;
-//     background: #313131;
-//     display: inline-block;
-//     text-align: center;
-//     color: white;
-//     font-size: 15px;
-//   }
-`;
-
-const ImageZoom = ({ images, onClose }) => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-
-  return (
-    <Overlay>
-      <Header>
-        <h1>상세 이미지</h1>
-        <CloseBtn onClick={onClose}>X</CloseBtn>
-      </Header>
-      <SlickWrapper>
-        <div>
-          <Slick
-            initialSlide={0}
-            beforeChange={(slide) => setCurrentSlide(slide)}
-            infinite
-            arrows={false}
-            slidesToShow={1}
-            slidesToScroll={1}
-          >
-            {images.map((v, i) => (
-              <ImgWrapper key={`${v.src}_${i}`}>
-                <img src={v.src} alt={v.title} />
-              </ImgWrapper>
-            ))}
-          </Slick>
-          <Indicator>
-            <div>
-              {currentSlide + 1}
-              {' '}
-              /
-              {images.length}
-            </div>
-          </Indicator>
-        </div>
-      </SlickWrapper>
-    </Overlay>
-  );
+                <img src={src} />
+            </Inner>
+        </Wrap>
+    );
 };
 
 export default ImageZoom;
-
-// TODO:
-// - backUrl 설정해서 이미지 불러오기

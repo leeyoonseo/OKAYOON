@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
+import ImageZoom from './ImageZoom';
+
 const Wrap = styled.div`
     padding-bottom: 6%;
     column-count: 4;
@@ -28,19 +30,43 @@ const Image = styled.img`
 `;
 
 const CardType = ({ images }) => {
-   
+    const [opendZoom, setOpendZoom] = useState(false);
+    const [imageSrc, setImageSrc] = useState(null);
+
+    const onCloseZoom = useCallback(() => {
+        setOpendZoom(false);
+        setImageSrc(null);
+    }, []);
+
+    const onClickZoom = useCallback((i) => () => {
+        setImageSrc(images[i].src);
+        setOpendZoom(!opendZoom);
+    }, [opendZoom]);
+
     return (
-        <Wrap>
-            {images.map((v, i) => {
-                return (
-                    <Items key={`${v.title}_${i}`}>
-                        <Figure>
-                            <Image src={v.src} />
-                        </Figure>
-                    </Items>
-                )
-            })}
-        </Wrap>
+        <>
+            <Wrap>
+                {images.map((v, i) => {
+                    return (
+                        <Items 
+                            key={`${v.title}_${i}`}
+                            onClick={onClickZoom(i)}
+                        >
+                            <Figure>
+                                <Image src={v.src} />
+                            </Figure>
+                        </Items>
+                    )
+                })}
+            </Wrap>
+
+            {opendZoom && (
+                <ImageZoom 
+                    src={imageSrc}
+                    onClose={onCloseZoom}
+                />
+            )}
+        </>
     );
 };
 
