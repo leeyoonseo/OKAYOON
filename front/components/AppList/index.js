@@ -109,7 +109,6 @@ const index = () => {
             />
 
             <Items
-                disabled={true}
                 title={<IconTitle>채팅</IconTitle>}
                 icon={<ChattingIcon />}
                 onClick={onClickItem(CHATTING_MODAL_ID)}
