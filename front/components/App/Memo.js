@@ -1,10 +1,32 @@
-import React from 'react';
+import React, { useCallback, useEffect, useReducer, useRef } from 'react';
+import useInput from '../../hooks/useInput';
+
+import styled  from 'styled-components';
+
+const Textarea = styled.textarea`
+    width: 100%;
+    padding: 5%;
+    height: 98%;
+    background: none;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+`;
 
 const Memo = () => {
+    const textareaRef = useRef(null);
+    const [val, changeVal, setVal] = useInput('');
+
+    useEffect(() => {
+        textareaRef.current.focus();
+    }, []);
+
     return (
-        <div>
-            Memo
-        </div>
+        <Textarea 
+            value={val}
+            onChange={changeVal}
+            ref={textareaRef}
+        />
     );
 };
 
