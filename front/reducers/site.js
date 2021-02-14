@@ -12,10 +12,14 @@ export const initialState = {
     modalIndex: 1000,
     modals: [], 
 
+    changeMemoLoading: false,
+    changeMemoDone: false,
+    changeMemoError: false,
+    memo: '',
+
+    // TODO: 소리 넣기
     isMuted: false, // 음소거
     theme: null, // 사이트 테마
-
-
     battery: null,
     time: null,
 };
@@ -31,6 +35,11 @@ export const DELETE_MODAL_FAILURE = 'DELETE_MODAL_FAILURE';
 export const TOGGLE_MODAL_REQUEST = 'TOGGLE_MODAL_REQUEST';
 export const TOGGLE_MODAL_SUCCESS = 'TOGGLE_MODAL_SUCCESS';
 export const TOGGLE_MODAL_FAILURE = 'TOGGLE_MODAL_FAILURE';
+
+// [D] 메모
+export const CHANGE_MEMO_REQUEST = 'CHANGE_MEMO_REQUEST';
+export const CHANGE_MEMO_SUCCESS = 'CHANGE_MEMO_SUCCESS';
+export const CHANGE_MEMO_FAILURE = 'TOGGLE_MODAL_FAILURE';
 
 
 // export const CHANGE_MUTED = 'CHANGE_MUTED'; // 음소거
@@ -88,6 +97,29 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             draft.modalToggleDone = false;
             draft.modalToggleError = true;
             break;
+
+
+        // [D] 메모 변경
+        case CHANGE_MEMO_REQUEST:
+            draft.changeMemoLoading = true;
+            draft.changeMemoDone = false;
+            draft.changeMemoError = false;
+            draft.memo = action.data;
+            break;
+
+        case CHANGE_MEMO_SUCCESS: {
+            draft.changeMemoLoading = false;
+            draft.changeMemoDone = true;
+            draft.changeMemoError = false;
+            break;
+        }
+
+        case CHANGE_MEMO_FAILURE:
+            draft.changeMemoLoading = false;
+            draft.changeMemoDone = false;
+            draft.changeMemoError = true;
+            break;
+
 
         default:
             break;
