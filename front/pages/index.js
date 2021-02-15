@@ -172,5 +172,9 @@ const Home = () => {
 
 export default Home;
 
-// TODO
+// TODO:
+// - 메타태그
+// - 모바일
+// - login 거쳐서 오도록!! 무조건, 만약 안거쳐올 수도 있을까?
 // - 언어 https://meaningless-life.tistory.com/9
+// - 방명록에 다국어 변환 api? 추가할까? https://developers.naver.com/docs/papago/papago-detectlangs-example-code.md#node-js

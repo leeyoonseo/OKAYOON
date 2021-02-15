@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import useInput from '../../hooks/useInput';
 
 import {
@@ -11,10 +11,14 @@ const WindowDialog = ({ type, text, callback }) => {
     const [val, onChangeVal] = useInput('');
 
     useEffect(() => { 
-        inputRef.current && inputRef.current.focus()
+        inputRef.current && inputRef.current.focus();        
     }, []);
 
-    const onClose = useCallback((state, text) => () => { 
+    const renderReqText = useCallback(() => {
+        return {__html: text};
+    }, [text]);
+
+    const onClose = useCallback(({ state, text }) => () => { 
         if (!text || !text.trim()) {
             text = null;
         }
@@ -24,7 +28,9 @@ const WindowDialog = ({ type, text, callback }) => {
 
     return (
         <Wrap>
-            <TextArea>{text}</TextArea>
+            <TextArea>
+                <span dangerouslySetInnerHTML={renderReqText()} ></span>
+            </TextArea>
 
             {type === 'prompt' && (
                 <InputWrap>
@@ -40,14 +46,19 @@ const WindowDialog = ({ type, text, callback }) => {
             <ButtonArea>
                 {type !== 'alert' && (
                     <CancelButton
-                        onClick={onClose(false)}
+                        onClick={onClose({
+                            state:false
+                        })}
                     >
                         취소
                     </CancelButton>
                 )}
                 
                 <ConfirmButton
-                    onClick={onClose(true, val)}
+                    onClick={onClose({
+                        state: true, 
+                        text: val
+                    })}
                 >
                     확인
                 </ConfirmButton>

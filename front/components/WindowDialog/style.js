@@ -42,27 +42,19 @@ export const ButtonArea = styled.div`
 `;
 
 export const CancelButton = styled.button`
-    padding: 2px 5px;
-    border: 1px solid #333;
-    background: #eee;
+    padding: 2px 10px;
+    border: 1px solid #666;
+    background: none;
     box-sizing: border-box;
     outline: none;
     cursor: pointer;
-
-    &:hover {
-        background: #fff;
-    }
 `;
 
 export const ConfirmButton = styled.button`
-    padding: 2px 5px;
-    border: 1px solid #333;
-    background: #ddd;
+    padding: 2px 10px;
+    border: 1px solid #666;
+    background: none;
     box-sizing: border-box;
     outline: none;
     cursor: pointer;
-
-    &:hover {
-        background: #fff;
-    }
 `;
