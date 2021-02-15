@@ -4,7 +4,6 @@ import {
     PictureFilled, EditFilled, TabletFilled, 
     MessageFilled, CrownFilled, DeleteFilled,
     ChromeFilled,
-    DeleteTwoTone,
 } from '@ant-design/icons';
 
 export const Wrap = styled.div`

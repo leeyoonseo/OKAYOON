@@ -9,6 +9,7 @@ import {
     GUESTBOOK_MODAL_ID, GUESTBOOK_MODAL_DATA,
     BLOG_MODAL_ID, BLOG_MODAL_DATA,
     CHATTING_MODAL_ID, CHATTING_MODAL_DATA,
+    SIMSIMI_MODAL_ID, SIMSIMI_MODAL_DATA,
     DELETE_MODAL_ID, DELETE_MODAL_DATA,
     GALLERY_MODAL_ID, GALLERY_MODAL_DATA,
     GAME_MODAL_ID, GAME_MODAL_DATA,
@@ -41,8 +42,12 @@ const index = () => {
                 data = BLOG_MODAL_DATA;
                 break;
 
-            case CHATTING_MODAL_ID:
-                data = CHATTING_MODAL_DATA;
+            // case CHATTING_MODAL_ID:
+            //     data = CHATTING_MODAL_DATA;
+            //     break;
+
+            case SIMSIMI_MODAL_ID:
+                data = SIMSIMI_MODAL_DATA;
                 break;
         
             case DELETE_MODAL_ID:
@@ -109,10 +114,16 @@ const index = () => {
             />
 
             <Items
+                title={<IconTitle>Simsimi</IconTitle>}
+                icon={<ChattingIcon />}
+                onClick={onClickItem(SIMSIMI_MODAL_ID)}
+            />
+
+            {/* <Items
                 title={<IconTitle>채팅</IconTitle>}
                 icon={<ChattingIcon />}
                 onClick={onClickItem(CHATTING_MODAL_ID)}
-            />
+            /> */}
 
             <Items
                 disabled={true}

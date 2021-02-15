@@ -5,7 +5,7 @@
  */
 
 // [D] 로그인 페이지, 아바타
-import AvatarContent from '../../components/UserInfo/AvatarContent';
+import AvatarImageList from '../../components/UserInfo/AvatarImageList';
 
 export const AVATAR_MODAL_ID = 'LU_M_0';
 export const AVATAR_MODAL_DATA = {
@@ -16,7 +16,7 @@ export const AVATAR_MODAL_DATA = {
         h: '500px'
     },
     title: "아바타 설정",
-    content: AvatarContent,
+    content: AvatarImageList,
     buttonDisabled : {
         Maximize: true,
     },   
@@ -86,6 +86,21 @@ export const BLOG_MODAL_DATA = {
     },
     title: "블로그",
     content: Blog,
+};
+
+// [D] App, 심심이
+import Simsimi from '../App/Simsimi/index';
+
+export const SIMSIMI_MODAL_ID = 'MC_M_0'; 
+export const SIMSIMI_MODAL_DATA = {
+    id: SIMSIMI_MODAL_ID,
+    visible: false,
+    size: {
+        w: '400px',
+        h: '600px'
+    },
+    title: "Simsimi",
+    content: Simsimi,
 };
 
 // [D] App, 채팅
