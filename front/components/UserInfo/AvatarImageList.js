@@ -53,7 +53,7 @@ const SourceText = styled.span`
     color:#aaa;
 `;
 
-const AvatarContent = ({ id, onCloseModal }) => {
+const AvatarImageList = ({ id, onCloseModal }) => {
     const { avatarList } = useSelector((state) => state.user);
 
     return(
@@ -82,11 +82,11 @@ const AvatarContent = ({ id, onCloseModal }) => {
     );
 };
 
-AvatarContent.propTypes = {
+AvatarImageList.propTypes = {
     onCloseModal: PropTypes.func.isRequired,
 };
 
-export default AvatarContent;
+export default AvatarImageList;
 
 
 // TODO:
