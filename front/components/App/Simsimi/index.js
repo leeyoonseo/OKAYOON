@@ -4,10 +4,9 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Avatar } from 'antd';
 
-import WindowDialog from '../../WindowDialog/index';
-// import ChatRoom from './ChatRoom';
+import ChatRoom from './ChatRoom';
 
-const InitWrap = styled.div`
+const Wrap = styled.div`
     display: flex;
     width: 100%;
     height: 100%;
@@ -15,7 +14,7 @@ const InitWrap = styled.div`
     justify-content: center;
 `;
 
-const InitInner = styled.div`
+const Inner = styled.div`
     display: inline-block;
 `;
 
@@ -39,27 +38,15 @@ const AccessButton = styled.button`
 
 const Simsimi = () => {
     const { me } = useSelector((state) => state.user);
-    const [startedChat, setStartedChat] = useState(false);
-    const [openedDialog, setOpenedDialog] = useState(false);
+    const [openedChatRoom, setOpenedChatRoom] = useState(false);
 
-    const onCloseDialog = useCallback((res) => {
-        // [D] true면 확인, false면 취소
-        console.log(res);
-        setOpenedDialog(false);
-        setStartedChat(!res.state);
+    const toggleStep = useCallback(() => setOpenedChatRoom(!openedChatRoom), [openedChatRoom]);
 
-        // TODO: 대화내용 리셋
-        if (res.state) {}
-    }, []);
-
-    const onOpenRoom = useCallback(() => setStartedChat(true), []);
-    const onCloseRoom = useCallback(() => setOpenedDialog(true), []);
-    
     return (
-        <>
-            {!startedChat && (
-                <InitWrap>
-                    <InitInner>
+        <>  
+            {!openedChatRoom && (
+                <Wrap>
+                    <Inner>
                         <Avatar 
                             size={100}
                             src={me.avatar} 
@@ -69,41 +56,17 @@ const Simsimi = () => {
                         </Nickname> 
 
                         <AccessButton
-                            onClick={onOpenRoom}
+                            onClick={toggleStep}
                         >
                             접속하기
                         </AccessButton>
-                    </InitInner>
-                </InitWrap>
+                    </Inner>
+                </Wrap>
             )}
 
-            {startedChat && (
-                <div>
-                    <button
-                        onClick={onCloseRoom}
-                    >
-                        뒤로
-                    </button>
-
-                    <div>
-                        대화창
-                    </div>
-
-                    <div>
-                        <input 
-                            placeholder="글을 입력하세요."
-                        />
-
-                        <button>전송</button>
-                    </div>
-                </div>
-            )}
-
-            {openedDialog && (
-                <WindowDialog 
-                    type="confirm"
-                    text="대화내용이 지워집니다. <br> 진행하시겠습니까?"
-                    callback={onCloseDialog}
+            {openedChatRoom && (
+                <ChatRoom 
+                    onPrevStep={toggleStep}
                 />
             )}
         </>

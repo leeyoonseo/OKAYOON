@@ -53,7 +53,7 @@ export const CancelButton = styled.button`
 export const ConfirmButton = styled.button`
     padding: 2px 10px;
     border: 1px solid #666;
-    background: none;
+    background: #eee;
     box-sizing: border-box;
     outline: none;
     cursor: pointer;
