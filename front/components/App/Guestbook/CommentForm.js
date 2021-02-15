@@ -118,6 +118,7 @@ const CommentForm = () => {
         }
     }, [addCommentDone]);
 
+    // TODO: 이미지 업로드
     const onClickImageUpload = useCallback((e) => {
         e.preventDefault();
         console.log('onClickImageUpload');

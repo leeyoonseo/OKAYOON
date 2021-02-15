@@ -33,14 +33,12 @@ const Memo = () => {
     const onSave = useCallback((e) => {
         const memo = e.target.value;
         console.log('onSave', memo);
-
-        setVal(memo);
         
         dispatch({
             type: CHANGE_MEMO_REQUEST,
             data: memo
         })
-    }, []); 
+    }, [memo]); 
 
     return (
         <Textarea 
