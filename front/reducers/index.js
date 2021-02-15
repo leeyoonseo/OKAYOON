@@ -4,6 +4,7 @@ import { combineReducers } from 'redux';
 import user from './user';
 import site from './site';
 import guestbook from './guestbook';
+import simsimi from './simsimi';
 
 const rootReducer = (state, action) => {
     switch (action.type){
@@ -15,7 +16,8 @@ const rootReducer = (state, action) => {
             const combineReducer = combineReducers({
                 user,
                 site,
-                guestbook
+                guestbook,
+                simsimi,
             });
 
             return combineReducer(state, action);

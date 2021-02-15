@@ -1,10 +1,13 @@
 import React, { useState, useCallback, useEffect, useRef, } from 'react';
-import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import useInput from '../../../hooks/useInput';
 
+import styled from 'styled-components';
 import { Avatar } from 'antd';
 import { LeftOutlined, ArrowUpOutlined } from '@ant-design/icons';
 
 import WindowDialog from '../../WindowDialog/index';
+import { SEND_MESSAGE_REQUEST } from '../../../reducers/simsimi';
 
 const Wrap = styled.div`
     width: 100%;
@@ -82,10 +85,13 @@ const SendButton = styled.button`
     cursor: pointer;
 `;
 
-
 const ChatRoom = ({ onPrevStep }) => {
+    const dispatch = useDispatch();
     const inputRef = useRef(null);
+    const { me } = useSelector((state) => state.user);
+    // const [chatList, setChatList] = useState();
     const [openedDialog, setOpenedDialog] = useState(false);
+    const [message, onChangeMessage, setMessage] = useInput('');
 
     useEffect(() => {
         inputRef.current.focus();
@@ -102,6 +108,28 @@ const ChatRoom = ({ onPrevStep }) => {
     }, []);
 
     const onCloseRoom = useCallback(() => setOpenedDialog(true), []);
+
+    const onSendMessage = useCallback(() => {
+        console.log('message', message);
+        if (!message || !message.trim()) {
+            return;
+        }
+
+        // Loading중일때 처리
+        dispatch({
+            type: SEND_MESSAGE_REQUEST,
+            data: {
+                nickname: me.nickname,
+                text: message
+            }
+        });
+    }, [message]);
+
+    const onKeyPress = useCallback((e) => {
+        if (e.code === 'Enter') {
+            onSendMessage();
+        }
+    }, [message]);
 
     return (
         <>   
@@ -139,10 +167,15 @@ const ChatRoom = ({ onPrevStep }) => {
                     <div>
                         <Input 
                             ref={inputRef}
+                            value={message}
+                            onChange={onChangeMessage}
+                            onKeyPress={onKeyPress}
                             placeholder="채팅을 시작해보세요"
                         />
 
-                        <SendButton>
+                        <SendButton
+                            onClick={onSendMessage}
+                        >
                             <ArrowUpOutlined /> 
                             <span className="hidden">전송</span>
                         </SendButton>
