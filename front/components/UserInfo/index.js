@@ -74,11 +74,11 @@ const UserInfo = ({ id, avatar, nickname, setNickname, forwordRef, onClickModal 
 
 UserInfo.propTypes = {
     // TODO: ID 사용중인가?
-    // id: PropTypes.string, 
+    id: PropTypes.string.isRequired, 
     avatar: PropTypes.string, 
     nickname: PropTypes.string, 
     setNickname: PropTypes.func.isRequired, 
-    forwordRef: PropTypes.object,
+    forwordRef: PropTypes.object.isRequired,
     onClickModal: PropTypes.func.isRequired,
 };
 

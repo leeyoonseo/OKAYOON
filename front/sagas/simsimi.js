@@ -2,7 +2,6 @@ import axios from 'axios';
 import { all, fork, put, takeLatest, delay, call } from 'redux-saga/effects';
 import { 
     SEND_MESSAGE_REQUEST, SEND_MESSAGE_SUCCESS, SEND_MESSAGE_FAILURE,
-    DELETE_MESSAGE,
 } from '../reducers/simsimi';
 
 function sendMessageAPI(data){

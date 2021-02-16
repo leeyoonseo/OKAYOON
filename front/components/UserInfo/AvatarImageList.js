@@ -83,6 +83,7 @@ const AvatarImageList = ({ id, onCloseModal }) => {
 };
 
 AvatarImageList.propTypes = {
+    id: PropTypes.string.isRequired,
     onCloseModal: PropTypes.func.isRequired,
 };
 

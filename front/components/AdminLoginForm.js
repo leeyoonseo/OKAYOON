@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import { LOG_IN_ADMIN_REQUEST } from '../reducers/user';
 
 import styled from 'styled-components';
@@ -112,6 +113,10 @@ const AdminLoginForm = ({ onClose }) => {
             </AdminButton>
         </Wrap>
     );
+};
+
+AdminLoginForm.propTypes = {
+    onClose: PropTypes.func.isRequired,
 };
 
 export default AdminLoginForm;

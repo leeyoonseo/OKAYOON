@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 import useInput from '../../hooks/useInput';
 
 import {
@@ -65,6 +66,16 @@ const WindowDialog = ({ type, text, callback }) => {
             </ButtonArea>
         </Wrap>
     );
+};
+
+WindowDialog.propTypes = {
+    type: PropTypes.string,
+    text: PropTypes.string.isRequired,
+    callback: PropTypes.func.isRequired,
+};
+
+WindowDialog.defaultProps = {
+    type: 'alert',
 };
 
 export default WindowDialog;

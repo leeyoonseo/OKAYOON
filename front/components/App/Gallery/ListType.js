@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { List, Avatar } from 'antd';
@@ -79,6 +80,10 @@ const ListType = ({ images }) => {
             )}
         </>
     );
+};
+
+ListType.propTypes = {
+    images: PropTypes.array.isRequired,
 };
 
 export default ListType;

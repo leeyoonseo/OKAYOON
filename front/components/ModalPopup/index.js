@@ -9,7 +9,6 @@ import {
     MaximizeIcon, 
 } from './styles';
 
-// TODO: params, props관련 주석달까?
 const ModalPopup = ({
     id,
     visible,

@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import PropTypes from 'prop-types';
 import Slick from 'react-slick';
 import styled, { css } from 'styled-components';
 
@@ -204,6 +205,10 @@ const SlideType = ({ images }) => {
             </Inner>
         </Wrap>
     );
+};
+
+SlideType.propTypes = {
+    images: PropTypes.array.isRequired,
 };
 
 export default SlideType;

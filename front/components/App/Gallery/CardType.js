@@ -1,7 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import ImageZoom from './ImageZoom';
+import { Card } from 'antd';
 
 const Wrap = styled.div`
     padding-bottom: 6%;
@@ -68,6 +70,10 @@ const CardType = ({ images }) => {
             )}
         </>
     );
+};
+
+CardType.propTypes = {
+    images: PropTypes.array.isRequired,
 };
 
 export default CardType;
