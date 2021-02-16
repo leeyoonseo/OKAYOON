@@ -6,27 +6,12 @@ import {
 } from '../reducers/simsimi';
 
 function sendMessageAPI(data){
-    console.log('sendMessageAPI', data);
-    return axios({
-        url: 'https://wsapi.simsimi.com/190410/talk',
-        method: 'post',
-        headers: {
-            'Content-Type' : 'application/json;charset=utf-8',
-            'x-api-key' : 'k8vBgUA.WKtwTSQgIEEgr24QG.XGD_bpwAHn56hC',
-            'Access-Control-Allow-Origin' : '*',
-            'Access-Control-Allow-Credentials': 'true'
-        },
-        data: {
-            utext : data,
-            lang : "ko",
-        },
-    });
-  // 통신 작업할 것
+    return axios.post('/simsimi', data);
 };
 
 function* sendMessage(action){
     try{
-        const result = yield call(sendMessageAPI, action.data.text);
+        const result = yield call(sendMessageAPI, action.data);
         console.log('result', result);
         // 임시
         // console.log('LoadGuestbook', action.data);

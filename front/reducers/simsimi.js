@@ -25,7 +25,6 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
     switch(action.type){
 
         case SEND_MESSAGE_REQUEST:
-            console.log('reducer SEND_MESSAGE_REQUEST', action.data);
             draft.sendMessageLoading = true;
             draft.sendMessageDone = false;
             draft.sendMessageError = false;
@@ -34,10 +33,11 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             break;
 
         case SEND_MESSAGE_SUCCESS: 
-            console.log('reducer SEND_MESSAGE_SUCCESS', action.data);
             draft.sendMessageLoading = false;
             draft.sendMessageDone = true;
             draft.sendMessageError = false;
+
+            draft.chatList.push(action.data);
             break;
 
         case SEND_MESSAGE_FAILURE:

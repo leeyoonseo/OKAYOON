@@ -1,13 +1,14 @@
 import React, { useState, useCallback, useEffect, useRef, } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useInput from '../../../hooks/useInput';
+import { SEND_MESSAGE_REQUEST } from '../../../reducers/simsimi';
 
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { Avatar } from 'antd';
 import { LeftOutlined, ArrowUpOutlined } from '@ant-design/icons';
 
 import WindowDialog from '../../WindowDialog/index';
-import { SEND_MESSAGE_REQUEST } from '../../../reducers/simsimi';
+import ChatLine from './ChatLine';
 
 const Wrap = styled.div`
     width: 100%;
@@ -51,17 +52,6 @@ const Content = styled.div`
     }
 `;
 
-const ChatLine = styled.div`
-    text-align: ${props => props.align};
-`;
-
-const SpeechBubble = styled.div`
-    padding: 5px 10px;
-    display: inline-block;
-    border-radius: 5px;
-    background: ${props => props.bgcolor};
-`;
-
 const Footer = styled.div`
     height: 5%;
 `;
@@ -85,17 +75,45 @@ const SendButton = styled.button`
     cursor: pointer;
 `;
 
+const loading = keyframes`
+    0%, 100% {
+        transform: translateY(-1px);
+    }
+    50% {
+        transform: translateY(1px);
+    }
+`;
+
+const LoadingText = styled.div`
+    span {
+        display: inline-block;
+        animation: ${loading} .7s infinite;
+    }
+
+    span:nth-child(2) { animation-delay: 0.1s; }
+    span:nth-child(3) { animation-delay: 0.2s; }
+    span:nth-child(4) { animation-delay: 0.3s; }
+    span:nth-child(5) { animation-delay: 0.4s; }
+    span:nth-child(6) { animation-delay: 0.5s; }
+`;
+
 const ChatRoom = ({ onPrevStep }) => {
     const dispatch = useDispatch();
     const inputRef = useRef(null);
     const { me } = useSelector((state) => state.user);
-    // const [chatList, setChatList] = useState();
+    const { chatList, sendMessageLoading } = useSelector((state) => state.simsimi);
     const [openedDialog, setOpenedDialog] = useState(false);
     const [message, onChangeMessage, setMessage] = useInput('');
 
     useEffect(() => {
         inputRef.current.focus();
     }, []); 
+
+    useEffect(() => {
+        if (sendMessageLoading) {
+            setMessage('');
+        }
+    }, [sendMessageLoading]);
 
     const onCloseDialog = useCallback((res) => {
         setOpenedDialog(false);
@@ -131,6 +149,19 @@ const ChatRoom = ({ onPrevStep }) => {
         }
     }, [message]);
 
+    const Loading = useCallback(() => {
+        return (
+            <LoadingText>
+                <span>입</span>
+                <span>력</span>
+                <span>중</span>
+                <span>.</span>
+                <span>.</span>
+                <span>.</span>
+            </LoadingText>
+        )
+    }, []);
+
     return (
         <>   
             <Wrap>
@@ -148,19 +179,24 @@ const ChatRoom = ({ onPrevStep }) => {
                 </Header>
 
                 <Content>
+                    {chatList.map(({ nickname, text }, i) => {
+                        return (
+                            <ChatLine 
+                                key={`${nickname}_${i}`}
+                                nickname={nickname}
+                            >
+                                {text}
+                            </ChatLine>
+                        )
+                    })}
 
-                    <ChatLine align="left">
-                        <SpeechBubble bgcolor="#aaa">
-                            반가워~난 심심이야~~!
-                        </SpeechBubble>
-                    </ChatLine>
-                    
-                    <ChatLine align="right">
-                        <SpeechBubble bgcolor="#37a4fc">
-                            안녕
-                        </SpeechBubble>
-                    </ChatLine>
-                    
+                    {/* [D] loading */}
+                    {message && <ChatLine>{Loading()}</ChatLine>}  
+                    {sendMessageLoading && (
+                        <ChatLine nickname="simsimi">
+                            {Loading()}
+                        </ChatLine>
+                    )}
                 </Content>
 
                 <Footer>

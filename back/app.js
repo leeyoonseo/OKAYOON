@@ -7,6 +7,7 @@ const dotenv = require('dotenv');
 
 const AdminRouter = require('./routes/admin');
 const GuestRouter = require('./routes/guestbook');
+const SimsimiRouter = require('./routes/simsimi');
 const db = require('./models');
 const passportConfig = require('./passport');
 
@@ -38,6 +39,7 @@ app.use(passport.session());
 
 app.use('/admin', AdminRouter);
 app.use('/guestbook', GuestRouter);
+app.use('/simsimi', SimsimiRouter);
 
 app.listen(3065, () => {
     console.log('서버실행중');
