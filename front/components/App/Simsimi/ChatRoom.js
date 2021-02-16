@@ -1,14 +1,15 @@
 import React, { useState, useCallback, useEffect, useRef, } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import useInput from '../../../hooks/useInput';
-import { SEND_MESSAGE_REQUEST } from '../../../reducers/simsimi';
+import { DELETE_MESSAGE, SEND_MESSAGE_REQUEST } from '../../../reducers/simsimi';
 
 import styled, { keyframes } from 'styled-components';
 import { Avatar } from 'antd';
 import { LeftOutlined, ArrowUpOutlined } from '@ant-design/icons';
 
 import WindowDialog from '../../WindowDialog/index';
-import ChatLine from './ChatLine';
+import Chat from './Chat';
 
 const Wrap = styled.div`
     width: 100%;
@@ -75,7 +76,7 @@ const SendButton = styled.button`
     cursor: pointer;
 `;
 
-const loading = keyframes`
+const loadingAni = keyframes`
     0%, 100% {
         transform: translateY(-1px);
     }
@@ -87,7 +88,7 @@ const loading = keyframes`
 const LoadingText = styled.div`
     span {
         display: inline-block;
-        animation: ${loading} .7s infinite;
+        animation: ${loadingAni} .7s infinite;
     }
 
     span:nth-child(2) { animation-delay: 0.1s; }
@@ -118,22 +119,21 @@ const ChatRoom = ({ onPrevStep }) => {
     const onCloseDialog = useCallback((res) => {
         setOpenedDialog(false);
 
-        // [D] true면 확인, false면 취소
-        // TODO: 대화내용 리셋
         if (res.state) {
             onPrevStep();
+            dispatch({
+                type: DELETE_MESSAGE
+            });
         }
     }, []);
 
     const onCloseRoom = useCallback(() => setOpenedDialog(true), []);
 
     const onSendMessage = useCallback(() => {
-        console.log('message', message);
         if (!message || !message.trim()) {
             return;
         }
 
-        // Loading중일때 처리
         dispatch({
             type: SEND_MESSAGE_REQUEST,
             data: {
@@ -149,7 +149,7 @@ const ChatRoom = ({ onPrevStep }) => {
         }
     }, [message]);
 
-    const Loading = useCallback(() => {
+    const renderLoading = useCallback(() => {
         return (
             <LoadingText>
                 <span>입</span>
@@ -181,21 +181,21 @@ const ChatRoom = ({ onPrevStep }) => {
                 <Content>
                     {chatList.map(({ nickname, text }, i) => {
                         return (
-                            <ChatLine 
+                            <Chat 
                                 key={`${nickname}_${i}`}
                                 nickname={nickname}
                             >
                                 {text}
-                            </ChatLine>
+                            </Chat>
                         )
                     })}
 
                     {/* [D] loading */}
-                    {message && <ChatLine>{Loading()}</ChatLine>}  
+                    {message && <Chat>{renderLoading()}</Chat>}  
                     {sendMessageLoading && (
-                        <ChatLine nickname="simsimi">
-                            {Loading()}
-                        </ChatLine>
+                        <Chat nickname="simsimi">
+                            {renderLoading()}
+                        </Chat>
                     )}
                 </Content>
 
@@ -228,6 +228,10 @@ const ChatRoom = ({ onPrevStep }) => {
             )}
         </>
     );
+};
+
+ChatRoom.propTypes = {
+    onPrevStep: PropTypes.func.isRequired,    
 };
 
 export default ChatRoom;

@@ -7,19 +7,13 @@ export const initialState = {
     sendMessageLoading: false,
     sendMessageDone: false,
     sendMessageError: false,
-
-    loadMessageLoading: false,
-    loadMessageDone: false,
-    loadMessageError: false,
 };
 
 export const SEND_MESSAGE_REQUEST = 'SEND_MESSAGE_REQUEST';
 export const SEND_MESSAGE_SUCCESS = 'SEND_MESSAGE_SUCCESS';
 export const SEND_MESSAGE_FAILURE = 'SEND_MESSAGE_FAILURE';
 
-export const LOAD_MESSAGE_REQUEST = 'LOAD_MESSAGE_REQUEST';
-export const LOAD_MESSAGE_SUCCESS = 'LOAD_MESSAGE_SUCCESS';
-export const LOAD_MESSAGE_FAILURE = 'LOAD_MESSAGE_FAILURE';
+export const DELETE_MESSAGE = 'DELETE_MESSAGE';
 
 const reducer = (state = initialState, action) => produce(state,(draft) => {
     switch(action.type){
@@ -46,24 +40,10 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             draft.sendMessageError = true;
             break;
 
-        case LOAD_MESSAGE_REQUEST:
-            draft.loadMessageLoading = true;
-            draft.loadMessageDone = false;
-            draft.loadMessageError = false;
+        case DELETE_MESSAGE:
+            draft.chatList = [];
             break;
 
-        case LOAD_MESSAGE_SUCCESS: {
-            draft.loadMessageLoading = false;
-            draft.loadMessageDone = true;
-            draft.loadMessageError = false;
-            break;
-        }
-
-        case LOAD_MESSAGE_FAILURE:
-            draft.loadMessageLoading = false;
-            draft.loadMessageDone = false;
-            draft.loadMessageError = true;
-            break;
         default:
             break;
     }

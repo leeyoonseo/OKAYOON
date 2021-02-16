@@ -2,7 +2,7 @@ import axios from 'axios';
 import { all, fork, put, takeLatest, delay, call } from 'redux-saga/effects';
 import { 
     SEND_MESSAGE_REQUEST, SEND_MESSAGE_SUCCESS, SEND_MESSAGE_FAILURE,
-    LOAD_MESSAGE_REQUEST, LOAD_MESSAGE_SUCCESS, LOAD_MESSAGE_FAILURE,
+    DELETE_MESSAGE,
 } from '../reducers/simsimi';
 
 function sendMessageAPI(data){
@@ -12,10 +12,7 @@ function sendMessageAPI(data){
 function* sendMessage(action){
     try{
         const result = yield call(sendMessageAPI, action.data);
-        console.log('result', result);
-        // 임시
-        // console.log('LoadGuestbook', action.data);
-        // yield delay(1000);
+
         yield put({
             type: SEND_MESSAGE_SUCCESS,
             data: result.data

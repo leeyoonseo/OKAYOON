@@ -1,5 +1,5 @@
-import React, { useCallback } from 'react';
-import propTypes from 'prop-types';
+import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Wrap = styled.div`
@@ -13,8 +13,7 @@ const SpeechBubble = styled.div`
     background: ${props => props.bgcolor};
 `;
 
-// [D] 닉네임 안들어오면 user임
-const ChatLine = ({ children, nickname }) => {
+const Chat = ({ children, nickname }) => {
     const SIMSIMI = 'simsimi';
     const SIMSIMI_ALIGN = 'left';
     const SIMSIMI_COLOR = '#ffe34f';
@@ -23,10 +22,18 @@ const ChatLine = ({ children, nickname }) => {
 
     return (
         <Wrap 
-            align={nickname === SIMSIMI ? SIMSIMI_ALIGN : USER_ALIGN}
+            align={
+                nickname === SIMSIMI 
+                ? SIMSIMI_ALIGN 
+                : USER_ALIGN
+            }
         >
             <SpeechBubble 
-                bgcolor={nickname === SIMSIMI ? SIMSIMI_COLOR : USER_COLOR}
+                bgcolor={
+                    nickname === SIMSIMI 
+                    ? SIMSIMI_COLOR 
+                    : USER_COLOR
+                }
             >
                 {children}
             </SpeechBubble>
@@ -34,7 +41,13 @@ const ChatLine = ({ children, nickname }) => {
     );
 };
 
-ChatLine.defaultProps = {
+Chat.propTypes = {
+    children: PropTypes.node.isRequired,
+    nickname: PropTypes.string,
+};
+
+Chat.defaultProps = {
     nickname: 'user',
-}
-export default ChatLine;
+};
+
+export default Chat;

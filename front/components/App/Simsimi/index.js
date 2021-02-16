@@ -52,12 +52,10 @@ const Simsimi = () => {
                             src={me.avatar} 
                         />    
                         <Nickname>
-                            123{me.nickname}
+                            {me.nickname}
                         </Nickname> 
 
-                        <AccessButton
-                            onClick={toggleStep}
-                        >
+                        <AccessButton onClick={toggleStep}>
                             접속하기
                         </AccessButton>
                     </Inner>
