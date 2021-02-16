@@ -20,7 +20,7 @@ router.post('/', async (req, res, body) => { // POST /simsimi
         });
 
         res.status(result.data.status).send({ 
-            nickname: 'simsimi',
+            simsimi: true,
             text: result.data.atext
         });
 

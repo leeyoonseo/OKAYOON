@@ -13,26 +13,20 @@ const SpeechBubble = styled.div`
     background: ${props => props.bgcolor};
 `;
 
-const Chat = ({ children, nickname }) => {
-    const SIMSIMI = 'simsimi';
-    const SIMSIMI_ALIGN = 'left';
-    const SIMSIMI_COLOR = '#ffe34f';
-    const USER_ALIGN = 'right';
-    const USER_COLOR = '#f18d8b';
-
+const Chat = ({ children, simsimi }) => {
     return (
         <Wrap 
             align={
-                nickname === SIMSIMI 
-                ? SIMSIMI_ALIGN 
-                : USER_ALIGN
+                simsimi
+                ? 'left' 
+                : 'right'
             }
         >
             <SpeechBubble 
                 bgcolor={
-                    nickname === SIMSIMI 
-                    ? SIMSIMI_COLOR 
-                    : USER_COLOR
+                    simsimi
+                    ? '#ffe34f' 
+                    : '#f18d8b'
                 }
             >
                 {children}
@@ -43,11 +37,11 @@ const Chat = ({ children, nickname }) => {
 
 Chat.propTypes = {
     children: PropTypes.node.isRequired,
-    nickname: PropTypes.string,
+    simsimi: PropTypes.bool,
 };
 
 Chat.defaultProps = {
-    nickname: 'user',
+    simsimi: false,
 };
 
 export default Chat;

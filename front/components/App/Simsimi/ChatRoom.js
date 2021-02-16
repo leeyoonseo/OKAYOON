@@ -137,7 +137,7 @@ const ChatRoom = ({ onPrevStep }) => {
         dispatch({
             type: SEND_MESSAGE_REQUEST,
             data: {
-                nickname: me.nickname,
+                simsimi: false,
                 text: message
             }
         });
@@ -179,11 +179,11 @@ const ChatRoom = ({ onPrevStep }) => {
                 </Header>
 
                 <Content>
-                    {chatList.map(({ nickname, text }, i) => {
+                    {chatList.map(({ simsimi, text }, i) => {
                         return (
                             <Chat 
-                                key={`${nickname}_${i}`}
-                                nickname={nickname}
+                                key={`chat_${i}`}
+                                simsimi={simsimi}
                             >
                                 {text}
                             </Chat>
@@ -193,7 +193,7 @@ const ChatRoom = ({ onPrevStep }) => {
                     {/* [D] loading */}
                     {message && <Chat>{renderLoading()}</Chat>}  
                     {sendMessageLoading && (
-                        <Chat nickname="simsimi">
+                        <Chat simsimi={true}>
                             {renderLoading()}
                         </Chat>
                     )}
