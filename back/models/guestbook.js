@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
         avatar: {
-            type: DataTypes.INTEGER(1),
+            type: DataTypes.STRING(100),
             allowNull: false,
         },
         password: {
@@ -18,12 +18,13 @@ module.exports = (sequelize, DataTypes) => {
         },
 
     }, {
+        modelName: "Guestbook", 
+        tableName: "Guestbook", 
         charset: 'utf8mb4',
         collate: 'utf8mb4_general_ci',
     });
 
     Guestbook.associate = (db) => {
-        db.Guestbook.belongsTo(db.Admin);
         db.Guestbook.hasMany(db.Comment);
         db.Guestbook.hasMany(db.Image);
     };
@@ -31,11 +32,4 @@ module.exports = (sequelize, DataTypes) => {
     return Guestbook;
 };
 
-// 닉네임 (바뀜)
-// 아바타 (바뀜)
-// 패스워드 
-// 내용 (바뀜)
-// 만든날짜 
-// 코멘트
-
-// 슈퍼키(관리자만 알고 있는 key로 게시글 삭제 시 사용할 계획)
+// TODO: 나중엔 index번호만

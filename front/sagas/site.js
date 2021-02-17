@@ -62,17 +62,8 @@ function* watchCreateModal(){
 //     yield takeLatest(DELETE_MODAL_REQUEST, DeleteModal);
 // }
 
-function ToggleModalAPI(data){
-    // 통신 작업할 것
-};
-
 function* ToggleModal(action){
     try{
-        // const result = yield call(ToggleModalAPI);
-        // 임시
-        // console.log('ToggleModal', action.data);
-        // yield delay(1000);
-
         yield put({
             type: TOGGLE_MODAL_SUCCESS,
             data: action.data

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios');
 
-router.post('/', async (req, res, body) => { // POST /simsimi
+router.post('/', async (req, res, next) => { // POST /simsimi
     try {
         const result = await axios({
             url: 'https://wsapi.simsimi.com/190410/talk',

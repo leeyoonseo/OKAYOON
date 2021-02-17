@@ -16,11 +16,7 @@ module.exports = (sequelize, DataTypes) => {
         collate: 'utf8mb4_general_ci',
     });
 
-    Admin.associate = (db) => {
-        db.Admin.hasMany(db.Guestbook);
-        db.Admin.hasMany(db.Comment);
-        db.Admin.hasMany(db.Image);
-    };
+    Admin.associate = (db) => {};
 
     return Admin;
 };

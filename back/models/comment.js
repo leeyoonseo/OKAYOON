@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false, 
         },
         avatar: {
-            type: DataTypes.INTEGER(1),
+            type: DataTypes.STRING(100),
             allowNull: false,
         },
         password: {
@@ -24,8 +24,11 @@ module.exports = (sequelize, DataTypes) => {
 
     Comment.associate = (db) => {
         db.Comment.belongsTo(db.Guestbook);
-        db.Comment.belongsTo(db.Admin);
     };
 
     return Comment;
 };
+
+
+// TODO:
+// - 아바타 이미지

@@ -122,6 +122,7 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             draft.loadGuestbookLoading = false;
             draft.loadGuestbookDone = true;
             draft.loadGuestbookError = false;
+            draft.guestbook = action.data;
             break;
 
         case LOAD_GUESTBOOK_FAILURE:
@@ -137,11 +138,10 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             break;
 
         case ADD_GUESTBOOK_SUCCESS:
-            draft.guestbook.unshift(action.data);
-
             draft.addGuestbookLoading = false;
             draft.addGuestbookDone = true;
             draft.addGuestbookError = false;
+            draft.guestbook.unshift(action.data);
             break;
 
         case ADD_GUESTBOOK_FAILURE:

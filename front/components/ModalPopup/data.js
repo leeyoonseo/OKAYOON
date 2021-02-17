@@ -5,7 +5,7 @@
  */
 
 // [D] 로그인 페이지, 아바타
-import Avatar from '../ModalContent/Avatar';
+import ModalAvatar from '../Login/ModalAvatar';
 
 export const AVATAR_MODAL_ID = 'LU_M_0';
 export const AVATAR_MODAL_DATA = {
@@ -16,14 +16,14 @@ export const AVATAR_MODAL_DATA = {
         h: '500px'
     },
     title: "아바타 설정",
-    content: Avatar,
+    content: ModalAvatar,
     buttonDisabled : {
         Maximize: true,
     },   
 };
 
 // [D] 메뉴 툴팁, info
-import InfoContent from '../SystemTools/Menu/InfoContent';
+import Info from '../SystemTools/Menu/Info';
 
 export const INFO_MODAL_ID = 'MI_M_0'; 
 export const INFO_MODAL_DATA = {
@@ -34,14 +34,14 @@ export const INFO_MODAL_DATA = {
         h: '300px'
     },
     title: "Info",
-    content: InfoContent,
+    content: Info,
     buttonDisabled : {
         Maximize: true,
     },   
 };
 
 // [D] 메뉴 툴팁, welcome
-import WelcomeContent from '../SystemTools/Menu/WelcomeContent';
+import Welcome from '../SystemTools/Menu/Welcome';
 
 export const WELCOME_MODAL_ID = 'MW_M_0';
 export const WELCOME_MODAL_DATA = {
@@ -52,7 +52,7 @@ export const WELCOME_MODAL_DATA = {
         h: '300px'
     },
     title: "Welcome",
-    content: WelcomeContent,
+    content: Welcome,
     buttonDisabled : {
         Maximize: true,
     },   

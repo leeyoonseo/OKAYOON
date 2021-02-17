@@ -192,8 +192,7 @@ const Login = () => {
                             <AdminLogin />
                         )}
                     </ContentInner>
-
-                    {modalToggleLoading && <Loading />}
+                    
                     {!isAdmin && modals?.map((v) => {
                         if(v){
                             return (
@@ -234,6 +233,8 @@ const Login = () => {
                     </AdminButton>
                 </Footer>
             </Wrap>
+
+            {modalToggleLoading && <Loading />}
         </>
     );
 };

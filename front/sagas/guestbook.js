@@ -12,21 +12,16 @@ import {
 } from '../reducers/guestbook';
 
 function LoadGuestbookAPI(){
-    return axios.get('guestbook');
-  // 통신 작업할 것
+    return axios.get('/guestbook');
 };
 
-function* LoadGuestbook(action){
+function* LoadGuestbook(){
     try{
         const result = yield call(LoadGuestbookAPI);
-        console.log('LoadGuestbook result', result)
-        // 임시
-        // console.log('LoadGuestbook', action.data);
-        // yield delay(1000);
-        // yield put({
-        //     type: LOAD_GUESTBOOK_SUCCESS,
-        //     data: result.data
-        // });
+        yield put({
+            type: LOAD_GUESTBOOK_SUCCESS,
+            data: result.data
+        });
 
     }catch(err){
         console.error(err);
@@ -48,13 +43,12 @@ function AddGuestbookAPI(data){
 function* AddGuestbook(action){
     try{
         const result = yield call(AddGuestbookAPI, action.data);
-        console.log('AddGuestbook result', result);
-        // 임시
-        // yield delay(1000);
-        // yield put({
-        //     type: ADD_GUESTBOOK_SUCCESS,
-        //     data: result.data
-        // });
+
+        yield delay(1000);
+        yield put({
+            type: ADD_GUESTBOOK_SUCCESS,
+            data: result.data
+        });
 
     }catch(err){
         console.error(err);

@@ -122,7 +122,6 @@ const Card = ({
     avatar,
     content,
     createDt,
-    password,
     comment,
 }) => {
     const dispatch = useDispatch();
@@ -158,23 +157,15 @@ const Card = ({
     const onEdit = useCallback(() => {
         console.log('onEdit');
         setIsVisibleMenu(false);
-
-        // dispatch({
-        //     type: EDIT_GUESTBOOK_REQUEST,
-        //     data: {
-
-        //     }
-        // })
+        
+        // TODO: 수정
     }, []);
 
     const onRemove = useCallback(() => {
         console.log('onRemove');
         setIsVisibleMenu(false);
 
-        dispatch({
-            type: REMOVE_GUESTBOOK_REQUEST,
-            // data: id
-        });
+        // TODO: 삭제
     }, []);
 
     return (
@@ -219,8 +210,6 @@ const Card = ({
 
                     {isVisibleComment && (
                         <>
-                            {/* <Comment comment={comment} /> */}
-
                             <CommentForm />
 
                             {comment.map((v, i) => (

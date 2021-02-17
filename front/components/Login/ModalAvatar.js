@@ -50,7 +50,7 @@ const SourceText = styled.span`
     color:#aaa;
 `;
 
-const AvatarImageList = ({ id, onCloseModal }) => {
+const ModalAvatar = ({ id, onCloseModal }) => {
     const { avatarList } = useSelector((state) => state.user);
 
     return(
@@ -79,12 +79,12 @@ const AvatarImageList = ({ id, onCloseModal }) => {
     );
 };
 
-AvatarImageList.propTypes = {
+ModalAvatar.propTypes = {
     id: PropTypes.string.isRequired,
     onCloseModal: PropTypes.func.isRequired,
 };
 
-export default AvatarImageList;
+export default ModalAvatar;
 
 
 // TODO:

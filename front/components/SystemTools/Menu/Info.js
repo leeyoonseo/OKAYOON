@@ -1,6 +1,6 @@
 import React from 'react';
 
-const InfoContent = () => {
+const MenuInfo = () => {
     return (
         <div>
             사용: react, redux-saga, reducer, next, antd, styled-components, eslint, github,
@@ -9,5 +9,5 @@ const InfoContent = () => {
     );
 };
 
-export default InfoContent;
+export default MenuInfo;
 

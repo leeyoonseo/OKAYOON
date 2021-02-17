@@ -1,11 +1,10 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useInput from '../../../hooks/useInput';
+import { ADD_GUESTBOOK_REQUEST } from '../../../reducers/guestbook';
 
 import styled, { css } from 'styled-components';
-
 import { EyeOutlined } from '@ant-design/icons';
-import { ADD_GUESTBOOK_REQUEST } from '../../../reducers/guestbook';
 
 const Textarea = styled.textarea`
     padding: 10px;
@@ -104,12 +103,13 @@ const GuestForm = () => {
     const [textVal, changeTextVal, setTextVal] = useInput('');
     const [passwordVal, changePasswordVal, setPasswordVal] = useInput('');
     const [checkHiddenPW, setCheckHiddenPW] = useState(false);
+
     const textareaRef = useRef(null);
     const pwInputRef = useRef(null);
 
     const CLASSNAME_EMPTY = 'empty';
     const maxTextLength = 100;
-    let validationFailureNum = 0;
+    let validationFailNum = 0;
 
     useEffect(() => {
         textareaRef.current.focus();
@@ -136,17 +136,17 @@ const GuestForm = () => {
     const formValidation = useCallback(() => {
         // textarea
         if(!textVal || !textVal.trim()) {
-            ++validationFailureNum;
+            ++validationFailNum;
             textareaRef.current.classList.add(CLASSNAME_EMPTY);
         }
 
         // pw
         if(!passwordVal || !passwordVal.trim()) {
-            ++validationFailureNum;
+            ++validationFailNum;
             pwInputRef.current.classList.add(CLASSNAME_EMPTY);
         }
 
-        return (!validationFailureNum) ? true : false;
+        return (!validationFailNum) ? true : false;
     }, [textVal, passwordVal]);
 
     const onSubmit = useCallback((e) => {
@@ -159,10 +159,8 @@ const GuestForm = () => {
                 data: {
                     nickname: me.nickname,
                     avatar: me.avatar,
-                    createDt: '2020.04.11 AM 11:12',
                     content: textVal,
                     password: passwordVal,
-                    comment: [],
                 },
             });
         }
