@@ -101,7 +101,6 @@ const LoadingText = styled.div`
 const ChatRoom = ({ onPrevStep }) => {
     const dispatch = useDispatch();
     const inputRef = useRef(null);
-    const { me } = useSelector((state) => state.user);
     const { chatList, sendMessageLoading } = useSelector((state) => state.simsimi);
     const [openedDialog, setOpenedDialog] = useState(false);
     const [message, onChangeMessage, setMessage] = useInput('');

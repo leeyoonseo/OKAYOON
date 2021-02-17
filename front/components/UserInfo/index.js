@@ -9,26 +9,36 @@ import {
     NicknameInput, UserIcon, Nickname, CloseButton, CheckButton
 } from './style';
 
-const UserInfo = ({ id, avatar, nickname, setNickname, forwordRef, onClickModal }) => {
-    const { me } = useSelector((state) => state.user);
+const UserInfo = ({ 
+    id, avatar, 
+    nickname, onChangeNickname, setNickname, 
+    forwordRef, onClickModal 
+}) => {
+    const [haveNickname, setHaveNickname] = useState(false);
 
     useEffect(() => {
         forwordRef.current && forwordRef.current.focus();
-        console.log('type', typeof forwordRef);
 
-        if(me.nickname){
-            setNickname(me.nickname);
+        if (nickname) {
+            setHaveNickname(true);
         }
     }, []);
 
     const onRemoveNickname = useCallback(() => {
         setNickname('');
+        setHaveNickname(false);
     }, []);
 
     const onSaveNickname = useCallback(() => {
-        const val = forwordRef.current.value; 
-        setNickname(val);
-    }, []);
+        setNickname(nickname);
+        setHaveNickname(true);
+    }, [nickname]);
+
+    const onKeyPressInput = useCallback((e) => {
+        if (e.code === 'Enter') {
+            onSaveNickname();
+        }
+    }, [nickname]); 
 
     return(
         <Wrap>
@@ -41,7 +51,7 @@ const UserInfo = ({ id, avatar, nickname, setNickname, forwordRef, onClickModal 
 
             <NicknameArea>
                 {
-                    nickname 
+                    haveNickname 
                     ? (
                         <Nickname className="nickname">
                             <span>{nickname}</span>
@@ -59,6 +69,9 @@ const UserInfo = ({ id, avatar, nickname, setNickname, forwordRef, onClickModal 
                                 maxLength="20"
                                 placeholder="Please your nickname" 
                                 ref={forwordRef}
+                                value={nickname}
+                                onChange={onChangeNickname}
+                                onKeyPress={onKeyPressInput}
                             />
 
                             <CheckButton onClick={onSaveNickname}>

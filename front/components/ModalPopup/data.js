@@ -91,7 +91,7 @@ export const BLOG_MODAL_DATA = {
 // [D] App, 심심이
 import Simsimi from '../App/Simsimi/index';
 
-export const SIMSIMI_MODAL_ID = 'MC_M_0'; 
+export const SIMSIMI_MODAL_ID = 'MS_M_0'; 
 export const SIMSIMI_MODAL_DATA = {
     id: SIMSIMI_MODAL_ID,
     visible: false,
