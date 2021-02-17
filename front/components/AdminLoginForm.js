@@ -5,6 +5,7 @@ import { LOG_IN_ADMIN_REQUEST } from '../reducers/user';
 
 import styled from 'styled-components';
 import { Button } from 'antd';
+import useInput from '../hooks/useInput';
 
 const Wrap = styled.div`
     position: absolute;
@@ -48,12 +49,14 @@ const AdminButton = styled(Button)`
 
 const AdminLoginForm = ({ onClose }) => {
     const dispatch = useDispatch();
+    const [id, onChangeID, setID] = useInput('');
+    const [pw, onChangePW, setPW] = useInput('');
     const { logInAdminLoading, logInAdminError } = useSelector((state) => state.user);
-    const nicknameRef = useRef(null);
-    const passwordRef = useRef(null);
+    const idRef = useRef(null);
+    const pwRef = useRef(null);
 
     useEffect(() => {
-        nicknameRef.current.focus();
+        idRef.current.focus();
     }, []);
 
     useEffect(() => {
@@ -61,29 +64,35 @@ const AdminLoginForm = ({ onClose }) => {
     }, [logInAdminLoading]);
 
     const onSubmit = useCallback(() => {
-        const nickname = nicknameRef.current.value;
-        const password = passwordRef.current.value;
+        // const nickname = idRef.current.value;
+        // const password = pwRef.current.value;
         
-        if(!nickname || !nickname.trim()) {
+        if(!id || !id.trim()) {
             alert('관리자 id를 입력해주세요.');
-            nicknameRef.current.focus();
+            idRef.current.focus();
             return;
         }
         
-        if(!password || !password.trim()) {
+        if(!pw || !pw.trim()) {
             alert('관리자 password를 입력해주세요.');
-            passwordRef.current.focus();
+            pwRef.current.focus();
             return;
         }
 
         dispatch({
             type: LOG_IN_ADMIN_REQUEST,
             data: {
-                nickname: nickname,
-                password: password
+                nickname: id,
+                password: pw
             }
         });
-    }, []);
+    }, [id, pw]);
+
+    const onClickAccess = useCallback(({ code }) => {
+        if (code === 'Enter') {
+            onSubmit();
+        }
+    }, [id, pw]);
 
     return (
         <Wrap>
@@ -92,15 +101,19 @@ const AdminLoginForm = ({ onClose }) => {
                     type="text"
                     name="admin-id"
                     placeholder="id"
-                    ref={nicknameRef}
                     maxLength={20}
+                    ref={idRef}
+                    onChange={onChangeID}
+                    onKeyPress={onClickAccess}
                 />
                 <Input 
                     type="password"
                     name="admin-password"
                     placeholder="password"
-                    ref={passwordRef}
                     maxLength={20}
+                    ref={pwRef}
+                    onChange={onChangePW}
+                    onKeyPress={onClickAccess}
                 />
             </form>
             <AdminButton onClick={onClose}>닫기</AdminButton>

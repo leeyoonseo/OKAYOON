@@ -3,9 +3,9 @@ import Router from 'next/router';
 
 export const initialState = {
     admin: {},
-    // logInAdminLoading: false, // 로그인 시도 (관리자)
-    // logInAdminDone: false,
-    // logInAdminError: null,
+    logInAdminLoading: false, // 로그인 시도 (관리자)
+    logInAdminDone: false,
+    logInAdminError: null,
 
     me: {},
     logInLoading: false, // 로그인 시도 (손님)
@@ -128,26 +128,24 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             break;
 
         case LOG_IN_ADMIN_REQUEST: 
-            draft.logInLoading = true;
-            draft.logInDone = false;
-            draft.logInError = false;
+            draft.logInAdminLoading = true;
+            draft.logInAdminDone = false;
+            draft.logInAdminError = false;
             break;
                 
         case LOG_IN_ADMIN_SUCCESS: {
-            draft.logInLoading = false;
-            draft.logInDone = true;
-            draft.logInError = false;
+            draft.logInAdminLoading = false;
+            draft.logInAdminDone = true;
+            draft.logInAdminError = false;
             draft.admin = action.data;
             draft.me = [];
-
-            Router.replace('/');
             break;
         }
 
         case LOG_IN_ADMIN_FAILURE:
-            draft.logInLoading = false;
-            draft.logInDone = false;
-            draft.logInError = true;
+            draft.logInAdminLoading = false;
+            draft.logInAdminDone = false;
+            draft.logInAdminError = true;
 
             alert(action.error);
             break;

@@ -36,43 +36,43 @@ const UserInfo = ({
     }, [nickname]); 
 
     return(
-        <Wrap>
-            <AvatarButton 
-                size={64} 
-                src={avatar ? avatar : null}
-                icon={<UserOutlined />} 
-                onClick={onClickModal(id)}
-            />
+        // <Wrap>
+        //     <AvatarButton 
+        //         size={64} 
+        //         src={avatar ? avatar : null}
+        //         icon={<UserOutlined />} 
+        //         onClick={onClickModal(id)}
+        //     />
 
-            <NicknameArea>
-                {
-                    haveNickname
-                    ? (
-                        <Nickname className="nickname">
-                            <span>{nickname}</span>
+        //     <NicknameArea>
+        //         {
+        //             haveNickname
+        //             ? (
+        //                 <Nickname className="nickname">
+        //                     <span>{nickname}</span>
 
-                            <CloseButton onClick={onRemoveNickname}>
-                                <CloseOutlined />
-                            </CloseButton>
-                        </Nickname>
-                    ) : (
-                        <NicknameInputWrap>
-                            <UserIcon />
+        //                     <CloseButton onClick={onRemoveNickname}>
+        //                         <CloseOutlined />
+        //                     </CloseButton>
+        //                 </Nickname>
+        //             ) : (
+        //                 <NicknameInputWrap>
+        //                     <UserIcon />
 
-                            <NicknameInput 
-                                type="text"
-                                maxLength="20"
-                                placeholder="Please your nickname" 
-                                ref={forwordRef}
-                                value={nickname}
-                                onChange={onChangeNickname}
-                                onKeyPress={onKeyPressInput}
-                            />
-                        </NicknameInputWrap>
-                    )
-                } 
-            </NicknameArea>
-        </Wrap>
+        //                     <NicknameInput 
+        //                         type="text"
+        //                         maxLength="20"
+        //                         placeholder="Please your nickname" 
+        //                         ref={forwordRef}
+        //                         value={nickname}
+        //                         onChange={onChangeNickname}
+        //                         onKeyPress={onKeyPressInput}
+        //                     />
+        //                 </NicknameInputWrap>
+        //             )
+        //         } 
+        //     </NicknameArea>
+        // </Wrap>
     );
 };
 

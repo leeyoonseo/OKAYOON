@@ -1,25 +1,22 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
-import { useDispatch } from 'react-redux';
-import useInput from '../hooks/useInput';
-
-import styled, { css } from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
 import Head from 'next/head';
 import Link from 'next/link';
 
-import { LOG_IN_REQUEST } from '../reducers/user';
 import { CREATE_MODAL_REQUEST, TOGGLE_MODAL_REQUEST, ALL_CLOSED_MODAL } from '../reducers/site';
 
-import UserInfo from '../components/UserInfo/index';
 import SystemTools from '../components/SystemTools';
+import UserLogin from '../components/Login/User';
+import AdminLogin from '../components/Login/Admin';
 import Loading from '../components/Loading';
 import ModalPopup from '../components/ModalPopup';
-import AdminLoginForm from '../components/AdminLoginForm';
+
 import { AVATAR_MODAL_ID, AVATAR_MODAL_DATA } from '../components/ModalPopup/data';
 
-import { Layout, Button } from 'antd';
+import styled, { css } from 'styled-components';
+import { Layout } from 'antd';
 import { LogoutOutlined, SmileOutlined } from '@ant-design/icons';
 import { DARK_MODE_COLOR } from '../theme/styles';
-import { useSelector } from 'react-redux';
 
 const bgImageUrl = 'https://t1.daumcdn.net/cfile/tistory/229F4B335966F29A0F';
 
@@ -56,30 +53,6 @@ const ContentInner = styled.div`
 
     & > div + div {
         margin-top: 15px;
-    }
-`;
-
-const UserButtonArea = styled.div`
-    text-align: center;
-`;
-
-const UserButton = styled(Button)`
-    padding: 5px 10px;
-    color: #fff;
-    background: none;
-    border: 1px solid #fff;
-    cursor: pointer;
-
-    &:hover,
-    &:focus {
-        color: #fff;
-        border-color: #fff;
-        background: none;
-        opacity: 0.8;
-    }
-
-    & + button {
-        margin-left: 10px;
     }
 `;
 
@@ -147,16 +120,12 @@ const AdminIcon = styled(SmileOutlined)`
 
 const Login = () => {
     const dispatch = useDispatch();
-    const inputEl = useRef(null);
 
-    const { logInLoading, me } = useSelector((state) => state.user);
+    const { me } = useSelector((state) => state.user);
     const { modalToggleLoading, modals } = useSelector((state) => state.site);
-
     const [contH, setContH] = useState(null);
     const [avatar, setAvatar] = useState(me.avatar ? me.avatar : null);
-    const [opendAdminPopup, setOpendAdminPopup] = useState(false);
-    const [nickname, onChangeNickname, setNickname] = useInput(me.nickname ? me.nickname : '');
-
+    const [isAdmin, setIsAdmin] = useState(false);
     const themecolor = DARK_MODE_COLOR;
     let windowH = null;
     const headerH = 35;
@@ -166,6 +135,7 @@ const Login = () => {
         windowH = window.innerHeight;
         setContH(windowH - headerH - footerH);
 
+        // TODO: 있어야하나?
         const haveSameModalData = modals.some((v) => v.id === AVATAR_MODAL_ID);
         if(!haveSameModalData){
             dispatch({
@@ -194,43 +164,14 @@ const Login = () => {
         });
     }, []);
 
-    const onClickReset = useCallback(() => {
-        setNickname('');
-        setAvatar(null);
-
-        inputEl.current.value = '';
-        inputEl.current.focus();
-    }, []);
-
-    const onClickAccess = useCallback(() => {
-        const data = {};
-
-        if(!nickname){
-            setNickname('Guest');
-            data.nickname = 'Guest';
-            
-        }else {
-            data.nickname = nickname;
-        }
-
-        data.avatar = avatar;
-
-        dispatch({
-            type: LOG_IN_REQUEST,
-            data: data
-        });
-
-        dispatch({ type: ALL_CLOSED_MODAL });
-    }, [nickname, avatar]);
-
-    const onClickAdmin = useCallback(() => {
-        setOpendAdminPopup(!opendAdminPopup);
-    }, [opendAdminPopup]);
+    const onToggleAdmin = useCallback(() => {
+        setIsAdmin(!isAdmin);
+    }, [isAdmin]);
 
     return (
         <>
             <Head>
-                <title>사용자 접속페이지 | OKAYOON</title>
+                <title>접속페이지 | OKAYOON</title>
             </Head>
             <Wrap>
                 <Header h={headerH}>
@@ -241,28 +182,19 @@ const Login = () => {
 
                 <Content h={contH}>
                     <ContentInner>
-                        <UserInfo 
-                            avatar={avatar} 
-                            nickname={nickname} 
-                            onChangeNickname={onChangeNickname}
-                            setNickname={setNickname}
-                            forwordRef={inputEl}
-                            id={AVATAR_MODAL_ID}
-                            onClickModal={onToggleModal} 
-                            onClickAccess={onClickAccess}
-                        />
-
-                        <UserButtonArea>
-                            <UserButton onClick={onClickReset}>초기화</UserButton>
-                            <UserButton 
-                                onClick={onClickAccess} 
-                                loading={logInLoading}
-                            >접속</UserButton>
-                        </UserButtonArea>
+                        {!isAdmin ? (
+                            <UserLogin 
+                                avatar={avatar}
+                                setAvatar={setAvatar}
+                                onClickModal={onToggleModal}
+                            />
+                        ) : (
+                            <AdminLogin />
+                        )}
                     </ContentInner>
 
                     {modalToggleLoading && <Loading />}
-                    {modals?.map((v) => {
+                    {!isAdmin && modals?.map((v) => {
                         if(v){
                             return (
                                 <ModalPopup 
@@ -292,20 +224,14 @@ const Login = () => {
                     </Link>
 
                     <AdminButton
-                        text="관리자"
+                        text={isAdmin ? '사용자' : '관리자'}
                         themecolor={themecolor}
-                        onClick={onClickAdmin}
+                        onClick={onToggleAdmin}
                     >
                         <ButtonInner>
                             <AdminIcon themecolor={themecolor}/>
                         </ButtonInner>
                     </AdminButton>
-
-                    {opendAdminPopup && (
-                        <AdminLoginForm 
-                            onClose={onClickAdmin}
-                        />
-                    )}
                 </Footer>
             </Wrap>
         </>

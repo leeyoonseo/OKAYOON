@@ -5,7 +5,7 @@
  */
 
 // [D] 로그인 페이지, 아바타
-import AvatarImageList from '../../components/UserInfo/AvatarImageList';
+import Avatar from '../ModalContent/Avatar';
 
 export const AVATAR_MODAL_ID = 'LU_M_0';
 export const AVATAR_MODAL_DATA = {
@@ -16,7 +16,7 @@ export const AVATAR_MODAL_DATA = {
         h: '500px'
     },
     title: "아바타 설정",
-    content: AvatarImageList,
+    content: Avatar,
     buttonDisabled : {
         Maximize: true,
     },   
