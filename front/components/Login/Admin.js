@@ -19,8 +19,15 @@ const Admin = () => {
 
     useEffect(() => {
         idRef.current.focus();
+
+        return () => {
+            setID('');
+            setPW('');
+        }
     }, []);
 
+    // TODO: 일정치 이상 틀릴 경우 강제로 접속 중지 시키는법?
+    // TODO: DB 작업일 듯 싶은데
     const onSubmit = useCallback(() => {
         if(!id || !id.trim()) {
             alert('관리자 id를 입력해주세요.');
@@ -53,10 +60,13 @@ const Admin = () => {
         <>
             <InfoArea>
                 <DefaultAvatar 
-                    size={64} 
-                    src={admin.avatar ? admin.avatar : null}
-                    icon={<UserOutlined />} 
-                />
+                    size={64}
+                    // TODO: 이미지로 할지, 텍스트로 할지 고민 
+                    // src=""
+                    // icon={<UserOutlined />} 
+                >
+                    관리자
+                </DefaultAvatar>
 
                 <InputWrap>
                     <UserIcon />
