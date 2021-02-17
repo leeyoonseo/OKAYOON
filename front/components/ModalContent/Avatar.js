@@ -1,10 +1,7 @@
-import React, { useCallback, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-
-// import { CHANGE_USERINFO_REQUEST } from '../../reducers/user';
-// import { DELETE_MODAL_REQUEST } from '../../reducers/site';
 
 const Wrap = styled.div`
     &:after {
