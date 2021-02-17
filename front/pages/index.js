@@ -89,23 +89,15 @@ const Home = () => {
     const footerH = 150;
 
     // TODO: 페이지 작업 완료 후 확인
-    // useEffect(() => {
-    //     if(!me.nickname.trim()){
-    //         Router.replace('./login');
-    //     }
-    // }, [ me ]);
+    useEffect(() => {
+        if(!me.nickname){
+            Router.replace('./login');
+        }
+    }, [ me ]);
 
     useEffect(() => {
         windowH = window.innerHeight;
         setContH(windowH - headerH - footerH);
-
-        return () => {
-            // TODO: null 전달 시 열려있는 모든 modal 닫기
-            dispatch({
-                type: TOGGLE_MODAL_REQUEST,
-                data: null,
-            });
-        }
     }, []);
 
     /**

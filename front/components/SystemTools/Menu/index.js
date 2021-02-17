@@ -1,9 +1,9 @@
 import React, { useRef, useEffect, useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Router from 'next/router';
 import PropTypes from 'prop-types';
 
-import { CREATE_MODAL_REQUEST, TOGGLE_MODAL_REQUEST } from '../../../reducers/site';
+import { ALL_CLOSED_MODAL, CREATE_MODAL_REQUEST, TOGGLE_MODAL_REQUEST } from '../../../reducers/site';
+import { LOG_OUT_REQUEST } from "../../../reducers/user";
 
 import { 
     WELCOME_MODAL_ID, WELCOME_MODAL_DATA, 
@@ -36,7 +36,10 @@ const Menu = ({ themecolor }) => {
     }, []);
 
     const onToggleMenu = useCallback(() => setIsVisiMenu(!isVisibleMenu), [isVisibleMenu]);
-    const onClickLogout = useCallback(() => Router.replace('./login'), []);
+    const onClickLogout = useCallback(() => {
+        dispatch({ type: ALL_CLOSED_MODAL });
+        dispatch({ type: LOG_OUT_REQUEST });
+    }, []);
 
     const createModal = useCallback((id) => {
         if(modals.find((v) => v.id === id)){

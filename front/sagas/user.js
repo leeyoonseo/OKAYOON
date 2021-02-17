@@ -5,18 +5,16 @@ import {
     LOG_IN_ADMIN_REQUEST, LOG_IN_ADMIN_SUCCESS, LOG_IN_ADMIN_FAILURE,
     CHANGE_AVATAR_FAILURE, CHANGE_AVATAR_REQUEST, CHANGE_AVATAR_SUCCESS, 
     LOG_IN_FAILURE, LOG_IN_REQUEST, LOG_IN_SUCCESS,
+    LOG_OUT_FAILURE, LOG_OUT_REQUEST, LOG_OUT_SUCCESS,
 } from '../reducers/user';
 
-function logInAPI(data){
-    // 통신 작업할 것
-};
+// function logInAPI(data){
+//     // 통신 작업할 것
+// };
 
 function* logIn(action){
     try{
-        // const result = yield call(logInAPI, action.data);
-        // 임시
         yield delay(1000);
-
         yield put({
             type: LOG_IN_SUCCESS,
             data: action.data
@@ -33,6 +31,33 @@ function* logIn(action){
     }
 }
 
+function* watchLogIn(){ 
+    yield takeLatest(LOG_IN_REQUEST, logIn);
+}
+
+function* logOut(){
+    try{
+
+        yield delay(500);
+        yield put({
+            type: LOG_OUT_SUCCESS
+        });
+
+        yield Router.replace('/login');
+
+    }catch(err){
+        console.error(err);
+        yield put({
+            type: LOG_OUT_FAILURE,
+            error: err.response.data
+        })
+    }
+}
+
+function* watchLogOut(){ 
+    yield takeLatest(LOG_OUT_REQUEST, logOut);
+}
+
 function adminLogInAPI(data){
     return axios.post('/admin/login', data);
 };
@@ -41,9 +66,7 @@ function* adminLogIn(action){
     try{
         const result = yield call(adminLogInAPI, action.data);
         
-        // 임시
-        // yield delay(1000);
-
+        yield delay(1000);
         yield put({
             type: LOG_IN_ADMIN_SUCCESS,
             data: result.data
@@ -60,9 +83,6 @@ function* adminLogIn(action){
     }
 }
 
-function* watchLogIn(){ 
-    yield takeLatest(LOG_IN_REQUEST, logIn);
-}
 
 function* watchAdminLogIn(){ 
     yield takeLatest(LOG_IN_ADMIN_REQUEST, adminLogIn);
@@ -71,6 +91,7 @@ function* watchAdminLogIn(){
 export default function* userSaga(){
     yield all([
         fork(watchLogIn),
+        fork(watchLogOut),
         fork(watchAdminLogIn),
     ]);
 }

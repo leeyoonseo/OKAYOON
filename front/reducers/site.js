@@ -36,6 +36,8 @@ export const TOGGLE_MODAL_REQUEST = 'TOGGLE_MODAL_REQUEST';
 export const TOGGLE_MODAL_SUCCESS = 'TOGGLE_MODAL_SUCCESS';
 export const TOGGLE_MODAL_FAILURE = 'TOGGLE_MODAL_FAILURE';
 
+export const ALL_CLOSED_MODAL = 'ALL_CLOSED_MODAL';
+
 // [D] 메모
 export const CHANGE_MEMO_REQUEST = 'CHANGE_MEMO_REQUEST';
 export const CHANGE_MEMO_SUCCESS = 'CHANGE_MEMO_SUCCESS';
@@ -73,9 +75,10 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             break;
 
         case TOGGLE_MODAL_SUCCESS: {
-            if(action.data === null && draft.modals.length > 0) {
-                draft.modals.map((v) => v.visible = false);
-            }else {
+            // if(action.data === null && draft.modals.length > 0) {
+            //     console.log('toggleModal');
+            //     draft.modals.map((v) => v.visible = false);
+            // }else {
                 const modal = draft.modals.find((v) => v.id === action.data);
                 console.log(modal);
                 modal.visible = !modal.visible;
@@ -84,7 +87,7 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
                     draft.modalIndex = draft.modalIndex + 1;
                     modal.zIndex = draft.modalIndex;
                 }
-            }
+            // }
 
             draft.modalToggleLoading = false;
             draft.modalToggleDone = true;
@@ -98,6 +101,13 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             draft.modalToggleError = true;
             break;
 
+        case ALL_CLOSED_MODAL:
+            draft.modals.map((v) => {
+                if (v.visible === true) {
+                    v.visible = false
+                } 
+            });
+            break;
 
         // [D] 메모 변경
         case CHANGE_MEMO_REQUEST:

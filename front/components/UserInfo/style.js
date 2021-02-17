@@ -1,10 +1,9 @@
-import styled, { css } from 'styled-components';
-import { Avatar, Button, Modal } from 'antd';
-import { UserOutlined, CloseOutlined } from '@ant-design/icons';
+import styled from 'styled-components';
+import { Avatar } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 
 export const Wrap = styled.div`
     display:block;
-    // width: 300px;
     text-align: center;
 `;
 
@@ -30,7 +29,7 @@ export const UserIcon = styled(UserOutlined)`
     display: inline-block;
     width: 10%; 
     color: #fff;
-    text-align: right;
+    text-align: left;
     opacity: 0.8;
     box-sizing: border-box;
 `;
@@ -62,22 +61,6 @@ export const Nickname = styled.div`
     height: 36px;
     padding: 6px 0;
     box-sizing: border-box;
-`;
-
-export const CheckButton = styled.button`
-    width: 10%;
-    height: 100%;
-    color: #fff;
-    border: none;
-    border-left: 1px solid #fff;
-    background: none;
-    outline: none; 
-    cursor: pointer;
-
-    &:hover,
-    &:focus { 
-        background: none;
-    }
 `;
 
 export const CloseButton = styled.button`

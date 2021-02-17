@@ -3,7 +3,7 @@ import {
     CREATE_MODAL_REQUEST, CREATE_MODAL_SUCCESS, CREATE_MODAL_FAILURE,
     DELETE_MODAL_REQUEST, DELETE_MODAL_SUCCESS, DELETE_MODAL_FAILURE, 
     TOGGLE_MODAL_REQUEST, TOGGLE_MODAL_SUCCESS, TOGGLE_MODAL_FAILURE,
-    CHANGE_MEMO_REQUEST, CHANGE_MEMO_SUCCESS, CHANGE_MEMO_FAILURE,
+    CHANGE_MEMO_REQUEST, CHANGE_MEMO_SUCCESS, CHANGE_MEMO_FAILURE, 
 } from '../reducers/site';
 
 function CreateModalAPI(data){
@@ -123,8 +123,8 @@ function* watchChangeMemo(){
 export default function* siteSaga(){
     yield all([
         fork(watchCreateModal),
-        // fork(watchDeleteModal),
         fork(watchToggleModal),
+        // fork(watchAllClosedModal),
         fork(watchChangeMemo),
     ]);
 }

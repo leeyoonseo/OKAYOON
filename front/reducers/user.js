@@ -3,14 +3,17 @@ import Router from 'next/router';
 
 export const initialState = {
     admin: {},
-    logInAdminLoading: false, // 로그인 시도 (관리자)
-    logInAdminDone: false,
-    logInAdminError: null,
+    // logInAdminLoading: false, // 로그인 시도 (관리자)
+    // logInAdminDone: false,
+    // logInAdminError: null,
 
     me: {},
     logInLoading: false, // 로그인 시도 (손님)
     logInDone: false,
     logInError: null,
+    logOutLoading: false,
+    logOutDone: false,
+    logOutError: null,
 
     // TODO: src, title 수정
     avatarList: [   
@@ -59,10 +62,14 @@ export const initialState = {
     changeAvatarError: null,
 };
 
-// [D] 로그인 (손님)
+// [D] 로그인, 로그아웃 (손님)
 export const LOG_IN_REQUEST = 'LOG_IN_REQUEST';
 export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
 export const LOG_IN_FAILURE = 'LOG_IN_FAILURE';
+
+export const LOG_OUT_REQUEST = 'LOG_OUT_REQUEST';
+export const LOG_OUT_SUCCESS = 'LOG_OUT_SUCCESS';
+export const LOG_OUT_FAILURE = 'LOG_OUT_FAILURE';
 
 // [D] 로그인 (관리자)
 export const LOG_IN_ADMIN_REQUEST = 'LOG_IN_ADMIN_REQUEST';
@@ -87,15 +94,13 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             draft.logInError = false;
             break;
                 
-        case LOG_IN_SUCCESS: {
+        case LOG_IN_SUCCESS: 
             draft.logInLoading = false;
             draft.logInDone = true;
             draft.logInError = false;
             draft.me = action.data;
-
-            Router.replace('/');
+            draft.admin = [];
             break;
-        }
 
         case LOG_IN_FAILURE:
             draft.logInLoading = false;
@@ -103,26 +108,46 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             draft.logInError = true;
             break;
 
+        case LOG_OUT_REQUEST: 
+            draft.logOutLoading = true;
+            draft.logOutDone = false;
+            draft.logOutError = false;
+            break;
+                
+        case LOG_OUT_SUCCESS: 
+            draft.logOutLoading = false;
+            draft.logOutDone = true;
+            draft.logOutError = false;
+            // draft.me = [];
+            break;
+
+        case LOG_OUT_FAILURE:
+            draft.logOutLoading = false;
+            draft.logOutDone = false;
+            draft.logOutError = true;
+            break;
+
         case LOG_IN_ADMIN_REQUEST: 
-            draft.logInAdminLoading = true;
-            draft.logInAdminDone = false;
-            draft.logInAdminError = false;
+            draft.logInLoading = true;
+            draft.logInDone = false;
+            draft.logInError = false;
             break;
                 
         case LOG_IN_ADMIN_SUCCESS: {
-            draft.logInAdminLoading = false;
-            draft.logInAdminDone = true;
-            draft.logInAdminError = false;
+            draft.logInLoading = false;
+            draft.logInDone = true;
+            draft.logInError = false;
             draft.admin = action.data;
+            draft.me = [];
 
             Router.replace('/');
             break;
         }
 
         case LOG_IN_ADMIN_FAILURE:
-            draft.logInAdminLoading = false;
-            draft.logInAdminDone = false;
-            draft.logInAdminError = true;
+            draft.logInLoading = false;
+            draft.logInDone = false;
+            draft.logInError = true;
 
             alert(action.error);
             break;

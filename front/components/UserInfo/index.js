@@ -1,18 +1,16 @@
 import React, { useEffect, useCallback, useState, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import useInput from '../../hooks/useInput';
 import PropTypes from 'prop-types';
 
 import { UserOutlined, CloseOutlined, CheckOutlined } from '@ant-design/icons';
 import {
-    Wrap, AvatarButton, NicknameArea,NicknameInputWrap, 
-    NicknameInput, UserIcon, Nickname, CloseButton, CheckButton
+    Wrap, AvatarButton, NicknameArea, NicknameInputWrap, 
+    NicknameInput, UserIcon, Nickname, CloseButton,
 } from './style';
 
 const UserInfo = ({ 
     id, avatar, 
     nickname, onChangeNickname, setNickname, 
-    forwordRef, onClickModal 
+    forwordRef, onClickModal, onClickAccess, 
 }) => {
     const [haveNickname, setHaveNickname] = useState(false);
 
@@ -29,14 +27,11 @@ const UserInfo = ({
         setHaveNickname(false);
     }, []);
 
-    const onSaveNickname = useCallback(() => {
-        setNickname(nickname);
-        setHaveNickname(true);
-    }, [nickname]);
-
-    const onKeyPressInput = useCallback((e) => {
-        if (e.code === 'Enter') {
-            onSaveNickname();
+    const onKeyPressInput = useCallback(({ code }) => {
+        if (code === 'Enter') {
+            setNickname(nickname);
+            setHaveNickname(true);
+            onClickAccess();
         }
     }, [nickname]); 
 
@@ -51,7 +46,7 @@ const UserInfo = ({
 
             <NicknameArea>
                 {
-                    haveNickname 
+                    haveNickname
                     ? (
                         <Nickname className="nickname">
                             <span>{nickname}</span>
@@ -73,10 +68,6 @@ const UserInfo = ({
                                 onChange={onChangeNickname}
                                 onKeyPress={onKeyPressInput}
                             />
-
-                            <CheckButton onClick={onSaveNickname}>
-                                <CheckOutlined />
-                            </CheckButton>
                         </NicknameInputWrap>
                     )
                 } 

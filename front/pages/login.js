@@ -7,7 +7,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 
 import { LOG_IN_REQUEST } from '../reducers/user';
-import { CREATE_MODAL_REQUEST, TOGGLE_MODAL_REQUEST } from '../reducers/site';
+import { CREATE_MODAL_REQUEST, TOGGLE_MODAL_REQUEST, ALL_CLOSED_MODAL } from '../reducers/site';
 
 import UserInfo from '../components/UserInfo/index';
 import SystemTools from '../components/SystemTools';
@@ -167,19 +167,10 @@ const Login = () => {
         setContH(windowH - headerH - footerH);
 
         const haveSameModalData = modals.some((v) => v.id === AVATAR_MODAL_ID);
-
         if(!haveSameModalData){
             dispatch({
                 type: CREATE_MODAL_REQUEST,
                 data: AVATAR_MODAL_DATA
-            });
-        }
-
-        return () => {
-            // TODO: null 전달 시 열려있는 모든 modal 닫기
-            dispatch({
-                type: TOGGLE_MODAL_REQUEST,
-                data: null,
             });
         }
     }, []);
@@ -190,6 +181,8 @@ const Login = () => {
      * - 1. Avatar 컴포넌트 기본이미지 세팅은 문자열 'default'를 전달받는 것을 기준으로 한다.
      */
     const onToggleModal = useCallback((id, src = null) => () => {
+
+        // TODO: 리팩터링할 것
         if(src !== null){
             if(src === 'default') src = null; // 1.
             setAvatar(src);
@@ -226,6 +219,8 @@ const Login = () => {
             type: LOG_IN_REQUEST,
             data: data
         });
+
+        dispatch({ type: ALL_CLOSED_MODAL });
     }, [nickname, avatar]);
 
     const onClickAdmin = useCallback(() => {
@@ -249,10 +244,12 @@ const Login = () => {
                         <UserInfo 
                             avatar={avatar} 
                             nickname={nickname} 
+                            onChangeNickname={onChangeNickname}
                             setNickname={setNickname}
                             forwordRef={inputEl}
                             id={AVATAR_MODAL_ID}
                             onClickModal={onToggleModal} 
+                            onClickAccess={onClickAccess}
                         />
 
                         <UserButtonArea>
