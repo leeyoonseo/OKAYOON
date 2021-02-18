@@ -1,10 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import dayjs from 'dayjs';
 
 import { Avatar } from 'antd';
 
+import WindowDialog from '../../WindowDialog/index';
 import CommentForm from './CommentForm';
 import Comment from './Comment';
-import { useDispatch } from 'react-redux';
+import { DELETE_GUESTBOOK_REQUEST } from '../../../reducers/guestbook';
 
 const GuestbookCard = ({
     id,
@@ -16,58 +19,94 @@ const GuestbookCard = ({
 }) => {
     const dispatch = useDispatch();
     const [openedComment, setOpenedComment] = useState(false);
+    const [securityCheck, setSecurityCheck] = useState(false);
 
     const onClickComment = useCallback(() => {
         setOpenedComment(!openedComment);
     }, [openedComment]);
 
-    return (
-        <div>
-            <div>
-                <Avatar 
-                    src={null}
-                    // TODO: null하니까 get 요청가버림.. 
-                    // src={avatar}
-                />
-            </div>
+    const onClickDelete = useCallback(() => {
+        setSecurityCheck(true);
+    }, []);
 
-            <div>
-                <span>{nickname}</span>
-                <span>{createdAt}</span>
+    const onSecurityCheck = useCallback(({state, text}) => {
+        setSecurityCheck(false);
+
+        if (state) {
+            dispatch({
+                type: DELETE_GUESTBOOK_REQUEST,
+                data: {
+                    id: id,
+                    password: text
+                }
+            })
+        }
+    }, []);
+
+    return (
+        <>
+            <div style={{border: '1px solid red'}}>
+                <div>
+                    <Avatar 
+                        src={null}
+                        // TODO: null하니까 get 요청가버림.. 
+                        // src={avatar}
+                    />
+                </div>
 
                 <div>
-                    {content}
+                    <span>{nickname}</span>
+                    <span>{dayjs(createdAt).format('YYYY.MM.DD')}</span>
+
+                    <div>
+                        <button>수정</button>
+                        <button
+                            onClick={onClickDelete}
+                        >
+                            삭제
+                        </button>
+                    </div>
+
+                    <div>
+                        {content}
+                    </div>
                 </div>
+
+                <div>
+                    <button onClick={onClickComment}>
+                        코멘트보기
+                    </button>
+                </div>
+
+
+                {openedComment && (
+                    <>
+                        <CommentForm 
+                            id={id}
+                            content={content}
+                        />
+
+                        {Comments && Comments.map((v, i) => {
+                            return (
+                                <Comment 
+                                    key={`comment_${v.nickname.charAt(0)}_${i}`}
+                                    {...v}
+                                />
+                            )
+                        })}
+                    </>
+                )}
             </div>
-
-            <div>
-                <button onClick={onClickComment}>
-                    코멘트보기
-                </button>
-            </div>
-
-            {/* <div>
-                코멘트 비밀번호
-            </div> */}
-
-            {openedComment && (
-                <>
-                    <CommentForm 
-                        id={id}
-                        content={content}
-                    />
-
-                    {Comments && Comments.map((v, i) => {
-                        return (
-                            <Comment 
-                                key={`comment_${v.nickname.charAt(0)}_${i}`}
-                                {...v}
-                            />
-                        )
-                    })}
-                </>
+            
+            {securityCheck && (
+                <WindowDialog
+                    type="prompt"
+                    text="비밀번호를 입력해주세요." 
+                    callback={onSecurityCheck}
+                    // callback={opendEditForm}
+                />
             )}
-        </div>
+        </>
     );
 };
 

@@ -90,7 +90,32 @@ router.post('/', async (req, res, next) => { // POST /guestbook
     }
 });
 
+// [D] 방명록 삭제하기
+router.post('/:guestbookId/delete', async (req, res, next) => {
+    try {
+        const guestbook = await Guestbook.findOne({
+            where: { id: parseInt(req.params.guestbookId, 10) }
+        });
 
+        if (!guestbook) {
+            return res.status(403).send('존재하지 않는 게시글입니다.');
+        }
+    
+        if (!bcrypt.compareSync(req.body.password, guestbook.password)) {
+            return res.status(403).send('비밀번호가 틀렸습니다.');
+        }
+
+        await Guestbook.destroy({
+            where: { id: parseInt(req.params.guestbookId, 10) },
+        });
+
+        res.status(200).json(parseInt(req.params.guestbookId, 10));
+
+    } catch (error) {
+        console.error(error);
+        next(error);
+    }
+});
 
 // 방명록 가져오기, 방명록 등록하기, 방명록 삭제하기, 방명록 수정하기
 // get post delete patch(수정) 

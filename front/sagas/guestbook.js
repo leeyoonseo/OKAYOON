@@ -4,6 +4,7 @@ import {
     // 방명록
     LOAD_GUESTBOOK_REQUEST, LOAD_GUESTBOOK_SUCCESS, LOAD_GUESTBOOK_FAILURE, 
     ADD_GUESTBOOK_REQUEST, ADD_GUESTBOOK_SUCCESS, ADD_GUESTBOOK_FAILURE, 
+    DELETE_GUESTBOOK_REQUEST, DELETE_GUESTBOOK_SUCCESS, DELETE_GUESTBOOK_FAILURE, 
 
     // 댓글
     ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS, ADD_COMMENT_FAILURE, 
@@ -45,8 +46,6 @@ function addGuestbookAPI(data){
 function* addGuestbook(action){
     try{
         const result = yield call(addGuestbookAPI, action.data);
-
-        // yield delay(1000);
         yield put({
             type: ADD_GUESTBOOK_SUCCESS,
             data: result.data
@@ -63,6 +62,33 @@ function* addGuestbook(action){
 
 function* watchAddGuestbook(){ 
     yield takeLatest(ADD_GUESTBOOK_REQUEST, addGuestbook);
+}
+
+// [D] 방명록 삭제
+function deleteGuestbookAPI(data){
+    return axios.post(`/guestbook/${data.id}/delete`, data);
+};
+
+function* deleteGuestbook(action){
+    try{
+        const result = yield call(deleteGuestbookAPI, action.data);
+        yield put({
+            type: DELETE_GUESTBOOK_SUCCESS,
+            data: result.data
+        });
+
+    }catch(err){
+        alert(err.response.data);
+        console.error(err);
+        yield put({
+            type: DELETE_GUESTBOOK_FAILURE,
+            error: err.response.data
+        })
+    }
+}
+
+function* watchDeleteGuestbook(){ 
+    yield takeLatest(DELETE_GUESTBOOK_REQUEST, deleteGuestbook);
 }
 
 // [D] 댓글 등록
@@ -99,6 +125,7 @@ export default function* guestbookSaga(){
         // 방명록
         fork(watchLoadGuestbook),
         fork(watchAddGuestbook),
+        fork(watchDeleteGuestbook),
 
         // 댓글
         fork(watchAddComment),

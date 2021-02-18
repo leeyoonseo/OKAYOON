@@ -14,6 +14,11 @@ export const initialState = {
     addGuestbookDone: false,
     addGuestbookError: false,
 
+    // [D] 방명록 삭제
+    deleteGuestbookLoading: false,
+    deleteGuestbookDone: false,
+    deleteGuestbookError: false,
+
     // [D] 댓글 등록
     addCommentLoading: false,
     addCommentDone: false,
@@ -29,6 +34,11 @@ export const LOAD_GUESTBOOK_FAILURE = 'LOAD_GUESTBOOK_FAILURE';
 export const ADD_GUESTBOOK_REQUEST = 'ADD_GUESTBOOK_REQUEST';
 export const ADD_GUESTBOOK_SUCCESS = 'ADD_GUESTBOOK_SUCCESS';
 export const ADD_GUESTBOOK_FAILURE = 'ADD_GUESTBOOK_FAILURE';
+
+// [D] 방명록 삭제
+export const DELETE_GUESTBOOK_REQUEST = 'DELETE_GUESTBOOK_REQUEST';
+export const DELETE_GUESTBOOK_SUCCESS = 'DELETE_GUESTBOOK_SUCCESS';
+export const DELETE_GUESTBOOK_FAILURE = 'DELETE_GUESTBOOK_FAILURE';
 
 // [D] 댓글 등록
 export const ADD_COMMENT_REQUEST = 'ADD_COMMENT_REQUEST';
@@ -77,6 +87,27 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             draft.addGuestbookLoading = false;
             draft.addGuestbookDone = false;
             draft.addGuestbookError = true;
+            break;
+
+        // [D] 방명록 삭제
+        case DELETE_GUESTBOOK_REQUEST:
+            draft.deleteGuestbookLoading = true;
+            draft.deleteGuestbookDone = false;
+            draft.deleteGuestbookError = false;
+            break;
+
+        case DELETE_GUESTBOOK_SUCCESS:
+            draft.guestbook = draft.guestbook.filter((v, i) => v.id !== action.data);
+            
+            draft.deleteGuestbookLoading = false;
+            draft.deleteGuestbookDone = true;
+            draft.deleteGuestbookError = false;
+            break;
+
+        case DELETE_GUESTBOOK_FAILURE:
+            draft.deleteGuestbookLoading = false;
+            draft.deleteGuestbookDone = false;
+            draft.deleteGuestbookError = true;
             break;
 
         // [D] 댓글 등록하기
