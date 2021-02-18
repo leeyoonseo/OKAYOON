@@ -92,7 +92,7 @@ const SubmitButton = styled.button`
     ${defaultButtonStyle}
 `;
 
-const Form = ({ content }) => {
+const EditForm = ({ content }) => {
     const dispatch = useDispatch();
     const { addGuestbookDone } = useSelector((state) => state.guestbook);
     const { me } = useSelector((state) => state.user);
@@ -126,18 +126,18 @@ const Form = ({ content }) => {
             return alert('내용을 입력해주세요.');
         }
 
-        if(!passwordVal || !passwordVal.trim()) {
-            pwInputRef.current.focus();
-            return alert('비밀번호를 입력해주세요.');
-        }
+        // if(!passwordVal || !passwordVal.trim()) {
+        //     pwInputRef.current.focus();
+        //     return alert('비밀번호를 입력해주세요.');
+        // }
 
         dispatch({
-            type: ADD_GUESTBOOK_REQUEST,
+            type: EDIT_GUESTBOOK_REQUEST,
             data: {
                 nickname: me.nickname,
                 avatar: me.avatar,
                 content: textVal,
-                password: passwordVal,
+                // password: passwordVal,
             }
         });
     }, [textVal, passwordVal]);
@@ -196,7 +196,7 @@ const Form = ({ content }) => {
     );
 };
 
-export default Form;
+export default EditForm;
 
 // TODO:
 // - 보안 작업 (스크립트 금지 등)

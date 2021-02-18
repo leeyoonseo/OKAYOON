@@ -1,10 +1,11 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useInput from '../../../hooks/useInput';
-import { ADD_GUESTBOOK_REQUEST } from '../../../reducers/guestbook';
 
 import styled, { css } from 'styled-components';
+
 import { EyeOutlined } from '@ant-design/icons';
+import { ADD_COMMENT_REQUEST } from '../../../reducers/guestbook';
 
 const Textarea = styled.textarea`
     padding: 10px;
@@ -13,6 +14,7 @@ const Textarea = styled.textarea`
     color: #666;
     border: 1px solid #f0f2f5;
     border-radius: 3px;
+    background: #f0f2f5;
     box-sizing: border-box;
     outline: none;
 
@@ -21,9 +23,8 @@ const Textarea = styled.textarea`
     }
 `;
 
-const CheckArea = styled.div`
+const BottomArea = styled.div`
     position: relative;
-    margin-top: 10px;
     text-align: right;
     color: #666;
 
@@ -55,9 +56,13 @@ const PasswordInput = styled.input`
     border-bottom: 1px solid #999;
     background: none;
     outline: none;
+
+    &.empty {
+        border-bottom: 1px solid red;
+    }
 `;
 
-const PasswordShowButton = styled.button`
+const HiddenCheckPWButton = styled.button`
     padding: 0;
     margin-left: 0 !important;
     background: none;
@@ -84,62 +89,79 @@ const defaultButtonStyle = css`
     }
 `;
 
-const ImageUploadButton = styled.button`
-    ${defaultButtonStyle}
-`;
-
 const SubmitButton = styled.button`
     ${defaultButtonStyle}
 `;
 
-const Form = ({ content }) => {
+const CommentForm = () => {
     const dispatch = useDispatch();
-    const { addGuestbookDone } = useSelector((state) => state.guestbook);
+    const { addCommentDone } = useSelector((state) => state.guestbook);
     const { me } = useSelector((state) => state.user);
-    const [textVal, changeTextVal, setTextVal] = useInput(content ? content : '');
+    const [textVal, changeTextVal, setTextVal] = useInput('');
     const [passwordVal, changePasswordVal, setPasswordVal] = useInput('');
     const [checkHiddenPW, setCheckHiddenPW] = useState(false);
-
     const textareaRef = useRef(null);
     const pwInputRef = useRef(null);
-    const maxTextLength = 100;
+
+    const CLASSNAME_EMPTY = 'empty';
+    const maxTextLength = 20;
+    let validationFailureNum = 0;
 
     useEffect(() => {
         textareaRef.current.focus();
     }, []);
 
     useEffect(() => {
-        if(addGuestbookDone){
+        if(addCommentDone){
             setTextVal('');
             setPasswordVal('');
         }
-    }, [addGuestbookDone]);
+    }, [addCommentDone]);
 
+    // TODO: 이미지 업로드
     const onClickImageUpload = useCallback((e) => {
         e.preventDefault();
         console.log('onClickImageUpload');
     }, []);
 
-    const onSubmit = useCallback(() => {
+    const onFocus = useCallback(({ target }) => {
+        if(target.classList.contains(CLASSNAME_EMPTY)) {
+            target.classList.remove(CLASSNAME_EMPTY);
+        }
+    }, []);
+
+    const formValidation = useCallback(() => {
+        // textarea
         if(!textVal || !textVal.trim()) {
-            textareaRef.current.focus();
-            return alert('내용을 입력해주세요.');
+            ++validationFailureNum;
+            textareaRef.current.classList.add(CLASSNAME_EMPTY);
         }
 
+        // pw
         if(!passwordVal || !passwordVal.trim()) {
-            pwInputRef.current.focus();
-            return alert('비밀번호를 입력해주세요.');
+            ++validationFailureNum;
+            pwInputRef.current.classList.add(CLASSNAME_EMPTY);
         }
 
-        dispatch({
-            type: ADD_GUESTBOOK_REQUEST,
-            data: {
-                nickname: me.nickname,
-                avatar: me.avatar,
-                content: textVal,
-                password: passwordVal,
-            }
-        });
+        return (!validationFailureNum) ? true : false;
+    }, [textVal, passwordVal]);
+
+    const onSubmit = useCallback((e) => {
+        e.preventDefault();
+        const result = formValidation();
+
+        if(result) {
+            return dispatch({
+                type: ADD_COMMENT_REQUEST,
+                data: {
+                    nickname: me.nickname,
+                    avatar: me.avatar,
+                    createDt: '2020.04.11 AM 11:12',
+                    content: textVal,
+                    password: passwordVal,
+                },
+            });
+        }
     }, [textVal, passwordVal]);
 
     const onChangeHiddenPW = useCallback((e) => {
@@ -148,16 +170,18 @@ const Form = ({ content }) => {
     }, [checkHiddenPW]);
 
     return (
-        <div>
+        <form onSubmit={onSubmit}>
             <Textarea
-                maxLength={maxTextLength}
                 ref={textareaRef}
+                onFocus={onFocus}
                 value={textVal}
+                name="content"
                 onChange={changeTextVal}
-                placeholder="안녕하세요, 오늘의 기분은 어떠신가요?"
+                maxLength={maxTextLength}
+                placeholder="댓글을 작성해주세요."
             />
 
-            <CheckArea>
+            <BottomArea>
                 <LimitLetters 
                     className={textVal.length === maxTextLength ? 'maximum' : ''}
                 >
@@ -165,38 +189,30 @@ const Form = ({ content }) => {
                 </LimitLetters>
 
                 <PasswordInput 
-                    maxLength={20}
-                    placeholder="비밀번호"
+                    name="password"
+
                     ref={pwInputRef}
                     type={checkHiddenPW ? 'text' : 'password'} 
+                    onFocus={onFocus}
                     value={passwordVal}
                     onChange={changePasswordVal}
+                    placeholder="비밀번호"
+                    maxLength={20}
                 />
 
-                <PasswordShowButton onClick={onChangeHiddenPW}>
+                <HiddenCheckPWButton onClick={onChangeHiddenPW}>
                     <EyeOutlined />
-                </PasswordShowButton>
+                </HiddenCheckPWButton>
 
-                {/* TODO: 이미지 2장까지 */}
-                {/* <input type="file" name="image" multiple hidden 
-                    name="password"
-                    // ref={imageInput} onChange={onChangeImages} 
-                /> */}
-                <ImageUploadButton 
-                    // onClick={onClickImageUpload}
-                >
-                    이미지업로드
-                </ImageUploadButton>
-                
-                <SubmitButton onClick={onSubmit}>
+                <SubmitButton type="submit">
                     등록
                 </SubmitButton>
-            </CheckArea>
-        </div>
+            </BottomArea>
+        </form>
     );
 };
 
-export default Form;
+export default CommentForm;
 
 // TODO:
 // - 보안 작업 (스크립트 금지 등)

@@ -1,11 +1,15 @@
-module.exports = (sequelize, DataTypes) => {
-    const Guestbook = sequelize.define('Guestbook', {
+const DataTypes = require('sequelize');
+const { Model } = DataTypes;
+
+module.exports = class Guestbook extends Model {
+  static init(sequelize) {
+    return super.init({
         nickname: {
             type: DataTypes.STRING(20),
             allowNull: false,
         },
         avatar: {
-            type: DataTypes.STRING(100),
+            type: DataTypes.TEXT,
             allowNull: false,
         },
         password: {
@@ -16,20 +20,19 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(100),
             allowNull: false, 
         },
-
     }, {
         modelName: "Guestbook", 
         tableName: "Guestbook", 
         charset: 'utf8mb4',
         collate: 'utf8mb4_general_ci',
+        sequelize,
     });
+  }
 
-    Guestbook.associate = (db) => {
+    static associate(db) {
         db.Guestbook.hasMany(db.Comment);
         db.Guestbook.hasMany(db.Image);
-    };
-
-    return Guestbook;
+    }
 };
 
 // TODO: 나중엔 index번호만

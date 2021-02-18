@@ -80,7 +80,6 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             //     draft.modals.map((v) => v.visible = false);
             // }else {
                 const modal = draft.modals.find((v) => v.id === action.data);
-                console.log(modal);
                 modal.visible = !modal.visible;
 
                 if(modal.visible){

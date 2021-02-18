@@ -12,6 +12,7 @@ export const Wrap = styled.div`
     border-radius: 5px;
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
     box-sizing: border-box;
+    z-index: 9999999;
 `;
 
 export const TextArea = styled.div`

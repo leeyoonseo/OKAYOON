@@ -1,41 +1,36 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { LOAD_GUESTBOOK_REQUEST } from '../../../reducers/guestbook';
 
 import GuestbookForm from './GuestbookForm';
-import GuestbookContent from './GuestbookContent';
-import Loading from '../../Loading';
+import GuestbookCard from './GuestbookCard';
 
-const Guestbook = () => {
+const index = () => {
     const dispatch = useDispatch();
-    const { guestbook, loadGuestbookLoading } = useSelector((state) => state.guestbook);
+    const { guestbook } = useSelector((state) => state.guestbook);
 
     useEffect(() => {
-        dispatch({ type: LOAD_GUESTBOOK_REQUEST });
+        console.log('guestbook index 입니다.');
+
+        dispatch({
+            type: LOAD_GUESTBOOK_REQUEST
+        });
     }, []);
 
     return (
-        <>
-            <div>
-                <GuestbookForm />
+        <div>
+            <GuestbookForm />
 
-                {guestbook.map((v, i) => {
-                    return(
-                        <GuestbookContent 
-                            key={`${v.nickname.charAt(0)}_${v.createdAt}_${i}`} 
-                            {...v} 
-                        />
-                    )
-                })}
-            </div>
-
-            { loadGuestbookLoading && <Loading bgcolor="#777" />}
-        </>
+            {guestbook && guestbook.map((v, i) => {
+                return (
+                    <GuestbookCard 
+                        key={`card_${v.nickname.charAt(0)}_${i}`}
+                        {...v}
+                    />
+                )
+            })}
+        </div>
     );
 };
 
-export default Guestbook;
-
-// TODO:
-// DB 연결
-// - 방명록 리스트 데이터로드 스크롤링방식으로 변경하자!!, 10개씩?
+export default index;

@@ -1,19 +1,28 @@
 const Sequelize = require('sequelize');
+const admin = require('./admin');
+const comment = require('./comment');
+const guestbook = require('./guestbook');
+const image = require('./image');
+
 const env = process.env.NODE_ENV || 'development';
 const config = require('../config/config')[env];
 const db = {};
 
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
 
-db.Admin = require('./admin')(sequelize, Sequelize);
-db.Guestbook = require('./guestbook')(sequelize, Sequelize);
-db.Comment = require('./comment')(sequelize, Sequelize);
-db.Image = require('./image')(sequelize, Sequelize);
+db.Admin = admin;
+db.Comment = comment;
+db.Guestbook = guestbook;
+db.Image = image;
 
 Object.keys(db).forEach(modelName => {
-    if (db[modelName].associate) {
-        db[modelName].associate(db);
-    }
+  db[modelName].init(sequelize);
+})
+
+Object.keys(db).forEach(modelName => {
+  if (db[modelName].associate) {
+    db[modelName].associate(db);
+  }
 });
 
 db.sequelize = sequelize;

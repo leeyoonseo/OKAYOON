@@ -34,34 +34,6 @@ function* watchCreateModal(){
     yield takeLatest(CREATE_MODAL_REQUEST, CreateModal);
 }
 
-// function DeleteModalAPI(data){
-//     // 통신 작업할 것
-// };
-
-// function* DeleteModal(action){
-//     try{
-//         // const result = yield call(DeleteModalAPI);
-//         // 임시
-//         console.log('DeleteModal', action.data);
-//         yield delay(1000);
-//         yield put({
-//             type: DELETE_MODAL_SUCCESS,
-//             data: action.data
-//         });
-
-//     }catch(err){
-//         console.error(err);
-//         yield put({
-//             type: DELETE_MODAL_FAILURE,
-//             error: err.response.data
-//         })
-//     }
-// }
-
-// function* watchDeleteModal(){ 
-//     yield takeLatest(DELETE_MODAL_REQUEST, DeleteModal);
-// }
-
 function* ToggleModal(action){
     try{
         yield put({
@@ -115,7 +87,6 @@ export default function* siteSaga(){
     yield all([
         fork(watchCreateModal),
         fork(watchToggleModal),
-        // fork(watchAllClosedModal),
         fork(watchChangeMemo),
     ]);
 }

@@ -9,11 +9,12 @@ import { Avatar } from 'antd';
 import { UserOutlined, EllipsisOutlined, CommentOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 
-import GuestbookForm from './GuestbookForm';
+import WindowDialog from '../../WindowDialog/index';
+import EditForm from './EditForm';
 import CommentForm from './CommentForm';
 import CommentContent from './CommentContent';
 
-const Wrap = styled.div`
+const Card = styled.div`
     position: relative;
     margin-top: 5%;
     padding: 4%;
@@ -22,12 +23,12 @@ const Wrap = styled.div`
     background: #fff;
 `;
 
-const Side = styled.div`
+const AvatarArea = styled.div`
     display: inline-block;
     width: 65px;
 `;
 
-const Container = styled.div`
+const ContentArea = styled.div`
     padding: 0 0 2% 2%;
     display: inline-block;
     position: relative;
@@ -35,7 +36,7 @@ const Container = styled.div`
     vertical-align: middle;
 `;
 
-const Header = styled.div`    
+const ContentInfo = styled.div`    
     position: relative;
     text-align: left;
     line-height: 1.25;
@@ -136,7 +137,7 @@ const CommentButton = styled.button`
     cursor: pointer;
 `;
 
-const GuestbookContent = ({
+const GuestbookCard = ({
     nickname,
     avatar,
     content,
@@ -146,7 +147,9 @@ const GuestbookContent = ({
     const dispatch = useDispatch();
     const [openedMenu, setOpenedMenu] = useState(false);
     const [openedComment, setOpenedComment] = useState(false);
-    const [edited, setEdited] = useState(false);
+    const [openedModal, setOpenedModal] = useState(false);
+
+    const [showEditForm, setShowEditForm] = useState(false);
     const menuButtonRef = useRef(null);
 
     useEffect(() => {
@@ -169,12 +172,21 @@ const GuestbookContent = ({
         setOpenedComment(!openedComment);
     }, [openedComment]);
 
+    const opendEditForm = useCallback(({state, text}) => {
+        console.log('opendEditForm', state, text);
+        setOpenedModal(false);
+
+        if (state) {    
+            setShowEditForm(true);
+        }
+    }, []); 
+
     const onClickEdit = useCallback(() => {
         console.log('onClickEdit');
         setOpenedMenu(false);
-        
-        // TODO: 수정
-        setEdited(true);
+        setOpenedModal(true);
+
+        // setEdited(true);
     }, []);
 
     const onClickDelete = useCallback(() => {
@@ -186,78 +198,92 @@ const GuestbookContent = ({
 
     return (
         <>
-            {edited && (
-                <GuestbookForm 
-                    content={content}
+
+            {checkPermission && (
+                <WindowDialog
+                    type="prompt"
+                    text="비밀번호를 입력해주세요." 
+                    callback={opendEditForm}
                 />
             )}
-            <Wrap>
-                <Side>
-                    <Avatar 
-                        size={64} 
-                        src={avatar ? avatar : null}
-                        icon={<UserOutlined />} 
+
+            {showEditForm && (
+                <Card bgcolor="none">
+                    <EditForm 
+                        content={content}
                     />
-                </Side>
+                </Card>
+            )}
 
-                <Container>
-                    <Header>
-                        <Nickname>{nickname}</Nickname>
-                        <Date>{dayjs(createdAt).format('YYYY.MM.DD')}</Date>
+            {!showEditForm && (
+                <Card>
+                    <AvatarArea>
+                        <Avatar 
+                            size={64} 
+                            src={avatar ? avatar : null}
+                            icon={<UserOutlined />} 
+                        />
+                    </AvatarArea>
 
-                        <div ref={menuButtonRef}>
-                            <MenuButton onClick={onClickMenu}>
-                                <EllipsisOutlined />
-                            </MenuButton>                        
+                    <ContentArea>
+                        <ContentInfo>
+                            <Nickname>{nickname}</Nickname>
+                            <Date>{dayjs(createdAt).format('YYYY.MM.DD')}</Date>
 
-                            {openedMenu && (
-                                <MenuWrap>
-                                    <MenuInner>
-                                        <MenuItemButton onClick={onClickEdit}>수정</MenuItemButton>
-                                        <MenuItemButton onClick={onClickDelete}>삭제</MenuItemButton>
-                                    </MenuInner>
-                                </MenuWrap>
+                            <div ref={menuButtonRef}>
+                                <MenuButton onClick={onClickMenu}>
+                                    <EllipsisOutlined />
+                                </MenuButton>                        
+
+                                {openedMenu && (
+                                    <MenuWrap>
+                                        <MenuInner>
+                                            <MenuItemButton onClick={onClickEdit}>수정</MenuItemButton>
+                                            <MenuItemButton onClick={onClickDelete}>삭제</MenuItemButton>
+                                        </MenuInner>
+                                    </MenuWrap>
+                                )}
+                            </div>
+                        </ContentInfo>
+                        
+                        <Content>
+                            {content}
+                        </Content>
+                    </ContentArea>     
+
+                    {comment && (
+                        <Footer>
+                            <CommentButton
+                                onClick={onClickComment}
+                            >
+                                <CommentOutlined />
+                            </CommentButton>
+
+                            {openedComment && (
+                                <>
+                                    <CommentForm />
+
+                                    {comment.map((v, i) => (
+                                        <CommentContent 
+                                            // TODO: key 수정
+                                            key={i}
+                                            nickname={v.nickname} 
+                                            avatar={v.avatar} 
+                                            content={v.content} 
+                                            createdAt={v.createdAt}
+                                        />
+                                    ))}
+                                </>
                             )}
-                        </div>
-                    </Header>
-                    
-                    <Content>
-                        {content}
-                    </Content>
-                </Container>     
-
-                {comment && (
-                    <Footer>
-                        <CommentButton
-                            onClick={onClickComment}
-                        >
-                            <CommentOutlined />
-                        </CommentButton>
-
-                        {openedComment && (
-                            <>
-                                <CommentForm />
-
-                                {comment.map((v, i) => (
-                                    <CommentContent 
-                                        // TODO: key 수정
-                                        key={i}
-                                        nickname={v.nickname} 
-                                        avatar={v.avatar} 
-                                        content={v.content} 
-                                        createdAt={v.createdAt}
-                                    />
-                                ))}
-                            </>
-                        )}
-                    </Footer>       
-                )}
-            </Wrap>
+                        </Footer>       
+                    )}
+                </Card>
+            )}
         </>
     );
 };
 
-GuestbookContent.propTypes = {
+GuestbookCard.propTypes = {
     comment: PropTypes.arrayOf(PropTypes.shape({
         nickname: PropTypes.string,
         avatar: PropTypes.any,
@@ -267,12 +293,12 @@ GuestbookContent.propTypes = {
 
 }
 
-GuestbookContent.defaultProps = {
+GuestbookCard.defaultProps = {
     comment: null,
 }
 
-export default GuestbookContent;
+export default GuestbookCard;
 
 
 // TODO:
-// - 카드 껍데기안에 폼 넣고 뭐 넣고 하기...
+// - 카드 껍데기안에 폼 넣고 뭐 넣고 하기...    
