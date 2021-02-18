@@ -1,9 +1,9 @@
-import React, { useEffect, } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { LOAD_GUESTBOOK_REQUEST } from '../../../reducers/guestbook';
 
-import Form from './Form';
-import Card from './Card';
+import GuestbookForm from './GuestbookForm';
+import GuestbookContent from './GuestbookContent';
 import Loading from '../../Loading';
 
 const Guestbook = () => {
@@ -17,12 +17,14 @@ const Guestbook = () => {
     return (
         <>
             <div>
-                <Form />
+                <GuestbookForm />
 
                 {guestbook.map((v, i) => {
                     return(
-                        // TODO: Key 수정하기
-                        <Card key={i} {...v} />
+                        <GuestbookContent 
+                            key={`${v.nickname.charAt(0)}_${v.createdAt}_${i}`} 
+                            {...v} 
+                        />
                     )
                 })}
             </div>

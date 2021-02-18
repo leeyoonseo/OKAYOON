@@ -21,7 +21,7 @@ const Textarea = styled.textarea`
     }
 `;
 
-const BottomArea = styled.div`
+const CheckArea = styled.div`
     position: relative;
     margin-top: 10px;
     text-align: right;
@@ -55,13 +55,9 @@ const PasswordInput = styled.input`
     border-bottom: 1px solid #999;
     background: none;
     outline: none;
-
-    &.empty {
-        border-bottom: 1px solid red;
-    }
 `;
 
-const HiddenCheckPWButton = styled.button`
+const PasswordShowButton = styled.button`
     padding: 0;
     margin-left: 0 !important;
     background: none;
@@ -96,20 +92,17 @@ const SubmitButton = styled.button`
     ${defaultButtonStyle}
 `;
 
-const GuestForm = () => {
+const Form = ({ content }) => {
     const dispatch = useDispatch();
     const { addGuestbookDone } = useSelector((state) => state.guestbook);
     const { me } = useSelector((state) => state.user);
-    const [textVal, changeTextVal, setTextVal] = useInput('');
+    const [textVal, changeTextVal, setTextVal] = useInput(content ? content : '');
     const [passwordVal, changePasswordVal, setPasswordVal] = useInput('');
     const [checkHiddenPW, setCheckHiddenPW] = useState(false);
 
     const textareaRef = useRef(null);
     const pwInputRef = useRef(null);
-
-    const CLASSNAME_EMPTY = 'empty';
     const maxTextLength = 100;
-    let validationFailNum = 0;
 
     useEffect(() => {
         textareaRef.current.focus();
@@ -127,43 +120,26 @@ const GuestForm = () => {
         console.log('onClickImageUpload');
     }, []);
 
-    const onFocus = useCallback(({ target }) => {
-        if(target.classList.contains(CLASSNAME_EMPTY)) {
-            target.classList.remove(CLASSNAME_EMPTY);
-        }
-    }, []);
-
-    const formValidation = useCallback(() => {
-        // textarea
+    const onSubmit = useCallback(() => {
         if(!textVal || !textVal.trim()) {
-            ++validationFailNum;
-            textareaRef.current.classList.add(CLASSNAME_EMPTY);
+            textareaRef.current.focus();
+            return alert('내용을 입력해주세요.');
         }
 
-        // pw
         if(!passwordVal || !passwordVal.trim()) {
-            ++validationFailNum;
-            pwInputRef.current.classList.add(CLASSNAME_EMPTY);
+            pwInputRef.current.focus();
+            return alert('비밀번호를 입력해주세요.');
         }
 
-        return (!validationFailNum) ? true : false;
-    }, [textVal, passwordVal]);
-
-    const onSubmit = useCallback((e) => {
-        e.preventDefault();
-        const result = formValidation();
-
-        if(result) {
-            return dispatch({
-                type: ADD_GUESTBOOK_REQUEST,
-                data: {
-                    nickname: me.nickname,
-                    avatar: me.avatar,
-                    content: textVal,
-                    password: passwordVal,
-                },
-            });
-        }
+        dispatch({
+            type: ADD_GUESTBOOK_REQUEST,
+            data: {
+                nickname: me.nickname,
+                avatar: me.avatar,
+                content: textVal,
+                password: passwordVal,
+            }
+        });
     }, [textVal, passwordVal]);
 
     const onChangeHiddenPW = useCallback((e) => {
@@ -172,18 +148,16 @@ const GuestForm = () => {
     }, [checkHiddenPW]);
 
     return (
-        <form onSubmit={onSubmit}>
+        <div>
             <Textarea
-                ref={textareaRef}
-                onFocus={onFocus}
-                value={textVal}
-                name="content"
-                onChange={changeTextVal}
                 maxLength={maxTextLength}
+                ref={textareaRef}
+                value={textVal}
+                onChange={changeTextVal}
                 placeholder="안녕하세요, 오늘의 기분은 어떠신가요?"
             />
 
-            <BottomArea>
+            <CheckArea>
                 <LimitLetters 
                     className={textVal.length === maxTextLength ? 'maximum' : ''}
                 >
@@ -191,50 +165,38 @@ const GuestForm = () => {
                 </LimitLetters>
 
                 <PasswordInput 
-                    name="password"
-
+                    maxLength={20}
+                    placeholder="비밀번호"
                     ref={pwInputRef}
                     type={checkHiddenPW ? 'text' : 'password'} 
-                    onFocus={onFocus}
                     value={passwordVal}
                     onChange={changePasswordVal}
-                    placeholder="비밀번호"
-                    maxLength={20}
                 />
 
-                <HiddenCheckPWButton onClick={onChangeHiddenPW}>
+                <PasswordShowButton onClick={onChangeHiddenPW}>
                     <EyeOutlined />
-                </HiddenCheckPWButton>
+                </PasswordShowButton>
 
-                <input type="file" name="image" multiple hidden 
+                {/* TODO: 이미지 2장까지 */}
+                {/* <input type="file" name="image" multiple hidden 
                     name="password"
                     // ref={imageInput} onChange={onChangeImages} 
-                />
+                /> */}
                 <ImageUploadButton 
-                    onClick={onClickImageUpload}
+                    // onClick={onClickImageUpload}
                 >
                     이미지업로드
                 </ImageUploadButton>
                 
-                <SubmitButton type="submit">
+                <SubmitButton onClick={onSubmit}>
                     등록
                 </SubmitButton>
-            </BottomArea>
-            {/* <div>
-                {imagePaths.map((v, i) => (
-                <div key={v} style={{ display: 'inline-block' }}>
-                    <img src={v.replace(/\/thumb\//, '/original/')} style={{ width: '200px' }} alt={v} />
-                    <div>
-                    <Button onClick={onRemoveImage(i)}>제거</Button>
-                    </div>
-                </div>
-                ))}
-            </div> */}
-        </form>
+            </CheckArea>
+        </div>
     );
 };
 
-export default GuestForm;
+export default Form;
 
 // TODO:
 // - 보안 작업 (스크립트 금지 등)

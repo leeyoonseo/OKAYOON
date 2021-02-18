@@ -88,12 +88,12 @@ const Home = () => {
     const headerH = 35;
     const footerH = 150;
 
-    // TODO: 페이지 작업 완료 후 확인
-    useEffect(() => {
-        if(!me.nickname && !admin.nickname){
-            Router.replace('./login');
-        }
-    }, [ me, admin ]);
+    // TODO: 페이지 작업 완료 주석 해제
+    // useEffect(() => {
+    //     if(!me.nickname && !admin.nickname){
+    //         Router.replace('./login');
+    //     }
+    // }, [ me, admin ]);
 
     useEffect(() => {
         windowH = window.innerHeight;

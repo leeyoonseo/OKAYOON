@@ -7,7 +7,7 @@ export const initialState = {
         //     nickname: '할로아',
         //     avatar: null,
         //     content : '콘텐츠 작성을 해보겠습니다. 반가워요^^',
-        //     createDt: '2020.04.11 AM 11:12',
+        //     createdAt: '2020.04.11 AM 11:12',
         //     password: '1234',
         //     comment: [
         //         {
