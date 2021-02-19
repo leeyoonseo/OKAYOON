@@ -4,39 +4,6 @@ const { Op } = require('sequelize');
 const bcrypt = require('bcrypt');
 const { Comment, Image, Guestbook } = require('../models');
 
-// [D] 댓글 등록하기
-router.post('/:guestbookId/comment', async (req, res, next) => { // POST /guestbook/1/comment
-    try {   
-        const guestbook = await Guestbook.findOne({
-            where: { id: req.params.guestbookId }
-        });
-
-        if (!guestbook) {
-            return res.status(403).send('존재하지 않는 게시글입니다.');
-        }
-
-        const comment = await Comment.create({
-            nickname: req.body.nickname,
-            avatar: req.body.avatar,
-            content: req.body.content,
-            password: req.body.password,
-            GuestbookId: parseInt(req.params.guestbookId, 10),
-        });
-
-        const resComment = await Comment.findOne({
-            where: { id: comment.id },
-            attributes: {
-                exclude: ['password'],
-            },
-        });
-
-        res.status(201).json(resComment);
-    } catch (error) {
-        console.error(error);
-        next(error);
-    }
-});
-
 // [D] 방명록 가져오기
 router.get('/', async (req, res, next) => { // GET /guestbook
     try {
@@ -70,7 +37,7 @@ router.get('/', async (req, res, next) => { // GET /guestbook
     }
 });
 
-// [D] 방명록 등록하기
+// [D] 방명록 등록
 router.post('/', async (req, res, next) => { // POST /guestbook
     try {
         const hashedPassWord = await bcrypt.hash(req.body.password, 12);
@@ -90,7 +57,40 @@ router.post('/', async (req, res, next) => { // POST /guestbook
     }
 });
 
-// [D] 방명록 삭제하기
+// [D] 방명록 수정
+router.patch('/:guestbookId', async (req, res, next) => {
+    try {
+        res.status(200).send('ok');
+
+    } catch (error) {
+        console.error(error);
+        next(error);
+    }
+});
+
+// [D] 권한 요청
+router.post('/:guestbookId/permission', async (req, res, next) => { // POST /guestbook/1/permission
+    try {   
+        const guestbook = await Guestbook.findOne({
+            where: { id: parseInt(req.params.guestbookId, 10) }
+        });
+
+        if (!guestbook) {
+            return res.status(403).send('존재하지 않는 게시글입니다.');
+        }
+    
+        if (!bcrypt.compareSync(req.body.password, guestbook.password)) {
+            return res.status(403).send('비밀번호가 틀렸습니다.');
+        }
+
+        res.status(200).json(parseInt(req.params.guestbookId, 10));
+    } catch (error) {
+        console.error(error);
+        next(error);
+    }
+});
+
+// [D] 방명록 삭제
 router.post('/:guestbookId/delete', async (req, res, next) => {
     try {
         const guestbook = await Guestbook.findOne({
@@ -111,6 +111,39 @@ router.post('/:guestbookId/delete', async (req, res, next) => {
 
         res.status(200).json(parseInt(req.params.guestbookId, 10));
 
+    } catch (error) {
+        console.error(error);
+        next(error);
+    }
+});
+
+// [D] 댓글 등록
+router.post('/:guestbookId/comment', async (req, res, next) => { // POST /guestbook/1/comment
+    try {   
+        const guestbook = await Guestbook.findOne({
+            where: { id: req.params.guestbookId }
+        });
+
+        if (!guestbook) {
+            return res.status(403).send('존재하지 않는 게시글입니다.');
+        }
+
+        const comment = await Comment.create({
+            nickname: req.body.nickname,
+            avatar: req.body.avatar,
+            content: req.body.content,
+            password: req.body.password,
+            GuestbookId: parseInt(req.params.guestbookId, 10),
+        });
+
+        const resComment = await Comment.findOne({
+            where: { id: comment.id },
+            attributes: {
+                exclude: ['password'],
+            },
+        });
+
+        res.status(201).json(resComment);
     } catch (error) {
         console.error(error);
         next(error);

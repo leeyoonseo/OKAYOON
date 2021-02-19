@@ -3,6 +3,11 @@ import produce from '../util/produce';
 export const initialState = {
 
     guestbook: [],
+
+    // [D] 권한요청하기
+    getPermissionLoading: false,
+    getPermissionDone: false,
+    getPermissionError: false,
     
     // [D] 방명록 가져오기
     loadGuestbookLoading: false,
@@ -14,16 +19,31 @@ export const initialState = {
     addGuestbookDone: false,
     addGuestbookError: false,
 
+    // [D] 방명록 수정
+    updateGuestbookLoading: false,
+    updateGuestbookDone: false,
+    updateGuestbookError: false,
+
     // [D] 방명록 삭제
     deleteGuestbookLoading: false,
     deleteGuestbookDone: false,
     deleteGuestbookError: false,
+
+    // [D] 방명록 수정
+    editGuestbookLoading: false,
+    editGuestbookDone: false,
+    editGuestbookError: false,
 
     // [D] 댓글 등록
     addCommentLoading: false,
     addCommentDone: false,
     addCommentError: false,
 };
+
+// [D] 권한요청
+export const GET_PERMISSION_REQUEST = 'GET_PERMISSION_REQUEST';
+export const GET_PERMISSION_SUCCESS = 'GET_PERMISSION_SUCCESS';
+export const GET_PERMISSION_FAILURE = 'GET_PERMISSION_FAILURE';
 
 // [D] 방명록 가져오기
 export const LOAD_GUESTBOOK_REQUEST = 'LOAD_GUESTBOOK_REQUEST';
@@ -34,6 +54,11 @@ export const LOAD_GUESTBOOK_FAILURE = 'LOAD_GUESTBOOK_FAILURE';
 export const ADD_GUESTBOOK_REQUEST = 'ADD_GUESTBOOK_REQUEST';
 export const ADD_GUESTBOOK_SUCCESS = 'ADD_GUESTBOOK_SUCCESS';
 export const ADD_GUESTBOOK_FAILURE = 'ADD_GUESTBOOK_FAILURE';
+
+// [D] 방명록 수정
+export const UPDATE_GUESTBOOK_REQUEST = 'UPDATE_GUESTBOOK_REQUEST';
+export const UPDATE_GUESTBOOK_SUCCESS = 'UPDATE_GUESTBOOK_SUCCESS';
+export const UPDATE_GUESTBOOK_FAILURE = 'UPDATE_GUESTBOOK_FAILURE';
 
 // [D] 방명록 삭제
 export const DELETE_GUESTBOOK_REQUEST = 'DELETE_GUESTBOOK_REQUEST';
@@ -47,6 +72,32 @@ export const ADD_COMMENT_FAILURE = 'ADD_COMMENT_FAILURE';
 
 const reducer = (state = initialState, action) => produce(state,(draft) => {
     switch(action.type){
+        // [D] 권한요청하기
+        case GET_PERMISSION_REQUEST:
+            draft.getPermissionLoading = true;
+            draft.getPermissionDone = false;
+            draft.getPermissionError = false;
+            break;
+
+        case GET_PERMISSION_SUCCESS:
+            draft.guestbook.map((v) => {
+                if (v.id === action.data) {
+                    return v.edit = true;
+                }
+
+                v.edit !== null && delete v.edit;
+            });
+
+            draft.getPermissionLoading = false;
+            draft.getPermissionDone = true;
+            draft.getPermissionError = false;
+            break;
+
+        case GET_PERMISSION_FAILURE:
+            draft.getPermissionLoading = false;
+            draft.getPermissionDone = false;
+            draft.getPermissionError = true;
+            break;
 
         // [D] 방명록 가져오기
         case LOAD_GUESTBOOK_REQUEST:
@@ -87,6 +138,27 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             draft.addGuestbookLoading = false;
             draft.addGuestbookDone = false;
             draft.addGuestbookError = true;
+            break;
+
+        // [D] 방명록 수정
+        case UPDATE_GUESTBOOK_REQUEST:
+            draft.updateGuestbookLoading = true;
+            draft.updateGuestbookDone = false;
+            draft.updateGuestbookError = false;
+            break;
+
+        case UPDATE_GUESTBOOK_SUCCESS:
+            // const guestbook = draft.guestbook.filter((v, i) => v.id !== action.data);
+            
+            draft.updateGuestbookLoading = false;
+            draft.updateGuestbookDone = true;
+            draft.updateGuestbookError = false;
+            break;
+
+        case UPDATE_GUESTBOOK_FAILURE:
+            draft.updateGuestbookLoading = false;
+            draft.updateGuestbookDone = false;
+            draft.updateGuestbookError = true;
             break;
 
         // [D] 방명록 삭제

@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 
 import { Avatar } from 'antd';
 
-const Comment = ({
+const CommentCard = ({
     id,
     avatar,
     nickname,
@@ -32,4 +32,4 @@ const Comment = ({
     );
 };
 
-export default Comment;
+export default CommentCard;

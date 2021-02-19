@@ -6,8 +6,8 @@ import { Avatar } from 'antd';
 
 import WindowDialog from '../../WindowDialog/index';
 import CommentForm from './CommentForm';
-import Comment from './Comment';
-import { DELETE_GUESTBOOK_REQUEST } from '../../../reducers/guestbook';
+import CommentCard from './CommentCard';
+import { DELETE_GUESTBOOK_REQUEST, GET_PERMISSION_REQUEST } from '../../../reducers/guestbook';
 
 const GuestbookCard = ({
     id,
@@ -19,29 +19,43 @@ const GuestbookCard = ({
 }) => {
     const dispatch = useDispatch();
     const [openedComment, setOpenedComment] = useState(false);
-    const [securityCheck, setSecurityCheck] = useState(false);
+    const [openedModal, setOpenedModal] = useState(false);
+    const [reqStatus, setReqStatus] = useState('');
 
-    const onClickComment = useCallback(() => {
-        setOpenedComment(!openedComment);
-    }, [openedComment]);
-
-    const onClickDelete = useCallback(() => {
-        setSecurityCheck(true);
-    }, []);
-
-    const onSecurityCheck = useCallback(({state, text}) => {
-        setSecurityCheck(false);
+    const passwordCheck = useCallback(({state, text}) => {
+        setOpenedModal(false);
 
         if (state) {
+            let dataType = DELETE_GUESTBOOK_REQUEST;
+
+            if (reqStatus === 'edit') {
+                dataType = GET_PERMISSION_REQUEST;
+            } 
+
             dispatch({
-                type: DELETE_GUESTBOOK_REQUEST,
+                type: dataType,
                 data: {
                     id: id,
                     password: text
                 }
-            })
+            });
         }
+        
+    }, [reqStatus, id]);
+
+    const onClickEdit = useCallback(() => {
+        setOpenedModal(true);
+        setReqStatus('edit');
     }, []);
+
+    const onClickDelete = useCallback(() => {
+        setOpenedModal(true);
+        setReqStatus('delete');
+    }, []);
+
+    const onClickComment = useCallback(() => {
+        setOpenedComment(!openedComment);
+    }, [openedComment]);
 
     return (
         <>
@@ -59,7 +73,11 @@ const GuestbookCard = ({
                     <span>{dayjs(createdAt).format('YYYY.MM.DD')}</span>
 
                     <div>
-                        <button>수정</button>
+                        <button
+                            onClick={onClickEdit}
+                        >
+                            수정
+                        </button>
                         <button
                             onClick={onClickDelete}
                         >
@@ -77,33 +95,31 @@ const GuestbookCard = ({
                         코멘트보기
                     </button>
                 </div>
-
-
-                {openedComment && (
-                    <>
-                        <CommentForm 
-                            id={id}
-                            content={content}
-                        />
-
-                        {Comments && Comments.map((v, i) => {
-                            return (
-                                <Comment 
-                                    key={`comment_${v.nickname.charAt(0)}_${i}`}
-                                    {...v}
-                                />
-                            )
-                        })}
-                    </>
-                )}
             </div>
             
-            {securityCheck && (
+            {openedComment && (
+                <>
+                    <CommentForm 
+                        id={id}
+                        content={content}
+                    />
+
+                    {Comments && Comments.map((v, i) => {
+                        return (
+                            <CommentCard 
+                                key={`comment_${v.nickname.charAt(0)}_${i}`}
+                                {...v}
+                            />
+                        )
+                    })}
+                </>
+            )}
+            
+            {openedModal && (
                 <WindowDialog
                     type="prompt"
                     text="비밀번호를 입력해주세요." 
-                    callback={onSecurityCheck}
-                    // callback={opendEditForm}
+                    callback={passwordCheck}
                 />
             )}
         </>
