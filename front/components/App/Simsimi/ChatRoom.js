@@ -138,11 +138,11 @@ const ChatRoom = ({ onPrevStep }) => {
     }, [startedChat]);
 
     const onSendMessage = useCallback(() => {
-        if (!message || !message.trim()) {
-            return;
-        }
+        if (!message || !message.trim()) return;
 
-        if (!startedChat) setStartedChat(true);
+        if (!startedChat) {
+            setStartedChat(true);
+        }
 
         dispatch({
             type: SEND_MESSAGE_REQUEST,
@@ -153,8 +153,8 @@ const ChatRoom = ({ onPrevStep }) => {
         });
     }, [message]);
 
-    const onKeyPress = useCallback((e) => {
-        if (e.code === 'Enter') {
+    const onKeyPress = useCallback(({ code }) => {
+        if (code === 'Enter') {
             onSendMessage();
         }
     }, [message]);

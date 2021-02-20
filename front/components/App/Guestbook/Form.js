@@ -7,11 +7,11 @@ import { UploadOutlined, EyeOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 
 const Wrap = styled.div`
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 `;
 
 const Textarea = styled.textarea`
-    padding: 2%;
+    padding: 3%;
     width: 100%;
     height: 100px;
     border: none;

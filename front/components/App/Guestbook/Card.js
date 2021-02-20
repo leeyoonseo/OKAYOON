@@ -1,15 +1,106 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
 import dayjs from 'dayjs';
-
-import { Avatar } from 'antd';
 
 import { DELETE_GUESTBOOK_REQUEST, GET_PERMISSION_REQUEST } from '../../../reducers/guestbook';
 import { getSrc } from './index';
 
 import WindowDialog from '../../WindowDialog/index';
-import CommentForm from './CommentForm';
-import CommentCard from './CommentCard';
+import Comment from './Comment';
+// import CommentForm from './CommentForm';
+// import CommentCard from './CommentCard';
+
+import { Avatar } from 'antd';
+import { CommentOutlined, DeleteOutlined, FormOutlined } from '@ant-design/icons';
+
+const Wrap = styled.div`
+    padding: 3%;
+    background: #fff;
+    box-sizing: border-box;
+
+    & + div {
+        margin-top: 30px;
+    }
+
+    &:after {
+        content: '';
+        display: block;
+        clear: both;
+    }
+`;
+
+const Inner = styled.div`
+    position: relative;
+    min-height: 100px;
+`;
+
+const AvatarWrap = styled.div`
+    position: absolute;
+    top: 0;
+    float: left;
+    display: flex;
+    width: 64px;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+`;
+
+const Container = styled.div`
+    float: right;
+    padding-left: 20px;
+    width: calc(100% - 64px);
+    height: 100%;
+    box-sizing: border-box;
+`;
+
+const Nickname = styled.div`
+    font-size: 13px;
+    font-weight: 700;
+`;
+
+const CreatedDate = styled.div`
+    font-size: 70%;
+`;
+
+const Menu = styled.div`
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    button {
+        padding: 5px;
+        line-height: 1;
+        border: 1px solid #aaa;
+        outline: none;
+        background: none;
+        cursor: pointer;
+    }
+
+    button + button {
+        border-left: none;
+    }
+`;
+
+const ContentWrap = styled.div`
+    margin-top: 5px;
+    width: calc(100% - 30px);
+    // height: 60px;
+    overflow-y: auto;
+`;
+
+const CommentButton = styled.button`
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 0;
+    font-size: 16px;
+    line-height: 0;
+    border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
+`;
 
 const GuestbookCard = ({
     id,
@@ -54,60 +145,50 @@ const GuestbookCard = ({
     }, [openedComment]);
 
     return (
-        <>
-            <div style={{border: '1px solid red'}}>
-                <div>
+        <Wrap>
+            <Inner>
+                <AvatarWrap>
                     {avatar === 'nickname' ? (
-                        <Avatar>{nickname}</Avatar>
+                        <Avatar size={64}>{nickname}</Avatar>
                     ) : (
-                        <Avatar src={getSrc(avatarList, avatar)} />
+                        <Avatar size={64} src={getSrc(avatarList, avatar)} />
                     )}
-                </div>
+                </AvatarWrap>
 
-                <div>
-                    <span>{nickname}</span>
-                    <span>{dayjs(createdAt).format('YYYY.MM.DD')}</span>
+                <Container>
+                    <Nickname>{nickname}</Nickname>
+                    <CreatedDate>{dayjs(createdAt).format('YYYY.MM.DD')}</CreatedDate>
 
-                    <div>
+                    <Menu>
                         <button
                             onClick={onClickEdit}
                         >
-                            수정
+                            <FormOutlined />
                         </button>
                         <button
                             onClick={onClickDelete}
                         >
-                            삭제
+                            <DeleteOutlined />
                         </button>
-                    </div>
+                    </Menu>
 
-                    <div>
+                    <ContentWrap>
                         {content}
-                    </div>
-                </div>
+                    </ContentWrap>
+                </Container>
 
-                <div>
-                    <button onClick={onClickComment}>
-                        코멘트보기
-                    </button>
-                </div>
-            </div>
+                <CommentButton onClick={onClickComment}>
+                    <CommentOutlined />
+                </CommentButton>
+            </Inner>
             
             {openedComment && (
                 <>
-                    <CommentForm 
+                    <Comment 
                         id={id}
-                        content={content}
+                        // content={}
+                        Comments={Comments}
                     />
-
-                    {Comments && Comments.map((v, i) => {
-                        return (
-                            <CommentCard 
-                                key={`comment_${v.nickname.charAt(0)}_${i}`}
-                                {...v}
-                            />
-                        )
-                    })}
                 </>
             )}
             
@@ -118,7 +199,7 @@ const GuestbookCard = ({
                     callback={passwordCheck}
                 />
             )}
-        </>
+        </Wrap>
     );
 };
 
