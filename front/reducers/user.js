@@ -18,43 +18,46 @@ export const initialState = {
     // TODO: src, title 수정
     avatarList: [   
         {
-            src: 'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png',
-            title: '1번',
+            src: 'https://t1.daumcdn.net/cfile/tistory/99B381445ECFD22A1A',
+            title: '미스터p',
         },
         {
-            src: 'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20140127_257%2Faosjahemdd_1390820129233pOn7o_JPEG%2Fd018e984a74511e2bd6322000a1fa42a_7_large.jpg&type=sc960_832',
-            title: '2번',
+            src: 'https://t1.daumcdn.net/cfile/tistory/99DDD54D5ECFD64834',
+            title: '칼',
         },
         {
-            src: 'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png',
-            title: '3번',
+            src: 'https://t1.daumcdn.net/cfile/tistory/99F25D3D5ECFD22E34',
+            title: '샌디',
         },
         {
-            src: 'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20140127_257%2Faosjahemdd_1390820129233pOn7o_JPEG%2Fd018e984a74511e2bd6322000a1fa42a_7_large.jpg&type=sc960_832',
-            title: '4번',
+            src: 'https://t1.daumcdn.net/cfile/tistory/99D50B355ECFD22B2C',
+            title: '비',
         },{
-            src: 'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png',
-            title: '5번',
+            src: 'https://t1.daumcdn.net/cfile/tistory/99C3E4385ECFD22A2E',
+            title: '로사',
         },
         {
-            src: 'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png',
-            title: '1번',
+            src: 'https://t1.daumcdn.net/cfile/tistory/99AF7E3A5ECFD2311A',
+            title: '진',
         },
         {
-            src: 'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20140127_257%2Faosjahemdd_1390820129233pOn7o_JPEG%2Fd018e984a74511e2bd6322000a1fa42a_7_large.jpg&type=sc960_832',
-            title: '2번',
+            src: 'https://t1.daumcdn.net/cfile/tistory/99494A465ECFD22A30',
+            title: '맥스',
         },
         {
-            src: 'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png',
-            title: '3번',
+            src: 'https://t1.daumcdn.net/cfile/tistory/99221E4A5ECFD22E30',
+            title: '스파이크',
         },
         {
-            src: 'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20140127_257%2Faosjahemdd_1390820129233pOn7o_JPEG%2Fd018e984a74511e2bd6322000a1fa42a_7_large.jpg&type=sc960_832',
-            title: '4번',
+            src: 'https://t1.daumcdn.net/cfile/tistory/990FCF4F5ECFD2322A',
+            title: '페니',
         },{
-            src: 'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png',
-            title: '5번',
-        },
+            src: 'https://t1.daumcdn.net/cfile/tistory/997C96405ECFD22A2B',
+            title: '니타',
+        },{
+            src: 'https://t1.daumcdn.net/cfile/tistory/997D04355ECFD23219',
+            title: '파이퍼'
+        }
     ],
 
     changeAvatarLoading: false,

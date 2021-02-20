@@ -121,10 +121,10 @@ const AdminIcon = styled(SmileOutlined)`
 const Login = () => {
     const dispatch = useDispatch();
 
-    const { me } = useSelector((state) => state.user);
+    const { me, avatarList } = useSelector((state) => state.user);
     const { modalToggleLoading, modals } = useSelector((state) => state.site);
     const [contH, setContH] = useState(null);
-    const [avatar, setAvatar] = useState(me.avatar ? me.avatar : null);
+    const [avatar, setAvatar] = useState(me.avatar ? me.avatar : 'nickname');
     const [isAdmin, setIsAdmin] = useState(false);
     const themecolor = DARK_MODE_COLOR;
     let windowH = null;
@@ -150,13 +150,15 @@ const Login = () => {
      * @params src: 아바타 이미지 주소 
      * - 1. Avatar 컴포넌트 기본이미지 세팅은 문자열 'default'를 전달받는 것을 기준으로 한다.
      */
-    const onToggleModal = useCallback((id, src = null) => () => {
+    const onToggleModal = useCallback((id, title) => () => {
+        console.log('onToggleModal', title);
 
-        // TODO: 리팩터링할 것
-        if(src !== null){
-            if(src === 'default') src = null; // 1.
-            setAvatar(src);
-        }
+        setAvatar(title);
+
+        // // TODO: 리팩터링할 것
+        // if(title === 'nickname'){
+        //     setAvatar('nickname');
+        // }
 
         dispatch({
             type: TOGGLE_MODAL_REQUEST,

@@ -1,13 +1,15 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 
 import { Avatar } from 'antd';
 
+import { DELETE_GUESTBOOK_REQUEST, GET_PERMISSION_REQUEST } from '../../../reducers/guestbook';
+import { getSrc } from './index';
+
 import WindowDialog from '../../WindowDialog/index';
 import CommentForm from './CommentForm';
 import CommentCard from './CommentCard';
-import { DELETE_GUESTBOOK_REQUEST, GET_PERMISSION_REQUEST } from '../../../reducers/guestbook';
 
 const GuestbookCard = ({
     id,
@@ -18,6 +20,7 @@ const GuestbookCard = ({
     Comments,
 }) => {
     const dispatch = useDispatch();
+    const { avatarList } = useSelector((state) => state.user);
     const [openedComment, setOpenedComment] = useState(false);
     const [openedModal, setOpenedModal] = useState(false);
     const [reqStatus, setReqStatus] = useState('');
@@ -25,22 +28,15 @@ const GuestbookCard = ({
     const passwordCheck = useCallback(({state, text}) => {
         setOpenedModal(false);
 
-        if (state) {
-            let dataType = DELETE_GUESTBOOK_REQUEST;
+        if (!state) return;
 
-            if (reqStatus === 'edit') {
-                dataType = GET_PERMISSION_REQUEST;
-            } 
-
-            dispatch({
-                type: dataType,
-                data: {
-                    id: id,
-                    password: text
-                }
-            });
-        }
-        
+        dispatch({
+            type: (reqStatus === 'edit') ? GET_PERMISSION_REQUEST : DELETE_GUESTBOOK_REQUEST,
+            data: {
+                id: id,
+                password: text
+            }
+        });
     }, [reqStatus, id]);
 
     const onClickEdit = useCallback(() => {
@@ -61,11 +57,11 @@ const GuestbookCard = ({
         <>
             <div style={{border: '1px solid red'}}>
                 <div>
-                    <Avatar 
-                        src={null}
-                        // TODO: null하니까 get 요청가버림.. 
-                        // src={avatar}
-                    />
+                    {avatar === 'nickname' ? (
+                        <Avatar>{nickname}</Avatar>
+                    ) : (
+                        <Avatar src={getSrc(avatarList, avatar)} />
+                    )}
                 </div>
 
                 <div>

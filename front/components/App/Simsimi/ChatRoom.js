@@ -53,6 +53,14 @@ const Content = styled.div`
     }
 `;
 
+const EmptyData = styled.div`
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+`;
+
 const Footer = styled.div`
     height: 5%;
 `;
@@ -100,38 +108,41 @@ const LoadingText = styled.div`
 
 const ChatRoom = ({ onPrevStep }) => {
     const dispatch = useDispatch();
-    const inputRef = useRef(null);
     const { chatList, sendMessageLoading } = useSelector((state) => state.simsimi);
-    const [openedDialog, setOpenedDialog] = useState(false);
     const [message, onChangeMessage, setMessage] = useInput('');
+    const [openedDialog, setOpenedDialog] = useState(false);
+    const [startedChat, setStartedChat] = useState(false);
+    const inputRef = useRef(null);
 
-    useEffect(() => {
-        inputRef.current.focus();
-    }, []); 
+    useEffect(() => inputRef.current.focus(), []); 
+    useEffect(() => sendMessageLoading && setMessage(''), [sendMessageLoading]);
 
-    useEffect(() => {
-        if (sendMessageLoading) {
-            setMessage('');
-        }
-    }, [sendMessageLoading]);
-
-    const onCloseDialog = useCallback((res) => {
+    const onCloseDialog = useCallback(({ state }) => {
         setOpenedDialog(false);
 
-        if (res.state) {
-            onPrevStep();
-            dispatch({
-                type: DELETE_MESSAGE
-            });
-        }
+        if (!state) return;
+
+        onPrevStep();
+        dispatch({
+            type: DELETE_MESSAGE
+        });
     }, []);
 
-    const onCloseRoom = useCallback(() => setOpenedDialog(true), []);
+    const onCloseRoom = useCallback(() => {
+        if (startedChat) {
+            setOpenedDialog(true);
+
+        } else {
+            onPrevStep();
+        }
+    }, [startedChat]);
 
     const onSendMessage = useCallback(() => {
         if (!message || !message.trim()) {
             return;
         }
+
+        if (!startedChat) setStartedChat(true);
 
         dispatch({
             type: SEND_MESSAGE_REQUEST,
@@ -178,6 +189,8 @@ const ChatRoom = ({ onPrevStep }) => {
                 </Header>
 
                 <Content>
+                    {(!startedChat && !message) && <EmptyData>심심이와 대화를 시작해보세요!</EmptyData>}
+
                     {chatList.map(({ simsimi, text }, i) => {
                         return (
                             <Chat 
@@ -191,11 +204,7 @@ const ChatRoom = ({ onPrevStep }) => {
 
                     {/* [D] loading */}
                     {message && <Chat>{renderLoading()}</Chat>}  
-                    {sendMessageLoading && (
-                        <Chat simsimi={true}>
-                            {renderLoading()}
-                        </Chat>
-                    )}
+                    {sendMessageLoading && <Chat simsimi={true}>{renderLoading()}</Chat>}
                 </Content>
 
                 <Footer>

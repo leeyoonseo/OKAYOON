@@ -14,7 +14,6 @@ import {
 
 function* logIn(action){
     try{
-        yield delay(1000);
         yield put({
             type: LOG_IN_SUCCESS,
             data: action.data
@@ -38,7 +37,6 @@ function* watchLogIn(){
 function* logOut(){
     try{
 
-        yield delay(500);
         yield put({
             type: LOG_OUT_SUCCESS
         });
@@ -65,8 +63,6 @@ function adminLogInAPI(data){
 function* adminLogIn(action){
     try{
         const result = yield call(adminLogInAPI, action.data);
-        
-        yield delay(1000);
         yield put({
             type: LOG_IN_ADMIN_SUCCESS,
             data: result.data

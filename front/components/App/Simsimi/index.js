@@ -37,20 +37,37 @@ const AccessButton = styled.button`
 `;
 
 const Simsimi = () => {
-    const { me } = useSelector((state) => state.user);
-    const [openedChatRoom, setOpenedChatRoom] = useState(false);
+    const { me, avatarList } = useSelector((state) => state.user);
+    const [avatar, setAvatar] = useState(me.avatar ? me.avatar : 'nickname');
+    const [nickname, setNickname] = useState(me.nickname ? me.nickname : 'Guest');
+    const [startChat, setStartChat] = useState(false);
 
-    const toggleStep = useCallback(() => setOpenedChatRoom(!openedChatRoom), [openedChatRoom]);
+    const toggleStep = useCallback(() => setStartChat(!startChat), [startChat]);
+    const getSrc = useCallback(() => {
+        const item = avatarList.find((v) => v.title === avatar);
 
+        if(!item) { 
+            return null;
+        }
+    
+        return item.src;
+    }, [avatar]);
+
+    
     return (
         <>  
-            {!openedChatRoom && (
+            {!startChat ? (
                 <Wrap>
                     <Inner>
-                        <Avatar 
-                            size={100}
-                            src={me.avatar} 
-                        />    
+                        {avatar === 'nickname' ? (
+                            <Avatar size={100}>{nickname}</Avatar>
+
+                        ) : (
+                            <Avatar 
+                                size={100}
+                                src={getSrc()} 
+                            /> 
+                        )}
                         <Nickname>
                             {me.nickname}
                         </Nickname> 
@@ -59,13 +76,10 @@ const Simsimi = () => {
                             접속하기
                         </AccessButton>
                     </Inner>
-                </Wrap>
-            )}
+                </Wrap> 
 
-            {openedChatRoom && (
-                <ChatRoom 
-                    onPrevStep={toggleStep}
-                />
+            ) : (
+                <ChatRoom onPrevStep={toggleStep} />
             )}
         </>
     );

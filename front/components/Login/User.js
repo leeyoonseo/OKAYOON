@@ -15,21 +15,28 @@ import { ALL_CLOSED_MODAL } from '../../reducers/site';
 
 const User = ({
     onClickModal,
-    avatar, setAvatar
+    avatar, 
+    setAvatar
 }) => {
     const dispatch = useDispatch();
-    const { me, logInLoading } = useSelector((state) => state.user);
-    const [nickname, onChangeNickname, setNickname] = useInput(me?.nickname ? me.nickname : '');
-    const inputRef = useRef(null);
+    const { me, logInLoading, avatarList } = useSelector((state) => state.user);
+    const [nickname, onChangeNickname, setNickname] = useInput(me?.nickname ? me.nickname : 'Guest');
     const [haveNickname, setHaveNickname] = useState(false);
+    const inputRef = useRef(null);
 
     useEffect(() => {
         inputRef.current && inputRef.current.focus();
-
-        if (nickname) {
-            setHaveNickname(true);
-        }
     }, []);
+
+    const getAvatarSrc = useCallback(() => {
+        const item = avatarList.find((v) => v.title === avatar);
+
+        if (item) {
+            return item.src;
+        }
+
+        return null;
+    }, [avatar]);
 
     const onClickReset = useCallback(() => {
         setNickname('');
@@ -37,22 +44,13 @@ const User = ({
         setHaveNickname(false);
     }, []);
 
-    const onClickAccess = useCallback(() => {
-        const data = {};
-
-        if(!nickname){
-            setNickname('Guest');
-            data.nickname = 'Guest';
-            
-        }else {
-            data.nickname = nickname;
-        }
-
-        data.avatar = avatar;
-
+    const onSubmit = useCallback(() => {
         dispatch({
             type: LOG_IN_REQUEST,
-            data: data
+            data: {
+                avatar: avatar,
+                nickname: nickname
+            }
         });
 
         dispatch({ type: ALL_CLOSED_MODAL });
@@ -67,19 +65,28 @@ const User = ({
         if (code === 'Enter') {
             setNickname(nickname);
             setHaveNickname(true);
-            onClickAccess();
+            onSubmit();
         }
     }, [nickname]); 
 
     return (
         <>
             <InfoArea>
-                <AvatarButton 
-                    size={64} 
-                    src={avatar ? avatar : null}
-                    icon={<UserOutlined />} 
-                    onClick={onClickModal(AVATAR_MODAL_ID)}
-                />
+                {avatar === 'nickname' ? (
+                    <AvatarButton 
+                        size={64} 
+                        onClick={onClickModal(AVATAR_MODAL_ID)}
+                    >
+                        {nickname.substr(0, 5)}
+                    </AvatarButton>
+                ) : (
+                    <AvatarButton 
+                        size={64} 
+                        src={getAvatarSrc()}
+                        icon={<UserOutlined />} 
+                        onClick={onClickModal(AVATAR_MODAL_ID)}
+                    />
+                )}
 
                 <NicknameWrap>
                     {
@@ -116,7 +123,7 @@ const User = ({
                 
                 <InfoButton 
                     loading={logInLoading}
-                    onClick={onClickAccess} 
+                    onClick={onSubmit} 
                 >
                     접속
                 </InfoButton>

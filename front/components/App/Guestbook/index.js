@@ -7,6 +7,16 @@ import Form from './Form';
 import Card from './Card';
 import EditForm from './EditForm';
 
+export const getSrc = (list, title) => {
+    const item = list.find((v) => v.title === title);
+
+    if(!item) { 
+        return null;
+    }
+
+    return item.src;
+};
+
 const Guestbook = () => {
     const dispatch = useDispatch();
     const { guestbook, loadGuestbookLoading } = useSelector((state) => state.guestbook);
@@ -22,12 +32,9 @@ const Guestbook = () => {
     return (
         <>
             <div>
-                <Form
-                    MAX_TEXTAREA_LENGTH={MAX_TEXTAREA_LENGTH}
-                />
+                <Form MAX_TEXTAREA_LENGTH={MAX_TEXTAREA_LENGTH} />
 
                 {guestbook && guestbook.map((v, i) => {
-
                     if (v.edit) {
                         return (
                             <EditForm 

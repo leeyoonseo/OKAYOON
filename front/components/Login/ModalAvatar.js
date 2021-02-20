@@ -21,20 +21,20 @@ const Items = styled.div`
     &:nth-child(4n) {
         margin-right: 0 !important;
     }
+`;
 
-    button{
-        padding: 0;
-        width:100%;
-        height:100%;
-        color: #777;
-        border: 1px solid #aaa;
-        cursor: pointer;
+const Button = styled.button`
+    padding: 0;
+    width:100%;
+    height:100%;
+    color: #777;
+    border: 1px solid #aaa;
+    cursor: pointer;
 
-        &:hover,
-        &:focus {
-            outline: none;
-            box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
-        }
+    &:hover,
+    &:focus {
+        outline: none;
+        box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
     }
 
     img {
@@ -44,6 +44,8 @@ const Items = styled.div`
 `;
 
 const SourceText = styled.span`
+    position: absolute;
+    bottom: 10px;
     display:block;
     text-align:left;
     font-size:60%;
@@ -55,26 +57,24 @@ const ModalAvatar = ({ id, onCloseModal }) => {
 
     return(
         <Wrap>
-            <Items 
-                onClick={onCloseModal(id, 'default')}
-            >
-                <button>기본이미지</button>
+            <Items>
+                <Button onClick={onCloseModal(id, 'nickname')}>
+                    닉네임
+                </Button>
             </Items>
             {
                 avatarList.map((v, i) => {
                     return (
-                        <Items
-                            key={`${v.title}-${i}`}
-                            onClick={onCloseModal(id, v.src)}
-                        >
-                            <button>
+                        <Items key={`${v.title}-${i}`}>
+                            <Button onClick={onCloseModal(id, v.title)}>
                                 <img alt={v.title} src={v.src} />
-                            </button>
+                            </Button>
                         </Items>
                     );  
                 })
             }
-            <SourceText>이미지출처: https://www.pngwing.com/ko/free-png-zvldq/download</SourceText>
+
+            <SourceText>이미지출처: -----</SourceText>
         </Wrap>
     );
 };

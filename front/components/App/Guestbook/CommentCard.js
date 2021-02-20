@@ -1,6 +1,10 @@
 import React, { useState, useCallback } from 'react';
+import dayjs from 'dayjs';
 
 import { Avatar } from 'antd';
+
+import { getSrc } from './index';
+import { useSelector } from 'react-redux';
 
 const CommentCard = ({
     id,
@@ -10,14 +14,20 @@ const CommentCard = ({
     content,
     GuestbookId,
 }) => {
+    const { avatarList } = useSelector((state) => state.user);
+
     return (
         <div>
             <div>
-                <Avatar />
+                {avatar === 'nickname' ? (
+                    <Avatar>{nickname}</Avatar>
+                ) : (
+                    <Avatar src={getSrc(avatarList, avatar)} />
+                )}
             </div>
             <div>
                 <span>{nickname}</span>
-                <span>{createdAt}</span>
+                <span>{dayjs(createdAt).format('YYYY.MM.DD')}</span>
 
                 <div>
                     <button>수정</button>

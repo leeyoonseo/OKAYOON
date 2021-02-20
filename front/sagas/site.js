@@ -6,16 +6,8 @@ import {
     CHANGE_MEMO_REQUEST, CHANGE_MEMO_SUCCESS, CHANGE_MEMO_FAILURE, 
 } from '../reducers/site';
 
-function CreateModalAPI(data){
-    // 통신 작업할 것
-};
-
 function* CreateModal(action){
     try{
-        // const result = yield call(CreateModalAPI);
-        // 임시
-        // console.log('CreateModal', action.data);
-        // yield delay(1000);
         yield put({
             type: CREATE_MODAL_SUCCESS,
             data: action.data
@@ -60,11 +52,6 @@ function ChangeMemoAPI(data){
 
 function* ChangeMemo(action){
     try{
-        // const result = yield call(ChangeMemoAPI);
-        // 임시
-        // console.log('ChangeMemo', action.data);
-        // yield delay(1000);
-
         yield put({
             type: CHANGE_MEMO_SUCCESS,
             data: action.data
