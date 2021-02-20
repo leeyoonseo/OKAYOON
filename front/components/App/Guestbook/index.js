@@ -11,6 +11,8 @@ const Guestbook = () => {
     const dispatch = useDispatch();
     const { guestbook, loadGuestbookLoading } = useSelector((state) => state.guestbook);
 
+    const MAX_TEXTAREA_LENGTH = 100;
+
     useEffect(() => {
         dispatch({
             type: LOAD_GUESTBOOK_REQUEST
@@ -20,13 +22,19 @@ const Guestbook = () => {
     return (
         <>
             <div>
-                <Form />
+                <Form
+                    MAX_TEXTAREA_LENGTH={MAX_TEXTAREA_LENGTH}
+                />
 
                 {guestbook && guestbook.map((v, i) => {
 
                     if (v.edit) {
                         return (
-                            <EditForm key={`edit_${v.nickname.charAt(0)}_${i}`}/>
+                            <EditForm 
+                                key={`edit_${v.nickname.charAt(0)}_${i}`}
+                                MAX_TEXTAREA_LENGTH={MAX_TEXTAREA_LENGTH}
+                                {...v}
+                            />
                         )
                     } 
 

@@ -60,13 +60,41 @@ router.post('/', async (req, res, next) => { // POST /guestbook
 // [D] 방명록 수정
 router.patch('/:guestbookId', async (req, res, next) => {
     try {
-        res.status(200).send('ok');
+        
+        const guestbook = await Guestbook.findOne({
+            where: { id: req.params.guestbookId }
+        });
+
+        if (!guestbook) {
+            return res.status(403).send('존재하지 않는 게시글입니다.');
+        }
+        
+        await Guestbook.update({
+            avatar: req.body.avatar,
+            nickname: req.body.niakname,
+            content: req.body.content,
+        },{
+            where: { id: parseInt(req.params.guestbookId, 10) },
+        });
+
+        res.status(200).json({
+            id: parseInt(req.params.guestbookId, 10),
+            nickname: req.body.nickname,
+            avatar: req.body.avatar,
+            content: req.body.content,
+        });
 
     } catch (error) {
         console.error(error);
         next(error);
     }
 });
+
+
+//     res.status(200).json({ PostId: parseInt(req.params.postId, 10), content: req.body.content });
+//   } catch (error) {
+//     console.error(error);
+//     next(error);
 
 // [D] 권한 요청
 router.post('/:guestbookId/permission', async (req, res, next) => { // POST /guestbook/1/permission

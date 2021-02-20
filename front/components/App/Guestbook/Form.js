@@ -5,7 +5,9 @@ import { ADD_GUESTBOOK_REQUEST } from '../../../reducers/guestbook';
 
 import { UploadOutlined, EyeOutlined } from '@ant-design/icons';
 
-const GuestbookForm = () => {
+const GuestbookForm = ({
+    MAX_TEXTAREA_LENGTH,
+}) => {
     const dispatch = useDispatch();
     const { me } = useSelector((state) => state.user);
     const { addGuestbookDone } = useSelector((state) => state.guestbook);
@@ -14,7 +16,6 @@ const GuestbookForm = () => {
     const [visiblePassword, setVisiblePassword] = useState(false);
     const textareaRef = useRef(null);
 
-    const MAX_TEXTAREA_LENGTH = 100;
 
     useEffect(() => textareaRef.current.focus(), []);
     useEffect(() => {

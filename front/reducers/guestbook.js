@@ -147,13 +147,20 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             draft.updateGuestbookError = false;
             break;
 
-        case UPDATE_GUESTBOOK_SUCCESS:
-            // const guestbook = draft.guestbook.filter((v, i) => v.id !== action.data);
-            
+        case UPDATE_GUESTBOOK_SUCCESS: {
+            draft.guestbook.find((v) => {
+                if (v.id === action.data.id) {
+                    Object.assign(v, action.data);
+                    delete v.edit;
+                }
+            });
+
             draft.updateGuestbookLoading = false;
             draft.updateGuestbookDone = true;
             draft.updateGuestbookError = false;
+
             break;
+        }
 
         case UPDATE_GUESTBOOK_FAILURE:
             draft.updateGuestbookLoading = false;
@@ -189,7 +196,7 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             draft.addCommentError = false;
             break;
 
-        case ADD_COMMENT_SUCCESS:
+        case ADD_COMMENT_SUCCESS: {
             const guestbook = draft.guestbook.find((v) => v.id === action.data.GuestbookId);
             guestbook.Comments.unshift(action.data);
 
@@ -197,6 +204,7 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             draft.addCommentDone = true;
             draft.addCommentError = false;
             break;
+        }
 
         case ADD_COMMENT_FAILURE:
             draft.addCommentLoading = false;

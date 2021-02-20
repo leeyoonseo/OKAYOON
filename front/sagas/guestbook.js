@@ -51,8 +51,6 @@ function loadGuestbookAPI(){
 function* loadGuestbook(){
     try{
         const result = yield call(loadGuestbookAPI);
-        console.log('LoadGuestbook', result);
-
         yield put({
             type: LOAD_GUESTBOOK_SUCCESS,
             data: result.data
@@ -158,9 +156,6 @@ function addCommentAPI(data){
 function* addComment(action){
     try{
         const result = yield call(addCommentAPI, action.data);
-        console.log('addComment resul, sagas', result)
-
-        // yield delay(1000);
         yield put({
             type: ADD_COMMENT_SUCCESS,
             data: result.data
