@@ -90,14 +90,8 @@ router.patch('/:guestbookId', async (req, res, next) => {
     }
 });
 
-
-//     res.status(200).json({ PostId: parseInt(req.params.postId, 10), content: req.body.content });
-//   } catch (error) {
-//     console.error(error);
-//     next(error);
-
 // [D] 권한 요청
-router.post('/:guestbookId/permission', async (req, res, next) => { // POST /guestbook/1/permission
+router.post('/permission/:guestbookId', async (req, res, next) => { // POST /guestbook/1/permission
     try {   
         const guestbook = await Guestbook.findOne({
             where: { id: parseInt(req.params.guestbookId, 10) }
@@ -146,7 +140,7 @@ router.post('/:guestbookId/delete', async (req, res, next) => {
 });
 
 // [D] 댓글 등록
-router.post('/:guestbookId/comment', async (req, res, next) => { // POST /guestbook/1/comment
+router.post('/comment/:guestbookId', async (req, res, next) => { // POST /guestbook/1/comment
     try {   
         const guestbook = await Guestbook.findOne({
             where: { id: req.params.guestbookId }
@@ -155,12 +149,14 @@ router.post('/:guestbookId/comment', async (req, res, next) => { // POST /guestb
         if (!guestbook) {
             return res.status(403).send('존재하지 않는 게시글입니다.');
         }
+        
+        const hashedPassWord = await bcrypt.hash(req.body.password, 12);
 
         const comment = await Comment.create({
             nickname: req.body.nickname,
             avatar: req.body.avatar,
             content: req.body.content,
-            password: req.body.password,
+            password: hashedPassWord,
             GuestbookId: parseInt(req.params.guestbookId, 10),
         });
 
@@ -178,7 +174,35 @@ router.post('/:guestbookId/comment', async (req, res, next) => { // POST /guestb
     }
 });
 
-// 방명록 가져오기, 방명록 등록하기, 방명록 삭제하기, 방명록 수정하기
-// get post delete patch(수정) 
+
+// [D] 댓글 삭제
+router.post('/comment/:commentId/delete', async (req, res, next) => {
+    try {
+        const comment = await Comment.findOne({
+            where: { id: parseInt(req.params.commentId, 10) },
+        });
+
+        if (!comment) {
+            return res.status(403).send('존재하지 않는 댓글입니다.');
+        }
+
+        if (!bcrypt.compareSync(req.body.password, comment.password)) {
+            return res.status(403).send('비밀번호가 틀렸습니다.');
+        }
+
+        await Comment.destroy({
+            where: { id: parseInt(req.params.commentId, 10) },
+        });
+
+        res.status(200).send({
+            guestbookId: comment.GuestbookId,
+            commentId: comment.id,
+        });
+
+    } catch (error) {
+        console.error(error);
+        next(error);
+    }
+});
 
 module.exports = router;

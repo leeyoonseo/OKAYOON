@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useInput from '../../../hooks/useInput';
 import { UPDATE_GUESTBOOK_REQUEST } from '../../../reducers/guestbook';
@@ -11,21 +11,20 @@ const EditForm = ({
     const dispatch = useDispatch();
     const { me } = useSelector((state) => state.user);
     const [text, onChangetext, setText] = useInput(content ? content : '');
+    const [avatar, setAvatar] = useState(me.avatar? me.avatar : 'nickname');
+    const [nickname, setNickname] = useState(me.nickname ? me.nickname : 'Guest');
 
     const onSubmit = useCallback(() => {
         if (!text || !text.trim()) {
             return alert('내용을 입력해주세요.');
         }
 
-        // TODO: 테스트를 위한 값 제거하기
         dispatch({
             type: UPDATE_GUESTBOOK_REQUEST,
             data: {
                 id: id,
-                nickname: '테스트쟁이',
-                avatar: 'null',
-                // nickname: me.nickname,
-                // avatar: me.avatar,
+                nickname: nickname,
+                avatar: avatar,
                 content: text,
             }
         });   

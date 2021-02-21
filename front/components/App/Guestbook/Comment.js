@@ -12,15 +12,11 @@ const Wrap = styled.div`
 
 const Comment = ({
     id,
-    content,
     Comments,
 }) => {
     return (
         <Wrap>
-            <CommentForm 
-                id={id}
-                // content={content}
-            />
+            <CommentForm id={id}/>
 
             {Comments && Comments.map((v, i) => {
                 return (

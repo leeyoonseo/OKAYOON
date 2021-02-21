@@ -12,12 +12,13 @@ import {
 
     // 댓글
     ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS, ADD_COMMENT_FAILURE, 
+    DELETE_COMMENT_REQUEST, DELETE_COMMENT_SUCCESS, DELETE_COMMENT_FAILURE, 
 } from '../reducers/guestbook';
 
 
 // [D] 권한요청하기
 function getPermissionAPI(data){
-    return axios.post(`/guestbook/${data.id}/permission`, data);
+    return axios.post(`/guestbook/permission/${data.id}`, data);
 };
 
 function* getPermission(action){
@@ -150,7 +151,7 @@ function* watchDeleteGuestbook(){
 
 // [D] 댓글 등록
 function addCommentAPI(data){
-    return axios.post(`/guestbook/${data.GuestbookId}/comment`, data);
+    return axios.post(`/guestbook/comment/${data.GuestbookId}`, data);
 };
 
 function* addComment(action){
@@ -174,6 +175,33 @@ function* watchAddComment(){
     yield takeLatest(ADD_COMMENT_REQUEST, addComment);
 }
 
+
+// [D] 댓글 삭제
+function deleteCommentAPI(data){
+    return axios.post(`/guestbook/comment/${data.id}/delete`, data);
+};
+
+function* deleteComment(action){
+    try{
+        const result = yield call(deleteCommentAPI, action.data);
+        yield put({
+            type: DELETE_COMMENT_SUCCESS,
+            data: result.data
+        });
+
+    }catch(err){
+        console.error(err);
+        yield put({
+            type: DELETE_COMMENT_FAILURE,
+            error: err.response.data
+        })
+    }
+}
+
+function* watchDeleteComment(){ 
+    yield takeLatest(DELETE_COMMENT_REQUEST, deleteComment);
+}
+
 export default function* guestbookSaga(){
     yield all([
         // 권한
@@ -187,6 +215,7 @@ export default function* guestbookSaga(){
 
         // 댓글
         fork(watchAddComment),
+        fork(watchDeleteComment),
     ]);
 }
 

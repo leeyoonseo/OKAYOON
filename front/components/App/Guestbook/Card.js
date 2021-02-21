@@ -2,14 +2,11 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
-
 import { DELETE_GUESTBOOK_REQUEST, GET_PERMISSION_REQUEST } from '../../../reducers/guestbook';
 import { getSrc } from './index';
 
 import WindowDialog from '../../WindowDialog/index';
 import Comment from './Comment';
-// import CommentForm from './CommentForm';
-// import CommentCard from './CommentCard';
 
 import { Avatar } from 'antd';
 import { CommentOutlined, DeleteOutlined, FormOutlined } from '@ant-design/icons';
@@ -85,7 +82,6 @@ const Menu = styled.div`
 const ContentWrap = styled.div`
     margin-top: 5px;
     width: calc(100% - 30px);
-    // height: 60px;
     overflow-y: auto;
 `;
 
@@ -164,11 +160,13 @@ const GuestbookCard = ({
                             onClick={onClickEdit}
                         >
                             <FormOutlined />
+                            <span className="hidden">수정</span>
                         </button>
                         <button
                             onClick={onClickDelete}
                         >
                             <DeleteOutlined />
+                            <span className="hidden">삭제</span>
                         </button>
                     </Menu>
 

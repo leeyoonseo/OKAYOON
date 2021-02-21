@@ -38,6 +38,11 @@ export const initialState = {
     addCommentLoading: false,
     addCommentDone: false,
     addCommentError: false,
+
+    // [D] 댓글 삭제
+    deleteCommentLoading: false,
+    deleteCommentDone: false,
+    deleteCommentError: false,
 };
 
 // [D] 권한요청
@@ -69,6 +74,11 @@ export const DELETE_GUESTBOOK_FAILURE = 'DELETE_GUESTBOOK_FAILURE';
 export const ADD_COMMENT_REQUEST = 'ADD_COMMENT_REQUEST';
 export const ADD_COMMENT_SUCCESS = 'ADD_COMMENT_SUCCESS';
 export const ADD_COMMENT_FAILURE = 'ADD_COMMENT_FAILURE';
+
+// [D] 댓글 삭제
+export const DELETE_COMMENT_REQUEST = 'DELETE_COMMENT_REQUEST';
+export const DELETE_COMMENT_SUCCESS = 'DELETE_COMMENT_SUCCESS';
+export const DELETE_COMMENT_FAILURE = 'DELETE_COMMENT_FAILURE';
 
 const reducer = (state = initialState, action) => produce(state,(draft) => {
     switch(action.type){
@@ -210,6 +220,29 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             draft.addCommentLoading = false;
             draft.addCommentDone = false;
             draft.addCommentError = true;
+            break;
+
+        // [D] 댓글 삭제
+        case DELETE_COMMENT_REQUEST:
+            draft.deleteCommentLoading = true;
+            draft.deleteCommentDone = false;
+            draft.deleteCommentError = false;
+            break;
+
+        case DELETE_COMMENT_SUCCESS: {
+            const guestbook = draft.guestbook.find((v) => v.id === action.data.guestbookId);
+            guestbook.Comments = guestbook.Comments.filter((v) => v.id !== action.data.commentId);
+            
+            draft.deleteCommentLoading = false;
+            draft.deleteCommentDone = true;
+            draft.deleteCommentError = false;
+            break;
+        }
+
+        case DELETE_COMMENT_FAILURE:
+            draft.deleteCommentLoading = false;
+            draft.deleteCommentDone = false;
+            draft.deleteCommentError = true;
             break;
 
         default:

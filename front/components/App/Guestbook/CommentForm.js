@@ -6,10 +6,14 @@ import styled from 'styled-components';
 import { UploadOutlined, EyeOutlined } from '@ant-design/icons';
 import { ADD_COMMENT_REQUEST } from '../../../reducers/guestbook';
 
+const Wrap = styled.div`
+    margin-bottom: 15px;
+`;
+
 const Textarea = styled.textarea`
-    padding: 1%;
+    padding: 2%;
     width: 100%;
-    height: 60px;
+    height: 80px;
     border: none;
     outline: none;
     box-sizing: border-box;
@@ -116,7 +120,7 @@ const CommentForm = ({ id }) => {
     const onClickVisiblePassword = useCallback(() => setVisiblePassword(!visiblePassword), [visiblePassword]);
 
     return (
-        <div>
+        <Wrap>
             <Textarea 
                 maxLength={MAX_TEXTAREA_LENGTH}
                 value={text}
@@ -147,7 +151,7 @@ const CommentForm = ({ id }) => {
                     등록
                 </Button>
             </BottomInner>
-        </div>
+        </Wrap>
     );
 };
 
