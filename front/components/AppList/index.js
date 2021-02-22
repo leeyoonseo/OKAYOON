@@ -8,7 +8,6 @@ import Items from './Items';
 import { 
     GUESTBOOK_MODAL_ID, GUESTBOOK_MODAL_DATA,
     BLOG_MODAL_ID, BLOG_MODAL_DATA,
-    CHATTING_MODAL_ID, CHATTING_MODAL_DATA,
     SIMSIMI_MODAL_ID, SIMSIMI_MODAL_DATA,
     DELETE_MODAL_ID, DELETE_MODAL_DATA,
     GALLERY_MODAL_ID, GALLERY_MODAL_DATA,
@@ -30,7 +29,6 @@ const index = () => {
             return false;
         }
     
-        // const data = id.split('_')[0] + '_MODAL_DATA';
         let data = '';
 
         switch(id) {
@@ -41,10 +39,6 @@ const index = () => {
             case BLOG_MODAL_ID:
                 data = BLOG_MODAL_DATA;
                 break;
-
-            // case CHATTING_MODAL_ID:
-            //     data = CHATTING_MODAL_DATA;
-            //     break;
 
             case SIMSIMI_MODAL_ID:
                 data = SIMSIMI_MODAL_DATA;
@@ -70,7 +64,6 @@ const index = () => {
                 break;
         }
 
-        console.log('==================createModal');
         dispatch({
             type: CREATE_MODAL_REQUEST,
             data: data
@@ -118,12 +111,6 @@ const index = () => {
                 icon={<ChattingIcon />}
                 onClick={onClickItem(SIMSIMI_MODAL_ID)}
             />
-
-            {/* <Items
-                title={<IconTitle>채팅</IconTitle>}
-                icon={<ChattingIcon />}
-                onClick={onClickItem(CHATTING_MODAL_ID)}
-            /> */}
 
             <Items
                 disabled={true}

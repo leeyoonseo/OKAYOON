@@ -103,21 +103,6 @@ export const SIMSIMI_MODAL_DATA = {
     content: Simsimi,
 };
 
-// [D] App, 채팅
-import Chatting from '../App/Chatting';
-
-export const CHATTING_MODAL_ID = 'MC_M_0'; 
-export const CHATTING_MODAL_DATA = {
-    id: CHATTING_MODAL_ID,
-    visible: false,
-    size: {
-        w: '200px',
-        h: '300px'
-    },
-    title: "채팅",
-    content: Chatting,
-};
-
 // [D] App, 휴지통
 import Delete from '../App/Delete';
 
