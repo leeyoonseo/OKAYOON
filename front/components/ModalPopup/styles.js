@@ -10,6 +10,7 @@ export const Wrap = styled.div`
     left: 50%;
     width: ${props => props.w};
     height: ${props => props.h};
+    color: ${props => props.theme === 'normal' ? '#333' : '#fff'};
     border-radius: 5px;
     transform: translate(-50%, -50%);
     z-index: ${props => props.z};
@@ -50,7 +51,6 @@ export const Content = styled(Layout.Content)`
     padding: 3%;
     height: 100%;
     font-size: 13px;
-    color: #333;
     box-sizing: border-box;
     overflow-y: auto;
 `;

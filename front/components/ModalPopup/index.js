@@ -69,6 +69,7 @@ const ModalPopup = ({
         <Wrap
             ref={modalRef}
             className={visible ? 'visible' : ''}
+            theme={theme}
             z={zIndex}
             w={maxStatus ? maximizeSize : size.w}
             h={maxStatus ? maximizeSize : size.h}

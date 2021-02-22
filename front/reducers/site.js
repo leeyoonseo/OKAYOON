@@ -24,6 +24,7 @@ export const initialState = {
     time: null,
 };
 
+// [D] 모달 팝업
 export const CREATE_MODAL_REQUEST = 'CREATE_MODAL_REQUEST';
 export const CREATE_MODAL_SUCCESS = 'CREATE_MODAL_SUCCESS';
 export const CREATE_MODAL_FAILURE = 'CREATE_MODAL_FAILURE';
@@ -42,6 +43,11 @@ export const ALL_CLOSED_MODAL = 'ALL_CLOSED_MODAL';
 export const CHANGE_MEMO_REQUEST = 'CHANGE_MEMO_REQUEST';
 export const CHANGE_MEMO_SUCCESS = 'CHANGE_MEMO_SUCCESS';
 export const CHANGE_MEMO_FAILURE = 'TOGGLE_MODAL_FAILURE';
+
+// [D] 게임
+export const STORE = 'store';
+export const NONSENSE_QUIZ = 'nonsenseQuiz';
+export const CATCH_MIND = 'catchMind';
 
 
 // export const CHANGE_MUTED = 'CHANGE_MUTED'; // 음소거
