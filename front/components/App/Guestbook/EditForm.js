@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
@@ -55,9 +55,15 @@ const EditForm = ({
 }) => {
     const dispatch = useDispatch();
     const { me } = useSelector((state) => state.user);
-    const [text, onChangetext, setText] = useInput(content ? content : '');
+    const [text, onChangetext, setText] = useInput('');
     const [avatar, setAvatar] = useState(me.avatar? me.avatar : 'nickname');
     const [nickname, setNickname] = useState(me.nickname ? me.nickname : 'Guest');
+    const textareaRef = useRef(null);
+
+    useEffect(() => {
+        textareaRef.current.focus();
+        setText(content);
+    }, []);
 
     const onSubmit = useCallback(() => {
         if (!text || !text.trim()) {
@@ -81,6 +87,7 @@ const EditForm = ({
                 maxLength={MAX_TEXTAREA_LENGTH}
                 onChange={onChangetext}
                 value={text}
+                ref={textareaRef}
                 placeholder="수정할 글을 작성해주세요."
             />
 

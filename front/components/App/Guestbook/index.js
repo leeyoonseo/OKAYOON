@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { LOAD_GUESTBOOK_REQUEST } from '../../../reducers/guestbook';
 
+import { Button } from 'antd';
 import { DownCircleOutlined } from '@ant-design/icons';
 
 import Loading from '../../Loading';
@@ -15,7 +16,7 @@ const MoreWrap = styled.div`
     text-align: center;
 `;
 
-const MoreButton = styled.button`
+const MoreButton = styled(Button)`
     padding: 5px 15px;
     line-height: 1;
     border: 1px solid #666;
@@ -46,6 +47,7 @@ export const getSrc = (list, title) => {
 const Guestbook = () => {
     const dispatch = useDispatch();
     const { guestbook, guestbookCount, loadGuestbookLoading, } = useSelector((state) => state.guestbook);
+    const [isFirstReq, setIsFirstReq] = useState(false);
     const MAX_TEXTAREA_LENGTH = 100;
 
     useEffect(() => {
@@ -54,10 +56,18 @@ const Guestbook = () => {
         });
     }, []);
 
+    const renderLoading = useCallback(() => {
+        if (!loadGuestbookLoading) return;
+
+        return (
+            <Loading bgcolor="#777" />
+        );
+    }, [loadGuestbookLoading]);
+
     const onClickMore = useCallback(() => {
         const lastId = guestbook[guestbook.length - 1].id;
 
-        console.log('lastId', lastId);
+        if(!isFirstReq) setIsFirstReq(true);
 
         dispatch({
             type: LOAD_GUESTBOOK_REQUEST,
@@ -92,14 +102,14 @@ const Guestbook = () => {
 
                 {guestbookCount > guestbook.length && (
                     <MoreWrap>
-                        <MoreButton onClick={onClickMore}>
+                        <MoreButton loading={loadGuestbookLoading} onClick={onClickMore}>
                             More <MoreIcon />
                         </MoreButton>
                     </MoreWrap>
                 )}
             </div>
-
-            { loadGuestbookLoading && <Loading bgcolor="#777" />}
+                    
+            {!isFirstReq && renderLoading()}
         </>
     );
 };

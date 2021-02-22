@@ -20,6 +20,7 @@ const Wrap = styled.div`
 const Inner = styled.div`
     position: relative;
     background: #fff;   
+    box-shadow: 1px 1px 10px; rgba(0, 0, 0, 0.7);
 `;
 
 const CloseButton = styled.button`
