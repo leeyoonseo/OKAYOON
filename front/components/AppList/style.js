@@ -8,8 +8,10 @@ import {
 
 export const Wrap = styled.div`
     display: flex;
-    width: 80%;
-    height: 60%;
+    // width: 80%;
+    // height: 60%;
+    width: 650px;
+    height: 90px;
     background: #eee;
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
     border-radius: 5px 5px 0 0;

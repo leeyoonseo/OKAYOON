@@ -16,6 +16,7 @@ const Wrap = styled.div`
 
 const Inner = styled.div`
     display: inline-block;
+    text-align: center;
 `;
 
 const Nickname = styled.div`
@@ -73,7 +74,7 @@ const Simsimi = () => {
                         </Nickname> 
 
                         <AccessButton onClick={toggleStep}>
-                            접속하기
+                            심심이랑 놀아요
                         </AccessButton>
                     </Inner>
                 </Wrap> 
