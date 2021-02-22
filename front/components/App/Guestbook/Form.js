@@ -18,6 +18,7 @@ const Textarea = styled.textarea`
     box-sizing: border-box;
     outline: none;
     resize: none;
+    IME-MODE: auto;
 `;
 
 const BottomWrap = styled.div`
@@ -63,6 +64,10 @@ const ToggleButton = styled.button`
     outline: none;
     background: none;
     cursor: pointer;
+
+    &:focus {
+        opacity: 0.5;
+    }
 `;
 
 const Button = styled.button`
@@ -72,6 +77,10 @@ const Button = styled.button`
     outline: none;
     background: none;
     cursor: pointer;
+
+    &:focus {
+        opacity: 0.5;
+    }
 `;
 
 
@@ -91,6 +100,8 @@ const GuestbookForm = ({ MAX_TEXTAREA_LENGTH }) => {
         if (addGuestbookDone) {
             setText('');
             setPassword('');
+
+            textareaRef.current.focus();
         }
     }, [addGuestbookDone]);
 

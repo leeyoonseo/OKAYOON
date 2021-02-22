@@ -45,13 +45,13 @@ function* watchGetPermission(){
 
 
 // [D] 방명록 가져오기
-function loadGuestbookAPI(){
-    return axios.get('/guestbook');
+function loadGuestbookAPI(lastId){
+    return axios.get(`/guestbook?lastId=${lastId || 0}`);
 };
 
-function* loadGuestbook(){
+function* loadGuestbook(action){
     try{
-        const result = yield call(loadGuestbookAPI);
+        const result = yield call(loadGuestbookAPI, action.lastId);
         yield put({
             type: LOAD_GUESTBOOK_SUCCESS,
             data: result.data

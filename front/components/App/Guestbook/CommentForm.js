@@ -128,6 +128,7 @@ const CommentForm = ({ id }) => {
                 onBlur={onBlurTextarea}
                 placeholder="댓글을 입력해주세요."
             />
+            
             <BottomInner>
                 <LetterCheck className={text.length >= MAX_TEXTAREA_LENGTH ? 'max' : ''}>
                     {text.length}/{MAX_TEXTAREA_LENGTH}

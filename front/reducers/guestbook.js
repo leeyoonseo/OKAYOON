@@ -3,6 +3,8 @@ import produce from '../util/produce';
 export const initialState = {
 
     guestbook: [],
+    guestbookCount: 0,
+    hasMoreGuestbook: true,
 
     // [D] 권한요청하기
     getPermissionLoading: false,
@@ -120,7 +122,9 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             draft.loadGuestbookLoading = false;
             draft.loadGuestbookDone = true;
             draft.loadGuestbookError = false;
-            draft.guestbook = action.data;
+            draft.guestbook = draft.guestbook.concat(action.data.list);
+            draft.guestbookCount = action.data.count;
+            draft.hasMoreGuestbook = action.data.length === 10;
             break;
 
         case LOAD_GUESTBOOK_FAILURE:
@@ -138,7 +142,7 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
 
         case ADD_GUESTBOOK_SUCCESS:
             draft.guestbook.unshift(action.data);
-            
+            draft.guestbookCount++;    
             draft.addGuestbookLoading = false;
             draft.addGuestbookDone = true;
             draft.addGuestbookError = false;
@@ -187,6 +191,7 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
 
         case DELETE_GUESTBOOK_SUCCESS:
             draft.guestbook = draft.guestbook.filter((v, i) => v.id !== action.data);
+            draft.guestbookCount--;    
             
             draft.deleteGuestbookLoading = false;
             draft.deleteGuestbookDone = true;

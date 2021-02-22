@@ -9,7 +9,7 @@ import WindowDialog from '../../WindowDialog/index';
 import Comment from './Comment';
 
 import { Avatar } from 'antd';
-import { CommentOutlined, DeleteOutlined, FormOutlined } from '@ant-design/icons';
+import { MessageOutlined, DeleteOutlined, FormOutlined } from '@ant-design/icons';
 
 const Wrap = styled.div`
     padding: 3%;
@@ -98,6 +98,14 @@ const CommentButton = styled.button`
     cursor: pointer;
 `;
 
+const CommentIcon = styled(MessageOutlined)`
+    color: #666;
+
+    &.active {
+        color: #333;
+    }
+`;
+
 const GuestbookCard = ({
     id,
     nickname,
@@ -176,7 +184,9 @@ const GuestbookCard = ({
                 </Container>
 
                 <CommentButton onClick={onClickComment}>
-                    <CommentOutlined />
+                    <CommentIcon 
+                        className={openedComment ? 'active' : ''}
+                    />
                 </CommentButton>
             </Inner>
             

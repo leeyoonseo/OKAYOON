@@ -10,7 +10,7 @@ router.get('/', async (req, res, next) => { // GET /guestbook
         const where = {};
 
         if (parseInt(req.query.lastId, 10)) {
-            where.id = { [Op.lt]: parseInt(req.query.lastId, 10)};
+            where.id = { [Op.lt]: parseInt(req.query.lastId, 10)}
         }
 
         const guestbook = await Guestbook.findAll({
@@ -29,7 +29,11 @@ router.get('/', async (req, res, next) => { // GET /guestbook
             }]
         });
 
-        res.status(200).json(guestbook);
+        const allGuestbook = await Guestbook.findAndCountAll();
+        res.status(200).json({
+            count: allGuestbook.count, 
+            list: guestbook
+        });
         
     } catch (error) {
         console.error(error);
@@ -49,7 +53,14 @@ router.post('/', async (req, res, next) => { // POST /guestbook
             content: req.body.content,
         });
 
-        res.status(200).json(guestbook);
+        const withoutPwGuestbook = await Guestbook.findOne({
+            where: { id: guestbook.id },
+            attributes: {
+                exclude: ['password'],
+            }
+        });
+
+        res.status(200).json(withoutPwGuestbook);
 
     } catch (error) {
         console.error(error);
