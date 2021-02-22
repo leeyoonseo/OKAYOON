@@ -15,6 +15,7 @@ const ModalPopup = ({
     zIndex, 
     size, 
     title, 
+    theme,
     children,
     buttonDisabled, 
     onCloseModal,
@@ -72,12 +73,12 @@ const ModalPopup = ({
             w={maxStatus ? maximizeSize : size.w}
             h={maxStatus ? maximizeSize : size.h}
         >
-            <WrapInner>   
+            <WrapInner theme={theme}>   
                 <Header
                     ref={headerRef}
                     onMouseDown={onMouseDown}
                 >
-                    <HeaderInner>
+                    <HeaderInner theme={theme}>
                         <Controls>
                             <ControlButton 
                                 bgcolor="#ff6059" 
@@ -111,6 +112,7 @@ const ModalPopup = ({
 ModalPopup.propTypes = {
     id: PropTypes.string.isRequired,
     onCloseModal: PropTypes.func.isRequired,
+    theme: PropTypes.string,
     visible: PropTypes.bool,
     zIndex: PropTypes.number, // 1000
     size: PropTypes.objectOf(PropTypes.string),
@@ -122,6 +124,7 @@ ModalPopup.propTypes = {
 ModalPopup.defaultProps = {
     visible: false,
     zIndex: 1000,
+    theme: 'normal',
     size: {
         w: '500px',
         h: '500px'

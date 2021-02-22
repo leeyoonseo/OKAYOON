@@ -19,36 +19,12 @@ export const Wrap = styled.div`
     &.visible {
         display: block;
     }
-
-    // &.min {
-    //     bottom: 85px;
-    //     width: 150px;
-    //     height: 25px;
-    //     background: #dedede;
-    //     border-radius: 5px 5px 0 0;
-    //     transition: all 0.3s;
-
-    //     div {
-    //         display: none;
-    //     }
-
-    //     button {
-    //         position: absolute;
-    //         top: 0;
-    //         left: 0;
-    //         padding: 0;
-    //         width: 100%;
-    //         height: 100%;
-    //         outline: none;
-    //         border: none;
-    //         cursor: pointer;
-    //     }
-    // }
 `;
 
 export const WrapInner = styled(Layout)`
     width: 100%;
     height: 100%;
+    background:${props => props.theme === 'normal' ? '#f0f2f5' : '#333'};
 `;
 
 export const Header = styled.div`
@@ -56,7 +32,7 @@ export const Header = styled.div`
     height: auto;
     text-align: center;
     line-height: 1;
-    background: #dedede;
+    background: none;
     color: #333;
     cursor: default;
 `;
@@ -66,7 +42,8 @@ export const HeaderInner = styled(Layout.Header)`
     width: 100%;
     height: 100%;
     line-height: 1;
-    background: none;
+    background:${props => props.theme === 'normal' ? '#dedede' : '#000'};
+    color:${props => props.theme === 'normal' ? '#333' : '#fff'};
 `;
 
 export const Content = styled(Layout.Content)`
@@ -77,13 +54,6 @@ export const Content = styled(Layout.Content)`
     box-sizing: border-box;
     overflow-y: auto;
 `;
-
-// export const Footer = styled(Layout.Footer)`
-//     padding: 5px 3%;
-//     font-size: 13px;
-//     color: #333;
-//     background: none;
-// `;
 
 export const Controls = styled.div` 
     display: inline-block;

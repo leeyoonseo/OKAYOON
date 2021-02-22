@@ -103,6 +103,7 @@ export const SIMSIMI_MODAL_DATA = {
     content: Simsimi,
 };
 
+// TODO: 심리테스트로 변경!
 // [D] App, 휴지통
 import Delete from '../App/Delete';
 
@@ -134,18 +135,19 @@ export const GALLERY_MODAL_DATA = {
 };
 
 // [D] App, 게임
-import Game from '../App/Game';
+import Store from '../App/Game/index';
 
 export const GAME_MODAL_ID = 'MG_M_1';
 export const GAME_MODAL_DATA = {
     id: GAME_MODAL_ID,
     visible: false,
+    theme: 'dark',
     size: {
-        w: '200px',
-        h: '300px'
+        w: '600px',
+        h: '600px'
     },
-    title: "게임",
-    content: Game,
+    title: "Game Store",
+    content: Store,
 };
 
 // [D] App, 메모

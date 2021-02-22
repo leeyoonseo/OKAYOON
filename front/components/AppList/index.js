@@ -113,7 +113,6 @@ const index = () => {
             />
 
             <Items
-                disabled={true}
                 title={<IconTitle>게임</IconTitle>}
                 icon={<GameIcon />}
                 onClick={onClickItem(GAME_MODAL_ID)}
