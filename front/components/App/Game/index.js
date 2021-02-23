@@ -16,11 +16,11 @@ const Game = () => {
     const renderGame = useCallback(() => {
         if (component === STORE) {
             return (
-                <Store setComponent={setComponent}/>
+                <Store setComponent={setComponent} />     
             );
         } else if (component === NONSENSE_QUIZ) {
             return (
-                <NonsenseQuiz />
+                <NonsenseQuiz setComponent={setComponent} />
             );
 
         } else if (component === CATCH_MIND) {
