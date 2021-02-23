@@ -5,6 +5,7 @@ import user from './user';
 import site from './site';
 import guestbook from './guestbook';
 import simsimi from './simsimi';
+import game from './game';
 
 const rootReducer = (state, action) => {
     switch (action.type){
@@ -18,6 +19,7 @@ const rootReducer = (state, action) => {
                 site,
                 guestbook,
                 simsimi,
+                game,
             });
 
             return combineReducer(state, action);
