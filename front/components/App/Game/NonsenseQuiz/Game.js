@@ -1,19 +1,17 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-function shuffle (arr) {
-    let ranNum = 0;
-    let newArr = [];
+function shuffleArray (array){
+    let temp = [];
+    let length = array.length;
 
-    for (let i = arr.length; i; i -= 1) {
-        ranNum = Math.floor(Math.rendom() * i);
-        newArr = arr[i - 1];
-        arr[i - 1] = arr[ranNum];
-        arr[ranNum] = newArr;
+    while (length) {
+        let i = Math.floor((length--) * Math.random());
+        temp.push(array.splice(i, 1));
     }
 
-    return arr;
-}
+    return temp;
+};
 
 const Game = () => {
     const { nonsenseQuiz } = useSelector((state) => state.game);
@@ -24,9 +22,12 @@ const Game = () => {
     const MAX_ROUND = 20;
 
     useEffect(() => {
-        setQuiz(shuffle(nonsenseQuiz));
-        console.log('quiz', shuffle(nonsenseQuiz));
+        console.log('nonsenseQuiz', shuffleArray(nonsenseQuiz))
+        // setQuiz(shuffle(nonsenseQuiz));
+        // console.log('quiz', shuffle(nonsenseQuiz));
     }, []);
+
+
 
     return (
         <div>
