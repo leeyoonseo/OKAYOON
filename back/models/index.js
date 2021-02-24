@@ -3,6 +3,8 @@ const admin = require('./admin');
 const comment = require('./comment');
 const guestbook = require('./guestbook');
 const image = require('./image');
+const Game = require('./Game');
+const NonsenseQuiz = require('./NonsenseQuiz');
 
 const env = process.env.NODE_ENV || 'development';
 const config = require('../config/config')[env];
@@ -14,6 +16,8 @@ db.Admin = admin;
 db.Comment = comment;
 db.Guestbook = guestbook;
 db.Image = image;
+db.Game = Game;
+db.NonsenseQuiz = NonsenseQuiz;
 
 Object.keys(db).forEach(modelName => {
   db[modelName].init(sequelize);

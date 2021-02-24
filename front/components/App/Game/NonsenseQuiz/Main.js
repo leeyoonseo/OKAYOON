@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 
 import { STEP_GAME, STEP_GUIDE } from './index';
 
 const main = ({
     onChangeStep
 }) => {
+    
 
     return (
         <div>
@@ -20,5 +21,7 @@ const main = ({
         </div>
     );
 };
+
+
 
 export default main;
