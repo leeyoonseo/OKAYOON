@@ -8,13 +8,9 @@ module.exports = class NonsenseQuiz extends Model {
                 type: DataTypes.STRING(50),
                 allowNull: false, 
             },
-            answer: {
-                type: DataTypes.STRING(20),
-                allowNull: false,
-            },
-            wrongAnswer: {
+            example: {
                 type: DataTypes.TEXT,
-                allowNull: false, 
+                allowNull: false,
             },
             description: {
                 type: DataTypes.STRING(20),

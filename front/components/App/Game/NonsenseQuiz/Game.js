@@ -9,6 +9,7 @@ const Game = ({
     const { nonsenseQuiz } = useSelector((state) => state.game);
     const [quizList, setQuizList] = useState(null);
     const [quiz, setQuiz] = useState(null);
+    const [example, setExample] = useState(null);
     const [round, setRound] = useState(0);
     const [timer, setTimer] = useState(10);
     const MAX_ROUND = 20;
@@ -17,11 +18,16 @@ const Game = ({
     useEffect(() => {
         const shuffleArr = shuffleArray(nonsenseQuiz);
         setQuizList(shuffleArr);
-        // setQuiz(shuffleArr[round]);
     }, []);
 
     useEffect(() => {
-        quizList && setQuiz(quizList[round]);
+        if(!quizList) return;
+        
+        const q = quizList[round];
+        const exam = shuffleArray(Object.values(q.example));
+
+        setQuiz(q);
+        setExample(exam);
     }, [quizList, round]);
 
 
@@ -49,15 +55,26 @@ const Game = ({
                     </div>
 
                     <ul>
-                        {/* {quiz[round].wrongAnswer.map((v) => {
- let ran = Math.floor(Math.random() * 3);
+                        {example && example.map((v) => {
+                            if (v.isCorrect) {
+                                return (
+                                    <>
+                                        정답 {v.answer}
+                                    </>
+                                )
+                            } 
+                            
                             return (
-                                <li>{v}</li>
+                                <>
+                                    오답 {v.answer}
+                                </>
                             )
-                        })} */}
+                        })}
+
+
                         {/* <li>
                             <button onClick={onClick}>바보</button>
-                        </li>
+                        <ss/li>
                         <li>
                             <button onClick={onClick}>선비</button>
                         </li>
@@ -90,7 +107,6 @@ function shuffleArray (arr){
         [temp[i], temp[j]] = [temp[j], temp[i]];
     }
 
-    console.log('temp', temp);
     return temp;
 };
 
