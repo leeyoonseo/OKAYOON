@@ -1,34 +1,43 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
+import { STEP_FINISH } from './index';
 
-const Game = () => {
+const Game = ({
+    onChangeStep,
+}) => {
     const { nonsenseQuiz } = useSelector((state) => state.game);
+    const [quizList, setQuizList] = useState(null);
     const [quiz, setQuiz] = useState(null);
-    const [question, setQuestion] = useState(quiz ? quiz[round].question : null);
-    const [answer, setAnswer] = useState(quiz ? quiz[round].answer : null);
     const [round, setRound] = useState(0);
     const [timer, setTimer] = useState(10);
-    const [life, setLife] = useState(3);
     const MAX_ROUND = 20;
 
      // TODO: 랜덤하게 20개만 db에서 먼저 가져오기..
-    useEffect(() => setQuiz(shuffleArray(nonsenseQuiz)), []);
+    useEffect(() => {
+        const shuffleArr = shuffleArray(nonsenseQuiz);
+        setQuizList(shuffleArr);
+        // setQuiz(shuffleArr[round]);
+    }, []);
+
+    useEffect(() => {
+        quizList && setQuiz(quizList[round]);
+    }, [quizList, round]);
+
 
     const onClickAnswer = useCallback(() => {
         console.log('e.currentTarget', e.currentTarget);
     }, []);
 
     const onClickNext = useCallback(() => {
-        if (round === 20) {
+        if (round === MAX_ROUND || round === (nonsenseQuiz.length - 1)) {
             // TODO: 종료 처리
-            return alert('라운드 종료');    
+            alert('라운드 종료');  
+            return onChangeStep(STEP_FINISH)();  
         }
 
-        setRound(round++);
+        setRound(round + 1);
     }, [round]);
-
-   
 
     return (
         <>
@@ -36,12 +45,12 @@ const Game = () => {
                 <div>
                     <div>
                         <span>{`Q_${round + 1}`}</span>
-                        <span>{quiz[round].question}</span>
+                        <span>{quiz.question}</span>
                     </div>
 
                     <ul>
                         {/* {quiz[round].wrongAnswer.map((v) => {
-
+ let ran = Math.floor(Math.random() * 3);
                             return (
                                 <li>{v}</li>
                             )

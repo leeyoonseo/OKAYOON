@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { STEP_MAIN } from './index';
+
 const Finish = () => {
     return (
         <div>
