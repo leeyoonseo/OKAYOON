@@ -2,8 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import { createGlobalStyle } from 'styled-components';
+
 import 'antd/dist/antd.css';
+import './app.css';
 import wrapper from '../store/configurestore';
+
 
 const Okayoon = ({ Component }) => {
 

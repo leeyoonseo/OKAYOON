@@ -2,13 +2,13 @@ import React, { useCallback} from 'react';
 import styled, { css } from 'styled-components';
 import { STORE } from '../../../reducers/game';
 
-import { CloseOutlined, SoundOutlined } from '@ant-design/icons';
+import { HomeOutlined, SoundOutlined } from '@ant-design/icons';
 
 const Wrap = styled.div`
     margin-bottom: 10px;
     
     button + button {
-        margin-left: 5px;
+        margin-left: 10px;
     }
 `;
 
@@ -46,8 +46,9 @@ const Controls = ({
     return (
         <Wrap>
             <BackButton onClick={onClickBack(STORE)}>
-                <CloseOutlined />
-                <span className="hidden">게임 나가기</span>
+                {/* <CloseOutlined /> */}
+                <HomeOutlined />
+                <span className="hidden">게임 홈으로</span>
             </BackButton>
 
             <SoundButton 

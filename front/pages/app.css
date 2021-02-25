@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css?family=Stylish:400');
+
+body, 
+textarea, 
+input, 
+button, 
+a {
+    font-family: 'Stylish';
+    font-size: 14px;
+}
