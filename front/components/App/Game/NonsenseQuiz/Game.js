@@ -124,7 +124,7 @@ const Game = ({ onChangeStep }) => {
     const [quizList, setQuizList] = useState(null); // [D] 퀴즈배열 
     const [quiz, setQuiz] = useState(null); // [D] 현재퀴즈
     const [example, setExample] = useState(null); // [D] 보기
-    const [round, setRound] = useState(0);
+    const [round, setRound] = useState(null);
     const [time, setTime] = useState(null);
 
     const CORRECT = 'correct';
@@ -136,33 +136,30 @@ const Game = ({ onChangeStep }) => {
         // 배열을 섞는다. 그리고 여기서 q를 찾아 또 섰는다.
         const list = shuffleArray(nonsenseQuiz); // 이게 qlist
         setQuizList(list);
-        
-        setData(list);
-        // const q = list[round];
-        // const ex = shuffleArray(Object.values(q.example));
-
-        // console.log('list', list);
-        // console.log('q', q);
-        // console.log('ex', ex);
-
-
-        // setQuizList(shuffleArr);
-        // setTime(QUIZ_TIME);
+        setRound(1);
+        // setQuestion(list);
     }, []);
 
-    const setData = useCallback((data) => {
-        const list = quizList ? quizList : data;
+    useEffect(() => {
+        if(!round || !quizList) return;
 
-        if(!list && !data) {
-            return;
-        }
-
-        const q = list[round];
+        const q = quizList[round];
         const ex = shuffleArray(Object.values(q.example));
 
         setQuiz(q);
         setExample(ex);
-    }, [quizList, round]);
+
+    }, [quizList, round]); 
+
+    // const setQuestion = useCallback(() => {
+    //     console.log('setQuestion round',round);
+
+    //     const q = list[round];
+    //     const ex = shuffleArray(Object.values(q.example));
+
+    //     setQuiz(q);
+    //     setExample(ex);
+    // }, [round]);
 
     // useEffect(() => {
     //     return;
@@ -187,14 +184,15 @@ const Game = ({ onChangeStep }) => {
     //         clearInterval(interval);
     //     }
     // }, [time]);
-
+    
+    // TODO: 결과 보여주기, 시간 초기화, 다음 라운드로가기, 
     const onClickExam = useCallback((resultStr) => () => {
         setResultStr(resultStr);
         setOpenedResult(true);
-        setTimeout(() => onClickNext(), 500);
+        setTimeout(() => onClickNextRound(), 500);
     }, [round]);
 
-    const onClickNext = useCallback(() => {
+    const onClickNextRound = useCallback(() => {
         setOpenedResult(false);
 
         if (round === MAX_ROUND || round === (nonsenseQuiz.length - 1)) {
@@ -203,9 +201,8 @@ const Game = ({ onChangeStep }) => {
             return onChangeStep(STEP_FINISH)();  
         }
 
+        setTime(Quiz_TIME);
         setRound(round + 1);
-        setData();
-        setTime(QUIZ_TIME);
     }, [round]);
 
     return (
@@ -214,7 +211,7 @@ const Game = ({ onChangeStep }) => {
                 {quiz && (
                     <>
                         <QuizArea>
-                            <Round>{`Q. ${round + 1}`}</Round>
+                            <Round>{`Q. ${round}`}</Round>
                             <Question>{quiz.question}</Question>
                         </QuizArea>
 
@@ -253,7 +250,7 @@ const Game = ({ onChangeStep }) => {
                 )}
             </Inner>
 
-            <PassButton onClick={onClickNext}>
+            <PassButton onClick={onClickNextRound}>
                 통과 <RightOutlined />
             </PassButton>
         </Wrap>
