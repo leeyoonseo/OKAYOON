@@ -1,10 +1,11 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 
 import { STORE, NONSENSE_QUIZ, CATCH_MIND, LOAD_GAMELIST_REQUEST } from '../../../reducers/game';
+import { DownSquareOutlined, SearchOutlined, SettingOutlined } from '@ant-design/icons';
 
-import { DownSquareOutlined, SearchOutlined } from '@ant-design/icons';
+import Admin from './Admin/index';
 
 const initButtonStyled = css`
     padding: 0;
@@ -178,75 +179,110 @@ const ItemDesc = styled.span`
     opacity: 0.7;
 `;
 
+const SetButton = styled.button`
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    padding: 0;
+    line-height: 1;
+    border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
+`;
+
+
 const Store = ({ setComponent }) => {
     const dispatch = useDispatch();
     const { gameList } = useSelector((state) => state.game);
+    const { admin } = useSelector((state) => state.user);
+    const [isSetting, setIsSetting] = useState(false);
 
     useEffect(() => {
         dispatch({ type: LOAD_GAMELIST_REQUEST });
     }, []); 
 
-    const onClick = useCallback((compName) => () => {
+    const onClickStep = useCallback((compName) => () => {
         setComponent(compName);
     }, []);
 
+    const onClickSet = useCallback(() => {
+        if (!admin) return;
+        setIsSetting(!isSetting);
+    }, [isSetting]);
+
     return (
-        <Wrap>
-            <SideNav>
-                <NavItem>
-                    <button onClick={onClick(STORE)}>홈</button>
-                </NavItem>
-                <NavItem>
-                    <button>랭킹</button>
-                </NavItem>
-            </SideNav>
+        <>
+            <Wrap>
+                <SideNav>
+                    <NavItem>
+                        <button onClick={onClickStep(STORE)}>홈</button>
+                    </NavItem>
+                    <NavItem>
+                        <button>랭킹</button>
+                    </NavItem>
+                </SideNav>
 
-            <Container>
-                <ToolBox>
-                    <OrderWrap>
-                        <OrderButton>
-                            <OrderIcon />
-                        </OrderButton>
+                <Container>
+                    <ToolBox>
+                        <OrderWrap>
+                            <OrderButton>
+                                <OrderIcon />
+                            </OrderButton>
 
-                        <OrderMenu>
-                            <button>ㄱㄴㄷ</button>
-                            <button>ㅎㅍㅌ</button>
-                        </OrderMenu>
-                    </OrderWrap>
+                            <OrderMenu>
+                                <button>ㄱㄴㄷ</button>
+                                <button>ㅎㅍㅌ</button>
+                            </OrderMenu>
+                        </OrderWrap>
 
-                    {/* TODO: 삭제할까? */}
-                    <SearchWrap>
-                        <SearchInput 
-                            placeholder="검색"
-                            maxLength={20}
-                        />
-                        <SearchButton>
-                            <SearchIcon />
-                            <span className="hidden">검색</span>
-                        </SearchButton>
-                    </SearchWrap>
-                </ToolBox>
+                        {/* TODO: 삭제할까? */}
+                        <SearchWrap>
+                            <SearchInput 
+                                placeholder="검색"
+                                maxLength={20}
+                            />
+                            <SearchButton>
+                                <SearchIcon />
+                                <span className="hidden">검색</span>
+                            </SearchButton>
+                        </SearchWrap>
+                    </ToolBox>
 
-                <List>
-                    {gameList && gameList.map((v, i) => {
-                        return (
-                            <Item 
-                                key={`game_${v.name}`}
-                                id={v.gameId}
-                            >
-                                <ItemButton onClick={onClick(v.name)}>
-                                    <img src={v.image} alt={`게임 ${v.title} 표지`}/>
+                    <List>
+                        {gameList && gameList.map((v) => {
+                            return (
+                                <Item 
+                                    key={`game_${v.name}`}
+                                    id={v.gameId}
+                                >
+                                    <ItemButton onClick={onClickStep(v.name)}>
+                                        <img src={v.image} alt={`게임 ${v.title} 표지`}/>
 
-                                    <ItemTitle>{v.title}</ItemTitle>
-                                    <ItemDesc>{v.description}</ItemDesc>
-                                </ItemButton>
-                            </Item>
-                        )   
-                    })}
-                    
-                </List>
-            </Container>
-        </Wrap>
+                                        <ItemTitle>{v.title}</ItemTitle>
+                                        <ItemDesc>{v.description}</ItemDesc>
+                                    </ItemButton>
+                                </Item>
+                            )   
+                        })}
+                        
+                    </List>
+                </Container>
+            </Wrap>
+
+            {admin && (
+                <SetButton onClick={onClickSet}>
+                    <SettingOutlined />
+                </SetButton>
+            )}
+
+            {admin && isSetting && (
+                <Admin 
+                    list={gameList}
+                    onClickBack={onClickSet} 
+                />
+            )}
+        </>
     );
 };
 

@@ -1,6 +1,7 @@
 import produce from '../util/produce';
 
 // [D] 게임 리스트
+export const GAME_LIST = 'gamelist';
 export const STORE = 'store';
 export const NONSENSE_QUIZ = 'nonsensequiz';
 export const CATCH_MIND = 'catchmind';
