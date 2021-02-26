@@ -1,28 +1,20 @@
 const DataTypes = require('sequelize');
 const { Model } = DataTypes;
 
-module.exports = class Game extends Model {
+module.exports = class NonsenseRanking extends Model {
     static init(sequelize) {
         return super.init({
-            name: {
+            nickname: {
                 type: DataTypes.STRING(20),
                 allowNull: false,
             },
-            title: {
+            score: {
                 type: DataTypes.STRING(20),
                 allowNull: false,
-            },
-            description: {
-                type: DataTypes.STRING(100),
-                allowNull: false,
-            },
-            image: {
-                type: DataTypes.STRING(200),
-                allowNull: false, 
             },
         }, {
-            modelName: "Game", 
-            tableName: "Game", 
+            modelName: "NonsenseRanking", 
+            tableName: "NonsenseRanking", 
             timestamps: false,
             charset: 'utf8mb4', 
             collate: 'utf8mb4_general_ci',
@@ -31,7 +23,7 @@ module.exports = class Game extends Model {
     }
 
     static associate(db) {
-        db.Game.hasMany(db.NonsenseRanking);
+        db.NonsenseRanking.belongsTo(db.Game);
     }
 };
 

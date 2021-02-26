@@ -1,8 +1,8 @@
-import React, { useCallback } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 
-import { STORE, NONSENSE_QUIZ, CATCH_MIND } from '../../../reducers/game';
+import { STORE, NONSENSE_QUIZ, CATCH_MIND, LOAD_GAMELIST_REQUEST } from '../../../reducers/game';
 
 import { DownSquareOutlined, SearchOutlined } from '@ant-design/icons';
 
@@ -178,10 +178,13 @@ const ItemDesc = styled.span`
     opacity: 0.7;
 `;
 
-const Store = ({
-    setComponent,
-}) => {
+const Store = ({ setComponent }) => {
+    const dispatch = useDispatch();
     const { gameList } = useSelector((state) => state.game);
+
+    useEffect(() => {
+        dispatch({ type: LOAD_GAMELIST_REQUEST });
+    }, []); 
 
     const onClick = useCallback((compName) => () => {
         setComponent(compName);
@@ -211,6 +214,7 @@ const Store = ({
                         </OrderMenu>
                     </OrderWrap>
 
+                    {/* TODO: 삭제할까? */}
                     <SearchWrap>
                         <SearchInput 
                             placeholder="검색"
@@ -227,7 +231,7 @@ const Store = ({
                     {gameList && gameList.map((v, i) => {
                         return (
                             <Item 
-                                key={`${v.gameId}`}
+                                key={`game_${v.name}`}
                                 id={v.gameId}
                             >
                                 <ItemButton onClick={onClick(v.name)}>

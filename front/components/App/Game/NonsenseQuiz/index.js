@@ -1,11 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import Main from './Main';
 import Guide from './Guide';
 import Game from './Game';
 import Finish from './Finish';
+import { LOAD_GAMELIST_REQUEST } from '../../../../reducers/game';
 
 export const GAME_ID = 'game_nonsense';
 export const STEP_MAIN = 'main';
@@ -14,7 +15,13 @@ export const STEP_GAME = 'game';
 export const STEP_FINISH = 'finish';
 
 const NonsenseQuiz = () => {
+    const dispatch = useDispatch();
     const [step, setStep] = useState(STEP_MAIN);
+    
+    useEffect(() => {
+        // dispatch({
+        // })
+    }, []);
 
     const onChangeStep = useCallback((changeStep) => () => {
         setStep(changeStep);

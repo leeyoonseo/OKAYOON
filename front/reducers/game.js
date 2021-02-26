@@ -2,29 +2,27 @@ import produce from '../util/produce';
 
 // [D] 게임 리스트
 export const STORE = 'store';
-export const NONSENSE_QUIZ = 'nonsenseQuiz';
-export const CATCH_MIND = 'catchMind';
+export const NONSENSE_QUIZ = 'nonsensequiz';
+export const CATCH_MIND = 'catchmind';
 
 export const initialState = {
     gameList: [
-        {
-            gameId: 'game_nonsense',
-            name: NONSENSE_QUIZ,
-            image: 'https://t1.daumcdn.net/cfile/tistory/992576355E29A72519',
-            title: '넌센스 퀴즈',
-            description: '당신의 센스를 알아봐요!',
-        },
-        {
-            gameId: 'game_catch',
-            name: CATCH_MIND,
-            image: 'https://mblogthumb-phinf.pstatic.net/MjAxOTA4MTlfMTk4/MDAxNTY2MTQ3MTQ4OTE5.WIdEWyPeeJZ1_zRVl-eeotpKwzSjT_mV9iiXIa5h94Ig.fx0CEkPUMA5pNCGjtRfguv2Mjr4tvoXpHEWsnjF81B8g.JPEG.muhan_jilju/190805_%EB%84%A4%EC%9D%B4%EB%B2%84_bnr_main%EB%8C%80%EB%AC%B8.jpg?type=w800',
-            title: '그림 퀴즈',
-            description: '추억의 캐치마인드! 그림을 보고 정답을 맞춰봐요~',
-        },    
+        // {
+        //     name:  'nonsensequiz',
+        //     title: '넌센스 퀴즈',
+        //     image: 'https://t1.daumcdn.net/cfile/tistory/992576355E29A72519',
+        //     description: '퀴즈 식의 문답형 말장난, 당신의 센스를 알아보아요',
+        // },
+        // {
+        //     name: 'catchmind',
+        //     title: '그림 퀴즈',
+        //     image: 'http://www.topdaily.kr/news/photo/201910/59899_24563_3844.jpg',
+        //     description: '그림을 보고 정답을 맞춰봐요',
+        // },    
     ],
     isMuted: false,
 
-    nonsenseQuiz: [
+    gameData: [
         {
             question: '타이타닉의 구명 보트에는 몇 명이 탈수 있을까?',
             example: [{
@@ -41,7 +39,6 @@ export const initialState = {
                 answer: '몇'
             }],
             description: '9명(구명 보트)',
-            image: 'http://www.polinews.co.kr/data/photos/20200207/art_15815643276382_3c7422.jpg',
         },
         {
             question: '고기 먹을 때마다 따라오는 개는?',
@@ -59,7 +56,6 @@ export const initialState = {
                 answer: '나의사랑스러운 뽀미'
             }],
             description: '항상 카운터에서 기다리고 있죠^^',
-            image: 'https://t1.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/yB0/image/ColS0Bp-1_e8LooI0XXE1hyV4HM',
         },
         {
             question: '진짜 새의 이름은 무엇일까요?',
@@ -77,7 +73,6 @@ export const initialState = {
                 answer: '무명'
             }],
             description: '참: 사실이나 이치에 조금도 어긋남이 없는 것.',
-            image: 'https://dictionary.cambridge.org/images/thumb/bird_noun_001_01476.jpg?version=5.0.152',
         },
         {
             question: '젖소와 강아지가 싸우면 누가 이기는가?',
@@ -95,7 +90,6 @@ export const initialState = {
                 answer: '안싸운다'
             }],
             description: '강아지(젖소曰: "내가 졌소", 강아지曰: "나 강하지")',
-            image: 'https://t1.daumcdn.net/cfile/blog/146AEF1A4A5E8D1E7A',
         },
         {
             question: '눈치코치란?',
@@ -113,7 +107,6 @@ export const initialState = {
                 answer: '눈치를 알려주는 코치님'
             }],
             description: '강아지("너 졌소", "나 강하지")',
-            image: 'https://lh3.googleusercontent.com/proxy/QOJBH3ppURZ1PdOWhTuoDoLBBtvJ7C3YI_JHPwgWyYiP2boUwCNq8CWOGJe1k0HFGOlVlzZG3orJaEbQqy370EbnK3uPhwM4C_jFhUYPtA7HPus0rUX8lzzcQD-eK-o6fCQXFdakExxhPbFvDHaLK7OhXz3YfjVpOKKlnaRFHklzURipOAtm',
         },
         {
             question: '세상에서 제일 더러운 집은?',
@@ -131,7 +124,6 @@ export const initialState = {
                 answer: '고집'
             }],
             description: '다른 집들이 똥집보다 더 더러울수도~~',
-            image: 'https://s3.ap-northeast-2.amazonaws.com/img.kormedi.com/news/article/__icsFiles/artimage/2018/03/23/c_km601/shutterstock_423841075_540.jpg',
         },
     ],
     
@@ -141,15 +133,20 @@ export const initialState = {
     loadGameListError: false,
 
     // [D] 게임 데이터 가져오기
-    // loadGameLoading: false,
-    // loadGameDone: false,
-    // loadGameError: false,
+    loadGameLoading: false,
+    loadGameDone: false,
+    loadGameError: false,
 };
 
 // [D] 게임 리스트 가져오기
 export const LOAD_GAMELIST_REQUEST = 'LOAD_GAMELIST_REQUEST';
 export const LOAD_GAMELIST_SUCCESS = 'LOAD_GAMELIST_SUCCESS';
 export const LOAD_GAMELIST_FAILURE = 'LOAD_GAMELIST_FAILURE';
+
+// [D] 게임 데이터 가져오기
+export const LOAD_GAME_REQUEST = 'LOAD_GAME_REQUEST';
+export const LOAD_GAME_SUCCESS = 'LOAD_GAME_SUCCESS';
+export const LOAD_GAME_FAILURE = 'LOAD_GAME_FAILURE';
 
 const reducer = (state = initialState, action) => produce(state,(draft) => {
     switch(action.type){
@@ -161,6 +158,7 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             break;
 
         case LOAD_GAMELIST_SUCCESS:
+            draft.gameList = action.data;
             draft.loadGameListLoading = false;
             draft.loadGameListDone = true;
             draft.loadGameListError = false;
@@ -170,6 +168,26 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             draft.loadGameListLoading = false;
             draft.loadGameListDone = false;
             draft.loadGameListError = true;
+            break;
+
+        // [D] 게임 데이터 가져오기
+        case LOAD_GAME_REQUEST:
+            draft.loadGameLoading = true;
+            draft.loadGameDone = false;
+            draft.loadGameError = false;
+            break;
+
+        case LOAD_GAME_SUCCESS:
+            draft.gameData = action.data;
+            draft.loadGameLoading = false;
+            draft.loadGameDone = true;
+            draft.loadGameError = false;
+            break;
+
+        case LOAD_GAME_FAILURE:
+            draft.loadGameLoading = false;
+            draft.loadGameDone = false;
+            draft.loadGameError = true;
             break;
 
         default:

@@ -16,10 +16,6 @@ module.exports = class NonsenseQuiz extends Model {
                 type: DataTypes.STRING(20),
                 allowNull: false, 
             },
-            image: {
-                type: DataTypes.STRING(200),
-                allowNull: false, 
-            },
         }, {
             modelName: "NonsenseQuiz", 
             tableName: "NonsenseQuiz", 
@@ -30,7 +26,5 @@ module.exports = class NonsenseQuiz extends Model {
         });
     }
 
-    static associate(db) {
-        db.NonsenseQuiz.belongsTo(db.Game);
-    }
+    static associate(db) {}
 };

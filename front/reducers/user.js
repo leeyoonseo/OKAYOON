@@ -2,7 +2,9 @@ import produce from '../util/produce';
 import Router from 'next/router';
 
 export const initialState = {
-    admin: {},
+    admin: {
+        name: '있다'
+    },
     logInAdminLoading: false, // 로그인 시도 (관리자)
     logInAdminDone: false,
     logInAdminError: null,

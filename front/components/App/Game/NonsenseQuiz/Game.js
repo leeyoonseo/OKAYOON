@@ -1,11 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled, { keyframes } from 'styled-components';
+import dayjs from 'dayjs';
 
-import { RightOutlined } from '@ant-design/icons';
-
+import { RightOutlined, ClockCircleOutlined } from '@ant-design/icons';
 import { STEP_FINISH } from './index';
-import Progress from '../Progress';
 
 const resultFadeIn = keyframes`
     0% {
@@ -27,10 +26,6 @@ const Wrap = styled.div`
 const Inner = styled.div`
     display: inline-block;
     max-width: 400px;
-
-    > div + div {
-        margin-top: 40px;
-    }
 `;
 
 const QuizArea = styled.div`
@@ -48,6 +43,21 @@ const Round = styled.span`
 const Question = styled.span`
     font-size: 28px;
 `;
+
+const Timer = styled.div`
+    margin: 15px 0;
+    text-align: center;
+`;
+
+const TimerIcon = styled(ClockCircleOutlined)`
+    margin-right: 5px;
+    font-size: 15px;
+`;
+
+const TimerTime = styled.span`
+    font-size: 18px;
+`;
+
 
 const AnswerArea = styled.div`
     &:after {
@@ -81,25 +91,11 @@ const Result = styled.span`
     top: 50%;
     left: 50%;
     font-size: 60px;    
-    color: ${props => props.resultStr === 'correct' ? '#26ca3f' : '#ff6059'};
+    color: ${props => props.isCorrect ? '#26ca3f' : '#ff6059'};
     transform: translate(-50%, -50%);
     text-shadow: 1px 1px 5px rgb(0 0 0);
     animation: ${resultFadeIn} 0.1s linear ;
 `;
-
-const Timer = styled.div`
-    width: 400px;
-    border: 1px solid #fff; 
-    box-sizing: border-box;
-    overflow: hidden;
-`;
-
-// const Progress = styled.span`
-//     display: block;
-//     width: ${props => props.time * 100}%;
-//     height: 15px;
-//     background: #fff;
-// `;
 
 const PassButton = styled.div`
     position: absolute;
@@ -120,70 +116,77 @@ const PassButton = styled.div`
 const Game = ({ onChangeStep }) => {
     const { nonsenseQuiz } = useSelector((state) => state.game);
     const [openedResult, setOpenedResult] = useState(false);
-    const [resultStr, setResultStr] = useState(null);
+    const [isCorrect, setIsCorrect] = useState(null);
 
     const [quizList, setQuizList] = useState(null); // [D] 퀴즈배열 
     const [quiz, setQuiz] = useState(null); // [D] 현재퀴즈
     const [example, setExample] = useState(null); // [D] 보기
     const [round, setRound] = useState(null);
     const [time, setTime] = useState(null);
+    const [score, setScore] = useState(0);
 
-    const CORRECT = 'correct';
-    const INCORRECT = 'incorrect';
     const MAX_ROUND = 20;
-    const QUIZ_TIME = 10;
+    const MAX_TIMER = 500;
 
     useEffect(() => {
-        // 배열을 섞는다. 그리고 여기서 q를 찾아 또 섰는다.
-        const list = shuffleArray(nonsenseQuiz); // 이게 qlist
+        const list = shuffleArray(nonsenseQuiz); 
 
         setQuizList(list);
-        setRound(1);
-        // setQuestion(list);
+        setRound(0);
     }, []);
 
     useEffect(() => {
-        if(!round || !quizList) return;
-
+        if(round === null || !quizList) return;
         const q = quizList[round];
         const ex = shuffleArray(Object.values(q.example));
 
         setQuiz(q);
         setExample(ex);
-        setTime(QUIZ_TIME);
+        setTime(MAX_TIMER);
     }, [quizList, round]); 
 
     useEffect(() => {
-        if (!time) return; 
+        if (time === 0) {
+            clearInterval(timer);
+            onClickExample(false)();
+            return;
+        };
 
         const timer = setInterval(() => {
-            setTime(time - 1);
-        }, 1000);
+            setTime(time - 10);
+        }, 100);
 
         return () => {
             clearInterval(timer);
         }
     }, [time]); 
     
-    // TODO: 결과 보여주기, 시간 초기화, 다음 라운드로가기, 
-    const onClickExam = useCallback((resultStr) => () => {
-        setResultStr(resultStr);
+    const setNextRound = useCallback((state) => {
+        if (state) setScore(score + 1);
+
+        setIsCorrect(state);
         setOpenedResult(true);
-        setTimeout(() => onClickNextRound(), 500);
+
+        setTimeout(() => {
+            setOpenedResult(false);
+            
+            if (round > MAX_ROUND || round >= (nonsenseQuiz.length - 1)) {
+                setRound(null);
+                onChangeStep(STEP_FINISH)();
+                return;
+            }
+
+            setRound(round + 1);
+            setTime(MAX_TIMER);
+        }, 500);
     }, [round]);
 
-    const onClickNextRound = useCallback(() => {
-        setOpenedResult(false);
+    const onClickExample = useCallback((state) => () => {
+        setNextRound(state);
+    }, [round]);
 
-        const roundIdx = (round - 1);
-        if (roundIdx === MAX_ROUND || roundIdx === (nonsenseQuiz.length - 1)) {
-            // TODO: 종료 처리
-            alert('라운드 종료');  
-            return onChangeStep(STEP_FINISH)();  
-        }
-
-        setTime(QUIZ_TIME);
-        setRound(round + 1);
+    const onClickPass = useCallback(() => {
+        setNextRound(false);
     }, [round]);
 
     return (
@@ -192,16 +195,20 @@ const Game = ({ onChangeStep }) => {
                 {quiz && (
                     <>
                         <QuizArea>
-                            <Round>{`Q. ${round}`}</Round>
+                            <Round>{`Q. ${round + 1}`}</Round>
                             <Question>{quiz.question}</Question>
                         </QuizArea>
+
+                        <Timer>
+                            <TimerIcon /> <TimerTime>{Math.floor(time / 100)}</TimerTime>
+                        </Timer>
 
                         <AnswerArea>
                             {example && example.map((v, i) => {
                                 if (v.isCorrect) {
                                     return (
                                         <Items key={`Q_${i}_${v.question}`}>
-                                            <button onClick={onClickExam(CORRECT)}>
+                                            <button onClick={onClickExample(true)}>
                                                 {v.answer}
                                             </button>
                                         </Items>
@@ -210,32 +217,24 @@ const Game = ({ onChangeStep }) => {
                                 
                                 return (
                                     <Items key={`Q_${i}_${v.question}`}>
-                                        <button onClick={onClickExam(INCORRECT)}>
+                                        <button onClick={onClickExample(false)}>
                                             {v.answer}
                                         </button>
                                     </Items>
                                 )
                             })}
                         </AnswerArea>
-
-                        <Progress time={time}/>
-
-                        {/* <Timer>
-                            <Progress time={time}>
-                                타임: {time}
-                            </Progress>
-                        </Timer> */}
                     </>
                 )}                
 
                 {openedResult && (
-                    <Result resultStr={resultStr}>
-                        {resultStr === CORRECT ? '정답' : '오답'}
+                    <Result isCorrect={isCorrect}>
+                        {isCorrect ? '정답' : '오답'}
                     </Result>
                 )}
             </Inner>
 
-            <PassButton onClick={onClickNextRound}>
+            <PassButton onClick={onClickPass}>
                 통과 <RightOutlined />
             </PassButton>
         </Wrap>
