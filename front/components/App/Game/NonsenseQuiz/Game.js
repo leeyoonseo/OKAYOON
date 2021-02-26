@@ -5,6 +5,7 @@ import styled, { keyframes } from 'styled-components';
 import { RightOutlined } from '@ant-design/icons';
 
 import { STEP_FINISH } from './index';
+import Progress from '../Progress';
 
 const resultFadeIn = keyframes`
     0% {
@@ -93,12 +94,12 @@ const Timer = styled.div`
     overflow: hidden;
 `;
 
-const Progress = styled.span`
-    display: block;
-    width: ${props => props.time * 100}%;
-    height: 15px;
-    background: #fff;
-`;
+// const Progress = styled.span`
+//     display: block;
+//     width: ${props => props.time * 100}%;
+//     height: 15px;
+//     background: #fff;
+// `;
 
 const PassButton = styled.div`
     position: absolute;
@@ -135,6 +136,7 @@ const Game = ({ onChangeStep }) => {
     useEffect(() => {
         // 배열을 섞는다. 그리고 여기서 q를 찾아 또 섰는다.
         const list = shuffleArray(nonsenseQuiz); // 이게 qlist
+
         setQuizList(list);
         setRound(1);
         // setQuestion(list);
@@ -148,42 +150,20 @@ const Game = ({ onChangeStep }) => {
 
         setQuiz(q);
         setExample(ex);
-
+        setTime(QUIZ_TIME);
     }, [quizList, round]); 
 
-    // const setQuestion = useCallback(() => {
-    //     console.log('setQuestion round',round);
+    useEffect(() => {
+        if (!time) return; 
 
-    //     const q = list[round];
-    //     const ex = shuffleArray(Object.values(q.example));
+        const timer = setInterval(() => {
+            setTime(time - 1);
+        }, 1000);
 
-    //     setQuiz(q);
-    //     setExample(ex);
-    // }, [round]);
-
-    // useEffect(() => {
-    //     return;
-    //     if(!quizList) return;
-        
-    //     const q = quizList[round];
-    //     const exam = shuffleArray(Object.values(q.example));
-
-    //     setQuiz(q);
-    //     setExample(exam);
-    //     setTime(QUIZ_TIME);
-    // }, [quizList, round]);
-
-    // const timer = useCallback(() => {
-    //     console.log('timer: time', time);
-
-    //     const interval = setInterval(() => {
-    //         console.log('?? 뭐선일이구');
-    //     }, 1000);
-
-    //     return () => {
-    //         clearInterval(interval);
-    //     }
-    // }, [time]);
+        return () => {
+            clearInterval(timer);
+        }
+    }, [time]); 
     
     // TODO: 결과 보여주기, 시간 초기화, 다음 라운드로가기, 
     const onClickExam = useCallback((resultStr) => () => {
@@ -195,13 +175,14 @@ const Game = ({ onChangeStep }) => {
     const onClickNextRound = useCallback(() => {
         setOpenedResult(false);
 
-        if (round === MAX_ROUND || round === (nonsenseQuiz.length - 1)) {
+        const roundIdx = (round - 1);
+        if (roundIdx === MAX_ROUND || roundIdx === (nonsenseQuiz.length - 1)) {
             // TODO: 종료 처리
             alert('라운드 종료');  
             return onChangeStep(STEP_FINISH)();  
         }
 
-        setTime(Quiz_TIME);
+        setTime(QUIZ_TIME);
         setRound(round + 1);
     }, [round]);
 
@@ -237,9 +218,13 @@ const Game = ({ onChangeStep }) => {
                             })}
                         </AnswerArea>
 
-                        <Timer>
-                            <Progress time={time}></Progress>
-                        </Timer>
+                        <Progress time={time}/>
+
+                        {/* <Timer>
+                            <Progress time={time}>
+                                타임: {time}
+                            </Progress>
+                        </Timer> */}
                     </>
                 )}                
 
