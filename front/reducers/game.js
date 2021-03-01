@@ -133,7 +133,12 @@ export const initialState = {
     loadGameListDone: false,
     loadGameListError: false,
 
-    // [D] 게임 데이터 가져오기
+    // [D] 게임 리스트 추가하기
+    addGameListLoading: false,
+    addGameListDone: false,
+    addGameListError: false,
+
+    // [D] 특정 게임 데이터 가져오기
     loadGameLoading: false,
     loadGameDone: false,
     loadGameError: false,
@@ -144,7 +149,12 @@ export const LOAD_GAMELIST_REQUEST = 'LOAD_GAMELIST_REQUEST';
 export const LOAD_GAMELIST_SUCCESS = 'LOAD_GAMELIST_SUCCESS';
 export const LOAD_GAMELIST_FAILURE = 'LOAD_GAMELIST_FAILURE';
 
-// [D] 게임 데이터 가져오기
+// [D] 게임 리스트 추가하기
+export const ADD_GAMELIST_REQUEST = 'ADD_GAMELIST_REQUEST';
+export const ADD_GAMELIST_SUCCESS = 'ADD_GAMELIST_SUCCESS';
+export const ADD_GAMELIST_FAILURE = 'ADD_GAMELIST_FAILURE';
+
+// [D] 특정 게임 데이터 가져오기
 export const LOAD_GAME_REQUEST = 'LOAD_GAME_REQUEST';
 export const LOAD_GAME_SUCCESS = 'LOAD_GAME_SUCCESS';
 export const LOAD_GAME_FAILURE = 'LOAD_GAME_FAILURE';
@@ -170,8 +180,28 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             draft.loadGameListDone = false;
             draft.loadGameListError = true;
             break;
+        
+        // [D] 게임 리스트 추가하기
+        case ADD_GAMELIST_REQUEST:
+            draft.addGameListLoading = true;
+            draft.addGameListDone = false;
+            draft.addGameListError = false;
+            break;
 
-        // [D] 게임 데이터 가져오기
+        case ADD_GAMELIST_SUCCESS:
+            draft.gameList.unshift(action.data);
+            draft.addGameListLoading = false;
+            draft.addGameListDone = true;
+            draft.addGameListError = false;
+            break;
+
+        case ADD_GAMELIST_FAILURE:
+            draft.addGameListLoading = false;
+            draft.addGameListDone = false;
+            draft.addGameListError = true;
+            break;
+
+        // [D] 특정 게임 데이터 가져오기
         case LOAD_GAME_REQUEST:
             draft.loadGameLoading = true;
             draft.loadGameDone = false;
