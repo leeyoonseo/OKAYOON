@@ -69,15 +69,15 @@ router.get('/:gameName', async (req, res, next) => { // POST /game/list
 router.post('/nonsensequiz', async (req, res, next) => { // POST /game/nonsensequiz
     try {
         const quiz = await NonsenseQuiz.create({
-            name: req.body.name,
-            title: req.body.title,
+            question: req.body.question,
+            example: JSON.stringify(req.body.example),
             description: req.body.description, 
-            image: req.body.image,
         });
 
         const resQuiz = await NonsenseQuiz.findOne({ 
             where: { id: quiz.id },
         });
+        resQuiz.example = JSON.parse(resQuiz.example);
 
         res.status(200).json(resQuiz);
     } catch (error) {

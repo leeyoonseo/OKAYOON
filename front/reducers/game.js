@@ -238,12 +238,13 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             draft.addGameError = false;
             break;
 
-        case ADD_GAME_SUCCESS:
+        case ADD_GAME_SUCCESS: {
             draft.gameData.unshift(action.data);
             draft.addGameLoading = false;
             draft.addGameDone = true;
             draft.addGameError = false;
             break;
+        }
 
         case ADD_GAME_FAILURE:
             draft.addGameLoading = false;

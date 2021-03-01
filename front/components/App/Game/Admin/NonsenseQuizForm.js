@@ -1,52 +1,50 @@
 import React, { useCallback, useEffect, useRef, } from 'react';
+import { useDispatch, useSelector } from 'react-redux'; 
 import useInput from '../../../../hooks/useInput';
-
-import { NONSENSE_QUIZ } from '../../../../reducers/game';
+import { ADD_GAME_REQUEST } from '../../../../reducers/game';
 
 import { Form, Item, Input, ButtonArea } from './formStyle';
 
 const NonsenseQuizForm = ({ gameName }) => {
+    const dispatch = useDispatch();
+    const { addGameDone } = useSelector((state) => state.game);
     const formRef = useRef(null);
     const [question, onChangeQuestion, setQuestion] = useInput('');
     const [answer, onChangeAnswer, setAnswer] = useInput('');
     const [wrongAnswer, onChangeWrongAnswer, setWrongAnswer] = useInput('');
     const [desc, onChangeDesc, setDesc] = useInput('');
 
-    const onReset = useCallback((e) => {
-        e.preventDefault();
+    useEffect(() => {
+        if (addGameDone) {
+            allReset();
+        }
+    }, [addGameDone]);
+
+    const allReset = useCallback(() => {
         setQuestion('');
         setAnswer('');
         setWrongAnswer('');
         setDesc('');
     }, []);
 
+    const onReset = useCallback((e) => {
+        e.preventDefault();
+        allReset();
+    }, []);
+
     const onClickSubmit = useCallback((e) => {
         e.preventDefault();
+        let validateNum = 0;
         const data = {
             gameName: gameName,
             example: [],
         };
 
-        // question: '타이타닉의 구명 보트에는 몇 명이 탈수 있을까?',
-        //     example: [{
-        //         isCorrect: true,
-        //         answer: '9명',
-        //     },{
-        //         isCorrect: false,
-        //         answer: '6명'
-        //     },{
-        //         isCorrect: false,
-        //         answer: '제로'
-        //     },{
-        //         isCorrect: false,
-        //         answer: '몇'
-        //     }],
-        //     description: '9명(구명 보트)',
-
         Array.from(formRef.current.elements).map((v, i) => {
             if (v.nodeName !== 'INPUT') return;
         
             if (!v.value || !v.value.trim()) {
+                validateNum++;
                 return alert(`${v.placeholder} 비었습니다.`);
             }
 
@@ -69,7 +67,14 @@ const NonsenseQuizForm = ({ gameName }) => {
             }
         });
 
-        console.log(data);
+        if(!validateNum) {
+            console.log(data);
+    
+            dispatch({
+                type: ADD_GAME_REQUEST,
+                data: data
+            });
+        }
     }, [gameName]);
 
     return (

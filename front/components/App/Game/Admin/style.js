@@ -69,5 +69,10 @@ export const OptionItems = styled.div`
 `;
 
 export const NotifyMessage = styled.div`
-    text-align: center;
+    display: flex;
+    margin: 0 !important;
+    height: calc(100% - 110px);
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
 `;
