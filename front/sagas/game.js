@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { all, fork, put, takeLatest, delay, call } from 'redux-saga/effects';
+
 import { 
     LOAD_GAMELIST_REQUEST, LOAD_GAMELIST_SUCCESS, LOAD_GAMELIST_FAILURE, 
     ADD_GAMELIST_REQUEST, ADD_GAMELIST_SUCCESS, ADD_GAMELIST_FAILURE, 
@@ -60,30 +61,30 @@ function* watchAddGameList(){
 }
 
 // [D] 특정 게임 데이터 가져오기
-// function loadGameAPI(gameName){
-//     return axios.get(`/game/:${gameName}`);
-// };
+function loadGameAPI(data){
+    return axios.get(`/game/${data}`);
+};
 
-// function* loadGame(action){
-//     try{
-//         const result = yield call(loadGameAPI, action.data.gameName);
-//         yield put({
-//             type: LOAD_GAME_SUCCESS,
-//             data: result.data
-//         });
+function* loadGame(action){
+    try{
+        const result = yield call(loadGameAPI, action.data);
+        yield put({
+            type: LOAD_GAME_SUCCESS,
+            data: result.data
+        });
 
-//     }catch(err){
-//         console.error(err);
-//         yield put({
-//             type: LOAD_GAME_FAILURE,
-//             error: err.response.data
-//         })
-//     }
-// }
+    }catch(err){
+        console.error(err);
+        yield put({
+            type: LOAD_GAME_FAILURE,
+            error: err.response.data
+        })
+    }
+}
 
-// function* watchLoadGame(){
-//     yield takeLatest(LOAD_GAMELIST_REQUEST, loadGame);
-// }
+function* watchLoadGame(){
+    yield takeLatest(LOAD_GAME_REQUEST, loadGame);
+}
 
 // [D] 특정 게임 데이터 추가하기
 function addGameAPI(data){
@@ -118,7 +119,7 @@ export default function* gameSaga(){
         fork(watchAddGameList),
 
         // [D] 게임
-        // fork(watchLoadGame),
+        fork(watchLoadGame),
         fork(watchAddGame),
     ]);
 }

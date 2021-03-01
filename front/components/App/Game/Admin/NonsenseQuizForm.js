@@ -32,7 +32,7 @@ const NonsenseQuizForm = ({ gameName }) => {
         allReset();
     }, []);
 
-    const onClickSubmit = useCallback((e) => {
+    const onsubmit = useCallback((e) => {
         e.preventDefault();
         let validateNum = 0;
         const data = {
@@ -49,33 +49,37 @@ const NonsenseQuizForm = ({ gameName }) => {
             }
 
             if (v.name === 'answer') {
-                console.log('정답?')
                 data.example.push({
                     isCorrect: true,
                     answer: v.value
                 });
             } else if (v.name === 'wrongAnswer') {
-                console.log('엥?', v)
                 v.value.split(',').map((txt) => {
                     data.example.push({
                         isCorrect: false,
                         answer: txt
                     });
                 });
+
+                data.example = JSON.stringify(data.example);
             } else {
                 data[v.name] = v.value;
             }
         });
 
         if(!validateNum) {
-            console.log(data);
-    
             dispatch({
                 type: ADD_GAME_REQUEST,
                 data: data
             });
         }
     }, [gameName]);
+
+    const onEnter = useCallback((e) => {
+        if (e.code === 'Enter') {
+            onsubmit(e);
+        }
+    }, []);
 
     return (
         <Form ref={formRef}>
@@ -84,9 +88,10 @@ const NonsenseQuizForm = ({ gameName }) => {
                     autoFocus
                     placeholder="문제"
                     name="question"
-                    maxLength={50}
+                    maxLength={100}
                     autocomplete="off"
                     onChange={onChangeQuestion}
+                    onKeyPress={onEnter}
                     value={question}
                 />
             </Item>
@@ -98,6 +103,7 @@ const NonsenseQuizForm = ({ gameName }) => {
                     maxLength={20}
                     autocomplete="off"
                     onChange={onChangeAnswer}
+                    onKeyPress={onEnter}
                     value={answer}
                 />
             </Item>
@@ -106,9 +112,10 @@ const NonsenseQuizForm = ({ gameName }) => {
                 <Input 
                     placeholder="오답 ','로 구분해서 총 3개 입력"
                     name="wrongAnswer"
-                    maxLength={50}
+                    maxLength={100}
                     autocomplete="off"
                     onChange={onChangeWrongAnswer}
+                    onKeyPress={onEnter}
                     value={wrongAnswer}
                 />
             </Item>
@@ -117,16 +124,17 @@ const NonsenseQuizForm = ({ gameName }) => {
                 <Input 
                     placeholder="정답 설명"
                     name="description"
-                    maxLength={20}
+                    maxLength={300}
                     autocomplete="off"
                     onChange={onChangeDesc}
+                    onKeyPress={onEnter}
                     value={desc}
                 />
             </Item>
 
             <ButtonArea>
                 <button onClick={onReset}>초기화</button>
-                <button onClick={onClickSubmit}>저장</button>
+                <button onClick={onsubmit}>저장</button>
             </ButtonArea>
         </Form>
     );

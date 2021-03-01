@@ -129,8 +129,8 @@ const Game = ({ onChangeStep }) => {
     const MAX_TIMER = 500;
 
     useEffect(() => {
-        const list = shuffleArray(nonsenseQuiz); 
-
+        // const list = shuffleArray(nonsenseQuiz); 
+        const list = nonsenseQuiz;
         setQuizList(list);
         setRound(0);
     }, []);

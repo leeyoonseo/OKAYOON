@@ -5,11 +5,11 @@ module.exports = class Game extends Model {
     static init(sequelize) {
         return super.init({
             name: {
-                type: DataTypes.STRING(20),
+                type: DataTypes.STRING(50),
                 allowNull: false,
             },
             title: {
-                type: DataTypes.STRING(20),
+                type: DataTypes.STRING(50),
                 allowNull: false,
             },
             description: {

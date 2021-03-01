@@ -191,7 +191,6 @@ const SetButton = styled.button`
     cursor: pointer;
 `;
 
-
 const Store = ({ setComponent }) => {
     const dispatch = useDispatch();
     const { gameList } = useSelector((state) => state.game);
@@ -199,14 +198,16 @@ const Store = ({ setComponent }) => {
     const [isSetting, setIsSetting] = useState(false);
 
     useEffect(() => {
-        dispatch({ type: LOAD_GAMELIST_REQUEST });
+        dispatch({ 
+            type: LOAD_GAMELIST_REQUEST 
+        });
     }, []); 
 
-    const onClickStep = useCallback((compName) => () => {
+    const onMoveStep = useCallback((compName) => () => {
         setComponent(compName);
     }, []);
 
-    const onClickSet = useCallback(() => {
+    const onClickSetting = useCallback(() => {
         if (!admin) return;
         setIsSetting(!isSetting);
     }, [isSetting]);
@@ -216,7 +217,7 @@ const Store = ({ setComponent }) => {
             <Wrap>
                 <SideNav>
                     <NavItem>
-                        <button onClick={onClickStep(STORE)}>홈</button>
+                        <button onClick={onMoveStep(STORE)}>홈</button>
                     </NavItem>
                     <NavItem>
                         <button>랭킹</button>
@@ -256,7 +257,7 @@ const Store = ({ setComponent }) => {
                                     key={`game_${v.name}`}
                                     id={v.gameId}
                                 >
-                                    <ItemButton onClick={onClickStep(v.name)}>
+                                    <ItemButton onClick={onMoveStep(v.name)}>
                                         <img src={v.image} alt={`게임 ${v.title} 표지`}/>
 
                                         <ItemTitle>{v.title}</ItemTitle>
@@ -271,7 +272,7 @@ const Store = ({ setComponent }) => {
             </Wrap>
 
             {admin && (
-                <SetButton onClick={onClickSet}>
+                <SetButton onClick={onClickSetting}>
                     <SettingOutlined />
                 </SetButton>
             )}
@@ -279,7 +280,7 @@ const Store = ({ setComponent }) => {
             {admin && isSetting && (
                 <Admin 
                     list={gameList}
-                    onClickBack={onClickSet} 
+                    onClickBack={onClickSetting} 
                 />
             )}
         </>

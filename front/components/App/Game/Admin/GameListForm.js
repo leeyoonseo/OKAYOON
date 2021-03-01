@@ -1,7 +1,9 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import useInput from '../../../../hooks/useInput';
-import styled from 'styled-components';
+import { ADD_GAMELIST_REQUEST } from '../../../../reducers/game';
 
+import styled from 'styled-components';
 import { Form, Item, Input, ButtonArea } from './formStyle';
 
 const NotifyMessage = styled.div`
@@ -16,19 +18,59 @@ const NotifyMessage = styled.div`
     color: red;
 `;
 
-const GameListForm = ({ formRef, onSubmit }) => {
+const GameListForm = ({ gameName }) => {
+    const dispatch = useDispatch();
+    const { addGameListDone } = useSelector((state) => state.game);
+    const formRef = useRef(null);
     const [name, onChangeName, setName] = useInput('');
     const [title, onChangeTitle, setTitle] = useInput('');
     const [imgSrc, onChangeImgSrc, setImgSrc] = useInput('');
     const [desc, onChangeDesc, setDesc] = useInput('');
 
-    const onReset = useCallback((e) => {
-        e.preventDefault();
+    useEffect(() => {
+        if (addGameListDone) {
+            allReset();
+        }
+    }, [addGameListDone]);
+
+    const allReset = useCallback(() => {
         setName('');
         setTitle('');
         setImgSrc('');
         setDesc('');
     }, []);
+
+    const onReset = useCallback((e) => {
+        e.preventDefault();
+        allReset();
+    }, []);
+
+    const onSubmit = useCallback((e) => {
+        e.preventDefault();
+        let validateNum = 0;
+        const data = {};
+
+        Array.from(formRef.current.elements).map((v, i) => {
+            if (v.nodeName !== 'INPUT') return;
+
+            if (!v.value || !v.value.trim()) {
+                validateNum++;
+                return alert(`${v.placeholder} 비었습니다.`);
+            }
+
+            data[v.name] = v.value;
+        }); 
+
+        if(!validateNum) {
+            console.log(data);
+    
+            dispatch({
+                type: ADD_GAMELIST_REQUEST,
+                data: data
+            });
+        }
+
+    }, [gameName]);
 
     return (
         <Form ref={formRef}>

@@ -6,7 +6,7 @@ import Main from './Main';
 import Guide from './Guide';
 import Game from './Game';
 import Finish from './Finish';
-import { LOAD_GAMELIST_REQUEST } from '../../../../reducers/game';
+import { LOAD_GAME_REQUEST, NONSENSE_QUIZ } from '../../../../reducers/game';
 
 export const GAME_ID = 'game_nonsense';
 export const STEP_MAIN = 'main';
@@ -19,8 +19,10 @@ const NonsenseQuiz = () => {
     const [step, setStep] = useState(STEP_MAIN);
     
     useEffect(() => {
-        // dispatch({
-        // })
+        dispatch({
+            type: LOAD_GAME_REQUEST,
+            data: NONSENSE_QUIZ
+        });
     }, []);
 
     const onChangeStep = useCallback((changeStep) => () => {

@@ -5,11 +5,11 @@ module.exports = class NonsenseRanking extends Model {
     static init(sequelize) {
         return super.init({
             nickname: {
-                type: DataTypes.STRING(20),
+                type: DataTypes.STRING(50),
                 allowNull: false,
             },
             score: {
-                type: DataTypes.STRING(20),
+                type: DataTypes.STRING(50),
                 allowNull: false,
             },
         }, {

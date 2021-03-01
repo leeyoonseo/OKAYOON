@@ -107,7 +107,7 @@ export const initialState = {
         //         isCorrect: false,
         //         answer: '눈치를 알려주는 코치님'
         //     }],
-        //     description: '강아지("너 졌소", "나 강하지")',
+        //     description: '눈(치고=때리고)코(치고=때리고)',
         // },
         // {
         //     question: '세상에서 제일 더러운 집은?',
@@ -239,7 +239,6 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             break;
 
         case ADD_GAME_SUCCESS: {
-            draft.gameData.unshift(action.data);
             draft.addGameLoading = false;
             draft.addGameDone = true;
             draft.addGameError = false;

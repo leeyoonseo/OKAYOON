@@ -5,7 +5,7 @@ module.exports = class NonsenseQuiz extends Model {
     static init(sequelize) {
         return super.init({
             question: {
-                type: DataTypes.STRING(50),
+                type: DataTypes.STRING(100),
                 allowNull: false, 
             },
             example: {
@@ -13,7 +13,7 @@ module.exports = class NonsenseQuiz extends Model {
                 allowNull: false,
             },
             description: {
-                type: DataTypes.STRING(20),
+                type: DataTypes.STRING(100),
                 allowNull: false, 
             },
         }, {

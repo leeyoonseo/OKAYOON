@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { Game, NonsenseQuiz } = require('../models');
+// const Sequelize = require('sequelize');
+const { Game, NonsenseQuiz, sequelize } = require('../models');
 
 // [D] 게임리스트 가져오기
 router.get('/list', async (req, res, next) => { // POST /game/list
@@ -41,45 +42,37 @@ router.post('/list', async (req, res, next) => { // POST /game/list
     }
 });
 
-// [D] 특정 게임 가져오기
-router.get('/:gameName', async (req, res, next) => { // POST /game/list
+// [D] 넌센스퀴즈 데이터 가져오기
+router.get('/nonsensequiz', async (req, res, next) => { // POST /game/nonsensequiz
     try {
+        const quiz = await NonsenseQuiz.findAll({
+            limit: 20,
+            order: sequelize.random()
+        });
 
-        console.log('==============gameName', gameName);
-        // const game = await Game.create({
-        //     name: req.body.name,
-        //     title: req.body.title,
-        //     description: req.body.description, 
-        //     image: req.body.image,
-        // });
+        // quiz.example = JSON.parse(quiz.example);
 
-        // const resGame = await Game.findOne({ 
-        //     where: { id: game.id },
-        // });
-
-        // res.status(200).json(resGame);
-        res.status(200).send('ok');
+        res.status(200).json(quiz);
     } catch (error) {
         console.error(error);
         next(error);
     }
 });
 
-// [D] 특정 게임 추가하기
+// [D] 넌센스퀴즈 데이터 추가하기
 router.post('/nonsensequiz', async (req, res, next) => { // POST /game/nonsensequiz
     try {
         const quiz = await NonsenseQuiz.create({
             question: req.body.question,
-            example: JSON.stringify(req.body.example),
+            example: req.body.example,
             description: req.body.description, 
         });
 
         const resQuiz = await NonsenseQuiz.findOne({ 
             where: { id: quiz.id },
         });
-        resQuiz.example = JSON.parse(resQuiz.example);
 
-        res.status(200).json(resQuiz);
+        res.status(200).send('넌센스퀴즈 데이터 추가 완료');
     } catch (error) {
         console.error(error);
         next(error);
