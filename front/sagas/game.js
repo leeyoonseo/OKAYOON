@@ -4,6 +4,7 @@ import {
     LOAD_GAMELIST_REQUEST, LOAD_GAMELIST_SUCCESS, LOAD_GAMELIST_FAILURE, 
     ADD_GAMELIST_REQUEST, ADD_GAMELIST_SUCCESS, ADD_GAMELIST_FAILURE, 
     LOAD_GAME_REQUEST, LOAD_GAME_SUCCESS, LOAD_GAME_FAILURE, 
+    ADD_GAME_REQUEST, ADD_GAME_SUCCESS, ADD_GAME_FAILURE, 
 } from '../reducers/game';
 
 // [D] 게임 리스트 가져오기
@@ -59,29 +60,55 @@ function* watchAddGameList(){
 }
 
 // [D] 특정 게임 데이터 가져오기
-function loadGameAPI(name){
-    return axios.get(`/game/:${name}`);
+// function loadGameAPI(gameName){
+//     return axios.get(`/game/:${gameName}`);
+// };
+
+// function* loadGame(action){
+//     try{
+//         const result = yield call(loadGameAPI, action.data.gameName);
+//         yield put({
+//             type: LOAD_GAME_SUCCESS,
+//             data: result.data
+//         });
+
+//     }catch(err){
+//         console.error(err);
+//         yield put({
+//             type: LOAD_GAME_FAILURE,
+//             error: err.response.data
+//         })
+//     }
+// }
+
+// function* watchLoadGame(){
+//     yield takeLatest(LOAD_GAMELIST_REQUEST, loadGame);
+// }
+
+// [D] 특정 게임 데이터 추가하기
+function addGameAPI(data){
+    return axios.post(`/game/${data.gameName}`, data);
 };
 
-function* loadGame(action){
+function* addGame(action){
     try{
-        const result = yield call(loadGameAPI, action.data.name);
+        const result = yield call(addGameAPI, action.data);
         yield put({
-            type: LOAD_GAME_SUCCESS,
+            type: ADD_GAME_SUCCESS,
             data: result.data
         });
 
     }catch(err){
         console.error(err);
         yield put({
-            type: LOAD_GAME_FAILURE,
+            type: ADD_GAME_FAILURE,
             error: err.response.data
         })
     }
 }
 
-function* watchLoadGame(){ 
-    yield takeLatest(LOAD_GAME_REQUEST, loadGame);
+function* watchAddGame(){ 
+    yield takeLatest(ADD_GAME_REQUEST, addGame);
 }
 
 export default function* gameSaga(){
@@ -91,6 +118,7 @@ export default function* gameSaga(){
         fork(watchAddGameList),
 
         // [D] 게임
-        fork(watchLoadGame),
+        // fork(watchLoadGame),
+        fork(watchAddGame),
     ]);
 }

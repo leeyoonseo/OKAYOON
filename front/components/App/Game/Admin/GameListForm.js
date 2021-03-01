@@ -1,7 +1,20 @@
 import React, { useCallback, useEffect } from 'react';
 import useInput from '../../../../hooks/useInput';
+import styled from 'styled-components';
 
 import { Form, Item, Input, ButtonArea } from './formStyle';
+
+const NotifyMessage = styled.div`
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: translateY(100%);
+    width: 100%;
+    font-size: 13px;
+    text-align: center;
+    line-height: 1.5;
+    color: red;
+`;
 
 const GameListForm = ({ formRef, onSubmit }) => {
     const [name, onChangeName, setName] = useInput('');
@@ -19,6 +32,11 @@ const GameListForm = ({ formRef, onSubmit }) => {
 
     return (
         <Form ref={formRef}>
+            <NotifyMessage>
+                * 게임 리스트 저장 시, 추가 작업 필수로 함부로 추가하지말것.<br/>
+                1) 데이터 db 폼 생성<br/>
+                2) 백엔드 db 작업
+            </NotifyMessage>
             <Item>
                 <Input 
                     autoFocus
