@@ -50,8 +50,6 @@ router.get('/nonsensequiz', async (req, res, next) => { // POST /game/nonsensequ
             order: sequelize.random()
         });
 
-        // quiz.example = JSON.parse(quiz.example);
-
         res.status(200).json(quiz);
     } catch (error) {
         console.error(error);
