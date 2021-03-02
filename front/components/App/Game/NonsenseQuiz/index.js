@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
 
 import Main from './Main';
 import Guide from './Guide';
@@ -16,8 +15,12 @@ export const STEP_FINISH = 'finish';
 
 const NonsenseQuiz = () => {
     const dispatch = useDispatch();
+    const { gameData } = useSelector((state) => state.game);
     const [step, setStep] = useState(STEP_MAIN);
-    
+    const [score, setScore] = useState(0);
+    const MAX_ROUND = 20;
+    const MAX_TIMER = 500; // [D] 1000 = 1초
+
     useEffect(() => {
         dispatch({
             type: LOAD_GAME_REQUEST,
@@ -45,12 +48,19 @@ const NonsenseQuiz = () => {
 
             {step === STEP_GAME && (
                 <Game 
+                    score={score}
+                    setScore={setScore}
+                    MAX_ROUND={MAX_ROUND}
+                    MAX_TIMER={MAX_TIMER}
+                    gameData={gameData}
                     onChangeStep={onChangeStep}
                 />
             )} 
 
             {step === STEP_FINISH && (
                 <Finish 
+                    score={score}
+                    MAX_ROUND={MAX_ROUND}
                     onChangeStep={onChangeStep}
                 />
             )} 

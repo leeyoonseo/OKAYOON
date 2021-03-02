@@ -1,8 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import styled, { keyframes } from 'styled-components';
-import dayjs from 'dayjs';
-
 import { RightOutlined, ClockCircleOutlined } from '@ant-design/icons';
 import { STEP_FINISH } from './index';
 
@@ -60,6 +57,8 @@ const TimerTime = styled.span`
 
 
 const AnswerArea = styled.div`
+    min-width: 300px;
+
     &:after {
         display: block;
         content: '';
@@ -85,16 +84,28 @@ const Items = styled.div`
     }
 `;
 
-const Result = styled.span`
-    display: block;
+const ResultModal = styled.div`
     position: absolute;
     top: 50%;
     left: 50%;
+    padding: 10px 20px;
+    line-height: 1;
+    text-align: center;
+    background: #fff;
+    border-radius: 5px;
+    transform: translate(-50%, -50%);
+    animation: ${resultFadeIn} 0.1s linear ;
+`;
+
+const ResultMessage = styled.span`
     font-size: 60px;    
     color: ${props => props.isCorrect ? '#26ca3f' : '#ff6059'};
-    transform: translate(-50%, -50%);
-    text-shadow: 1px 1px 5px rgb(0 0 0);
-    animation: ${resultFadeIn} 0.1s linear ;
+`;
+
+const Description = styled.div`
+    margin-top: 10px;
+    font-size: 20px;
+    color: #333;
 `;
 
 const PassButton = styled.div`
@@ -113,8 +124,15 @@ const PassButton = styled.div`
         opacity: 0.5;
     }
 `;
-const Game = ({ onChangeStep }) => {
-    const { nonsenseQuiz } = useSelector((state) => state.game);
+
+const Game = ({ 
+    score,
+    setScore, 
+    onChangeStep, 
+    gameData, 
+    MAX_ROUND, 
+    MAX_TIMER,
+}) => {
     const [openedResult, setOpenedResult] = useState(false);
     const [isCorrect, setIsCorrect] = useState(null);
 
@@ -123,25 +141,22 @@ const Game = ({ onChangeStep }) => {
     const [example, setExample] = useState(null); // [D] 보기
     const [round, setRound] = useState(null);
     const [time, setTime] = useState(null);
-    const [score, setScore] = useState(0);
-
-    const MAX_ROUND = 20;
-    const MAX_TIMER = 500;
 
     useEffect(() => {
-        // const list = shuffleArray(nonsenseQuiz); 
-        const list = nonsenseQuiz;
-        setQuizList(list);
+        if(!gameData) return;
+
+        setQuizList(gameData);
         setRound(0);
-    }, []);
+    }, [gameData]);
 
     useEffect(() => {
         if(round === null || !quizList) return;
         const q = quizList[round];
-        const ex = shuffleArray(Object.values(q.example));
+        const ex = JSON.parse(q.example);
+        const shuffleEx = shuffleArray(Object.values(ex));
 
         setQuiz(q);
-        setExample(ex);
+        setExample(shuffleEx);
         setTime(MAX_TIMER);
     }, [quizList, round]); 
 
@@ -161,8 +176,10 @@ const Game = ({ onChangeStep }) => {
         }
     }, [time]); 
     
-    const setNextRound = useCallback((state) => {
-        if (state) setScore(score + 1);
+    const moveNextRound = useCallback((state) => {
+        if (state) {
+            setScore(score + 1);
+        }
 
         setIsCorrect(state);
         setOpenedResult(true);
@@ -170,7 +187,7 @@ const Game = ({ onChangeStep }) => {
         setTimeout(() => {
             setOpenedResult(false);
             
-            if (round > MAX_ROUND || round >= (nonsenseQuiz.length - 1)) {
+            if (round > MAX_ROUND || round >= (gameData.length - 1)) {
                 setRound(null);
                 onChangeStep(STEP_FINISH)();
                 return;
@@ -178,15 +195,15 @@ const Game = ({ onChangeStep }) => {
 
             setRound(round + 1);
             setTime(MAX_TIMER);
-        }, 500);
-    }, [round]);
+        }, 1000);
+    }, [round, score]);
 
     const onClickExample = useCallback((state) => () => {
-        setNextRound(state);
+        moveNextRound(state);
     }, [round]);
 
     const onClickPass = useCallback(() => {
-        setNextRound(false);
+        moveNextRound(false);
     }, [round]);
 
     return (
@@ -205,19 +222,12 @@ const Game = ({ onChangeStep }) => {
 
                         <AnswerArea>
                             {example && example.map((v, i) => {
-                                if (v.isCorrect) {
-                                    return (
-                                        <Items key={`Q_${i}_${v.question}`}>
-                                            <button onClick={onClickExample(true)}>
-                                                {v.answer}
-                                            </button>
-                                        </Items>
-                                    )
-                                } 
-                                
                                 return (
                                     <Items key={`Q_${i}_${v.question}`}>
-                                        <button onClick={onClickExample(false)}>
+                                        <button 
+                                            onClick={onClickExample(v.isCorrect)}
+                                            disabled={openedResult}
+                                        >
                                             {v.answer}
                                         </button>
                                     </Items>
@@ -228,9 +238,15 @@ const Game = ({ onChangeStep }) => {
                 )}                
 
                 {openedResult && (
-                    <Result isCorrect={isCorrect}>
-                        {isCorrect ? '정답' : '오답'}
-                    </Result>
+                    <ResultModal>
+                        <ResultMessage isCorrect={isCorrect}>
+                            {isCorrect ? '정답' : '오답'}
+                        </ResultMessage>
+
+                        <Description>
+                            "{quiz && quiz.description}"
+                        </Description>
+                    </ResultModal>
                 )}
             </Inner>
 

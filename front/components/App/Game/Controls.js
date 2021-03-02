@@ -23,7 +23,13 @@ const defaultButtonStyle = css`
 `;
 
 const BackButton = styled.button`
-    ${defaultButtonStyle}
+    padding: 0;
+    font-size: 16px;
+    line-height: 1;
+    border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
 `;
 
 const SoundButton = styled.button`

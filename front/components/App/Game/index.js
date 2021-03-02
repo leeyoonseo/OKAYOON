@@ -2,11 +2,11 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { STORE, NONSENSE_QUIZ, CATCH_MIND, LOAD_GAMELIST_REQUEST } from '../../../reducers/game';
 import styled, { css } from 'styled-components';
-import { DownSquareOutlined, SearchOutlined, SettingOutlined } from '@ant-design/icons';
+import { HomeOutlined, SettingOutlined } from '@ant-design/icons';
 
-import Controls from './Controls';
+import Admin from './Admin/index';
 import NonsenseQuiz from './NonsenseQuiz/index';
-import CatchMind from './CatchMind';
+import CatchMindQuiz from './CatchMindQuiz/index';
 
 const initButtonStyled = css`
     padding: 0;
@@ -24,6 +24,18 @@ const Wrap = styled.div`
     position: relative;
     width: 100%;
     height: 100%;
+`;
+
+const BackButton = styled.button`
+    // padding: 0;
+    // font-size: 16px;
+    // line-height: 1;
+    // border: none;
+    // outline: none;
+    // background: none;
+    // cursor: pointer;
+
+    ${initButtonStyled}
 `;
 
 const List= styled.div`
@@ -100,7 +112,6 @@ const Game = () => {
     const { gameList } = useSelector((state) => state.game);
     const { admin } = useSelector((state) => state.user);
     const [component, setComponent] = useState(STORE);
-    const [muted, setMuted] = useState(false);
     const [isSetting, setIsSetting] = useState(false);
 
     useEffect(() => {
@@ -108,10 +119,6 @@ const Game = () => {
             type: LOAD_GAMELIST_REQUEST 
         });
     }, []); 
-
-    const onClickMute = useCallback(() => {
-        setMuted(!muted);
-    }, [muted]);
 
     const onClickGame = useCallback((compName) => () => {
         setComponent(compName);
@@ -125,11 +132,10 @@ const Game = () => {
     return (
         <Wrap>
             {component !== STORE && (
-                <Controls
-                    setComponent={setComponent} 
-                    muted={muted}
-                    onClickMute={onClickMute}
-                />
+                <BackButton onClick={onClickGame(STORE)}>
+                    <HomeOutlined />
+                    <span className="hidden">메뉴 바로가기</span>
+                </BackButton>
             )}
 
             {(() => {
@@ -173,7 +179,7 @@ const Game = () => {
                         return <NonsenseQuiz />;
 
                     } else if (component === CATCH_MIND) {
-                        return <CatchMind />;
+                        return <CatchMindQuiz />;
                     }
                 }
             })()}
