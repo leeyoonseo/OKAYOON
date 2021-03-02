@@ -20,8 +20,8 @@ export const initialState = {
     memo: '',
 
     // TODO: 소리 넣기
-    isMuted: false, // 음소거
-    theme: null, // 사이트 테마
+    // isMuted: false, // 음소거
+    // theme: null, // 사이트 테마
     battery: null,
     time: null,
 };
@@ -45,11 +45,6 @@ export const ALL_CLOSED_MODAL = 'ALL_CLOSED_MODAL';
 export const CHANGE_MEMO_REQUEST = 'CHANGE_MEMO_REQUEST';
 export const CHANGE_MEMO_SUCCESS = 'CHANGE_MEMO_SUCCESS';
 export const CHANGE_MEMO_FAILURE = 'TOGGLE_MODAL_FAILURE';
-
-
-
-
-// export const CHANGE_MUTED = 'CHANGE_MUTED'; // 음소거
 
 const reducer = (state = initialState, action) => produce(state,(draft) => {
     switch(action.type){

@@ -7,7 +7,7 @@ import SlideType from './SlideType';
 import CardType from './CardType';
 import ListType from './ListType';
 
-// TODO: state로 관리할 것
+// TODO: s3 이미지 업로드 후 수정, reducer에서 관리할 것
 const sampleImages = [
         { 
             src: 'https://cdn.pixabay.com/photo/2020/09/02/20/52/dock-5539524__340.jpg', 
