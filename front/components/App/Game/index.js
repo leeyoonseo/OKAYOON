@@ -27,14 +27,6 @@ const Wrap = styled.div`
 `;
 
 const BackButton = styled.button`
-    // padding: 0;
-    // font-size: 16px;
-    // line-height: 1;
-    // border: none;
-    // outline: none;
-    // background: none;
-    // cursor: pointer;
-
     ${initButtonStyled}
 `;
 
@@ -65,15 +57,18 @@ const ItemButton = styled.button`
     &:hover {
         opacity: 1;
     }
+`;
 
-    img {
-        margin-bottom: 10px;
-        width: 100%;
-        height: 120px;
-    }
+const ItemCover = styled.span`
+    display: block;
+    width: 100%;
+    height: 120px;
+    background: url(${props => props.bg})no-repeat;
+    background-size: cover;
 `;
 
 const ItemTitle = styled.span`
+    margin-top: 10px;
     display: block;
     width: 100%;
     height: 1.5em;
@@ -84,6 +79,7 @@ const ItemTitle = styled.span`
 `;
 
 const ItemDesc = styled.span`
+    margin-top: 5px;
     display: -webkit-box;
     width: 100%;
     height: 3em;
@@ -114,11 +110,7 @@ const Game = () => {
     const [component, setComponent] = useState(STORE);
     const [isSetting, setIsSetting] = useState(false);
 
-    useEffect(() => {
-        dispatch({ 
-            type: LOAD_GAMELIST_REQUEST 
-        });
-    }, []); 
+    useEffect(() => dispatch({ type: LOAD_GAMELIST_REQUEST }), []); 
 
     const onClickGame = useCallback((compName) => () => {
         setComponent(compName);
@@ -126,6 +118,7 @@ const Game = () => {
 
     const onClickSetting = useCallback(() => {
         if (!admin) return;
+
         setIsSetting(!isSetting);
     }, [isSetting]);
     
@@ -150,7 +143,10 @@ const Game = () => {
                                             id={v.gameId}
                                         >
                                             <ItemButton onClick={onClickGame(v.name)}>
-                                                <img src={v.image} alt={`게임 ${v.title} 표지`}/>
+                                                <ItemCover bg={v.image}>
+                                                    <span className="hidden">{v.title} 표지</span>
+                                                </ItemCover>
+                                                {/* <img src={v.image} alt={`게임 ${v.title} 표지`}/> */}
 
                                                 <ItemTitle>{v.title}</ItemTitle>
                                                 <ItemDesc>{v.description}</ItemDesc>
