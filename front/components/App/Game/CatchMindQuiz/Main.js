@@ -14,9 +14,19 @@ const initialButton = css`
 `;
 
 const Wrap = styled.div`
+    position: relative;
+    display: flex;
+    height: calc(100% - 31px);
+    align-items: center;
+    justify-content: center;
 `;
 
 const Inner = styled.div`
+    display: inline-block;
+
+    > div + div {
+        margin-top: 40px;
+    }
 `;
 
 const TitleArea = styled.div`
@@ -32,11 +42,23 @@ const ButtonArea = styled.div`
 `;
 
 const StartButton = styled.button`
-${initialButton}
+    ${initialButton}
 `;
 
 const GuideButton = styled.button`
-${initialButton}
+    ${initialButton}
+    position: absolute;
+    bottom: 0;
+    right: 0;
+
+    &:after{
+        content: '';
+        display: block;
+        width: 40px;
+        height: 40px;
+        background: url('https://okayoon-bucket.s3.ap-northeast-2.amazonaws.com/icon_question_bulb.png')no-repeat;
+        background-size: 100% 100%;
+    }
 
 `;
 

@@ -26,7 +26,7 @@ const Wrap = styled.div`
     height: 100%;
 `;
 
-const BackButton = styled.button`
+const HomeButton = styled.button`
     ${initButtonStyled}
 `;
 
@@ -109,7 +109,7 @@ const Game = () => {
     const [component, setComponent] = useState(STORE);
     const [isSetting, setIsSetting] = useState(false);
 
-    const onClickGame = useCallback((compName) => () => {
+    const onChangeCategory = useCallback((compName) => () => {
         setComponent(compName);
     }, []);
 
@@ -121,12 +121,12 @@ const Game = () => {
     
     return (
         <Wrap>
-            {component !== STORE && (
-                <BackButton onClick={onClickGame(STORE)}>
+            {/* {component !== STORE && (
+                <HomeButton onClick={onChangeCategory(STORE)}>
                     <HomeOutlined />
                     <span className="hidden">메뉴 바로가기</span>
-                </BackButton>
-            )}
+                </HomeButton>
+            )} */}
 
             {(() => {
                 if (component === STORE) {
@@ -139,7 +139,7 @@ const Game = () => {
                                             key={`game_${v.name}`}
                                             id={v.gameId}
                                         >
-                                            <ItemButton onClick={onClickGame(v.name)}>
+                                            <ItemButton onClick={onChangeCategory(v.name)}>
                                                 <ItemCover bg={v.image}>
                                                     <span className="hidden">{v.title} 표지</span>
                                                 </ItemCover>
@@ -169,10 +169,17 @@ const Game = () => {
                     )
                 } else {
                     if (component === NONSENSE_QUIZ) {
-                        return <NonsenseQuiz />;
-
+                        return (
+                            <NonsenseQuiz 
+                                onClickHome={onChangeCategory}
+                            />
+                        ) 
                     } else if (component === CATCH_MIND) {
-                        return <CatchMindQuiz />;
+                        return (
+                            <CatchMindQuiz 
+                                onClickHome={onChangeCategory}
+                            />
+                        ) 
                     }
                 }
             })()}

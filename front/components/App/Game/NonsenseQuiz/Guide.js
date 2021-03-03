@@ -31,7 +31,7 @@ const SlickWrap = styled.div`
     }
 `;
 
-const defaultButtonStyle = css`
+const initialSlickButton = css`
     position: absolute;
     top: 50%;
     padding: 0;
@@ -47,12 +47,12 @@ const defaultButtonStyle = css`
 `;
 
 const PrevButton = styled.button`
-    ${defaultButtonStyle}
+    ${initialSlickButton}
     left: 0;
 `;
 
 const NextButton = styled.button`
-    ${defaultButtonStyle}
+    ${initialSlickButton}
     right: 0;
 `;
 
