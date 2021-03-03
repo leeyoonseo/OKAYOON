@@ -7,7 +7,7 @@ import Game from './Game';
 import Finish from './Finish';
 import { LOAD_GAME_REQUEST, NONSENSE_QUIZ } from '../../../../reducers/game';
 
-export const GAME_ID = 'game_nonsense';
+// export const GAME_ID = 'game_nonsense';
 export const STEP_MAIN = 'main';
 export const STEP_GUIDE = 'guide';
 export const STEP_GAME = 'game';
@@ -28,9 +28,7 @@ const NonsenseQuiz = () => {
         });
     }, []);
 
-    const onChangeStep = useCallback((changeStep) => () => {
-        setStep(changeStep);
-    }, []);
+    const onChangeStep = useCallback((changeStep) => () => setStep(changeStep), []);
     
     return (
         <>

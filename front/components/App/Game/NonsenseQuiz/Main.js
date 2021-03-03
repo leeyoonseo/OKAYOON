@@ -52,7 +52,7 @@ const ButtonArea = styled.div`
     }
 `;
 
-const main = ({ onChangeStep }) => {
+const Main = ({ onChangeStep }) => {
     return (
         <Wrap>
             <Inner>
@@ -72,4 +72,4 @@ const main = ({ onChangeStep }) => {
 
 
 
-export default main;
+export default Main;
