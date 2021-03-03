@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { STORE, NONSENSE_QUIZ, CATCH_MIND, LOAD_GAMELIST_REQUEST } from '../../../reducers/game';
+import React, { useCallback, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { STORE, NONSENSE_QUIZ, CATCH_MIND } from '../../../reducers/game';
 import styled, { css } from 'styled-components';
 import { HomeOutlined, SettingOutlined } from '@ant-design/icons';
 
@@ -104,13 +104,10 @@ const SetButton = styled.button`
 `;
 
 const Game = () => {
-    const dispatch = useDispatch();
     const { gameList } = useSelector((state) => state.game);
     const { admin } = useSelector((state) => state.user);
     const [component, setComponent] = useState(STORE);
     const [isSetting, setIsSetting] = useState(false);
-
-    useEffect(() => dispatch({ type: LOAD_GAMELIST_REQUEST }), []); 
 
     const onClickGame = useCallback((compName) => () => {
         setComponent(compName);

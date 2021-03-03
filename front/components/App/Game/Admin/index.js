@@ -1,10 +1,10 @@
 import React, { useCallback, useRef, useState } from 'react';
-import { GAME_LIST, NONSENSE_QUIZ, CATCH_MIND, LOAD_GAMELIST_REQUEST, ADD_GAMELIST_REQUEST, ADD_GAME_REQUEST } from '../../../../reducers/game';
+import { GAME_LIST, NONSENSE_QUIZ, CATCH_MIND } from '../../../../reducers/game';
 import { LeftOutlined } from '@ant-design/icons';
 
 import { Wrap, BackButton, SelectArea, Title, Select, OptionItems, NotifyMessage } from './style';
 
-import GameListForm from './GameListForm';
+// import GameListForm from './GameListForm';
 import NonsenseQuizForm from './NonsenseQuizForm';
 
 const Admin = ({ list, onClickBack }) => {
@@ -47,7 +47,7 @@ const Admin = ({ list, onClickBack }) => {
                             </OptionItems>
                         )
                     })}
-
+{/* 
                     <OptionItems key={`admin_add_gamelist`}>
                         <input 
                             type="radio" 
@@ -57,18 +57,20 @@ const Admin = ({ list, onClickBack }) => {
                             onClick={onClickOption(GAME_LIST)} 
                         />
                         <label htmlFor={GAME_LIST}>게임 리스트</label>
-                    </OptionItems>
+                    </OptionItems> */}
                 </Select>  
             </SelectArea>
 
             {(() => {
-                if (dataName === GAME_LIST) {
-                    return (
-                        <GameListForm
-                            gameName={dataName}
-                        />
-                    )
-                }else if (dataName === NONSENSE_QUIZ) {
+                // if (dataName === GAME_LIST) {
+                //     return (
+                //         <GameListForm
+                //             gameName={dataName}
+                //         />
+                //     )
+                // }else 
+                
+                if (dataName === NONSENSE_QUIZ) {
                     return (
                         <NonsenseQuizForm 
                             gameName={dataName}

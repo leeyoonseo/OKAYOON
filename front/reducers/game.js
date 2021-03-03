@@ -1,25 +1,28 @@
 import produce from '../util/produce';
 
 // [D] 게임 리스트
-export const GAME_LIST = 'gamelist';
+// export const GAME_LIST = 'gamelist';
 export const STORE = 'store';
 export const NONSENSE_QUIZ = 'nonsensequiz';
 export const CATCH_MIND = 'catchmind';
 
+// [D] S3
+const awsBucketBaseURL = 'https://okayoon-bucket.s3.ap-northeast-2.amazonaws.com/';
+
 export const initialState = {
     gameList: [
-        // {
-        //     name:  'nonsensequiz',
-        //     title: '넌센스 퀴즈',
-        //     image: 'https://t1.daumcdn.net/cfile/tistory/992576355E29A72519',
-        //     description: '퀴즈 식의 문답형 말장난, 당신의 센스를 알아보아요',
-        // },
-        // {
-        //     name: 'catchmind',
-        //     title: '그림 퀴즈',
-        //     image: 'http://www.topdaily.kr/news/photo/201910/59899_24563_3844.jpg',
-        //     description: '그림을 보고 정답을 맞춰봐요',
-        // },    
+        {
+            name:  'nonsensequiz',
+            title: '넌센스 퀴즈',
+            image: 'https://t1.daumcdn.net/cfile/tistory/992576355E29A72519',
+            description: '퀴즈 식의 문답형 말장난, 당신의 센스를 알아보아요',
+        },
+        {
+            name: 'catchmind',
+            title: '그림 퀴즈',
+            image: 'http://www.topdaily.kr/news/photo/201910/59899_24563_3844.jpg',
+            description: '그림을 보고 정답을 맞춰봐요',
+        },    
     ],
     isMuted: false,
 
@@ -127,16 +130,29 @@ export const initialState = {
         //     description: '다른 집들이 똥집보다 더 더러울수도~~',
         // },
     ],
-    
-    // [D] 게임 리스트 가져오기
-    loadGameListLoading: false,
-    loadGameListDone: false,
-    loadGameListError: false,
 
-    // [D] 게임 리스트 추가하기
-    addGameListLoading: false,
-    addGameListDone: false,
-    addGameListError: false,
+    nunsenseGuideImages : [
+        { 
+            src: awsBucketBaseURL + 'nonsense_guide00.png', 
+            alt : '넌센스: 게임 메인화면 설명',
+        },
+        { 
+            src: awsBucketBaseURL + 'nonsense_guide01.png', 
+            title : '넌센스: 게임 진행 화면 설명',
+        },
+        { 
+            src: awsBucketBaseURL + 'nonsense_guide02_0.png', 
+            title : '넌센스: 정답 시 설명',
+        },
+        { 
+            src: awsBucketBaseURL + 'nonsense_guide02_1.png', 
+            title : '넌센스: 오답 시 설명',
+        },
+        { 
+            src: awsBucketBaseURL + 'nonsense_guide03.png', 
+            title : '넌센스: 게임 종료 화면 설명',
+        },
+    ],
 
     // [D] 특정 게임 데이터 가져오기
     loadGameLoading: false,
@@ -148,16 +164,6 @@ export const initialState = {
     addGameDone: false,
     addGameError: false,
 };
-
-// [D] 게임 리스트 가져오기
-export const LOAD_GAMELIST_REQUEST = 'LOAD_GAMELIST_REQUEST';
-export const LOAD_GAMELIST_SUCCESS = 'LOAD_GAMELIST_SUCCESS';
-export const LOAD_GAMELIST_FAILURE = 'LOAD_GAMELIST_FAILURE';
-
-// [D] 게임 리스트 추가하기
-export const ADD_GAMELIST_REQUEST = 'ADD_GAMELIST_REQUEST';
-export const ADD_GAMELIST_SUCCESS = 'ADD_GAMELIST_SUCCESS';
-export const ADD_GAMELIST_FAILURE = 'ADD_GAMELIST_FAILURE';
 
 // [D] 특정 게임 데이터 가져오기
 export const LOAD_GAME_REQUEST = 'LOAD_GAME_REQUEST';
@@ -171,45 +177,6 @@ export const ADD_GAME_FAILURE = 'ADD_GAME_FAILURE';
 
 const reducer = (state = initialState, action) => produce(state,(draft) => {
     switch(action.type){
-        // [D] 게임 리스트 가져오기
-        case LOAD_GAMELIST_REQUEST:
-            draft.loadGameListLoading = true;
-            draft.loadGameListDone = false;
-            draft.loadGameListError = false;
-            break;
-
-        case LOAD_GAMELIST_SUCCESS:
-            draft.gameList = action.data;
-            draft.loadGameListLoading = false;
-            draft.loadGameListDone = true;
-            draft.loadGameListError = false;
-            break;
-
-        case LOAD_GAMELIST_FAILURE:
-            draft.loadGameListLoading = false;
-            draft.loadGameListDone = false;
-            draft.loadGameListError = true;
-            break;
-        
-        // [D] 게임 리스트 추가하기
-        case ADD_GAMELIST_REQUEST:
-            draft.addGameListLoading = true;
-            draft.addGameListDone = false;
-            draft.addGameListError = false;
-            break;
-
-        case ADD_GAMELIST_SUCCESS:
-            draft.gameList.unshift(action.data);
-            draft.addGameListLoading = false;
-            draft.addGameListDone = true;
-            draft.addGameListError = false;
-            break;
-
-        case ADD_GAMELIST_FAILURE:
-            draft.addGameListLoading = false;
-            draft.addGameListDone = false;
-            draft.addGameListError = true;
-            break;
 
         // [D] 특정 게임 데이터 가져오기
         case LOAD_GAME_REQUEST:

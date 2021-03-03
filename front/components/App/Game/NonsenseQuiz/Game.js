@@ -81,6 +81,10 @@ const Items = styled.div`
         background: none;
         box-sizing: border-box;
         cursor: pointer;
+
+        &[disabled] {
+            cursor: default;
+        }
     }
 `;
 
@@ -108,20 +112,20 @@ const Description = styled.div`
     color: #333;
 `;
 
-const PassButton = styled.div`
+const PassButton = styled.button`
     position: absolute;
     bottom: 0;
     right: 0;
     
-    padding: 5px;
+    padding: 0;
     line-height: 1;
-    border: 1px solid #fff;
+    border: none;
     outline: none;
     background: none;
     cursor: pointer;
 
-    &:hover {
-        opacity: 0.5;
+    &[disabled] {
+        cursor: default;
     }
 `;
 
@@ -199,12 +203,16 @@ const Game = ({
     }, [round, score]);
 
     const onClickExample = useCallback((state) => () => {
+        if (openedResult) return;
+
         moveNextRound(state);
-    }, [round]);
+    }, [round, openedResult]);
 
     const onClickPass = useCallback(() => {
+        if (openedResult) return;
+
         moveNextRound(false);
-    }, [round]);
+    }, [round, openedResult]);
 
     return (
         <Wrap>
@@ -250,7 +258,10 @@ const Game = ({
                 )}
             </Inner>
 
-            <PassButton onClick={onClickPass}>
+            <PassButton 
+                onClick={onClickPass}
+                disabled={openedResult}
+            >
                 통과 <RightOutlined />
             </PassButton>
         </Wrap>
