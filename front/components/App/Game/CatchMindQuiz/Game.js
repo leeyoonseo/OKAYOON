@@ -1,10 +1,11 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, createRef, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { shuffleArray, cloneObject } from '../index';
 
 import styled, { css } from 'styled-components';
 import { Avatar } from 'antd';
 import { ArrowLeftOutlined, ClockCircleOutlined, ConsoleSqlOutlined, DeleteOutlined } from '@ant-design/icons';
+import useInput from '../../../../hooks/useInput';
 
 const devGameData = [
     {
@@ -103,6 +104,11 @@ const GamerWrap = styled.div`
     line-height: 1;
     text-align: center;
     box-sizing: border-box;
+
+    .ant-avatar {
+        border-radius: 50%;
+        box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+    }   
 `;
 
 const Nickname = styled.div`
@@ -136,6 +142,7 @@ const InputBox = styled.div`
         display: inline-block;
         width: 50px;
         height: 50px;
+        vertical-align: top;
         border-radius: 5px;
         background: #fffff4;
         box-shadow: 2px 2px 3px rgb(0 0 0);
@@ -200,6 +207,12 @@ const ExampleArea = styled.div`
         &:nth-child(n + 6) { 
             margin-top: 0.5%;
         }
+
+        &.active {
+            background: #ffbf2e;
+            color: #ffbf2e;
+            box-shadow: inset 2px 3px 5px rgba(0, 0, 0, 0.5);
+        }
     }
 `;
 
@@ -235,14 +248,16 @@ const Game = ({
     const [openedResult, setOpenedResult] = useState(false);
     const [isCorrect, setIsCorrect] = useState(null); // [D] 정답여부
     const [correctWord, setCorrectWord] = useState(null); // [D] 정답단어
-    const [correctLetterNum, setCorrectLetterNum] = useState(null); // 
 
     const [quizList, setQuizList] = useState(null); // [D] 퀴즈배열 
     const [quiz, setQuiz] = useState(null); // [D] 현재퀴즈
     const [example, setExample] = useState(null); // [D] 보기
-    const [userAnswer, setUserAnswer] = useState('');
     const [round, setRound] = useState(null);
     const [time, setTime] = useState(null);
+
+    const [examRef, setExamRef] = useState([]);
+    const userInputRef = useRef(null);
+    const [userInput, onChangeUserInput, setUserInput] = useInput('');
 
     // TODO: 실제 데이터로 넣기
     useEffect(() => {
@@ -251,6 +266,14 @@ const Game = ({
         setQuizList(devGameData);
         setRound(0);
     }, [devGameData]);
+
+    useEffect(() => {
+        if(!example) return;
+
+        setExamRef(examRef => (
+            Array(example.length).fill().map((_, i) => examRef[i] || createRef())
+        ));
+    }, [example]);
 
     useEffect(() => {
         let ranNum = null;
@@ -279,7 +302,6 @@ const Game = ({
 
         setQuiz(q);
         setCorrectWord(correct);
-        setCorrectLetterNum(correct.length);
         setExample(shuffleEx);
         setTime(MAX_TIMER);
     }, [quizList, round]); 
@@ -310,7 +332,7 @@ const Game = ({
         return item.src;
     }, [avatar]);
 
-    const RenderAiGamer = useCallback((i) => {
+    const renderAiGamer = useCallback((i) => {
         return (
             <GamerWrap key={`gamer_${aiInfo[i].avatar}`}>
                 <Avatar 
@@ -345,27 +367,51 @@ const Game = ({
         // }, 1000);
     }, [round, score]);
 
-    const onClickExample = useCallback((e) => {
+    const onClickRemove = useCallback(() => {
+        const word = userInput;
+        const lastLetter = word.charAt(word.length - 1);
+        
+        if (lastLetter === '') return;
+
+        examRef.forEach((v) => {
+            const target = v.current;
+
+            if (target.classList.contains('active') && target.value === lastLetter) {
+                target.classList.remove('active');
+                target.disabled = false;
+            }
+        });
+
+        setUserInput(word.substr(0, word.length -1));
+    }, [userInput]);
+
+    const onClickAllRemove = useCallback(() => {
+        examRef.forEach((v) => {
+            const target = v.current;
+
+            if (target.classList.contains('active')) {
+                target.classList.remove('active');
+                target.disabled = false;
+            }
+        });
+
+        setUserInput('');
+    }, [])
+
+    const onClickExample = useCallback(({ target }) => {
         if (openedResult) return;
+        if (correctWord.length === userInput.length) {
+            // TODO: 
+            // - 다음 스테이지로 가야함!
+            // - 정답처리
+            // moveNextRound(state);
+            return;
+        }
 
-        const answer = userAnswer;
-
-        answer.push(e.target.value);
-        setUserAnswer(answer);
-
-        // if (e.target.hasClass('active')) {
-        //     console.log('1')
-        //     e.target.classList.remove('active');
-        //     setUserAnswer.pop();
-
-        // } else {
-        //     console.log('2')
-        //     e.target.classList.add('active');
-        //     setUserAnswer.push(e.target.value);
-        // }
-
-        // moveNextRound(state);
-    }, [round, openedResult]);
+        target.classList.add('active');
+        target.disabled = true;
+        setUserInput(userInput + target.value);
+    }, [openedResult, correctWord, userInput]);
 
     return (
         <Wrap>
@@ -393,7 +439,7 @@ const Game = ({
                             <Score>{score}</Score>
                         </GamerWrap>
 
-                        {aiInfo && RenderAiGamer(0)}
+                        {aiInfo && renderAiGamer(0)}
                     </SideInner>
                 </Side>
 
@@ -407,26 +453,26 @@ const Game = ({
 
                 <Side>
                     <SideInner>
-                        {aiInfo && [RenderAiGamer(1),RenderAiGamer(2)]}
+                        {aiInfo && [renderAiGamer(1),renderAiGamer(2)]}
                     </SideInner>
                 </Side>
             </OutputArea>
 
             <InputArea>
                 <InputBox>
-                    {correctWord && (() => {
-                        const arr = userAnswer.split('');
-                        const renderArr = [];
-                        for (let i = 0; i < correctWord.length; i++) {
-                            renderArr.push(
-                                <span key={i}>
-                                    {userAnswer[i]}
-                                </span>
-                            );
-                        }
+                    <input 
+                        ref={userInputRef}  
+                        value={userInput} 
+                        onChange={onChangeUserInput}
+                    />
 
-                        return renderArr;
-                    })()}
+                    {correctWord && correctWord.split('').map((v, i) => {
+                        return (
+                            <span key={`submit_word_${i}`}>
+                                {userInput.split('')[i]}
+                            </span>
+                        )
+                    })}
                 </InputBox>
 
                 <ActivityArea>
@@ -436,6 +482,7 @@ const Game = ({
                                 key={`example_${v}`}
                                 value={v}
                                 onClick={onClickExample}
+                                ref={examRef[i]}
                             > 
                                 {v}
                             </button>
@@ -443,12 +490,16 @@ const Game = ({
                     </ExampleArea>
                     
                     <RemoveButtons>
-                        <button>
+                        <button
+                            onClick={onClickRemove}
+                        >
                             <ArrowLeftOutlined style={{ color: '#666' }} />
                             <span className="hidden">한글자 지우기</span>
                         </button>
 
-                        <button>
+                        <button
+                            onClick={onClickAllRemove}
+                        >
                             <DeleteOutlined style={{ color: '#666' }} />
                             <span className="hidden">전체 지우기</span>
                         </button>
