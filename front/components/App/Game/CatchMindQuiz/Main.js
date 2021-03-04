@@ -23,33 +23,35 @@ const Wrap = styled.div`
 
 const Inner = styled.div`
     display: inline-block;
+    text-align: center;
 
     > div + div {
         margin-top: 40px;
     }
 `;
 
-const TitleArea = styled.div`
-`;
+// const Title = styled.span`
+//     display: block;
+//     font-size: 68px;
+//     line-height: 1.2;
+// `;
 
-const Title = styled.span`
-`;
-
-const SubTitle = styled.span`
-`;
-
-const ButtonArea = styled.div`
-`;
+// const SubTitle = styled.span`
+//     display: block;
+//     font-size: 24px;
+// `;
 
 const StartButton = styled.button`
     ${initialButton}
+    text-shadow: 1px 1px 1px rgba(255,255,255,0.5);
+    font-size: 85px;
 `;
 
 const GuideButton = styled.button`
     ${initialButton}
-    position: absolute;
-    bottom: 0;
-    right: 0;
+    display: block;
+    margin: 20px auto 0;
+    text-shadow: 1px 1px 1px rgba(255,255,255,0.5);
 
     &:after{
         content: '';
@@ -72,28 +74,27 @@ const Main = ({ onChangeStep }) => {
     return (
         <Wrap>
             <Inner>
-                <TitleArea>
-                    <Title>캐치마인드</Title>
-                    <SubTitle>그림퀴즈어쩌고저쩌고</SubTitle>
-                </TitleArea>
+        
+                {/* <div>
+                    <Title>그림 퀴즈</Title>
+                    <SubTitle>눈치 코치! 그림을 보고 퀴즈를 맞추어보세요</SubTitle>
+                </div> */}
 
-                {/* <ButtonArea> */}
-                    <StartButton onClick={onChangeStep(STEP_GAME)}>
-                        {START.split('').map((v, i) => {
-                            return (
-                                <span
-                                    key={`word_${i}_${v}`}
-                                    style={{ color: getRandomColor() }}
-                                >
-                                    {v}
-                                </span>
-                            )
-                        })}
-                    </StartButton>
-                    <GuideButton onClick={onChangeStep(STEP_GUIDE)}>
-                        <span className="hidden">게임방법</span>
-                    </GuideButton>
-                {/* </ButtonArea> */}
+                <StartButton onClick={onChangeStep(STEP_GAME)}>
+                    {START.split('').map((v, i) => {
+                        return (
+                            <span
+                                key={`word_${i}_${v}`}
+                                style={{ color: getRandomColor() }}
+                            >
+                                {v}
+                            </span>
+                        )
+                    })}
+                </StartButton>
+                <GuideButton onClick={onChangeStep(STEP_GUIDE)}>
+                    <span className="hidden">게임방법</span>
+                </GuideButton>
             </Inner>
         </Wrap>
     );

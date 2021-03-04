@@ -3,6 +3,8 @@ import styled, { keyframes } from 'styled-components';
 import { RightOutlined, ClockCircleOutlined } from '@ant-design/icons';
 import { STEP_FINISH } from './index';
 
+import { shuffleArray, cloneObject } from '../index';
+
 const resultFadeIn = keyframes`
     0% {
         font-size: 10px;
@@ -267,32 +269,5 @@ const Game = ({
         </Wrap>
     );
 };
-
-function shuffleArray (arr){
-    let temp = arr.map((v) => {
-        return cloneObject(v);
-    });
-
-    for(let i = temp.length - 1; i > 0; i--){
-        let j = Math.floor(Math.random() * (i + 1));
-        [temp[i], temp[j]] = [temp[j], temp[i]];
-    }
-
-    return temp;
-};
-
-function cloneObject(obj) {
-    let clone = {};
-
-    for (var key in obj) {
-        if (typeof obj[key] == 'object' && obj[key] != null) {
-            clone[key] = cloneObject(obj[key]);
-        } else {
-            clone[key] = obj[key];
-        }
-    }
-
-    return clone;
-}
 
 export default Game;

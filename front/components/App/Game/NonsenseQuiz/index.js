@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 import { HomeOutlined, LeftOutlined } from '@ant-design/icons';
 import { STORE, LOAD_GAME_REQUEST, NONSENSE_QUIZ } from '../../../../reducers/game';
@@ -16,7 +16,7 @@ export const STEP_GUIDE = 'guide';
 export const STEP_GAME = 'game';
 export const STEP_FINISH = 'finish';
 
-const initButtonStyled = css`
+const HomeButton = styled.button`
     padding: 0;
     border: none;
     outline: none;
@@ -26,10 +26,6 @@ const initButtonStyled = css`
     &:hover {
         opacity: 0.5;
     }
-`;
-
-const HomeButton = styled.button`
-    ${initButtonStyled}
 `;
 
 const MainButton = styled.button`
@@ -88,7 +84,7 @@ const NonsenseQuiz = ({ onClickHome }) => {
                     )
                 } else if (step === STEP_GUIDE) {
                     return (
-                        <Guide 
+                        <Guide  
                             onChangeStep={onChangeStep}
                         />
                     )

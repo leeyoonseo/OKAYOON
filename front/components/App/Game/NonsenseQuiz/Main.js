@@ -24,18 +24,19 @@ const TitleArea = styled.div`
 
 const Title = styled.span`
     display: block;
-    font-size: 36px;
+    font-size: 68px;
 `;
 
 const SubTitle = styled.span`
     display: block;
-    font-size: 15px;
+    font-size: 24px;
 `;
 
 const ButtonArea = styled.div`
     button {
         padding: 10px 0;
         width: 100%;
+        font-size: 20px;
         line-height: 1;
         border: 1px solid #fff;
         outline: none;

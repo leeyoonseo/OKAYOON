@@ -121,13 +121,6 @@ const Game = () => {
     
     return (
         <Wrap>
-            {/* {component !== STORE && (
-                <HomeButton onClick={onChangeCategory(STORE)}>
-                    <HomeOutlined />
-                    <span className="hidden">메뉴 바로가기</span>
-                </HomeButton>
-            )} */}
-
             {(() => {
                 if (component === STORE) {
                     return (
@@ -151,8 +144,8 @@ const Game = () => {
                                         </Item>
                                     )   
                                 })}
-                                
                             </List>
+
                             {admin && (
                                 <SetButton onClick={onClickSetting}>
                                     <SettingOutlined />
@@ -176,7 +169,7 @@ const Game = () => {
                         ) 
                     } else if (component === CATCH_MIND) {
                         return (
-                            <CatchMindQuiz 
+                            <CatchMindQuiz
                                 onClickHome={onChangeCategory}
                             />
                         ) 
@@ -186,5 +179,32 @@ const Game = () => {
         </Wrap>
     );
 };
+
+export function shuffleArray (arr){
+    let temp = arr.map((v) => {
+        return cloneObject(v);
+    });
+
+    for(let i = temp.length - 1; i > 0; i--){
+        let j = Math.floor(Math.random() * (i + 1));
+        [temp[i], temp[j]] = [temp[j], temp[i]];
+    }
+
+    return temp;
+};
+
+export function cloneObject(obj) {
+    let clone = {};
+
+    for (var key in obj) {
+        if (typeof obj[key] == 'object' && obj[key] != null) {
+            clone[key] = cloneObject(obj[key]);
+        } else {
+            clone[key] = obj[key];
+        }
+    }
+
+    return clone;
+}
 
 export default Game;
