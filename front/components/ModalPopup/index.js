@@ -5,7 +5,7 @@ import {
     Title,
     Content, 
     Controls, ControlButton, 
-    CloseIcon, 
+    MinimizationIcon, 
     MaximizeIcon, 
 } from './styles';
 
@@ -82,10 +82,10 @@ const ModalPopup = ({
                     <HeaderInner theme={theme}>
                         <Controls>
                             <ControlButton 
-                                bgcolor="#ff6059" 
+                                bgcolor="#ffbf2e" 
                                 onClick={onCloseModal(id)}
                             >
-                                <CloseIcon />
+                                <MinimizationIcon />
                             </ControlButton>
                             
                             {!buttonDisabled.Maximize && (

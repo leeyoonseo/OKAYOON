@@ -2,7 +2,6 @@ import styled, { css, keyframes } from 'styled-components';
 
 import { Layout } from 'antd';
 import { CloseOutlined, MinusOutlined, FullscreenOutlined } from '@ant-design/icons';
-
 export const Wrap = styled.div`
     display: none;
     position: fixed;
@@ -88,7 +87,7 @@ const defaultIconStyle = css`
     }
 `;
 
-export const CloseIcon = styled(CloseOutlined)`
+export const MinimizationIcon = styled(MinusOutlined)`
     ${defaultIconStyle}
 `;
 
