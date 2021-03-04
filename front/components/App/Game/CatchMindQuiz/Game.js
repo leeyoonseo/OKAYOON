@@ -4,7 +4,7 @@ import { shuffleArray, cloneObject } from '../index';
 
 import styled, { css } from 'styled-components';
 import { Avatar } from 'antd';
-import { ArrowLeftOutlined, ClockCircleOutlined, DeleteOutlined } from '@ant-design/icons';
+import { ArrowLeftOutlined, ClockCircleOutlined, ConsoleSqlOutlined, DeleteOutlined } from '@ant-design/icons';
 
 const devGameData = [
     {
@@ -233,8 +233,9 @@ const Game = ({
     const [aiInfo, setAiInfo] = useState(null);
 
     const [openedResult, setOpenedResult] = useState(false);
-    const [isCorrect, setIsCorrect] = useState(null);
-    const [correctWord, setCorrectWord] = useState(null);
+    const [isCorrect, setIsCorrect] = useState(null); // [D] 정답여부
+    const [correctWord, setCorrectWord] = useState(null); // [D] 정답단어
+    const [correctLetterNum, setCorrectLetterNum] = useState(null); // 
 
     const [quizList, setQuizList] = useState(null); // [D] 퀴즈배열 
     const [quiz, setQuiz] = useState(null); // [D] 현재퀴즈
@@ -278,6 +279,7 @@ const Game = ({
 
         setQuiz(q);
         setCorrectWord(correct);
+        setCorrectLetterNum(correct.length);
         setExample(shuffleEx);
         setTime(MAX_TIMER);
     }, [quizList, round]); 
@@ -345,8 +347,22 @@ const Game = ({
 
     const onClickExample = useCallback((e) => {
         if (openedResult) return;
-        console.log('onClickExample', e.current.value)
 
+        const answer = userAnswer;
+
+        answer.push(e.target.value);
+        setUserAnswer(answer);
+
+        // if (e.target.hasClass('active')) {
+        //     console.log('1')
+        //     e.target.classList.remove('active');
+        //     setUserAnswer.pop();
+
+        // } else {
+        //     console.log('2')
+        //     e.target.classList.add('active');
+        //     setUserAnswer.push(e.target.value);
+        // }
 
         // moveNextRound(state);
     }, [round, openedResult]);
@@ -398,13 +414,19 @@ const Game = ({
 
             <InputArea>
                 <InputBox>
-                    {correctWord && correctWord.split('').map((v, i) => {
+                    {correctWord && (() => {
                         const arr = userAnswer.split('');
+                        const renderArr = [];
+                        for (let i = 0; i < correctWord.length; i++) {
+                            renderArr.push(
+                                <span key={i}>
+                                    {userAnswer[i]}
+                                </span>
+                            );
+                        }
 
-                        return (
-                            <span key={`letter_hint_${v}`}>{arr[i]}</span>
-                        )
-                    })}
+                        return renderArr;
+                    })()}
                 </InputBox>
 
                 <ActivityArea>
