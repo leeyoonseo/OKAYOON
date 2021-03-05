@@ -137,7 +137,7 @@ const Game = ({
     onChangeStep, 
     gameData, 
     MAX_ROUND, 
-    MAX_TIMER,
+    MAX_TIME,
 }) => {
     const [openedResult, setOpenedResult] = useState(false);
     const [isCorrect, setIsCorrect] = useState(null);
@@ -156,14 +156,19 @@ const Game = ({
     }, [gameData]);
 
     useEffect(() => {
-        if(round === null || !quizList) return;
+        if(round === null) return;
+        if (quizList.length < 1) {
+            console.log('===================== 퀴즈리스트데이터가 없다.')
+            return;
+        }
+
         const q = quizList[round];
         const ex = JSON.parse(q.example);
         const shuffleEx = shuffleArray(Object.values(ex));
 
         setQuiz(q);
         setExample(shuffleEx);
-        setTime(MAX_TIMER);
+        setTime(MAX_TIME);
     }, [quizList, round]); 
 
     useEffect(() => {
@@ -182,12 +187,12 @@ const Game = ({
         }
     }, [time]); 
     
-    const moveNextRound = useCallback((state) => {
-        if (state) {
+    const moveNextRound = useCallback(({ scoreUp }) => {
+        if (scoreUp) {
             setScore(score + 1);
         }
 
-        setIsCorrect(state);
+        setIsCorrect(scoreUp);
         setOpenedResult(true);
 
         setTimeout(() => {
@@ -200,20 +205,20 @@ const Game = ({
             }
 
             setRound(round + 1);
-            setTime(MAX_TIMER);
+            setTime(MAX_TIME);
         }, 1000);
     }, [round, score]);
 
     const onClickExample = useCallback((state) => () => {
         if (openedResult) return;
 
-        moveNextRound(state);
+        moveNextRound({ scoreUp: state });
     }, [round, openedResult]);
 
     const onClickPass = useCallback(() => {
         if (openedResult) return;
 
-        moveNextRound(false);
+        moveNextRound({ scoreUp: false });
     }, [round, openedResult]);
 
     return (

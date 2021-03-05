@@ -2,34 +2,35 @@ import React, { useEffect, useState, useCallback, createRef, useRef } from 'reac
 import { useSelector } from 'react-redux';
 import { shuffleArray, cloneObject } from '../index';
 
-import styled, { css } from 'styled-components';
-import { Avatar } from 'antd';
+import styled, { css, keyframes } from 'styled-components';
 import { ArrowLeftOutlined, ClockCircleOutlined, ConsoleSqlOutlined, DeleteOutlined } from '@ant-design/icons';
 import useInput from '../../../../hooks/useInput';
 
-const devGameData = [
-    {
-        qusetion: 'https://postfiles.pstatic.net/MjAxOTA4MDlfMjgg/MDAxNTY1MzM4MTQ2MjM1.ZFeo0TvfJ5RC5Bxg5hBiP9mJhgRxsIVsAkIQ9DF8fNYg.Vb5BC5wlvdKa43TQaIG38WxyejU8QtVD5J9Ot7j3XVEg.JPEG.jinyh97/Screenshot_20190809-103258__.jpg?type=w966',
-        correct: '걸음마',
-        // [D] 최소 10개~최대 15개, 동일하지 않게 입력 (Example과도 동일하지 않아야함.). 저장할때 배열로...
-        incorrect: ['구','길','갬','성','으','우','상','태','테','킹','콩','로','도','후','지','장'],
-    },
-    {
-        question: 'https://img.insight.co.kr/static/2019/08/10/700/6qazze195m4q6043zwsy.jpg',
-        correct: '세차장',
-        incorrect: ['구','길','갬','성','으','우','상','태','테','킹','콩','로','도','후','지','장'],
-    },
-    {
-        question: 'https://i.ytimg.com/vi/tAfUrRsPKi8/hqdefault.jpg',
-        correct: '조기교육',
-        incorrect: ['구','길','갬','성','으','우','상','태','테','킹','콩','로','도','후','지','장'],
-    },
-    {
-        question: 'http://cfile.img.netmarble.kr/imageEditor/cmind/sketch/20110113/20110113144407277721.jpg',
-        correct: '가격표',
-        incorrect: ['구','길','갬','성','으','우','상','태','테','킹','콩','로','도','후','지','장'],
+import { STEP_FINISH } from './index';
+
+// const devData = [
+//     {
+//         qusetion: 'https://blog.kakaocdn.net/dn/be0Djj/btqw7cQxh9J/jKmLAEMxSBoT5xMHMwAKkk/img.png',
+//         correct: '골프',
+//         // [D] 최소 10개~최대 15개, 동일하지 않게 입력 (Example과도 동일하지 않아야함.). 저장할때 배열로...
+//         incorrect: ['구','길','갬','성','으','우','상','태','테','킹','콩','로','도','후','지','장'],
+//     },
+//     {
+//         question: 'https://img.insight.co.kr/static/2019/08/10/700/y9zdh7mhze6k14510er7.jpg',
+//         correct: '개인기',
+//         incorrect: ['구','길','갬','성','으','우','상','태','테','킹','콩','로','도','후','지','장'],
+//     },
+//     
+// ];
+
+const resultFadeIn = keyframes`
+    0% {
+        font-size: 10px;
     }
-];
+    100% {
+        font-size: 60px;
+    }
+`;
 
 const Wrap = styled.div`
     position: relative;        
@@ -51,10 +52,6 @@ const TimerWrap = styled.div`
     text-align: center;
 `;
 
-const TimerInner = styled.div`
-    display: inline-block;
-`;
-
 const TimerIcon = styled(ClockCircleOutlined)`
     color: #ffbf2e;
     font-size: 18px;
@@ -63,71 +60,34 @@ const TimerIcon = styled(ClockCircleOutlined)`
     vertical-align: middle;
 `;
 
+const TimerInner = styled.div`
+    display: inline-block;
+    width: 400px;
+`;
+
 const TimerBar = styled.div`
     display: inline-block;
     height: 10px;
-    width: 320px;
+    width: 100%;
     text-align: center;
+    border-radius: 0 3px 3px 0;
     background: none;
     overflow: hidden;
 
     &:after {
         content: '';
         display: block;
-        width: 50%;
+        width: ${props => props.progress}%;
         height: 100%;
         border-radius: 0 3px 3px 0;
         background: #ffbf2e;
     }
 `;
 
-const Side = styled.div`
-    float: left;
-    width: 100px;
-    height: 300px;
-    display: block;
-`;
-
-const SideInner = styled.div`
-    display: flex;
-    height: 100%;
-    flex-direction: column;
-    justify-content: center;
-
-    > div + div {
-        margin-top: 15px;
-    }
-`;
-
-const GamerWrap = styled.div`
-    height: 125px;
-    line-height: 1;
-    text-align: center;
-    box-sizing: border-box;
-
-    .ant-avatar {
-        border-radius: 50%;
-        box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
-    }   
-`;
-
-const Nickname = styled.div`
-    margin-top: 10px;
-    font-size: 18px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-`;
-
-const Score = styled.div`
-    font-size: 16px;
-`;
-
 const Container = styled.div`
     position: relative;
     float: left;
-    margin: 0 10px;
-    width: calc(100% - 220px);
+    width: 100%;
     height: 300px;
     border-radius: 10px;
     background: #fffff4;
@@ -154,7 +114,13 @@ const InputBox = styled.div`
     }
 `;
 
-const QuizBoard = styled.div``;
+const QuizBoard = styled.div`
+    width: 100%;
+    height: 100%;
+    background: url(${props => props.bg})no-repeat;
+    background-size: 100% 100%;
+    overflow: hidden;
+`;
 
 const Round = styled.span`
     position: absolute;
@@ -164,16 +130,22 @@ const Round = styled.span`
     font-size: 20px;
     line-height: 1;
     color: #666;
+    1px 1px 1px rgb(0 0 0 / 50%)
+`;
+
+const Score = styled.span`
+    position: absolute;
+    right: 0;
+    bottom: -20px;
+    display: inline-block;
+    font-size: 18px;
+    line-height: 1;
 `;
 
 const InputArea = styled.div`
-
     > div {
         margin-top: 15px;
     }
-`;
-const ActivityArea = styled.div`
-
 `;
 
 const initialLetterStyle = css`
@@ -231,20 +203,33 @@ const RemoveButtons = styled.div`
     }
 `;
 
+const ResultModal = styled.div`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 10px 20px;
+    line-height: 1;
+    text-align: center;
+    background: #fff;
+    border-radius: 5px;
+    transform: translate(-50%, -50%);
+    animation: ${resultFadeIn} 0.1s linear ;
+`;
+
+const ResultMessage = styled.span`
+    font-size: 60px;    
+    color: ${props => props.isCorrect ? '#26ca3f' : '#ff6059'};
+`;
+
 const Game = ({
     score, 
     setScore,
     MAX_ROUND,
-    MAX_TIMER,
+    MAX_TIME,
     gameData,
     onChangeStep,
 }) => {
-    const { me, avatarList } = useSelector((state) => state.user);
-    // TODO: 세션, 쿠키 다 하면 avatar,nickname 찾아서 다 빈값으로 만들어버리기
-    const [avatar, setAvatar] = useState(me.avatar ? me.avatar : 'nickname');
-    const [nickname, setNickname] = useState(me.nickname ? me.nickname : 'Guest');
-    const [aiInfo, setAiInfo] = useState(null);
-
+    const [userInput, onChangeUserInput, setUserInput] = useInput('');
     const [openedResult, setOpenedResult] = useState(false);
     const [isCorrect, setIsCorrect] = useState(null); // [D] 정답여부
     const [correctWord, setCorrectWord] = useState(null); // [D] 정답단어
@@ -257,15 +242,14 @@ const Game = ({
 
     const [examRef, setExamRef] = useState([]);
     const userInputRef = useRef(null);
-    const [userInput, onChangeUserInput, setUserInput] = useInput('');
 
-    // TODO: 실제 데이터로 넣기
     useEffect(() => {
-        if(!devGameData) return;
+        if(!gameData) return;
 
-        setQuizList(devGameData);
+        setQuizList(gameData);
         setRound(0);
-    }, [devGameData]);
+        setScore(0);
+    }, [gameData]);
 
     useEffect(() => {
         if(!example) return;
@@ -274,22 +258,6 @@ const Game = ({
             Array(example.length).fill().map((_, i) => examRef[i] || createRef())
         ));
     }, [example]);
-
-    useEffect(() => {
-        let ranNum = null;
-        let arr = [];
-
-        for (let i = 0; i < 3; i++) {
-            ranNum = Math.floor(Math.random() * (avatarList.length - 1));
-            arr.push({
-                avatar: avatarList[ranNum].src,
-                nickname: avatarList[ranNum].title,
-                score: 0,
-            });
-        }
-
-        setAiInfo(arr);
-    }, [avatarList]);
 
     useEffect(() => {
         if(round === null || !quizList) return;
@@ -303,70 +271,77 @@ const Game = ({
         setQuiz(q);
         setCorrectWord(correct);
         setExample(shuffleEx);
-        setTime(MAX_TIMER);
+        setTime(MAX_TIME);
+        reset();
     }, [quizList, round]); 
 
     useEffect(() => {
-        // if (time === 0) {
-        //     clearInterval(timer);
-        //     onClickExample(false)();
-        //     return;
-        // };
+        if (time === 0) {
+            clearInterval(timer);
+            correctCheck();
+            return;
+        };
 
-        // const timer = setInterval(() => {
-        //     setTime(time - 10);
-        // }, 100);
+        const timer = setInterval(() => {
+            setTime(time - 10);
+        }, 100);
 
-        // return () => {
-        //     clearInterval(timer);
-        // }
+        return () => {
+            clearInterval(timer);
+        }
     }, [time]); 
 
-    const getAvatarImageSrc = useCallback(() => {
-        const item = avatarList.find((v) => v.title === avatar);
-
-        if(!item) { 
-            return null;
+    useEffect(() => {
+        if(!correctWord || !userInput || correctWord.length !== userInput.length) {
+            return;
         }
-    
-        return item.src;
-    }, [avatar]);
 
-    const renderAiGamer = useCallback((i) => {
-        return (
-            <GamerWrap key={`gamer_${aiInfo[i].avatar}`}>
-                <Avatar 
-                    size={70}
-                    src={aiInfo[i].avatar} 
-                /> 
-                <Nickname>{aiInfo[i].nickname}</Nickname> 
-                <Score>{aiInfo[i].score}</Score>
-            </GamerWrap>
-        )
-    }, [aiInfo]);
+        correctCheck();
+    }, [userInput]);
 
-    const moveNextRound = useCallback((state) => {
-        // if (state) {
-        //     setScore(score + 1);
-        // }
+    const correctCheck = useCallback(() => {
+        if (correctWord === userInput) {
+            return moveNextRound({ scoreUp: true });         
+        } 
 
-        // setIsCorrect(state);
-        // setOpenedResult(true);
+        moveNextRound({ scoreUp: false });         
+    }, [correctWord, userInput]);
 
-        // setTimeout(() => {
-        //     setOpenedResult(false);
+    const moveNextRound = useCallback(({ scoreUp }) => {
+        if (scoreUp) {
+            setScore(score + 1);
+        }
+
+        setIsCorrect(scoreUp);
+        setOpenedResult(true);
+        
+        setTimeout(() => {
+            setOpenedResult(false);
             
-        //     if (round > MAX_ROUND || round >= (gameData.length - 1)) {
-        //         setRound(null);
-        //         onChangeStep(STEP_FINISH)();
-        //         return;
-        //     }
+            if (round > MAX_ROUND || round >= (gameData.length - 1)) {
+                setRound(null);
+                onChangeStep(STEP_FINISH)();
+                return;
+            }
 
-        //     setRound(round + 1);
-        //     setTime(MAX_TIMER);
-        // }, 1000);
+            setRound(round + 1);
+        }, 1000);
     }, [round, score]);
 
+    const reset = useCallback(() => {
+        examRef.forEach((v) => {
+            const target = v.current;
+
+            if (target.classList.contains('active')) {
+                target.classList.remove('active');
+                target.disabled = false;
+            }
+        });
+
+        setUserInput('');
+    }, [examRef, userInput]);
+
+    const onClickAllRemove = useCallback(() => reset(), [examRef, userInput])
     const onClickRemove = useCallback(() => {
         const word = userInput;
         const lastLetter = word.charAt(word.length - 1);
@@ -383,30 +358,12 @@ const Game = ({
         });
 
         setUserInput(word.substr(0, word.length -1));
-    }, [userInput]);
+    }, [examRef, userInput]);
 
-    const onClickAllRemove = useCallback(() => {
-        examRef.forEach((v) => {
-            const target = v.current;
-
-            if (target.classList.contains('active')) {
-                target.classList.remove('active');
-                target.disabled = false;
-            }
-        });
-
-        setUserInput('');
-    }, [])
 
     const onClickExample = useCallback(({ target }) => {
         if (openedResult) return;
-        if (correctWord.length === userInput.length) {
-            // TODO: 
-            // - 다음 스테이지로 가야함!
-            // - 정답처리
-            // moveNextRound(state);
-            return;
-        }
+        if (correctWord.length === userInput.length) return;
 
         target.classList.add('active');
         target.disabled = true;
@@ -417,50 +374,27 @@ const Game = ({
         <Wrap>
             <OutputArea>
                 <TimerWrap>
+                    <TimerIcon />
                     <TimerInner>
-                        <TimerIcon />
-                        <TimerBar time={time} />
+                        <TimerBar progress={(time / MAX_TIME) * 100} />
                     </TimerInner>
                 </TimerWrap>
 
-                <Side>
-                    <SideInner>
-                        <GamerWrap>
-                            {avatar === 'nickname' ? (
-                                <Avatar size={70}>{nickname}</Avatar>
-                            ) : (
-                                <Avatar 
-                                    size={100}
-                                    src={getAvatarImageSrc()} 
-                                /> 
-                            )}
-                            
-                            <Nickname>{nickname}</Nickname>
-                            <Score>{score}</Score>
-                        </GamerWrap>
-
-                        {aiInfo && renderAiGamer(0)}
-                    </SideInner>
-                </Side>
-
                 <Container>                    
-                    <QuizBoard>
-                            {quiz && quiz.qustion}
-                    </QuizBoard>
+                    {quiz && (
+                        <QuizBoard bg={quiz.question}/>
+                    )}
 
-                    <Round>{round + 1}</Round>
+                    <Round>Round {round + 1}</Round>
+
+                    <Score>Score {score}</Score>
                 </Container>
-
-                <Side>
-                    <SideInner>
-                        {aiInfo && [renderAiGamer(1),renderAiGamer(2)]}
-                    </SideInner>
-                </Side>
             </OutputArea>
 
             <InputArea>
                 <InputBox>
                     <input 
+                        type="hidden"
                         ref={userInputRef}  
                         value={userInput} 
                         onChange={onChangeUserInput}
@@ -475,7 +409,7 @@ const Game = ({
                     })}
                 </InputBox>
 
-                <ActivityArea>
+                <div>
                     <ExampleArea>
                         {example && example.map((v, i) => (
                             <button 
@@ -504,10 +438,20 @@ const Game = ({
                             <span className="hidden">전체 지우기</span>
                         </button>
                     </RemoveButtons>
-                </ActivityArea>
+                </div>
             </InputArea>
+
+            {openedResult && (
+                <ResultModal>
+                    <ResultMessage isCorrect={isCorrect}>
+                        {isCorrect ? '정답' : '오답'}
+                    </ResultMessage>
+                </ResultModal>
+            )}
         </Wrap>
     );
 };
 
 export default Game;
+
+// TODO: hint 추가 - 원하는 곳의 한글자 보기?

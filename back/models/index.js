@@ -4,6 +4,7 @@ const comment = require('./comment');
 const guestbook = require('./guestbook');
 const image = require('./image');
 const NonsenseQuiz = require('./NonsenseQuiz');
+const CatchMind = require('./CatchMind');
 
 const env = process.env.NODE_ENV || 'development';
 const config = require('../config/config')[env];
@@ -16,6 +17,7 @@ db.Comment = comment;
 db.Guestbook = guestbook;
 db.Image = image;
 db.NonsenseQuiz = NonsenseQuiz;
+db.CatchMind = CatchMind;
 
 Object.keys(db).forEach(modelName => {
     db[modelName].init(sequelize);

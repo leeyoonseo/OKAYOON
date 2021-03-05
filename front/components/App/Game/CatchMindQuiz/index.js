@@ -49,13 +49,13 @@ const CatchMindQuiz = ({ onClickHome }) => {
     const [step, setStep] = useState(STEP_MAIN);
     const [score, setScore] = useState(0);
     const MAX_ROUND = 10;
-    const MAX_TIMER = 15000; // [D] 1000 = 1초
+    const MAX_TIME = 10000; // [D] 1000 = 1초
 
     useEffect(() => {
-        // dispatch({
-        //     type: LOAD_GAME_REQUEST,
-        //     data: CATCH_MIND
-        // });
+        dispatch({
+            type: LOAD_GAME_REQUEST,
+            data: CATCH_MIND
+        });
     }, []);
 
     const onChangeStep = useCallback((changeStep) => () => setStep(changeStep), []);
@@ -93,7 +93,7 @@ const CatchMindQuiz = ({ onClickHome }) => {
                             score={score}
                             setScore={setScore}
                             MAX_ROUND={MAX_ROUND}
-                            MAX_TIMER={MAX_TIMER}
+                            MAX_TIME={MAX_TIME}
                             gameData={gameData}
                             onChangeStep={onChangeStep}
                         />
@@ -113,3 +113,6 @@ const CatchMindQuiz = ({ onClickHome }) => {
 };
 
 export default CatchMindQuiz;
+
+// TODO: 전체 디자인 다시 잡기..ㅋ...
+// TODO: 디자인/아이디어 -> 쿵야 캐치마인드 클론 코딩 표시

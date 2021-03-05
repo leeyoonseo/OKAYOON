@@ -50,7 +50,7 @@ const NonsenseQuiz = ({ onClickHome }) => {
     const [step, setStep] = useState(STEP_MAIN);
     const [score, setScore] = useState(0);
     const MAX_ROUND = 20;
-    const MAX_TIMER = 500; // [D] 1000 = 1초
+    const MAX_TIME = 500; // [D] 1000 = 1초
 
     useEffect(() => {
         dispatch({
@@ -94,7 +94,7 @@ const NonsenseQuiz = ({ onClickHome }) => {
                             score={score}
                             setScore={setScore}
                             MAX_ROUND={MAX_ROUND}
-                            MAX_TIMER={MAX_TIMER}
+                            MAX_TIME={MAX_TIME}
                             gameData={gameData}
                             onChangeStep={onChangeStep}
                         />
