@@ -103,22 +103,6 @@ export const SIMSIMI_MODAL_DATA = {
     content: Simsimi,
 };
 
-// TODO: 심리테스트로 변경!
-// [D] App, 휴지통
-import Delete from '../App/Delete';
-
-export const DELETE_MODAL_ID = 'MD_M_0'; 
-export const DELETE_MODAL_DATA = {
-    id: DELETE_MODAL_ID,
-    visible: false,
-    size: {
-        w: '200px',
-        h: '300px'
-    },
-    title: "휴지통",
-    content: Delete,
-};
-
 // [D] App, 사진첩
 import Gallery from '../App/Gallery/index';
 

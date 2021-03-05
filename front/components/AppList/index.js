@@ -9,7 +9,6 @@ import {
     GUESTBOOK_MODAL_ID, GUESTBOOK_MODAL_DATA,
     BLOG_MODAL_ID, BLOG_MODAL_DATA,
     SIMSIMI_MODAL_ID, SIMSIMI_MODAL_DATA,
-    DELETE_MODAL_ID, DELETE_MODAL_DATA,
     GALLERY_MODAL_ID, GALLERY_MODAL_DATA,
     GAME_MODAL_ID, GAME_MODAL_DATA,
     MEMO_MODAL_ID, MEMO_MODAL_DATA,
@@ -17,7 +16,7 @@ import {
 
 import { 
     Wrap, GuestbookIcon, BlogIcon, GalleryIcon, MemoIcon, 
-    ChattingIcon, GameIcon, DeleteIcon, IconTitle,
+    ChattingIcon, GameIcon, IconTitle,
 } from './style';
 
 const index = () => {
@@ -42,10 +41,6 @@ const index = () => {
 
             case SIMSIMI_MODAL_ID:
                 data = SIMSIMI_MODAL_DATA;
-                break;
-        
-            case DELETE_MODAL_ID:
-                data = DELETE_MODAL_DATA;
                 break;
 
             case GALLERY_MODAL_ID:
@@ -116,13 +111,6 @@ const index = () => {
                 title={<IconTitle>게임</IconTitle>}
                 icon={<GameIcon />}
                 onClick={onClickItem(GAME_MODAL_ID)}
-            />
-
-            <Items
-                disabled={true}
-                title={<IconTitle>휴지통</IconTitle>}
-                icon={<DeleteIcon />}
-                onClick={onClickItem(DELETE_MODAL_ID)}
             />
         </Wrap>
     );

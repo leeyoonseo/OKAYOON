@@ -2,8 +2,7 @@ import styled, { css } from 'styled-components';
 // TODO: 이미지로 변경?
 import { 
     PictureFilled, EditFilled, TabletFilled, 
-    MessageFilled, CrownFilled, DeleteFilled,
-    ChromeFilled,
+    MessageFilled, CrownFilled, ChromeFilled,
 } from '@ant-design/icons';
 
 export const Wrap = styled.div`
@@ -46,10 +45,6 @@ export const ChattingIcon = styled(MessageFilled)`
 `;
 
 export const GameIcon = styled(CrownFilled)`
-    ${defaultIconStyle}
-`;
-
-export const DeleteIcon = styled(DeleteFilled)`
     ${defaultIconStyle}
 `;
 
