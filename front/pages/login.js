@@ -135,7 +135,6 @@ const Login = () => {
         windowH = window.innerHeight;
         setContH(windowH - headerH - footerH);
 
-        // TODO: 있어야하나?
         const haveSameModalData = modals.some((v) => v.id === AVATAR_MODAL_ID);
         if(!haveSameModalData){
             dispatch({

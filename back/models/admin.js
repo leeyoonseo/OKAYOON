@@ -4,7 +4,7 @@ const { Model } = DataTypes;
 module.exports = class Admin extends Model {
     static init(sequelize) {
         return super.init({
-                nickname: {
+                userId: {
                     type: DataTypes.STRING(20),
                     allowNull: false, 
                 },

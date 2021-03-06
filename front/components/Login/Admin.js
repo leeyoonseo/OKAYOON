@@ -11,7 +11,7 @@ import { UserOutlined } from '@ant-design/icons';
 
 const Admin = () => {
     const dispatch = useDispatch();
-    const { admin, logInAdminLoading } = useSelector((state) => state.user);
+    const { logInAdminLoading } = useSelector((state) => state.user);
     const [id, onChangeID, setID] = useInput('');
     const [pw, onChangePW, setPW] = useInput('');
     const idRef = useRef(null);
@@ -44,7 +44,7 @@ const Admin = () => {
         dispatch({
             type: LOG_IN_ADMIN_REQUEST,
             data: {
-                nickname: id,
+                userId: id,
                 password: pw
             }
         });

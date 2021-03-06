@@ -1,17 +1,16 @@
 const passport = require('passport');
-
 const { Strategy: LocalStrategy } = require('passport-local');
 const { Admin } = require('../models');
 
 module.exports = () => {
     passport.use(new LocalStrategy({
-        usernameField: 'nickname',
+        usernameField: 'userId',
         passwordField: 'password',
-    }, async (nickname, password, done) => {
-        console.log('passport, local');
+
+    }, async (userId, password, done) => {
         try {
             const user = await Admin.findOne({
-                where: { nickname }
+                where: { userId }
             });
 
             if(!user) {

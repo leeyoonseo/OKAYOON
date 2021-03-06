@@ -1,18 +1,32 @@
 import produce from '../util/produce';
-import Router from 'next/router';
 
 export const initialState = {
-    admin: {
-        name: '있다'
-    },
-    logInAdminLoading: false, // 로그인 시도 (관리자)
+    admin: {},
+    me: {},
+
+    // TODO: loading, done, error 같이 쓸 수 있으면 같이 쓰기
+
+    // [D] 관리자 정보 가져오기
+    loadAdminInfoLoading: false, 
+    loadAdminInfoDone: false,
+    loadAdminInfoError: null,
+    
+    // [D] 관리자 로그인
+    logInAdminLoading: false, 
     logInAdminDone: false,
     logInAdminError: null,
 
-    me: {},
-    logInLoading: false, // 로그인 시도 (손님)
+    // [D] 관리자 로그아웃
+    logOutAdminLoading: false, 
+    logOutAdminDone: false,
+    logOutAdminError: null,
+
+    // [D] 사용자 로그인
+    logInLoading: false, 
     logInDone: false,
     logInError: null,
+
+    // [D] 사용자 로그아웃
     logOutLoading: false,
     logOutDone: false,
     logOutError: null,
@@ -67,32 +81,34 @@ export const initialState = {
     changeAvatarError: null,
 };
 
-// [D] 로그인, 로그아웃 (손님)
+// [D] 유저 로그인 
 export const LOG_IN_REQUEST = 'LOG_IN_REQUEST';
 export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
 export const LOG_IN_FAILURE = 'LOG_IN_FAILURE';
 
+// [D] 유저 로그아웃 
 export const LOG_OUT_REQUEST = 'LOG_OUT_REQUEST';
 export const LOG_OUT_SUCCESS = 'LOG_OUT_SUCCESS';
 export const LOG_OUT_FAILURE = 'LOG_OUT_FAILURE';
 
-// [D] 로그인 (관리자)
+// [D] 관리자 정보 가져오기
+export const LOAD_ADMIN_INFO_REQUEST = 'LOAD_ADMIN_INFO_REQUEST';
+export const LOAD_ADMIN_INFO_SUCCESS = 'LOAD_ADMIN_INFO_SUCCESS';
+export const LOAD_ADMIN_INFO_FAILURE = 'LOAD_ADMIN_INFO_FAILURE';
+
+// [D] 관리자 로그인
 export const LOG_IN_ADMIN_REQUEST = 'LOG_IN_ADMIN_REQUEST';
 export const LOG_IN_ADMIN_SUCCESS = 'LOG_IN_ADMIN_SUCCESS';
 export const LOG_IN_ADMIN_FAILURE = 'LOG_IN_ADMIN_FAILURE';
 
-// TODO: 합치기 가능?
-export const CHANGE_AVATAR_REQUEST = 'CHANGE_AVATAR_REQUEST';
-export const CHANGE_AVATAR_SUCCESS = 'CHANGE_AVATAR_SUCCESS';
-export const CHANGE_AVATAR_FAILURE = 'CHANGE_AVATAR_FAILURE';
-
-// export const loginRequestAction = (data) => ({
-//     type: LOG_IN_REQUEST,
-//     data,
-// });
+// [D] 관리자 로그아웃
+export const LOG_OUT_ADMIN_REQUEST = 'LOG_OUT_ADMIN_REQUEST';
+export const LOG_OUT_ADMIN_SUCCESS = 'LOG_OUT_ADMIN_SUCCESS';
+export const LOG_OUT_ADMIN_FAILURE = 'LOG_OUT_ADMIN_FAILURE';
 
 const reducer = (state = initialState, action) => produce(state,(draft) => {
     switch(action.type){
+        // [D] 사용자 로그인
         case LOG_IN_REQUEST: 
             draft.logInLoading = true;
             draft.logInDone = false;
@@ -104,7 +120,7 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             draft.logInDone = true;
             draft.logInError = false;
             draft.me = action.data;
-            draft.admin = [];
+            draft.admin = {};
             break;
 
         case LOG_IN_FAILURE:
@@ -113,6 +129,7 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             draft.logInError = true;
             break;
 
+        // [D] 사용자 로그아웃
         case LOG_OUT_REQUEST: 
             draft.logOutLoading = true;
             draft.logOutDone = false;
@@ -123,7 +140,7 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             draft.logOutLoading = false;
             draft.logOutDone = true;
             draft.logOutError = false;
-            // draft.me = [];
+            draft.me = {};
             break;
 
         case LOG_OUT_FAILURE:
@@ -132,6 +149,32 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             draft.logOutError = true;
             break;
 
+        // [D] 관리자 정보 가져오기
+        case LOAD_ADMIN_INFO_REQUEST: 
+            draft.loadAdminInfoLoading = true;
+            draft.loadAdminInfoDone = false;
+            draft.loadAdminInfoError = false;
+            break;
+                
+        case LOAD_ADMIN_INFO_SUCCESS: {
+            draft.loadAdminInfoLoading = false;
+            draft.loadAdminInfoDone = true;
+            draft.loadAdminInfoError = false;
+
+            if (action.data) {
+                draft.admin = action.data;
+            }
+            
+            break;
+        }
+
+        case LOAD_ADMIN_INFO_FAILURE:
+            draft.loadAdminInfoLoading = false;
+            draft.loadAdminInfoDone = false;
+            draft.loadAdminInfoError = true;
+            break;
+
+        // [D] 관리자 로그인
         case LOG_IN_ADMIN_REQUEST: 
             draft.logInAdminLoading = true;
             draft.logInAdminDone = false;
@@ -143,7 +186,7 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             draft.logInAdminDone = true;
             draft.logInAdminError = false;
             draft.admin = action.data;
-            draft.me = [];
+            draft.me = {};
             break;
         }
 
@@ -151,27 +194,26 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             draft.logInAdminLoading = false;
             draft.logInAdminDone = false;
             draft.logInAdminError = true;
-
-            alert(action.error);
             break;
 
-        case CHANGE_AVATAR_REQUEST: 
-            draft.changeAvatarLoading = true;
-            draft.changeAvatareDone = false;
-            draft.changeAvatarError = false;
+        // [D] 관리자 로그아웃
+        case LOG_OUT_ADMIN_REQUEST: 
+            draft.logOutAdminLoading = true;
+            draft.logOutAdminDone = false;
+            draft.logOutAdminError = false;
             break;
                 
-        case CHANGE_AVATAR_SUCCESS: 
-            draft.changeAvatarLoading = false;
-            draft.changeAvatareDone = true;
-            draft.changeAvatarError = false;
-            draft.me.avatar = action.data;
+        case LOG_OUT_ADMIN_SUCCESS: 
+            draft.logOutAdminLoading = false;
+            draft.logOutAdminDone = true;
+            draft.logOutAdminError = false;
+            draft.admin = {};
             break;
 
-        case CHANGE_AVATAR_FAILURE:
-            draft.changeAvatarLoading = false;
-            draft.changeAvatareDone = false;
-            draft.changeAvatarError = true;
+        case LOG_OUT_ADMIN_FAILURE:
+            draft.logOutAdminLoading = false;
+            draft.logOutAdminDone = false;
+            draft.logOutAdminError = true;
             break;
 
         default: 

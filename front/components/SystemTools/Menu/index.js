@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import PropTypes from 'prop-types';
 
 import { ALL_CLOSED_MODAL, CREATE_MODAL_REQUEST, TOGGLE_MODAL_REQUEST } from '../../../reducers/site';
-import { LOG_OUT_REQUEST } from "../../../reducers/user";
+import { LOG_OUT_ADMIN_REQUEST, LOG_OUT_REQUEST } from "../../../reducers/user";
 
 import { 
     WELCOME_MODAL_ID, WELCOME_MODAL_DATA, 
@@ -17,6 +17,7 @@ import {
 
 const Menu = ({ themecolor }) => {
     const dispatch = useDispatch();
+    const { admin } = useSelector((state) => state.user);
     const { modals } = useSelector((state) => state.site);
     const menuRef = useRef(null);
     const [isVisibleMenu, setIsVisiMenu] = useState(false);
@@ -36,10 +37,13 @@ const Menu = ({ themecolor }) => {
     }, []);
 
     const onToggleMenu = useCallback(() => setIsVisiMenu(!isVisibleMenu), [isVisibleMenu]);
+
     const onClickLogout = useCallback(() => {
+        const type = admin.userId ? LOG_OUT_ADMIN_REQUEST : LOG_OUT_REQUEST;  
+        
         dispatch({ type: ALL_CLOSED_MODAL });
-        dispatch({ type: LOG_OUT_REQUEST });
-    }, []);
+        dispatch({ type: type });
+    }, [admin]);
 
     const createModal = useCallback((id) => {
         if(modals.find((v) => v.id === id)){

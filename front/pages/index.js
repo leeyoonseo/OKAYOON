@@ -5,6 +5,7 @@ import Router from 'next/router';
 import Head from 'next/head';
 
 import { TOGGLE_MODAL_REQUEST } from '../reducers/site';
+import { LOAD_ADMIN_INFO_REQUEST } from '../reducers/user';
 
 import { Layout } from 'antd';
 import { SmileOutlined, GithubOutlined } from '@ant-design/icons';
@@ -79,26 +80,33 @@ const Footer = styled(Layout.Footer)`
 `;
 
 const Home = () => {
-    const themecolor = WHITE_MODE_COLOR;
     const dispatch = useDispatch();
     const { modals, modalToggleLoading } = useSelector((state) => state.site);
-    const { me, admin } = useSelector((state) => state.user);
+    const { me, admin, logInAdminDone, loadAdminInfoDone } = useSelector((state) => state.user);
     const [contH, setContH] = useState(null);
+    const themecolor = WHITE_MODE_COLOR;
     let windowH = null;
     const headerH = 35;
     const footerH = 150;
 
-    // TODO: 페이지 작업 완료 주석 해제
-    // useEffect(() => {
-    //     if(!me.nickname && !admin.nickname){
-    //         Router.replace('./login');
-    //     }
-    // }, [ me, admin ]);
-
     useEffect(() => {
         windowH = window.innerHeight;
         setContH(windowH - headerH - footerH);
-    }, []);
+
+        if (!logInAdminDone) {
+            dispatch({
+                type: LOAD_ADMIN_INFO_REQUEST
+            })
+        }
+    }, [logInAdminDone]);
+
+    useEffect(() => {
+        if (loadAdminInfoDone) {
+            if (me.nickname || admin.userId) return;
+    
+            Router.replace('./login');
+        }
+    }, [loadAdminInfoDone, me, admin]);
 
     /**
      * @params {string} id: 팝업 아이디

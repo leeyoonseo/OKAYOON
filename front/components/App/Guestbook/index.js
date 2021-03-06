@@ -51,6 +51,7 @@ const Guestbook = () => {
     const MAX_TEXTAREA_LENGTH = 100;
 
     useEffect(() => {
+        // TODO: 메인에서 load되지 않도록
         dispatch({
             type: LOAD_GUESTBOOK_REQUEST
         });
