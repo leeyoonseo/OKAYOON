@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useCookies } from 'react-cookie';
 import styled from 'styled-components';
 import Router from 'next/router';
 import Head from 'next/head';
 
 import { TOGGLE_MODAL_REQUEST } from '../reducers/site';
-import { LOAD_ADMIN_INFO_REQUEST } from '../reducers/user';
+import { LOAD_ADMIN_INFO_REQUEST, LOG_IN_REQUEST } from '../reducers/user';
 
 import { Layout } from 'antd';
 import { SmileOutlined, GithubOutlined } from '@ant-design/icons';
@@ -82,7 +83,8 @@ const Footer = styled(Layout.Footer)`
 const Home = () => {
     const dispatch = useDispatch();
     const { modals, modalToggleLoading } = useSelector((state) => state.site);
-    const { me, admin, logInAdminDone, loadAdminInfoDone } = useSelector((state) => state.user);
+    const { me, admin, logInDone, loadAdminInfoDone } = useSelector((state) => state.user);
+    const [cookie] = useCookies(['me']);
     const [contH, setContH] = useState(null);
     const themecolor = WHITE_MODE_COLOR;
     let windowH = null;
@@ -92,13 +94,28 @@ const Home = () => {
     useEffect(() => {
         windowH = window.innerHeight;
         setContH(windowH - headerH - footerH);
+    }, []);
 
-        if (!logInAdminDone) {
+    useEffect(() => {
+        if (cookie.me && !logInDone) {
+            dispatch({
+                type: LOG_IN_REQUEST,
+                data: {
+                    avatar: cookie.me.avatar,
+                    nickname: cookie.me.nickname
+                }
+            });
+
+        }
+    }, [cookie.me, logInDone]);
+
+    useEffect(() => {
+        if (!cookie.me && !logInDone) {
             dispatch({
                 type: LOAD_ADMIN_INFO_REQUEST
-            })
+            });
         }
-    }, [logInAdminDone]);
+    }, [cookie.me, logInDone]);
 
     useEffect(() => {
         if (loadAdminInfoDone) {

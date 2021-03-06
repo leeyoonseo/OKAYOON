@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useCookies } from 'react-cookie';
 import PropTypes from 'prop-types';
 
 import { ALL_CLOSED_MODAL, CREATE_MODAL_REQUEST, TOGGLE_MODAL_REQUEST } from '../../../reducers/site';
@@ -17,8 +18,9 @@ import {
 
 const Menu = ({ themecolor }) => {
     const dispatch = useDispatch();
-    const { admin } = useSelector((state) => state.user);
+    const { me, admin } = useSelector((state) => state.user);
     const { modals } = useSelector((state) => state.site);
+    const [cookie, setCookie, removeCookie] = useCookies(['me']);
     const menuRef = useRef(null);
     const [isVisibleMenu, setIsVisiMenu] = useState(false);
 
@@ -41,6 +43,10 @@ const Menu = ({ themecolor }) => {
     const onClickLogout = useCallback(() => {
         const type = admin.userId ? LOG_OUT_ADMIN_REQUEST : LOG_OUT_REQUEST;  
         
+        if (me.nickname) {
+            removeCookie('me');
+        }
+
         dispatch({ type: ALL_CLOSED_MODAL });
         dispatch({ type: type });
     }, [admin]);

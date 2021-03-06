@@ -51,7 +51,7 @@ router.post('/login', isNotAdminLoggedIn, async (req, res, next) => { // POST /a
                     exclude: ['id', 'password']
                 }
             });
-            console.log('================login req.user:', req.user);
+
             return res.status(200).json(withoutPassword);
         });
     })(req, res, next);

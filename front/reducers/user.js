@@ -4,29 +4,17 @@ export const initialState = {
     admin: {},
     me: {},
 
-    // TODO: loading, done, error 같이 쓸 수 있으면 같이 쓰기
+    // [D] 로그인 정보 가져오기
+    loadInfoLoading: false, 
+    loadInfoDone: false,
+    loadInfoError: null,
 
-    // [D] 관리자 정보 가져오기
-    loadAdminInfoLoading: false, 
-    loadAdminInfoDone: false,
-    loadAdminInfoError: null,
-    
-    // [D] 관리자 로그인
-    logInAdminLoading: false, 
-    logInAdminDone: false,
-    logInAdminError: null,
-
-    // [D] 관리자 로그아웃
-    logOutAdminLoading: false, 
-    logOutAdminDone: false,
-    logOutAdminError: null,
-
-    // [D] 사용자 로그인
+    // [D] 로그인
     logInLoading: false, 
     logInDone: false,
     logInError: null,
 
-    // [D] 사용자 로그아웃
+    // [D] 로그아웃
     logOutLoading: false,
     logOutDone: false,
     logOutError: null,
@@ -75,10 +63,6 @@ export const initialState = {
             title: '파이퍼'
         }
     ],
-
-    changeAvatarLoading: false,
-    changeAvatareDone: false,
-    changeAvatarError: null,
 };
 
 // [D] 유저 로그인 
@@ -151,15 +135,15 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
 
         // [D] 관리자 정보 가져오기
         case LOAD_ADMIN_INFO_REQUEST: 
-            draft.loadAdminInfoLoading = true;
-            draft.loadAdminInfoDone = false;
-            draft.loadAdminInfoError = false;
+            draft.loadInfoLoading = true;
+            draft.loadInfoDone = false;
+            draft.loadInfoError = false;
             break;
                 
         case LOAD_ADMIN_INFO_SUCCESS: {
-            draft.loadAdminInfoLoading = false;
-            draft.loadAdminInfoDone = true;
-            draft.loadAdminInfoError = false;
+            draft.loadInfoLoading = false;
+            draft.loadInfoDone = true;
+            draft.loadInfoError = false;
 
             if (action.data) {
                 draft.admin = action.data;
@@ -169,51 +153,51 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
         }
 
         case LOAD_ADMIN_INFO_FAILURE:
-            draft.loadAdminInfoLoading = false;
-            draft.loadAdminInfoDone = false;
-            draft.loadAdminInfoError = true;
+            draft.loadInfoLoading = false;
+            draft.loadInfoDone = false;
+            draft.loadInfoError = true;
             break;
 
         // [D] 관리자 로그인
         case LOG_IN_ADMIN_REQUEST: 
-            draft.logInAdminLoading = true;
-            draft.logInAdminDone = false;
-            draft.logInAdminError = false;
+            draft.logInLoading = true;
+            draft.logInDone = false;
+            draft.logInError = false;
             break;
                 
         case LOG_IN_ADMIN_SUCCESS: {
-            draft.logInAdminLoading = false;
-            draft.logInAdminDone = true;
-            draft.logInAdminError = false;
+            draft.logInLoading = false;
+            draft.logInDone = true;
+            draft.logInError = false;
             draft.admin = action.data;
             draft.me = {};
             break;
         }
 
         case LOG_IN_ADMIN_FAILURE:
-            draft.logInAdminLoading = false;
-            draft.logInAdminDone = false;
-            draft.logInAdminError = true;
+            draft.logInLoading = false;
+            draft.logInDone = false;
+            draft.logInError = true;
             break;
 
         // [D] 관리자 로그아웃
         case LOG_OUT_ADMIN_REQUEST: 
-            draft.logOutAdminLoading = true;
-            draft.logOutAdminDone = false;
-            draft.logOutAdminError = false;
+            draft.logOutLoading = true;
+            draft.logOutDone = false;
+            draft.logOutError = false;
             break;
                 
         case LOG_OUT_ADMIN_SUCCESS: 
-            draft.logOutAdminLoading = false;
-            draft.logOutAdminDone = true;
-            draft.logOutAdminError = false;
+            draft.logOutLoading = false;
+            draft.logOutDone = true;
+            draft.logOutError = false;
             draft.admin = {};
             break;
 
         case LOG_OUT_ADMIN_FAILURE:
-            draft.logOutAdminLoading = false;
-            draft.logOutAdminDone = false;
-            draft.logOutAdminError = true;
+            draft.logOutLoading = false;
+            draft.logOutDone = false;
+            draft.logOutError = true;
             break;
 
         default: 

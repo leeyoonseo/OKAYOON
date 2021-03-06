@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useCookies } from 'react-cookie';
 import useInput from '../../hooks/useInput';
-
 import {
     InfoArea, AvatarButton, NicknameWrap, InputWrap, 
     Input, UserIcon, Nickname, RemoveButton, 
@@ -22,6 +22,7 @@ const User = ({
     const { me, logInLoading, avatarList } = useSelector((state) => state.user);
     const [nickname, onChangeNickname, setNickname] = useInput(me?.nickname ? me.nickname : 'Guest');
     const [haveNickname, setHaveNickname] = useState(false);
+    const [cookies, setCookies, removeCookies] = useCookies(['me']);
     const inputRef = useRef(null);
 
     useEffect(() => {
@@ -45,6 +46,20 @@ const User = ({
     }, []);
 
     const onSubmit = useCallback(() => {
+        const date = new Date();
+        const exDate = date.setHours(date.getHours() + 24);
+
+        setCookies('me', { 
+                avatar: avatar,
+                nickname: nickname
+            },{
+                // path: '/',
+                // expires: exDate,
+                maxAge: 2000,
+                // secure: true,
+            }
+        );
+
         dispatch({
             type: LOG_IN_REQUEST,
             data: {

@@ -99,6 +99,8 @@ function* adminLogIn(action){
         yield Router.replace('/');
 
     }catch(err){
+        alert(err.response.data);
+        
         console.error(err);
         yield put({
             type: LOG_IN_ADMIN_FAILURE,
@@ -128,7 +130,7 @@ function* adminLogout(action){
 
     }catch(err){
         console.error(err);
-        alert(err);
+
         yield put({
             type: LOG_OUT_ADMIN_FAILURE,
             error: err.response.data
