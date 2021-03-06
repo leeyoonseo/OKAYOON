@@ -84,14 +84,15 @@ const Button = styled.button`
 `;
 
 
-const GuestbookForm = ({ MAX_TEXTAREA_LENGTH }) => {
+const GuestbookForm = ({ 
+    MAX_TEXTAREA_LENGTH,
+    avatar,
+    nickname,
+}) => {
     const dispatch = useDispatch();
-    const { me } = useSelector((state) => state.user);
     const { addGuestbookDone } = useSelector((state) => state.guestbook);
     const [text, onChangeText, setText] = useInput('');
     const [password, onChangePassword, setPassword] = useInput('');
-    const [avatar, setAvatar] = useState(me.avatar ? me.avatar : 'nickname');
-    const [nickname, setNickname] = useState(me.nickname ? me.nickname : 'Guest');
     const [visiblePassword, setVisiblePassword] = useState(false);
     const textareaRef = useRef(null);
 

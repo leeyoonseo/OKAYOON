@@ -13,10 +13,16 @@ const Wrap = styled.div`
 const Comment = ({
     id,
     Comments,
+    authorAvatar,
+    authorNickname,
 }) => {
     return (
         <Wrap>
-            <CommentForm id={id}/>
+            <CommentForm 
+                id={id}
+                avatar={authorAvatar}
+                nickname={authorNickname}
+            />
 
             {Comments && Comments.map((v, i) => {
                 return (

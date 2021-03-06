@@ -52,12 +52,11 @@ const EditForm = ({
     MAX_TEXTAREA_LENGTH,
     id,
     content,
+    nickname,
+    avatar
 }) => {
     const dispatch = useDispatch();
-    const { me } = useSelector((state) => state.user);
     const [text, onChangetext, setText] = useInput('');
-    const [avatar, setAvatar] = useState(me.avatar? me.avatar : 'nickname');
-    const [nickname, setNickname] = useState(me.nickname ? me.nickname : 'Guest');
     const textareaRef = useRef(null);
 
     useEffect(() => {

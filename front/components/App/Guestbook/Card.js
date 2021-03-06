@@ -113,6 +113,8 @@ const GuestbookCard = ({
     createdAt,
     content,
     Comments,
+    authorNickname,
+    authorAvatar,
 }) => {
     const dispatch = useDispatch();
     const { avatarList } = useSelector((state) => state.user);
@@ -194,8 +196,9 @@ const GuestbookCard = ({
                 <>
                     <Comment 
                         id={id}
-                        // content={}
                         Comments={Comments}
+                        authorNickname={authorNickname}
+                        authorAvatar={authorAvatar}
                     />
                 </>
             )}
