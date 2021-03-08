@@ -14,6 +14,7 @@ function loadGameAPI(data){
 function* loadGame(action){
     try{
         const result = yield call(loadGameAPI, action.data);
+        
         yield put({
             type: LOAD_GAME_SUCCESS,
             data: result.data

@@ -10,6 +10,10 @@ router.get('/nonsensequiz', async (req, res, next) => { // POST /game/nonsensequ
             order: sequelize.random()
         });
 
+        if (quiz.length <= 1) {
+            return res.status(404).send('퀴즈 데이터가 없습니다.');
+        }
+
         res.status(200).json(quiz);
     } catch (error) {
         console.error(error);
@@ -24,6 +28,10 @@ router.get('/catchmind', async (req, res, next) => { // POST /game/nonsensequiz
             // limit: 10,
             order: sequelize.random()
         });
+
+        if (quiz.length <= 1) {
+            return res.status(204).send('퀴즈 데이터가 없습니다.');
+        }
 
         res.status(200).json(quiz);
     } catch (error) {

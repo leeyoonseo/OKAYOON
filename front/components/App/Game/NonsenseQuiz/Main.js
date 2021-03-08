@@ -43,8 +43,14 @@ const ButtonArea = styled.div`
         background: none;
         cursor: pointer;
     
-        &:hover {
+        &not([disabled]):hover {
             opacity: 0.5;
+        }
+
+        &[disabled] {
+            border: none;
+            opacity: 0.5;
+            cursor: default;    
         }
     }
 
@@ -53,7 +59,10 @@ const ButtonArea = styled.div`
     }
 `;
 
-const Main = ({ onChangeStep }) => {
+const Main = ({ 
+    gameData,
+    onChangeStep,
+}) => {
     return (
         <Wrap>
             <Inner>
@@ -63,7 +72,12 @@ const Main = ({ onChangeStep }) => {
                 </TitleArea>
 
                 <ButtonArea>
-                    <button onClick={onChangeStep(STEP_GAME)}>시작하기</button>
+                    <button 
+                        onClick={onChangeStep(STEP_GAME)}
+                        disabled={gameData.length < 1}
+                    >
+                        {gameData.length < 1 ? '데이터가 없습니다' : '시작하기'}
+                    </button>
                     <button onClick={onChangeStep(STEP_GUIDE)}>게임방법</button>
                 </ButtonArea>
             </Inner>

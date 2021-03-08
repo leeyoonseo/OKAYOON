@@ -79,6 +79,7 @@ const NonsenseQuiz = ({ onClickHome }) => {
                 if (step === STEP_MAIN) {
                     return (
                         <Main 
+                            gameData={gameData}
                             onChangeStep={onChangeStep}
                         />
                     )
