@@ -238,7 +238,8 @@ const Game = ({
     const [quiz, setQuiz] = useState(null); // [D] 현재퀴즈
     const [example, setExample] = useState(null); // [D] 보기
     const [round, setRound] = useState(null);
-    const [time, setTime] = useState(null);
+    const [time, setTime] = useState(MAX_TIME ? MAX_TIME : null);
+    // const [barPercent, setBarpercent] = useStat(null);
 
     const [examRef, setExamRef] = useState([]);
     const userInputRef = useRef(null);
@@ -292,6 +293,10 @@ const Game = ({
     }, [time]); 
 
     useEffect(() => {
+        console.log('time',time);
+    }, [time]);
+
+    useEffect(() => {
         if(!correctWord || !userInput || correctWord.length !== userInput.length) {
             return;
         }
@@ -326,7 +331,7 @@ const Game = ({
 
             setRound(round + 1);
         }, 1000);
-    }, [round, score]);
+    }, [score]);
 
     const reset = useCallback(() => {
         examRef.forEach((v) => {
@@ -376,7 +381,9 @@ const Game = ({
                 <TimerWrap>
                     <TimerIcon />
                     <TimerInner>
-                        <TimerBar progress={(time / MAX_TIME) * 100} />
+                        <TimerBar 
+                            progress={(time / MAX_TIME) * 100}
+                        />
                     </TimerInner>
                 </TimerWrap>
 

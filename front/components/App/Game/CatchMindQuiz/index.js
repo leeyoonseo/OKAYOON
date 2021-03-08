@@ -49,7 +49,7 @@ const CatchMindQuiz = ({ onClickHome }) => {
     const [step, setStep] = useState(STEP_MAIN);
     const [score, setScore] = useState(0);
     const MAX_ROUND = 10;
-    const MAX_TIME = 10000; // [D] 1000 = 1초
+    const MAX_TIME = 100; // [D] 1000 = 1초
 
     useEffect(() => {
         dispatch({
