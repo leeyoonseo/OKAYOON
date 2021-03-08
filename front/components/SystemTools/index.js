@@ -60,7 +60,8 @@ const SystemTools = ({ themecolor }) => {
     useEffect(() => setPathname(Router.pathname), [pathname]);
 
     const onClickSound = useCallback(() => {
-        dispatch({ type: CHANGE_MUTED });
+        console.log('onClickSound');
+        // dispatch({ type: CHANGE_MUTED });
     });
 
     return(

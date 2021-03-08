@@ -9,33 +9,33 @@ const ClockWrapper = styled.div`
 `;
 
 const Clock = ({ themecolor }) => {
-    const [timer, setTimer] = useState(dayjs());
     const [currentTime, setCurrentTime] = useState(null);
 
-    let timerInterval = null;
-
     useEffect(() => {
-        timerInterval = setInterval(() => {
-            setTimer(dayjs());
+        let time = null;
+
+        let timerInterval = setInterval(() => {
+            time = dayjs();
+            time = time.format('HH:mm');
+            
+            if(time === currentTime) return;
+    
+            setCurrentTime(time);
         }, 1000);
 
         return () => {
             clearInterval(timerInterval);
         };
-    }, []);
-
-    useEffect(() => {
-        if(timer.format('HH:mm') === currentTime){
-        return;
-        }
-
-        setCurrentTime(timer.format('HH:mm'));
-    }, [timer]);
+    }, [currentTime]);
 
     return(
-        <ClockWrapper themecolor={themecolor}>
-            {currentTime}
-        </ClockWrapper>
+        <>
+            {currentTime && (
+                <ClockWrapper themecolor={themecolor}>
+                    {currentTime}
+                </ClockWrapper>
+            )}
+        </>
     );
 };
 
