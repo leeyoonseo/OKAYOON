@@ -160,6 +160,8 @@ const Home = () => {
                 </Header>
 
                 <Main h={mainHeight}>
+                    <AppList />
+
                     {modalToggleLoading && <Loading />}
                     {modals?.map((v) => {
                         if(v){
@@ -184,10 +186,6 @@ const Home = () => {
                         <Menu themecolor={themecolor}/>
                     </FooterInner>
                 </Footer>
-
-                {/* <Footer h={footerH}>
-                    <AppList />
-                </Footer> */}
             </Wrap>
         </>
     );
