@@ -29,7 +29,7 @@ const BatteryWrapper = styled.div`
     }
 `;
 
-function getCurrentPercent(time){
+function getPercent(time){
     const maxNum = 100;
     const dayMinutes = 24 * 60;
     const currentMinutes = (time.format('HH') * 60) + Number(time.format('mm'));
@@ -39,39 +39,39 @@ function getCurrentPercent(time){
 };
 
 const Battery = ({ themecolor }) => {
-    const [time, setTime] = useState(dayjs());
     const [percent, setPercent] = useState(null);
 
-    let timerInterval = null;
-
     useEffect(() => {
-        timerInterval = setInterval(() => {
-            setTime(dayjs());
+        let time = null;
+        let per = null;
+
+        let timerInterval = setInterval(() => {
+            time = dayjs();
+            per = getPercent(time);
+
+            if (per === percent) return;
+
+            setPercent(Math.floor(per));
+            
         }, 1000);
 
         return () => {
             clearInterval(timerInterval);
         };
-    }, []);
-
-    useEffect(() => {
-        if (!time) return;
-        const currentPer = getCurrentPercent(time);
-        console.log('currentPer',currentPer)
-        
-        if(percent === currentPer){
-            return;
-        }
-
-        setPercent(Math.floor(currentPer));
-    }, [time]);
+    }, [percent]);
 
     return(
-        <BatteryWrapper themecolor={themecolor} percent={percent}>
-            <span className="gauge"></span>
-        </BatteryWrapper>
-
-    );
+        <>
+            {percent && (
+                <BatteryWrapper 
+                    themecolor={themecolor} 
+                    percent={percent}
+                >
+                    <span className="gauge"></span>
+                </BatteryWrapper>
+            )}
+        </>
+    )
 };
 
 Battery.propTypes = {
