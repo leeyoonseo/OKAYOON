@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { MenuOutlined } from '@ant-design/icons';
+import { MenuOutlined, WindowsOutlined } from '@ant-design/icons';
 
 export const Wrap = styled.div`
     position: relative;
@@ -22,7 +22,7 @@ export const MenuButton = styled.button`
     }
 `;
 
-export const MenuIcon = styled(MenuOutlined)`
+export const MenuIcon = styled(WindowsOutlined)`
     font-size: 17px;
     color: ${props => props.themecolor};
 `;

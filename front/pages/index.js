@@ -9,12 +9,11 @@ import { TOGGLE_MODAL_REQUEST } from '../reducers/site';
 import { LOAD_ADMIN_INFO_REQUEST, LOG_IN_REQUEST } from '../reducers/user';
 
 import { Layout } from 'antd';
-import { SmileOutlined, MenuOutlined, GithubOutlined } from '@ant-design/icons';
 import { DARK_MODE_COLOR } from '../theme/styles';
 
 import SystemTools from '../components/SystemTools';
-import Menu from '../components/Menu/index';
 import AppList from '../components/AppList/index';
+import Menu from '../components/Menu/index';
 import ModalPopup from '../components/ModalPopup/index';
 import Loading from '../components/Loading';
 
@@ -72,62 +71,6 @@ const FooterInner = styled.div`
     min-height: 30px;
 `;
 
-const MenuWrap = styled.div`
-    position: relative;
-`;
-
-const MenuButton = styled.button`
-    padding: 0;
-    background: none;
-    border: none;
-    cursor: pointer;
-    outline: none;
-
-    &:hover,
-    &:focus {
-        background: none;
-    }
-
-    &:hover,
-    &:focus,
-    &.active{
-        opacity: 0.5;
-    }
-`;
-
-const MenuIcon = styled(MenuOutlined)`
-    font-size: 17px;
-    color: ${props => props.themecolor};
-`;
-
-
-const SiteIdentity = styled.span`
-    margin: 0;
-    display: inline-block;
-    text-align: left;
-    cursor: default;
-
-    span {
-        margin-right: 2px;
-    }
-`;
-
-const GitAnchor = styled.a`
-    margin: 0 20px;
-    display: inline-block;
-    // font-size: 18px;
-    font-size: 1.125rem;
-
-    &:hover,
-    &:focus { 
-        opacity: 0.8;
-    }
-
-    span {
-        vertical-align: middle;
-    }
-`;
-
 // const Footer = styled(Layout.Footer)`
 //     display: flex;
 //     padding: 0 2%;
@@ -142,23 +85,14 @@ const GitAnchor = styled.a`
 const Home = () => {
     const dispatch = useDispatch();
     const { modals, modalToggleLoading } = useSelector((state) => state.site);
-    const { me, admin, logInDone, loadAdminInfoDone } = useSelector((state) => state.user);
+    const { me, admin, logInDone, loadInfoDone } = useSelector((state) => state.user);
     const [cookie] = useCookies(['me']);
     const [mainHeight, setMainHeight] = useState(null);
     const [headerHeight, setHeaderHeight] = useState(null);
     const [footerHeight, setFooterHeight] = useState(null);
-
-    const [openedMenu, setOpenedMenu] = useState(false);
-    const themecolor = DARK_MODE_COLOR;
     const headerRef = useRef(null);
     const footerRef = useRef(null);
-
-    useEffect(() => {
-        if (!headerHeight || !footerHeight) return;
-        const windowH = window.innerHeight;
-
-        setMainHeight(windowH - headerHeight - footerHeight);
-    }, [headerHeight, footerHeight])
+    const themecolor = DARK_MODE_COLOR;
 
     useEffect(() => {
         if (!headerRef.current) return;
@@ -171,37 +105,39 @@ const Home = () => {
     }, [footerRef]);
 
     useEffect(() => {
-        if (cookie.me && !logInDone) {
-            dispatch({
+        if (!headerHeight || !footerHeight) return;
+        const windowH = window.innerHeight;
+
+        setMainHeight(windowH - headerHeight - footerHeight);
+    }, [headerHeight, footerHeight]);
+
+    useEffect(() => {
+        if (logInDone) return;
+
+        if (cookie.me) {
+            return dispatch({
                 type: LOG_IN_REQUEST,
                 data: {
                     avatar: cookie.me.avatar,
                     nickname: cookie.me.nickname
                 }
             });
-
         }
+
+        dispatch({
+            type: LOAD_ADMIN_INFO_REQUEST
+        });
     }, [cookie.me, logInDone]);
 
     useEffect(() => {
-        if (!cookie.me && !logInDone) {
-            dispatch({
-                type: LOAD_ADMIN_INFO_REQUEST
-            });
+        if (loadInfoDone) {
+            if (!me.nickname && !admin.userId) {
+                Router.replace('./login');
+            }
         }
-    }, [cookie.me, logInDone]);
+    }, [loadInfoDone, me, admin]);
 
-    useEffect(() => {
-        if (loadAdminInfoDone) {
-            if (me.nickname || admin.userId) return;
-    
-            Router.replace('./login');
-        }
-    }, [loadAdminInfoDone, me, admin]);
-
-    /**
-     * @params {string} id: 팝업 아이디
-     */
+    /** @params {string} id: 팝업 아이디 */
     const onToggleModal = useCallback((id) => () => {
         dispatch({
             type: TOGGLE_MODAL_REQUEST,
@@ -243,26 +179,9 @@ const Home = () => {
                     })}
                 </Main>
 
-                <Footer 
-                    // h={footerH}
-                >
+                <Footer>
                     <FooterInner ref={footerRef}>
-
-                        <Menu 
-                            themecolor={themecolor}
-                        />
-                        
-                        {/* <SiteIdentity>
-                            <span><SmileOutlined /></span>Kayoon.LEE
-                        </SiteIdentity>
-
-                        <GitAnchor 
-                            href="https://github.com/leeyoonseo"
-                            target="_blank"
-                            rel="noreferrer noopener"
-                        >
-                            <GithubOutlined style={{ color: themecolor }}/>
-                        </GitAnchor> */}
+                        <Menu themecolor={themecolor}/>
                     </FooterInner>
                 </Footer>
 

@@ -14,6 +14,11 @@ export const initialState = {
     logInDone: false,
     logInError: null,
 
+    // [D] 관리자로그인
+    logInAdminLoading: false, 
+    logInAdminDone: false,
+    logInAdminError: null,
+
     // [D] 로그아웃
     logOutLoading: false,
     logOutDone: false,

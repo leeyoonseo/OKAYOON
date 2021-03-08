@@ -95,11 +95,7 @@ const Menu = ({ themecolor }) => {
                     <SiteName>
                         <span><SmileOutlined /></span>Kayoon.LEE
                     </SiteName>
-                    {/* <SiteInfo>
-                        <SiteName>
-                            <span><SmileOutlined /></span>Kayoon.LEE
-                        </SiteName>
-                    </SiteInfo> */}
+                    
                     <List>
                         <Item>
                             <GitAnchor 
