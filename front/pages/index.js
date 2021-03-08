@@ -9,10 +9,11 @@ import { TOGGLE_MODAL_REQUEST } from '../reducers/site';
 import { LOAD_ADMIN_INFO_REQUEST, LOG_IN_REQUEST } from '../reducers/user';
 
 import { Layout } from 'antd';
-import { SmileOutlined, GithubOutlined } from '@ant-design/icons';
+import { SmileOutlined, MenuOutlined, GithubOutlined } from '@ant-design/icons';
 import { DARK_MODE_COLOR } from '../theme/styles';
 
 import SystemTools from '../components/SystemTools';
+import Menu from '../components/Menu/index';
 import AppList from '../components/AppList/index';
 import ModalPopup from '../components/ModalPopup/index';
 import Loading from '../components/Loading';
@@ -39,11 +40,11 @@ const HeaderInner = styled.div`
     justify-content: flex-end;
 `;
 
-const Menu = styled.div`
-    // position: absolute;
-    // right: 2%;
-    // display: inline-block;
-    // vertical-align: top;
+const SystemToolsWrap = styled.div`
+    position: absolute;
+    right: 2%;
+    display: inline-block;
+    vertical-align: top;
 `;
 
 const Main = styled(Layout.Content)`
@@ -70,6 +71,35 @@ const FooterInner = styled.div`
     align-items: center;
     min-height: 30px;
 `;
+
+const MenuWrap = styled.div`
+    position: relative;
+`;
+
+const MenuButton = styled.button`
+    padding: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+
+    &:hover,
+    &:focus {
+        background: none;
+    }
+
+    &:hover,
+    &:focus,
+    &.active{
+        opacity: 0.5;
+    }
+`;
+
+const MenuIcon = styled(MenuOutlined)`
+    font-size: 17px;
+    color: ${props => props.themecolor};
+`;
+
 
 const SiteIdentity = styled.span`
     margin: 0;
@@ -122,9 +152,6 @@ const Home = () => {
     const themecolor = DARK_MODE_COLOR;
     const headerRef = useRef(null);
     const footerRef = useRef(null);
-
-    useEffect(() => {
-    }, []);
 
     useEffect(() => {
         if (!headerHeight || !footerHeight) return;
@@ -182,10 +209,6 @@ const Home = () => {
         });
     }, []);
 
-    const onClickMenu = useCallback(() => {
-        console.log('onClickMenu');
-    }, [openedMenu]);
-
     return (
         <>
             <Head>
@@ -194,9 +217,9 @@ const Home = () => {
             <Wrap>
                 <Header>
                     <HeaderInner ref={headerRef}>
-                        <Menu>
+                        <SystemToolsWrap>
                             <SystemTools themecolor={themecolor} />    
-                        </Menu>
+                        </SystemToolsWrap>
                     </HeaderInner>
                 </Header>
 
@@ -224,20 +247,12 @@ const Home = () => {
                     // h={footerH}
                 >
                     <FooterInner ref={footerRef}>
-                        <button 
-                            onClick={onClickMenu}
-                        >
-                            메뉴
-                        </button>
-                        
-                        {openedMenu && (
-                            <div>
-                                메뉴당
-                            </div>
-                        )}
 
-                    
-                        <SiteIdentity>
+                        <Menu 
+                            themecolor={themecolor}
+                        />
+                        
+                        {/* <SiteIdentity>
                             <span><SmileOutlined /></span>Kayoon.LEE
                         </SiteIdentity>
 
@@ -247,7 +262,7 @@ const Home = () => {
                             rel="noreferrer noopener"
                         >
                             <GithubOutlined style={{ color: themecolor }}/>
-                        </GitAnchor>
+                        </GitAnchor> */}
                     </FooterInner>
                 </Footer>
 

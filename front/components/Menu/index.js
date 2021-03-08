@@ -11,35 +11,39 @@ import {
     INFO_MODAL_ID, INFO_MODAL_DATA, 
 } from "../ModalPopup/data";
 
-
 import { 
     Wrap, MenuButton, MenuIcon, MenuTooltip, 
-    List, Item, ItemButton,
+    List, Item, ItemButton, SiteName, GitAnchor, SiteInfo,
 } from './style';
+
+import { SmileOutlined, GithubOutlined } from '@ant-design/icons';
+
 
 const Menu = ({ themecolor }) => {
     const dispatch = useDispatch();
     const { me, admin } = useSelector((state) => state.user);
     const { modals } = useSelector((state) => state.site);
     const [cookie, setCookie, removeCookie] = useCookies(['me']);
+    const [openedMenu, setOpenedMenu] = useState(false);
     const menuRef = useRef(null);
-    const [isVisibleMenu, setIsVisiMenu] = useState(false);
 
     useEffect(() => {
-        document.addEventListener("click", onClickOutside);
+        document.addEventListener('click', onClickOutside);
 
         return () => {
-            document.removeEventListener("click", onClickOutside);
+            document.removeEventListener('click', onClickOutside);
         };
     }, []);
 
     const onClickOutside = useCallback(({ target }) => {
-        if (menuRef.current && !menuRef.current.contains(target)) {
-            setIsVisiMenu(false);
-        }
-    }, []);
+        const { current } = menuRef;
 
-    const onToggleMenu = useCallback(() => setIsVisiMenu(!isVisibleMenu), [isVisibleMenu]);
+        if (current && !current.contains(target)) {
+            setOpenedMenu(false);
+        }
+    }, [menuRef]);
+
+    const onToggleMenu = useCallback(() => setOpenedMenu(!openedMenu), [openedMenu]);
 
     const onClickLogout = useCallback(() => {
         const type = admin.userId ? LOG_OUT_ADMIN_REQUEST : LOG_OUT_REQUEST;  
@@ -53,19 +57,17 @@ const Menu = ({ themecolor }) => {
     }, [admin]);
 
     const createModal = useCallback((id) => {
-        if(modals.find((v) => v.id === id)){
-            return false;
-        }
+        if(modals.find((v) => v.id === id)) return;
         
         let data = '';
         
         if(id === WELCOME_MODAL_ID){
             data = WELCOME_MODAL_DATA;
+
         } else if(id === INFO_MODAL_ID){
             data = INFO_MODAL_DATA;
         }
 
-        console.log('==================createModal');
         dispatch({
             type: CREATE_MODAL_REQUEST,
             data: data
@@ -74,7 +76,7 @@ const Menu = ({ themecolor }) => {
 
     const onClickItem = useCallback((id) => () => {
         createModal(id);
-        setIsVisiMenu(false);
+        setOpenedMenu(false);
             
         dispatch({
             type: TOGGLE_MODAL_REQUEST,
@@ -88,9 +90,28 @@ const Menu = ({ themecolor }) => {
                 <MenuIcon themecolor={themecolor} />
             </MenuButton>
 
-            {isVisibleMenu && (
-                <MenuTooltip className={isVisibleMenu ? 'active' : ''}>
+            {openedMenu && (
+                <MenuTooltip>
+                    <SiteName>
+                        <span><SmileOutlined /></span>Kayoon.LEE
+                    </SiteName>
+                    {/* <SiteInfo>
+                        <SiteName>
+                            <span><SmileOutlined /></span>Kayoon.LEE
+                        </SiteName>
+                    </SiteInfo> */}
                     <List>
+                        <Item>
+                            <GitAnchor 
+                                href="https://github.com/leeyoonseo"
+                                target="_blank"
+                                rel="noreferrer noopener"
+                                themecolor={themecolor}
+                            >
+                                Github
+                                <GithubOutlined style={{ color: themecolor }}/>
+                            </GitAnchor>
+                        </Item>
                         <Item>
                             <ItemButton 
                                 onClick={onClickItem(WELCOME_MODAL_ID)}    

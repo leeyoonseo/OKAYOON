@@ -12,14 +12,12 @@ export const MenuButton = styled.button`
     cursor: pointer;
     outline: none;
 
-    &:hover,
-    &:focus {
+    &:hover {
         background: none;
     }
 
     &:hover,
-    &:focus,
-    &.active{
+    &.active {
         opacity: 0.5;
     }
 `;
@@ -31,17 +29,23 @@ export const MenuIcon = styled(MenuOutlined)`
 
 export const MenuTooltip = styled.div`
     position: absolute;
-    top: 30px;
-    right: 0;
-    padding-top: 15px;
-    display: none;
-    width: 80px;
-    height: 125px;
-    background: rgba(0, 0, 0, 0.4); 
-    clip-path: polygon(90% 10%,100% 10%,100% 100%,0 100%,0 10%,74% 10%,90% 0);
+    top: 0;
+    left: 0;
+    min-width: 250px;
+    background: rgba(86, 98, 112, 0.5);
+    transform: translateY(-100%);
+`;
 
-    &.active {
-        display: block;
+export const SiteName = styled.span`
+    padding: 0.625rem;
+    display: inline-block;
+    width: 100%;
+    text-align: left;
+    cursor: default;
+    background: #566270;
+
+    span {
+        margin-right: 2px;
     }
 `;
 
@@ -51,11 +55,12 @@ export const List = styled.ul`
 `;
 
 export const Item = styled.li`
-    padding: 10px 0;
+    padding: 0.625rem 0;
     text-align: center;
 `;
 
 export const ItemButton = styled.button`
+    font-size: 1rem;
     border: none;
     background: none;
     outline: none;
@@ -67,3 +72,20 @@ export const ItemButton = styled.button`
         background: none;
     }
 `;
+
+export const GitAnchor = styled.a`
+    display: inline-block;
+    font-size: 1rem;
+    color: ${props => props.themecolor};
+
+    &:hover { 
+        color: ${props => props.themecolor};
+        opacity: 0.8;
+    }
+
+    span {
+        margin-left: 0.313rem;
+        vertical-align: middle;
+    }
+`;
+
