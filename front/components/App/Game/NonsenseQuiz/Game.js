@@ -135,7 +135,7 @@ const Game = ({
     score,
     setScore, 
     onChangeStep, 
-    gameData, 
+    data, 
     MAX_ROUND, 
     MAX_TIME,
 }) => {
@@ -148,19 +148,16 @@ const Game = ({
     const [round, setRound] = useState(null);
     const [time, setTime] = useState(null);
 
+    // TODO: 여러번 리렌더링되는지 확인할 것
     useEffect(() => {
-        if(!gameData) return;
+        if(!data) return;
 
-        setQuizList(gameData);
+        setQuizList(data);
         setRound(0);
-    }, [gameData]);
+    }, []);
 
     useEffect(() => {
         if(round === null) return;
-        if (quizList.length < 1) {
-            console.log('===================== 퀴즈리스트데이터가 없다.')
-            return;
-        }
 
         const q = quizList[round];
         const ex = JSON.parse(q.example);

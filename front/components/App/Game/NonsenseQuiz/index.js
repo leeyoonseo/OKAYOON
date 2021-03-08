@@ -79,7 +79,7 @@ const NonsenseQuiz = ({ onClickHome }) => {
                 if (step === STEP_MAIN) {
                     return (
                         <Main 
-                            gameData={gameData}
+                            data={gameData}
                             onChangeStep={onChangeStep}
                         />
                     )
@@ -96,7 +96,7 @@ const NonsenseQuiz = ({ onClickHome }) => {
                             setScore={setScore}
                             MAX_ROUND={MAX_ROUND}
                             MAX_TIME={MAX_TIME}
-                            gameData={gameData}
+                            data={gameData}
                             onChangeStep={onChangeStep}
                         />
                     )

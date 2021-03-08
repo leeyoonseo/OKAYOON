@@ -8,21 +8,6 @@ import useInput from '../../../../hooks/useInput';
 
 import { STEP_FINISH } from './index';
 
-// const devData = [
-//     {
-//         qusetion: 'https://blog.kakaocdn.net/dn/be0Djj/btqw7cQxh9J/jKmLAEMxSBoT5xMHMwAKkk/img.png',
-//         correct: '골프',
-//         // [D] 최소 10개~최대 15개, 동일하지 않게 입력 (Example과도 동일하지 않아야함.). 저장할때 배열로...
-//         incorrect: ['구','길','갬','성','으','우','상','태','테','킹','콩','로','도','후','지','장'],
-//     },
-//     {
-//         question: 'https://img.insight.co.kr/static/2019/08/10/700/y9zdh7mhze6k14510er7.jpg',
-//         correct: '개인기',
-//         incorrect: ['구','길','갬','성','으','우','상','태','테','킹','콩','로','도','후','지','장'],
-//     },
-//     
-// ];
-
 const resultFadeIn = keyframes`
     0% {
         font-size: 10px;
@@ -158,6 +143,10 @@ const initialLetterStyle = css`
     border-radius: 3px;
     outline: none;
     cursor: pointer;
+
+    &[disabled] {
+        cursor: default;
+    }
 `;
 
 const ExampleArea = styled.div` 
@@ -226,31 +215,46 @@ const Game = ({
     setScore,
     MAX_ROUND,
     MAX_TIME,
-    gameData,
+    data,
     onChangeStep,
 }) => {
-    const [userInput, onChangeUserInput, setUserInput] = useInput('');
+    const [userAnswer, onChangeUserAnswer, setUserAnswer] = useInput('');
     const [openedResult, setOpenedResult] = useState(false);
     const [isCorrect, setIsCorrect] = useState(null); // [D] 정답여부
-    const [correctWord, setCorrectWord] = useState(null); // [D] 정답단어
+    const [correctWord, setCorrectWord] = useState(''); // [D] 정답단어
 
     const [quizList, setQuizList] = useState(null); // [D] 퀴즈배열 
     const [quiz, setQuiz] = useState(null); // [D] 현재퀴즈
     const [example, setExample] = useState(null); // [D] 보기
     const [round, setRound] = useState(null);
-    const [time, setTime] = useState(MAX_TIME ? MAX_TIME : null);
-    // const [barPercent, setBarpercent] = useStat(null);
+    const [time, setTime] = useState(null);
 
     const [examRef, setExamRef] = useState([]);
-    const userInputRef = useRef(null);
+    const userAnswerInputRef = useRef(null);
 
     useEffect(() => {
-        if(!gameData) return;
+        if (data.length < 1) return;
 
-        setQuizList(gameData);
+        setQuizList(data);
         setRound(0);
         setScore(0);
-    }, [gameData]);
+        setTime(MAX_TIME);
+    }, []);
+
+    useEffect(() => {
+        if (round === null || !quizList) return;
+
+        const currentQuiz = quizList[round];
+        let { correct, incorrect } = currentQuiz;
+        incorrect = (typeof incorrect === 'string') ? JSON.parse(incorrect) : incorrect;
+        const example = correct.split('').concat(incorrect).slice(0, 12);
+        const shuffleExample = shuffleArray(example).map((v) => v[0]);
+
+        setQuiz(currentQuiz);
+        setCorrectWord(correct);
+        setExample(shuffleExample);
+        setTime(MAX_TIME);
+    }, [quizList, round]);
 
     useEffect(() => {
         if(!example) return;
@@ -261,25 +265,16 @@ const Game = ({
     }, [example]);
 
     useEffect(() => {
-        if(round === null || !quizList) return;
-        const q = quizList[round];
-        const correct = q.correct;
-        let incorrect = q.incorrect;
-        incorrect = (typeof incorrect === 'string') ? JSON.parse(incorrect) : incorrect;
-        const example = correct.split('').concat(incorrect).slice(0, 12);
-        const shuffleEx = shuffleArray(example).map((v) => v[0]);
+        if (time === null) return;
 
-        setQuiz(q);
-        setCorrectWord(correct);
-        setExample(shuffleEx);
-        setTime(MAX_TIME);
-        reset();
-    }, [quizList, round]); 
+        if (openedResult) {
+            return clearInterval(timer);
+        }
 
-    useEffect(() => {
+        // [D] 시간제한 실패
         if (time === 0) {
             clearInterval(timer);
-            correctCheck();
+            moveNextRound({ scoreUp: false });  
             return;
         };
 
@@ -290,27 +285,47 @@ const Game = ({
         return () => {
             clearInterval(timer);
         }
-    }, [time]); 
+    }, [time, openedResult]); 
 
     useEffect(() => {
-        console.log('time',time);
-    }, [time]);
+        if (correctWord === '') return;
+        if (correctWord.length !== userAnswer.length) return;
 
-    useEffect(() => {
-        if(!correctWord || !userInput || correctWord.length !== userInput.length) {
-            return;
-        }
+        moveNextRound({ 
+            scoreUp: (correctWord === userAnswer) ? true : false 
+        });   
+    }, [correctWord, userAnswer]);
 
-        correctCheck();
-    }, [userInput]);
+    const reset = useCallback(() => {
+        examRef.forEach((v) => {
+            const target = v.current;
 
-    const correctCheck = useCallback(() => {
-        if (correctWord === userInput) {
-            return moveNextRound({ scoreUp: true });         
-        } 
+            if (target.classList.contains('active')) {
+                target.classList.remove('active');
+                target.disabled = false;
+            }
+        });
 
-        moveNextRound({ scoreUp: false });         
-    }, [correctWord, userInput]);
+        setUserAnswer('');
+    }, [examRef]);
+
+    const onClickAllRemove = useCallback(() => reset(), [examRef, userAnswer])
+    const onClickRemove = useCallback(() => {
+        if (userAnswer.trim() === '') return;
+        const length = userAnswer.length - 1;
+        const lastVal = userAnswer.charAt(length);
+        
+        examRef.forEach((v) => {
+            const target = v.current;
+
+            if (target.classList.contains('active') && target.value === lastVal) {
+                target.classList.remove('active');
+                target.disabled = false;
+            }
+        });
+
+        setUserAnswer(userAnswer.substr(0, length));
+    }, [userAnswer, examRef]);
 
     const moveNextRound = useCallback(({ scoreUp }) => {
         if (scoreUp) {
@@ -323,57 +338,24 @@ const Game = ({
         setTimeout(() => {
             setOpenedResult(false);
             
-            if (round > MAX_ROUND || round >= (gameData.length - 1)) {
+            if (round > MAX_ROUND || round >= (data.length - 1)) {
                 setRound(null);
                 onChangeStep(STEP_FINISH)();
                 return;
             }
 
             setRound(round + 1);
+            reset();
         }, 1000);
-    }, [score]);
-
-    const reset = useCallback(() => {
-        examRef.forEach((v) => {
-            const target = v.current;
-
-            if (target.classList.contains('active')) {
-                target.classList.remove('active');
-                target.disabled = false;
-            }
-        });
-
-        setUserInput('');
-    }, [examRef, userInput]);
-
-    const onClickAllRemove = useCallback(() => reset(), [examRef, userInput])
-    const onClickRemove = useCallback(() => {
-        const word = userInput;
-        const lastLetter = word.charAt(word.length - 1);
-        
-        if (lastLetter === '') return;
-
-        examRef.forEach((v) => {
-            const target = v.current;
-
-            if (target.classList.contains('active') && target.value === lastLetter) {
-                target.classList.remove('active');
-                target.disabled = false;
-            }
-        });
-
-        setUserInput(word.substr(0, word.length -1));
-    }, [examRef, userInput]);
-
+    }, [round, examRef]);
 
     const onClickExample = useCallback(({ target }) => {
-        if (openedResult) return;
-        if (correctWord.length === userInput.length) return;
-
+        const currentVal = userAnswer + target.value;
         target.classList.add('active');
         target.disabled = true;
-        setUserInput(userInput + target.value);
-    }, [openedResult, correctWord, userInput]);
+        
+        setUserAnswer(currentVal);
+    }, [correctWord, userAnswer]);
 
     return (
         <Wrap>
@@ -402,15 +384,15 @@ const Game = ({
                 <InputBox>
                     <input 
                         type="hidden"
-                        ref={userInputRef}  
-                        value={userInput} 
-                        onChange={onChangeUserInput}
+                        ref={userAnswerInputRef}  
+                        value={userAnswer} 
+                        onChange={onChangeUserAnswer}
                     />
 
                     {correctWord && correctWord.split('').map((v, i) => {
                         return (
                             <span key={`submit_word_${i}`}>
-                                {userInput.split('')[i]}
+                                {userAnswer.split('')[i]}
                             </span>
                         )
                     })}
@@ -424,6 +406,7 @@ const Game = ({
                                 value={v}
                                 onClick={onClickExample}
                                 ref={examRef[i]}
+                                disabled={openedResult}
                             > 
                                 {v}
                             </button>
@@ -433,6 +416,7 @@ const Game = ({
                     <RemoveButtons>
                         <button
                             onClick={onClickRemove}
+                            disabled={openedResult}
                         >
                             <ArrowLeftOutlined style={{ color: '#666' }} />
                             <span className="hidden">한글자 지우기</span>
@@ -440,6 +424,7 @@ const Game = ({
 
                         <button
                             onClick={onClickAllRemove}
+                            disabled={openedResult}
                         >
                             <DeleteOutlined style={{ color: '#666' }} />
                             <span className="hidden">전체 지우기</span>

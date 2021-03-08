@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import styled from 'styled-components';
 
 import { STEP_GAME, STEP_GUIDE } from './index';
@@ -60,9 +60,17 @@ const ButtonArea = styled.div`
 `;
 
 const Main = ({ 
-    gameData,
+    data,
     onChangeStep,
 }) => {
+    const [ready, setReady] = useState(false);
+
+    useEffect(() => {
+        if (data.length < 1) return;
+
+        setReady(true);
+    }, [data]);
+
     return (
         <Wrap>
             <Inner>
@@ -74,9 +82,9 @@ const Main = ({
                 <ButtonArea>
                     <button 
                         onClick={onChangeStep(STEP_GAME)}
-                        disabled={gameData.length < 1}
+                        disabled={!ready}
                     >
-                        {gameData.length < 1 ? '데이터가 없습니다' : '시작하기'}
+                        {ready ? '시작하기' : '데이터가 없습니다'}
                     </button>
                     <button onClick={onChangeStep(STEP_GUIDE)}>게임방법</button>
                 </ButtonArea>

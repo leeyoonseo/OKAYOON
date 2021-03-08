@@ -45,18 +45,32 @@ const MainButton = styled.button`
 
 const CatchMindQuiz = ({ onClickHome }) => {
     const dispatch = useDispatch();
-    const { gameData } = useSelector((state) => state.game);
+    // const { gameData } = useSelector((state) => state.game);
     const [step, setStep] = useState(STEP_MAIN);
     const [score, setScore] = useState(0);
     const MAX_ROUND = 10;
-    const MAX_TIME = 100; // [D] 1000 = 1초
+    const MAX_TIME = 1000; // [D] 1000 = 1초
 
-    useEffect(() => {
-        dispatch({
-            type: LOAD_GAME_REQUEST,
-            data: CATCH_MIND
-        });
-    }, []);
+    // useEffect(() => {
+    //     dispatch({
+    //         type: LOAD_GAME_REQUEST,
+    //         data: CATCH_MIND
+    //     });
+    // }, []);
+
+    const gameData = [ 
+        {
+            question: 'https://blog.kakaocdn.net/dn/be0Djj/btqw7cQxh9J/jKmLAEMxSBoT5xMHMwAKkk/img.png',
+            correct: '골프',
+            incorrect: ['구','길','갬','성','으','우','상','태','테','킹','콩','로','도','후','지','장'],
+        },
+        {
+            question: 'https://img.insight.co.kr/static/2019/08/10/700/y9zdh7mhze6k14510er7.jpg',
+            correct: '개인기',
+            incorrect: ['구','길','갬','성','으','우','상','태','테','킹','콩','로','도','후','지','장'],
+        },
+        
+    ];
 
     const onChangeStep = useCallback((changeStep) => () => setStep(changeStep), []);
 
@@ -78,6 +92,7 @@ const CatchMindQuiz = ({ onClickHome }) => {
                 if (step === STEP_MAIN) {
                     return (
                         <Main 
+                            data={gameData}
                             onChangeStep={onChangeStep}
                         />
                     )
@@ -94,7 +109,7 @@ const CatchMindQuiz = ({ onClickHome }) => {
                             setScore={setScore}
                             MAX_ROUND={MAX_ROUND}
                             MAX_TIME={MAX_TIME}
-                            gameData={gameData}
+                            data={gameData}
                             onChangeStep={onChangeStep}
                         />
                     )

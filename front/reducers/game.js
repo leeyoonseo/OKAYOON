@@ -185,12 +185,13 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             draft.loadGameError = false;
             break;
 
-        case LOAD_GAME_SUCCESS:
-            draft.gameData = action.data;
+        case LOAD_GAME_SUCCESS: {
+            draft.gameData = (typeof action.data === 'object') ? action.data : [];
             draft.loadGameLoading = false;
             draft.loadGameDone = true;
             draft.loadGameError = false;
             break;
+        }
 
         case LOAD_GAME_FAILURE:
             draft.loadGameLoading = false;
