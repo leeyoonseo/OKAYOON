@@ -1,2 +1,2 @@
-export const DARK_MODE_COLOR = '#fff';
-export const WHITE_MODE_COLOR = '#333';
+export const DARK_MODE_COLOR = '#FFFFF3';
+export const WHITE_MODE_COLOR = '#566270';

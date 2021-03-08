@@ -23,7 +23,7 @@ export const AVATAR_MODAL_DATA = {
 };
 
 // [D] 메뉴 툴팁, info
-import Info from '../SystemTools/Menu/Info';
+import Info from '../Menu/Info';
 
 export const INFO_MODAL_ID = 'MI_M_0'; 
 export const INFO_MODAL_DATA = {
@@ -41,7 +41,7 @@ export const INFO_MODAL_DATA = {
 };
 
 // [D] 메뉴 툴팁, welcome
-import Welcome from '../SystemTools/Menu/Welcome';
+import Welcome from '../Menu/Welcome';
 
 export const WELCOME_MODAL_ID = 'MW_M_0';
 export const WELCOME_MODAL_DATA = {

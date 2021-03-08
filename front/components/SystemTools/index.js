@@ -10,7 +10,7 @@ import { SoundOutlined } from '@ant-design/icons';
 import Wifi from './Wifi';
 import Battery from './Battery';
 import Clock from './Clock';
-import Menu from './Menu/index';
+// import Menu from './Menu/index';
 
 const SystemToolsWrap = styled.div`
     line-height: 1 !important;
@@ -86,14 +86,14 @@ const SystemTools = ({ themecolor }) => {
                 <Clock themecolor={themecolor} />
             </IconBox>
 
-            {!pathname.includes('login') && (
+            {/* {!pathname.includes('login') && (
                 <IconBox iconwidth={20}>
                     <Menu 
                         themecolor={themecolor}
                     />
                 </IconBox>
             )}
-            
+             */}
         </SystemToolsWrap>
     );
 };

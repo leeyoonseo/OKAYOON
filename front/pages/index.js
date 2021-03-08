@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useCookies } from 'react-cookie';
 import styled from 'styled-components';
@@ -10,7 +10,7 @@ import { LOAD_ADMIN_INFO_REQUEST, LOG_IN_REQUEST } from '../reducers/user';
 
 import { Layout } from 'antd';
 import { SmileOutlined, GithubOutlined } from '@ant-design/icons';
-import { WHITE_MODE_COLOR } from '../theme/styles';
+import { DARK_MODE_COLOR } from '../theme/styles';
 
 import SystemTools from '../components/SystemTools';
 import AppList from '../components/AppList/index';
@@ -18,31 +18,75 @@ import ModalPopup from '../components/ModalPopup/index';
 import Loading from '../components/Loading';
 
 const Wrap = styled(Layout)`
-    background: #ccc;
+    background: #A593E0;
     overflow: hidden;
 `;
 
 const Header = styled(Layout.Header)`
-    position: relative;
-    padding: 5px 2%;
+    padding: 0;
+    height: auto;
+    color: #FFFFF3;
+    background: none;
+`;
+
+const HeaderInner = styled.div`
+    padding: 0 2%;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    min-height:30px;
+    align-items: center;
+    justify-content: flex-end;
+`;
+
+const Menu = styled.div`
+    // position: absolute;
+    // right: 2%;
+    // display: inline-block;
+    // vertical-align: top;
+`;
+
+const Main = styled(Layout.Content)`
+    display: flex;
+    padding: 0 2%;
     height: ${props => props.h}px;
+    align-items: center;
+    justify-content: center;
+`;
+
+const Footer = styled(Layout.Footer)`
+    padding: 0;
+    font-size: 1rem;
     line-height: 1;
-    background: #777;
+    color: #FFFFF3;
+    background: #566270;
     box-sizing: border-box;
+`;
+
+const FooterInner = styled.div`
+    position: relative;
+    padding: 0 2%;
+    display: flex;
+    align-items: center;
+    min-height: 30px;
 `;
 
 const SiteIdentity = styled.span`
     margin: 0;
     display: inline-block;
-    font-size: 16px;
     text-align: left;
     cursor: default;
+
+    span {
+        margin-right: 2px;
+    }
 `;
 
 const GitAnchor = styled.a`
     margin: 0 20px;
     display: inline-block;
-    font-size: 18px;
+    // font-size: 18px;
+    font-size: 1.125rem;
 
     &:hover,
     &:focus { 
@@ -54,47 +98,50 @@ const GitAnchor = styled.a`
     }
 `;
 
-const AsideHeader = styled.div`
-    position: absolute;
-    right: 2%;
-    display: inline-block;
-    vertical-align: top;
-`;
-
-const Content = styled(Layout.Content)`
-    display: flex;
-    padding: 0 2%;
-    height: ${props => props.h}px;
-    align-items: center;
-    justify-content: center;
-`;
-
-const Footer = styled(Layout.Footer)`
-    display: flex;
-    padding: 0 2%;
-    height: ${props => props.h}px;
-    text-align: center;
-    align-items: flex-end;
-    justify-content: center;
-    background: none;
-    box-sizing: border-box;
-`;
+// const Footer = styled(Layout.Footer)`
+//     display: flex;
+//     padding: 0 2%;
+//     height: ${props => props.h}px;
+//     text-align: center;
+//     align-items: flex-end;
+//     justify-content: center;
+//     background: none;
+//     box-sizing: border-box;
+// `;
 
 const Home = () => {
     const dispatch = useDispatch();
     const { modals, modalToggleLoading } = useSelector((state) => state.site);
     const { me, admin, logInDone, loadAdminInfoDone } = useSelector((state) => state.user);
     const [cookie] = useCookies(['me']);
-    const [contH, setContH] = useState(null);
-    const themecolor = WHITE_MODE_COLOR;
-    let windowH = null;
-    const headerH = 35;
-    const footerH = 150;
+    const [mainHeight, setMainHeight] = useState(null);
+    const [headerHeight, setHeaderHeight] = useState(null);
+    const [footerHeight, setFooterHeight] = useState(null);
+
+    const [openedMenu, setOpenedMenu] = useState(false);
+    const themecolor = DARK_MODE_COLOR;
+    const headerRef = useRef(null);
+    const footerRef = useRef(null);
 
     useEffect(() => {
-        windowH = window.innerHeight;
-        setContH(windowH - headerH - footerH);
     }, []);
+
+    useEffect(() => {
+        if (!headerHeight || !footerHeight) return;
+        const windowH = window.innerHeight;
+
+        setMainHeight(windowH - headerHeight - footerHeight);
+    }, [headerHeight, footerHeight])
+
+    useEffect(() => {
+        if (!headerRef.current) return;
+        setHeaderHeight(headerRef.current.clientHeight);
+    }, [headerRef])
+
+    useEffect(() => {
+        if (!footerRef.current) return;
+        setFooterHeight(footerRef.current.clientHeight);
+    }, [footerRef]);
 
     useEffect(() => {
         if (cookie.me && !logInDone) {
@@ -135,31 +182,25 @@ const Home = () => {
         });
     }, []);
 
+    const onClickMenu = useCallback(() => {
+        console.log('onClickMenu');
+    }, [openedMenu]);
+
     return (
         <>
             <Head>
                 <title>OKAYOON</title>
             </Head>
             <Wrap>
-                <Header h={headerH}>
-                    <SiteIdentity>
-                        <span><SmileOutlined /></span>Kayoon.LEE
-                    </SiteIdentity>
-
-                    <GitAnchor 
-                        href="https://github.com/leeyoonseo"
-                        target="_blank"
-                        rel="noreferrer noopener"
-                    >
-                        <GithubOutlined style={{ color: themecolor }}/>
-                    </GitAnchor>
-
-                    <AsideHeader>
-                        <SystemTools themecolor={themecolor} />    
-                    </AsideHeader>
+                <Header>
+                    <HeaderInner ref={headerRef}>
+                        <Menu>
+                            <SystemTools themecolor={themecolor} />    
+                        </Menu>
+                    </HeaderInner>
                 </Header>
 
-                <Content h={contH}>
+                <Main h={mainHeight}>
                     {modalToggleLoading && <Loading />}
                     {modals?.map((v) => {
                         if(v){
@@ -177,11 +218,42 @@ const Home = () => {
                             );
                         }
                     })}
-                </Content>
+                </Main>
 
-                <Footer h={footerH}>
-                    <AppList />
+                <Footer 
+                    // h={footerH}
+                >
+                    <FooterInner ref={footerRef}>
+                        <button 
+                            onClick={onClickMenu}
+                        >
+                            메뉴
+                        </button>
+                        
+                        {openedMenu && (
+                            <div>
+                                메뉴당
+                            </div>
+                        )}
+
+                    
+                        <SiteIdentity>
+                            <span><SmileOutlined /></span>Kayoon.LEE
+                        </SiteIdentity>
+
+                        <GitAnchor 
+                            href="https://github.com/leeyoonseo"
+                            target="_blank"
+                            rel="noreferrer noopener"
+                        >
+                            <GithubOutlined style={{ color: themecolor }}/>
+                        </GitAnchor>
+                    </FooterInner>
                 </Footer>
+
+                {/* <Footer h={footerH}>
+                    <AppList />
+                </Footer> */}
             </Wrap>
         </>
     );

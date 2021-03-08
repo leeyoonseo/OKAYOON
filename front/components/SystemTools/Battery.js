@@ -4,12 +4,12 @@ import styled from 'styled-components';
 import dayjs from 'dayjs';
 
 const BatteryWrapper = styled.div`
-    &:before {
-        margin-right: 7px;
-        display: inline-block;
-        content: '${props => Math.floor(props.percent)}%';
-        color: ${props => props.themecolor};
-    }
+    // &:before {
+    //     margin-right: 7px;
+    //     display: inline-block;
+    //     content: '${props => Math.floor(props.percent)}%';
+    //     color: ${props => props.themecolor};
+    // }
 
     .gauge {
         display: inline-block;
@@ -17,9 +17,7 @@ const BatteryWrapper = styled.div`
         height: 15px;
         vertical-align: text-bottom;
         border: 1px solid ${props => props.themecolor};
-        border-radius:3px;
-
-        
+        // border-radius:3px;
     }
 
     .gauge:before {
@@ -57,7 +55,9 @@ const Battery = ({ themecolor }) => {
     }, []);
 
     useEffect(() => {
+        if (!time) return;
         const currentPer = getCurrentPercent(time);
+        console.log('currentPer',currentPer)
         
         if(percent === currentPer){
             return;

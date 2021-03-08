@@ -3,13 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { useCookies } from 'react-cookie';
 import PropTypes from 'prop-types';
 
-import { ALL_CLOSED_MODAL, CREATE_MODAL_REQUEST, TOGGLE_MODAL_REQUEST } from '../../../reducers/site';
-import { LOG_OUT_ADMIN_REQUEST, LOG_OUT_REQUEST } from "../../../reducers/user";
+import { ALL_CLOSED_MODAL, CREATE_MODAL_REQUEST, TOGGLE_MODAL_REQUEST } from '../../reducers/site';
+import { LOG_OUT_ADMIN_REQUEST, LOG_OUT_REQUEST } from "../../reducers/user";
 
 import { 
     WELCOME_MODAL_ID, WELCOME_MODAL_DATA, 
-    INFO_MODAL_ID, INFO_MODAL_DATA,
-} from '../../ModalPopup/data';
+    INFO_MODAL_ID, INFO_MODAL_DATA, 
+} from "../ModalPopup/data";
+
 
 import { 
     Wrap, MenuButton, MenuIcon, MenuTooltip, 

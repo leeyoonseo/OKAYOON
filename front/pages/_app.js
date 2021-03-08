@@ -11,6 +11,10 @@ import wrapper from '../store/configurestore';
 const Okayoon = ({ Component }) => {
 
     const Global = createGlobalStyle`
+        body {
+            // font-size: 16px;
+        }
+
         .hidden {
             padding: 0; 
             margin: -1px;

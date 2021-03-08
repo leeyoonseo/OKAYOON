@@ -249,3 +249,18 @@ const Login = () => {
 // - 대화명 simsimi로안되게 하기(대문자도 물론)
 
 export default Login;
+
+
+
+// TODO:
+// 조합 (1)
+// 1. #fd7576
+// 2. #fec85d
+// 3. #4db9de
+// 4. #34324b
+
+// 조합 (2)
+// #a7dff8 #ed5586 #64c5ba #64c5ba
+
+// 조합 3
+// #A593E0 #E0E3DA #FFFFF3 #566270
