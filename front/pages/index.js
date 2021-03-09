@@ -11,39 +11,17 @@ import { LOAD_ADMIN_INFO_REQUEST, LOG_IN_REQUEST } from '../reducers/user';
 import { Layout } from 'antd';
 import { DARK_MODE_COLOR } from '../theme/styles';
 
-import SystemTools from '../components/SystemTools';
 import AppList from '../components/AppList/index';
 import Menu from '../components/Menu/index';
 import ModalPopup from '../components/ModalPopup/index';
 import Loading from '../components/Loading';
 
+import Header from './Header';
+import Footer from './Footer';
+
 const Wrap = styled(Layout)`
-    background: #A593E0;
+    background: #64c5ba;
     overflow: hidden;
-`;
-
-const Header = styled(Layout.Header)`
-    padding: 0;
-    height: auto;
-    color: #FFFFF3;
-    background: none;
-`;
-
-const HeaderInner = styled.div`
-    padding: 0 2%;
-    display: flex;
-    width: 100%;
-    height: 100%;
-    min-height:30px;
-    align-items: center;
-    justify-content: flex-end;
-`;
-
-const SystemToolsWrap = styled.div`
-    position: absolute;
-    right: 2%;
-    display: inline-block;
-    vertical-align: top;
 `;
 
 const Main = styled(Layout.Content)`
@@ -54,34 +32,6 @@ const Main = styled(Layout.Content)`
     justify-content: center;
 `;
 
-const Footer = styled(Layout.Footer)`
-    padding: 0;
-    font-size: 1rem;
-    line-height: 1;
-    color: #FFFFF3;
-    background: #566270;
-    box-sizing: border-box;
-`;
-
-const FooterInner = styled.div`
-    position: relative;
-    padding: 0 2%;
-    display: flex;
-    align-items: center;
-    min-height: 30px;
-`;
-
-// const Footer = styled(Layout.Footer)`
-//     display: flex;
-//     padding: 0 2%;
-//     height: ${props => props.h}px;
-//     text-align: center;
-//     align-items: flex-end;
-//     justify-content: center;
-//     background: none;
-//     box-sizing: border-box;
-// `;
-
 const Home = () => {
     const dispatch = useDispatch();
     const { modals, modalToggleLoading } = useSelector((state) => state.site);
@@ -90,19 +40,7 @@ const Home = () => {
     const [mainHeight, setMainHeight] = useState(null);
     const [headerHeight, setHeaderHeight] = useState(null);
     const [footerHeight, setFooterHeight] = useState(null);
-    const headerRef = useRef(null);
-    const footerRef = useRef(null);
     const themecolor = DARK_MODE_COLOR;
-
-    useEffect(() => {
-        if (!headerRef.current) return;
-        setHeaderHeight(headerRef.current.clientHeight);
-    }, [headerRef])
-
-    useEffect(() => {
-        if (!footerRef.current) return;
-        setFooterHeight(footerRef.current.clientHeight);
-    }, [footerRef]);
 
     useEffect(() => {
         if (!headerHeight || !footerHeight) return;
@@ -151,13 +89,10 @@ const Home = () => {
                 <title>OKAYOON</title>
             </Head>
             <Wrap>
-                <Header>
-                    <HeaderInner ref={headerRef}>
-                        <SystemToolsWrap>
-                            <SystemTools themecolor={themecolor} />    
-                        </SystemToolsWrap>
-                    </HeaderInner>
-                </Header>
+                <Header 
+                    themecolor={themecolor}
+                    setHeight={setHeaderHeight} 
+                />
 
                 <Main h={mainHeight}>
                     <AppList />
@@ -181,10 +116,8 @@ const Home = () => {
                     })}
                 </Main>
 
-                <Footer>
-                    <FooterInner ref={footerRef}>
-                        <Menu themecolor={themecolor}/>
-                    </FooterInner>
+                <Footer setHeight={setFooterHeight}>
+                    <Menu themecolor={themecolor}/>
                 </Footer>
             </Wrap>
         </>

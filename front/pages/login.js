@@ -5,7 +5,6 @@ import Link from 'next/link';
 
 import { CREATE_MODAL_REQUEST, TOGGLE_MODAL_REQUEST, ALL_CLOSED_MODAL } from '../reducers/site';
 
-import SystemTools from '../components/SystemTools';
 import UserLogin from '../components/Login/User';
 import AdminLogin from '../components/Login/Admin';
 import Loading from '../components/Loading';
@@ -18,29 +17,16 @@ import { Layout } from 'antd';
 import { LogoutOutlined, SmileOutlined } from '@ant-design/icons';
 import { DARK_MODE_COLOR } from '../theme/styles';
 
-const bgImageUrl = 'https://t1.daumcdn.net/cfile/tistory/229F4B335966F29A0F';
+import Header from './Header';
+import Footer from './Footer';
 
 const Wrap = styled(Layout)`
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${bgImageUrl});
-    background-size: cover;
+    font-size: 1rem;
+    background: #566270;
+    overflow: hidden;
 `;
 
-const Header = styled(Layout.Header)` 
-    posiiton: relative;
-    padding: 5px 2%;
-    height: ${props => props.h}px;
-    background: none;
-    box-sizing: border-box;
-`;
-
-const Tools = styled.div`
-    position: absolute;
-    right: 2%;
-    display: inline-block;
-    vertical-align: top;
-`;
-
-const Content = styled(Layout.Content)`
+const Main = styled(Layout.Content)`
     display: flex;
     padding: 0 2%;
     height: ${props => props.h}px;
@@ -48,43 +34,45 @@ const Content = styled(Layout.Content)`
     justify-content: center;
 `;
 
-const ContentInner = styled.div`
-    width: 300px;
-
+const MainInner = styled.div`
+    // max-width: 300px;
+    // min-width: 300px;
+    // width: 100%;
+    width: 18.75rem;
+    
     & > div + div {
         margin-top: 15px;
     }
 `;
 
-const Footer = styled(Layout.Footer)`
-    display: flex;
-    padding: 0 2%;
-    height: ${props => props.h}px;
+const ButtonArea = styled.div`
+    display: block;
+    position: relative;
+    padding: 2% 0;
+    width: 100%;
     text-align: center;
-    align-items: center;
-    justify-content: center;
-    background: none;
-    box-sizing: border-box;
 `;
 
 const btmButtonDefaultStyle = css`
+    font-size: 1rem;
     color: ${props => props.themecolor};
 
-    &:hover,
-    &:focus {
+    &:hover {
         color: ${props => props.themecolor};
         opacity: 0.8;
     }
 
     &:after {
         display: block;
-        margin-top:5px;
+        margin-top: 0.313rem;
         content: '${props => props.text}';
     }
 `;
 
 const SleepButton = styled.a`
     ${btmButtonDefaultStyle}
+    display: inline-block;
+    vertical-align: top;
 `;
 
 const AdminButton = styled.button`
@@ -98,14 +86,12 @@ const AdminButton = styled.button`
 
 const ButtonInner = styled.div`
     margin: 0 auto;
-    width: 30px;
-    height: 30px;
-    border: 1px solid ${props => props.themecolor};
+    border: none;
     border-radius: 50%;
 `;
 
 const defaultIconStyle = css`
-    font-size:18px;
+    font-size: 1.25rem;
     color: ${props => props.themecolor};
     vertical-align: middle;
 `;
@@ -120,21 +106,24 @@ const AdminIcon = styled(SmileOutlined)`
 
 const Login = () => {
     const dispatch = useDispatch();
-
-    const { me, avatarList } = useSelector((state) => state.user);
+    // const { me, avatarList } = useSelector((state) => state.user);
     const { modalToggleLoading, modals } = useSelector((state) => state.site);
-    const [contH, setContH] = useState(null);
-    const [avatar, setAvatar] = useState(me.avatar ? me.avatar : 'nickname');
+    const [avatar, setAvatar] = useState('nickname');
     const [isAdmin, setIsAdmin] = useState(false);
+
+    const [mainHeight, setMainHeight] = useState(null);
+    const [headerHeight, setHeaderHeight] = useState(null);
+    const [footerHeight, setFooterHeight] = useState(null);
     const themecolor = DARK_MODE_COLOR;
-    let windowH = null;
-    const headerH = 35;
-    const footerH = 150;
 
     useEffect(() => {
-        windowH = window.innerHeight;
-        setContH(windowH - headerH - footerH);
+        if (!headerHeight || !footerHeight) return;
+        const windowH = window.innerHeight;
 
+        setMainHeight(windowH - headerHeight - footerHeight);
+    }, [headerHeight, footerHeight]);
+
+    useEffect(() => {
         const haveSameModalData = modals.some((v) => v.id === AVATAR_MODAL_ID);
         if(!haveSameModalData){
             dispatch({
@@ -150,14 +139,9 @@ const Login = () => {
      * - 1. Avatar 컴포넌트 기본이미지 세팅은 문자열 'default'를 전달받는 것을 기준으로 한다.
      */
     const onToggleModal = useCallback((id, title) => () => {
-        console.log('onToggleModal', title);
-
-        setAvatar(title);
-
-        // // TODO: 리팩터링할 것
-        // if(title === 'nickname'){
-        //     setAvatar('nickname');
-        // }
+        if (title) {
+            setAvatar(title);
+        }
 
         dispatch({
             type: TOGGLE_MODAL_REQUEST,
@@ -165,9 +149,7 @@ const Login = () => {
         });
     }, []);
 
-    const onToggleAdmin = useCallback(() => {
-        setIsAdmin(!isAdmin);
-    }, [isAdmin]);
+    const onToggleAdmin = useCallback(() => setIsAdmin(!isAdmin), [isAdmin]);
 
     return (
         <>
@@ -175,14 +157,13 @@ const Login = () => {
                 <title>접속페이지 | OKAYOON</title>
             </Head>
             <Wrap>
-                <Header h={headerH}>
-                    <Tools>
-                        <SystemTools themecolor={themecolor} />    
-                    </Tools>
-                </Header>
+                <Header 
+                    themecolor={themecolor}
+                    setHeight={setHeaderHeight}
+                />
 
-                <Content h={contH}>
-                    <ContentInner>
+                <Main h={mainHeight}>
+                    <MainInner>
                         {!isAdmin ? (
                             <UserLogin 
                                 avatar={avatar}
@@ -192,7 +173,7 @@ const Login = () => {
                         ) : (
                             <AdminLogin />
                         )}
-                    </ContentInner>
+                    </MainInner>
                     
                     {!isAdmin && modals?.map((v) => {
                         if(v){
@@ -209,29 +190,31 @@ const Login = () => {
                             );
                         }
                     })}
-                </Content>
+                </Main>
 
-                <Footer h={footerH}>
-                    <Link href="./sleep">
-                        <SleepButton 
-                            text="잠자기모드"
-                            themecolor={themecolor}
-                        >  
-                            <ButtonInner>
-                                <SleepIcon themecolor={themecolor} />
-                            </ButtonInner>
-                        </SleepButton>
-                    </Link>
+                <Footer setHeight={setFooterHeight}>
+                    <ButtonArea>
+                            <Link href="./sleep">
+                                <SleepButton 
+                                    text="잠자기모드"
+                                    themecolor={themecolor}
+                                >  
+                                    <ButtonInner>
+                                        <SleepIcon themecolor={themecolor} />
+                                    </ButtonInner>
+                                </SleepButton>
+                            </Link>
 
-                    <AdminButton
-                        text={isAdmin ? '사용자' : '관리자'}
-                        themecolor={themecolor}
-                        onClick={onToggleAdmin}
-                    >
-                        <ButtonInner>
-                            <AdminIcon themecolor={themecolor}/>
-                        </ButtonInner>
-                    </AdminButton>
+                            <AdminButton
+                                text={isAdmin ? '사용자' : '관리자'}
+                                themecolor={themecolor}
+                                onClick={onToggleAdmin}
+                            >
+                                <ButtonInner>
+                                    <AdminIcon themecolor={themecolor}/>
+                                </ButtonInner>
+                            </AdminButton>
+                        </ButtonArea>
                 </Footer>
             </Wrap>
 
@@ -245,8 +228,8 @@ const Login = () => {
 // - 버튼에 로딩 추가
 // - 처음들어왔을때 저번에 등록한 닉네임이 있다면
 // - 이미지들 S3 이용할 것 
-// - 배경이미지에 흐린 효과 추가
 // - 대화명 simsimi로안되게 하기(대문자도 물론)
+// - 메타태그
 
 export default Login;
 
@@ -260,7 +243,15 @@ export default Login;
 // 4. #34324b
 
 // 조합 (2)
-// #a7dff8 #ed5586 #64c5ba #64c5ba
+// #a7dff8 #ed5586 #64c5ba #64c5baF
 
 // 조합 3
 // #A593E0 #E0E3DA #FFFFF3 #566270
+
+
+
+// #84B1ED #C89EC4 #EE7785 #67D5B5
+
+// #feee7d #60c5ba #ef5285 #a5dff9
+
+// #9DC8C8 #58C9B9 #519D9E #D1B6E1
