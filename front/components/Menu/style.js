@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { MenuOutlined, WindowsOutlined } from '@ant-design/icons';
+import { UpCircleOutlined } from '@ant-design/icons';
 
 export const Wrap = styled.div`
     position: relative;
@@ -22,7 +22,7 @@ export const MenuButton = styled.button`
     }
 `;
 
-export const MenuIcon = styled(WindowsOutlined)`
+export const MenuIcon = styled(UpCircleOutlined)`
     font-size: 17px;
     color: ${props => props.themecolor};
 `;
@@ -30,17 +30,19 @@ export const MenuIcon = styled(WindowsOutlined)`
 export const MenuTooltip = styled.div`
     position: absolute;
     top: 0;
-    left: 0;
+    left: 50%;
     min-width: 250px;
+    text-align: center;
+    border-radius: 10px 10px 0 0;
     background: rgba(86, 98, 112, 0.5);
-    transform: translateY(-100%);
+    transform: translate(-50%, -100%);
+    overflow: hidden;
 `;
 
 export const SiteName = styled.span`
     padding: 0.625rem;
     display: inline-block;
     width: 100%;
-    text-align: left;
     cursor: default;
     background: #566270;
 
@@ -56,7 +58,6 @@ export const List = styled.ul`
 
 export const Item = styled.li`
     padding: 0.625rem 0;
-    text-align: center;
 `;
 
 export const ItemButton = styled.button`

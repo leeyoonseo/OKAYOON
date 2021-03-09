@@ -88,12 +88,12 @@ const Home = () => {
             <Head>
                 <title>OKAYOON</title>
             </Head>
+            
             <Wrap>
                 <Header 
                     themecolor={themecolor}
                     setHeight={setHeaderHeight} 
                 />
-
                 <Main h={mainHeight}>
                     <AppList />
 
