@@ -3,24 +3,14 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
 
-const BatteryWrapper = styled.div`
-    // &:before {
-    //     margin-right: 7px;
-    //     display: inline-block;
-    //     content: '${props => Math.floor(props.percent)}%';
-    //     color: ${props => props.themecolor};
-    // }
+const Gauge = styled.span`
+    display: inline-block;
+    width: 25px;
+    height: 15px;
+    vertical-align: text-bottom;
+    border: 1px solid ${props => props.themecolor};
 
-    .gauge {
-        display: inline-block;
-        width: 25px;
-        height: 15px;
-        vertical-align: text-bottom;
-        border: 1px solid ${props => props.themecolor};
-        // border-radius:3px;
-    }
-
-    .gauge:before {
+    &:before {
         display: block;
         content: '';
         width: ${props => props.percent}%;
@@ -39,7 +29,7 @@ function getPercent(time){
 };
 
 const Battery = ({ themecolor }) => {
-    const [percent, setPercent] = useState(null);
+    const [percent, setPercent] = useState(getPercent(dayjs()));
 
     useEffect(() => {
         let time = null;
@@ -61,16 +51,10 @@ const Battery = ({ themecolor }) => {
     }, [percent]);
 
     return(
-        <>
-            {percent && (
-                <BatteryWrapper 
-                    themecolor={themecolor} 
-                    percent={percent}
-                >
-                    <span className="gauge"></span>
-                </BatteryWrapper>
-            )}
-        </>
+        <Gauge 
+            themecolor={themecolor} 
+            percent={percent}
+        />
     )
 };
 

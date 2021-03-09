@@ -9,7 +9,8 @@ const ClockWrapper = styled.div`
 `;
 
 const Clock = ({ themecolor }) => {
-    const [currentTime, setCurrentTime] = useState(null);
+    const [currentTime, setCurrentTime] = useState(dayjs().format('HH:mm'));
+
 
     useEffect(() => {
         let time = null;
@@ -29,13 +30,9 @@ const Clock = ({ themecolor }) => {
     }, [currentTime]);
 
     return(
-        <>
-            {currentTime && (
-                <ClockWrapper themecolor={themecolor}>
-                    {currentTime}
-                </ClockWrapper>
-            )}
-        </>
+        <ClockWrapper themecolor={themecolor}>
+            {currentTime}
+        </ClockWrapper>
     );
 };
 

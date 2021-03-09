@@ -86,15 +86,6 @@ const SystemTools = ({ themecolor }) => {
             <IconBox iconwidth={45}>
                 <Clock themecolor={themecolor} />
             </IconBox>
-
-            {/* {!pathname.includes('login') && (
-                <IconBox iconwidth={20}>
-                    <Menu 
-                        themecolor={themecolor}
-                    />
-                </IconBox>
-            )}
-             */}
         </SystemToolsWrap>
     );
 };
