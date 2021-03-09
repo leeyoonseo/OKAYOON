@@ -4,27 +4,29 @@ import styled from 'styled-components';
 
 import Clock from '../components/DigitalClock';
 
-const bgImageUrl = 'https://cdn.pixabay.com/photo/2020/11/07/01/28/abstract-5719221_1280.jpg';
-
 const Wrap = styled.div`
     display: flex;
     height: ${props => props.h}px;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${bgImageUrl});
-    background-size: cover;
+    background: ${props => props.bg};
 `;
 
 const Text = styled.span`
     position: fixed;
     bottom: 5%;
-    font-size: 12px;
+    font-size: 1rem;
     color: #fff;
     opacity: 0.8;
 `;
 
 const sleep = () => {
     const [windowH, setWindowH] = useState(null);
+    const [bgcolor, setBgcolor] = useState('none');
+
+    useEffect(() => {
+        setBgcolor(getRandomColor('rgba'));
+    }, []);
 
     useEffect(() => {
         const windowH = window.innerHeight;
@@ -37,6 +39,7 @@ const sleep = () => {
         <Wrap
             h={windowH}
             onClick={onClick}
+            bg={bgcolor}
         >
             <Clock />       
 
@@ -45,6 +48,24 @@ const sleep = () => {
             </Text>
         </Wrap>
     );
+};
+
+function getRandomColor(isAlpha) {
+    let r = getRand(0, 255);
+    let g = getRand(0, 255);
+    let b = getRand(0, 255);
+    let a = getRand(3, 10) / 10;
+
+    if (!r && !g && !b) {
+        getRandomColor(isAlpha);
+    }
+
+    return `${isAlpha}(${r}, ${g}, ${b}${(isAlpha === 'rgba') ? `, ${a}` : ''})`;
+
+    function getRand(min, max) {
+        if (min >= max) return false;
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    };
 };
 
 export default sleep;

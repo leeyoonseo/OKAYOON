@@ -7,12 +7,12 @@ export const InfoArea = styled.div`
     text-align: center;
 
     div + div {
-        margin-top: 10px;
+        margin-top: 1.25rem;
     }
 `;
 
 const defaultAvatar = css`
-    margin-bottom: 10px;
+    margin-bottom: 1.25rem;
     opacity: 0.8;
 `;
 
@@ -26,34 +26,33 @@ export const DefaultAvatar = styled(Avatar)`
 `;
 
 export const NicknameWrap = styled.div`
-    margin-bottom: 10px;
+    margin-bottom: 1.25rem;
 `;
 
 export const InputWrap = styled.div`
     position: relative;
-    height: 36px;
-    border: 1px solid #fff;
-    border-radius: 3px;
+    border: 2px solid #FFFFF3;
+    border-radius: 0.188rem;
     opacity: 0.8;
     box-sizing: border-box;
 `;
 
 export const UserIcon = styled(UserOutlined)`
     position: absolute;
-    top: 50%;
-    left: 7px;
-    color: #fff;
-    transform: translateY(-50%);
+    top: 0;
+    left: 0;
+    color: #FFFFF3;
+    transform: translate(50%, 50%);
 `;
 
 export const Input = styled.input`
-    margin: 6px 0;
-    padding: 0 30px;
+    padding: 2% 10%;
     width: 100%;
-    height: 24px;
+    font-size: 1rem;
+    color: #FFFFF3;
     border: none;
     background: none;
-    color: #fff;
+    box-sizing: border-box;
 
     &:hover,
     &:focus {
@@ -62,23 +61,23 @@ export const Input = styled.input`
     }    
 
     &::placeholder {
-        color: #fff;
+        color: #FFFFF3;
     }
 `;
 
 export const Nickname = styled.div`
-    padding: 6px 0;
-    margin-bottom: 10px;
-    height: 36px;
-    color: #fff;
+    padding: 2% 0;
+    font-size: 1rem;
+    line-height: 1rem;
+    color: #FFFFF3;
     box-sizing: border-box;
 `;
 
 export const RemoveButton = styled.button`
     padding: 0;
-    margin-left: 5px;
+    margin-left: 0.313rem;
     line-height: 1;
-    color: #fff;
+    color: #FFFFF3;
     border: none;
     background: none;
     cursor: pointer;
@@ -86,7 +85,7 @@ export const RemoveButton = styled.button`
 
     &:hover,
     &:focus { 
-        color: #fff;
+        color: #FFFFF3;
         border: none;
     }
 `;
@@ -96,21 +95,23 @@ export const InfoButtonArea = styled.div`
 `;
 
 export const InfoButton = styled(Button)`
-    padding: 5px 10px;
-    color: #fff;
+    padding: 2% 5%;
+    font-size: 1rem;
+    line-height: 1rem;
+    color: #FFFFF3;
+    border: 2px solid #FFFFF3;
     background: none;
-    border: 1px solid #fff;
     cursor: pointer;
 
     &:hover,
     &:focus {
-        color: #fff;
-        border-color: #fff;
+        color: #FFFFF3;
+        border-color: #FFFFF3;
         background: none;
-        opacity: 0.8;
+        opacity: 0.5;
     }
 
     & + button {
-        margin-left: 10px;
+        margin-left: 0.938rem;
     }
 `;

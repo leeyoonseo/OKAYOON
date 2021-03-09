@@ -78,6 +78,18 @@ export const initialState = {
             src: '../Avatar/avatar_sheep.png',
             title: 'sheep',
         },
+        {
+            src: '../Avatar/avatar_beetle.png',
+            title: 'beetle',
+        },
+        {
+            src: '../Avatar/avatar_pig.png',
+            title: 'pig',
+        },
+        {
+            src: '../Avatar/avatar_sleeping_bunny.png',
+            title: 'sleeping_bunny',
+        },
     ],
 };
 

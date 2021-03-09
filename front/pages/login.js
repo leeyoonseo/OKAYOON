@@ -5,8 +5,8 @@ import Link from 'next/link';
 
 import { CREATE_MODAL_REQUEST, TOGGLE_MODAL_REQUEST, ALL_CLOSED_MODAL } from '../reducers/site';
 
-import UserLogin from '../components/Login/User';
-import AdminLogin from '../components/Login/Admin';
+import User from '../components/Login/User';
+import Admin from '../components/Login/Admin';
 import Loading from '../components/Loading';
 import ModalPopup from '../components/ModalPopup';
 
@@ -34,7 +34,7 @@ const Main = styled(Layout.Content)`
     justify-content: center;
 `;
 
-const MainInner = styled.div`
+const LoginFormArea = styled.div`
     // max-width: 300px;
     // min-width: 300px;
     // width: 100%;
@@ -163,17 +163,17 @@ const Login = () => {
                 />
 
                 <Main h={mainHeight}>
-                    <MainInner>
+                    <LoginFormArea>
                         {!isAdmin ? (
-                            <UserLogin 
+                            <User 
                                 avatar={avatar}
                                 setAvatar={setAvatar}
                                 onClickModal={onToggleModal}
                             />
                         ) : (
-                            <AdminLogin />
+                            <Admin />
                         )}
-                    </MainInner>
+                    </LoginFormArea>
                     
                     {!isAdmin && modals?.map((v) => {
                         if(v){

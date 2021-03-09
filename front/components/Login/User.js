@@ -40,8 +40,8 @@ const User = ({
     }, [avatar]);
 
     const onClickReset = useCallback(() => {
-        setNickname('');
-        setAvatar(null);
+        setNickname('Guest');
+        setAvatar('nickname');
         setHaveNickname(false);
     }, []);
 
@@ -89,14 +89,14 @@ const User = ({
             <InfoArea>
                 {avatar === 'nickname' ? (
                     <AvatarButton 
-                        size={64} 
+                        size={80} 
                         onClick={onClickModal(AVATAR_MODAL_ID)}
                     >
                         {nickname.substr(0, 5)}
                     </AvatarButton>
                 ) : (
                     <AvatarButton 
-                        size={64} 
+                        size={80} 
                         src={getAvatarSrc()}
                         icon={<UserOutlined />} 
                         onClick={onClickModal(AVATAR_MODAL_ID)}

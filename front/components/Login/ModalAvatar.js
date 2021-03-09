@@ -4,11 +4,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Wrap = styled.div`
-    display: flex;
     width: 100%;
-    height: 100%;
-    align-items: center;
-    justify-content: center;
 `;
 
 const Inner = styled.div`
@@ -50,7 +46,8 @@ const Button = styled.button`
     cursor: pointer;
 
     &.default {
-        border: 1px solid #566270;
+        border: 2px solid #566270;
+        font-weight: 700;
     }
 
     img {

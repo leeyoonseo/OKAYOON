@@ -35,23 +35,23 @@ export const Header = styled.div`
     text-align: center;
     line-height: 1;
     background: none;
-    color: #566270;
+    color: #f0f2f5;
     cursor: default;
 `;
 
 export const HeaderInner = styled(Layout.Header)`
-    padding: 0.5rem 3%;
+    padding: 3%;
     width: 100%;
     height: 100%;
     line-height: 1;
     background: #A593E0;
-    color: #566270;
+    color: #f0f2f5;
 `;
 
 export const Content = styled(Layout.Content)`
     padding: 3%;
     height: 100%;
-    // font-size: 13px;
+    background: none;
     box-sizing: border-box;
     overflow-y: auto;
 `;
@@ -101,6 +101,4 @@ export const Title = styled.div`
     display: inline-block;
     max-width: 300px;
     width: 100%;
-    // font-size: 13px;
-    line-height: 1.5;
 `;
