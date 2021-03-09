@@ -27,46 +27,57 @@ export const initialState = {
     // TODO: src, title 수정
     avatarList: [   
         {
-            src: 'https://t1.daumcdn.net/cfile/tistory/99B381445ECFD22A1A',
-            title: '미스터p',
+            src: '../Avatar/avatar_bear.png',
+            title: 'bear',
         },
         {
-            src: 'https://t1.daumcdn.net/cfile/tistory/99DDD54D5ECFD64834',
-            title: '칼',
+            src: '../Avatar/avatar_bear_winter.png',
+            title: 'bear_winter',
         },
         {
-            src: 'https://t1.daumcdn.net/cfile/tistory/99F25D3D5ECFD22E34',
-            title: '샌디',
+            src: '../Avatar/avatar_bird.png',
+            title: 'bird',
         },
         {
-            src: 'https://t1.daumcdn.net/cfile/tistory/99D50B355ECFD22B2C',
-            title: '비',
-        },{
-            src: 'https://t1.daumcdn.net/cfile/tistory/99C3E4385ECFD22A2E',
-            title: '로사',
+            src: '../Avatar/avatar_cat.png',
+            title: 'cat',
         },
         {
-            src: 'https://t1.daumcdn.net/cfile/tistory/99AF7E3A5ECFD2311A',
-            title: '진',
+            src: '../Avatar/avatar_ducky.png',
+            title: 'ducky',
         },
         {
-            src: 'https://t1.daumcdn.net/cfile/tistory/99494A465ECFD22A30',
-            title: '맥스',
+            src: '../Avatar/avatar_elephant.png',
+            title: 'elephant',
         },
         {
-            src: 'https://t1.daumcdn.net/cfile/tistory/99221E4A5ECFD22E30',
-            title: '스파이크',
+            src: '../Avatar/avatar_fox.png',
+            title: 'fox',
         },
         {
-            src: 'https://t1.daumcdn.net/cfile/tistory/990FCF4F5ECFD2322A',
-            title: '페니',
-        },{
-            src: 'https://t1.daumcdn.net/cfile/tistory/997C96405ECFD22A2B',
-            title: '니타',
-        },{
-            src: 'https://t1.daumcdn.net/cfile/tistory/997D04355ECFD23219',
-            title: '파이퍼'
-        }
+            src: '../Avatar/avatar_hedgehog.png',
+            title: 'hedgehog',
+        },
+        {
+            src: '../Avatar/avatar_monkey.png',
+            title: 'monkey',
+        },
+        {
+            src: '../Avatar/avatar_octopus.png',
+            title: 'octopus',
+        },
+        {
+            src: '../Avatar/avatar_puffer-fish1.png',
+            title: 'puffer-fish1',
+        },
+        {
+            src: '../Avatar/avatar_puffer-fish2.png',
+            title: 'puffer-fish2',
+        },
+        {
+            src: '../Avatar/avatar_sheep.png',
+            title: 'sheep',
+        },
     ],
 };
 

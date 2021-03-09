@@ -12,7 +12,7 @@ const Okayoon = ({ Component }) => {
 
     const Global = createGlobalStyle`
         body {
-            // font-size: 16px;
+            font-size: 16px;
         }
 
         .hidden {
@@ -28,6 +28,10 @@ const Okayoon = ({ Component }) => {
 
         .slick-slide {
             display: inline-block;
+        }
+
+        .ant-avatar-image {
+            overflow: unset;
         }
     `;
 
