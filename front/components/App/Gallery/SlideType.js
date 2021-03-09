@@ -123,7 +123,7 @@ const SlideType = ({ images }) => {
 
     const mainSettings = {
         dots: false,
-        arrows: false,
+        arrows: false,  
         infinite: true,
         slidesToShow: 1,
         slidesToScroll: 1,
@@ -153,7 +153,8 @@ const SlideType = ({ images }) => {
                         {images.map((v, i) => {
                             return (
                                 <MainSlickItems key={`${v.title}_${i}`}>
-                                    <img src={v.src} />
+                                    <img src={v.src} alt={v.title} />
+                                    <div>{v.desc}</div>
                                 </MainSlickItems>
                             )
                         })}

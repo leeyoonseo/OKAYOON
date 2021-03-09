@@ -40,7 +40,7 @@ export const Header = styled.div`
 `;
 
 export const HeaderInner = styled(Layout.Header)`
-    padding: 3%;
+    padding: 0.625rem 2%;
     width: 100%;
     height: 100%;
     line-height: 1;
@@ -49,7 +49,7 @@ export const HeaderInner = styled(Layout.Header)`
 `;
 
 export const Content = styled(Layout.Content)`
-    padding: 3%;
+    padding: 0.938rem 2%;
     height: 100%;
     background: none;
     box-sizing: border-box;

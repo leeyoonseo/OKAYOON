@@ -19,6 +19,8 @@ const Wrap = styled.div`
 
 const Inner = styled.div`
     position: relative;
+    width: 50%;
+    max-height: 25rem;
     background: #fff;   
     box-shadow: 1px 1px 10px; rgba(0, 0, 0, 0.7);
 `;
@@ -40,7 +42,28 @@ const CloseIcon = styled(CloseOutlined)`
     color: #666;
 `;
 
-const ImageZoom = ({ src, onClose }) => {
+const Image = styled.img`
+    width: 100%;
+    height: 100%;
+`;
+
+const Info = styled.div`
+    padding: 2%;
+    text-align: center;
+`;
+
+const Title = styled.div`
+    font-weight: 700;
+`;
+
+const Desc = styled.div`
+    font-size: 0.875rem;
+`;
+
+const ImageZoom = ({ 
+    item,
+    onClose,
+}) => {
     return (
         <Wrap>
             <Inner>
@@ -48,7 +71,11 @@ const ImageZoom = ({ src, onClose }) => {
                     <CloseIcon />
                 </CloseButton>
 
-                <img src={src} />
+                <Image src={item.src} alt={item.title}/>
+                <Info>
+                    <Title>'{item.title}'</Title>
+                    <Desc>{item.desc}</Desc>
+                </Info>
             </Inner>
         </Wrap>
     );

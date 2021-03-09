@@ -1,13 +1,14 @@
 import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { Layout } from 'antd';
+import { colors, calcRem } from '../theme/styles';
 
 const Wrap = styled(Layout.Footer)`
     padding: 0;
     font-size: 1rem;
     line-height: 1;
-    color: #FFFFF3;
-    background: #566270;
+    color: ${colors.white};
+    background: ${colors.black};
     box-sizing: border-box;
 `;
 
@@ -15,7 +16,7 @@ const Inner = styled.div`
     position: relative;
     padding: 0 2%;
     display: flex;
-    min-height: 30px;
+    min-height: ${calcRem(30)};
     align-items: center;
     justify-content: center;
 `;

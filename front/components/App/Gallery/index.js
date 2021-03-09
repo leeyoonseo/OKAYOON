@@ -7,78 +7,91 @@ import SlideType from './SlideType';
 import CardType from './CardType';
 import ListType from './ListType';
 
-// TODO: s3 이미지 업로드 후 수정, reducer에서 관리할 것
-const sampleImages = [
+const imageData = [
         { 
-            src: 'https://cdn.pixabay.com/photo/2020/09/02/20/52/dock-5539524__340.jpg', 
-            title : '1번',
-            desc: '1번 이미지입니다.',
+            src: '../../gallery/img00.jpg', 
+            title : '랍스타',
+            desc: '내가 돈이 넘쳤다면 랍스타 씨가 말랐다',
         },
         { 
-            src: 'https://cdn.pixabay.com/photo/2021/02/03/13/54/cupcake-5978060__340.jpg', 
-            title : '2번',
-            desc: '2번 이미지입니다.',
+            src: '../../gallery/img01.jpg', 
+            title : '공원',
+            desc: '공기 좋아보이지만 미세먼지',
         },
         { 
-            src: 'https://cdn.pixabay.com/photo/2020/05/25/20/14/holland-iris-5220407__340.jpg', 
-            title : '3번',
-            desc: '3번 이미지입니다.',
+            src: '../../gallery/img02.jpg', 
+            title : '막걸리',
+            desc: '비오는 날 단골집',
         },
         { 
-            src: 'https://cdn.pixabay.com/photo/2020/10/08/17/39/waves-5638587__340.jpg', 
-            title : '4번',
-            desc: '4번 이미지입니다.',
+            src: '../../gallery/img03.jpg', 
+            title : '전시회',
+            desc: '나도 가보고 싶다',
         },
         { 
-            src: 'https://cdn.pixabay.com/photo/2019/01/30/11/17/zebra-3964360__340.jpg', 
-            title : '5번',
-            desc: '5번 이미지입니다.',
+            src: '../../gallery/img04.jpg', 
+            title : '달',
+            desc: '인스타 갬성때문에 찍었지만...',
         },
         { 
-            src: 'https://cdn.pixabay.com/photo/2021/02/01/13/37/cars-5970663__340.png', 
-            title : '6번',
-            desc: '6번 이미지입니다.',
+            src: '../../gallery/img05.jpg', 
+            title : '케이크',
+            desc: '케이크 맛집, 얼그레이케이크 갑',
         },
         { 
-            src: 'https://cdn.pixabay.com/photo/2019/06/05/10/34/mimosa-4253396__340.jpg', 
-            title : '7번',
-            desc: '7번 이미지입니다.',
+            src: '../../gallery/img06.jpg', 
+            title : '책상',
+            desc: '치운게 저정도',
         },
         { 
-            src: 'https://cdn.pixabay.com/photo/2020/08/04/14/42/sky-5463015__340.jpg', 
-            title : '8번',
-        
-            desc: '8번 이미지입니다.',
+            src: '../../gallery/img07.jpg', 
+            title : '에피타이저',
+            desc: '입맛 돋구지 않아도 난 잘 묵는데',
         },
         { 
-            src: 'https://cdn.pixabay.com/photo/2021/02/03/13/54/cupcake-5978060__340.jpg', 
-            title : '9번',
-        
-            desc: '9번 이미지입니다.',
+            src: '../../gallery/img08.jpg', 
+            title : '식탁',
+            desc: '인스타 갬성샷 (각도가 맞나?)',
         },
         { 
-            src: 'https://cdn.pixabay.com/photo/2020/01/09/01/00/the-eye-on-the-greek-4751572__340.png', 
-            title : '10번',
-            desc: '10번 이미지입니다.',
-
+            src: '../../gallery/img09.jpg', 
+            title : '화장실 벽',
+            desc: '인스타 갬성샷 (화장실..)',
         },
         { 
-            src: 'https://cdn.pixabay.com/photo/2021/01/30/12/19/couple-5963678__340.png', 
-            title : '11번',
-            desc: '11번 이미지입니다.',
-
+            src: '../../gallery/img10.jpg', 
+            title : '무지개 떡',
+            desc: '빨주노초파남보 내가 다먹음',
         },
         { 
-            src: 'https://cdn.pixabay.com/photo/2021/01/23/07/53/dogs-5941898__340.jpg', 
-            title : '12번',
-            desc: '12번 이미지입니다.',
-
+            src: '../../gallery/img11.jpg', 
+            title : '빵 진열',
+            desc: '빵 맛집인데 그냥그랬다',
         },
         { 
-            src: 'https://cdn.pixabay.com/photo/2020/06/15/01/06/sunset-5299957__340.jpg', 
-            title : '13번',
-            desc: '13번 이미지입니다.',
-
+            src: '../../gallery/img12.jpg', 
+            title : '빵과 커피',
+            desc: '빵 맛집이라는데 뷰 맛집',
+        },
+        { 
+            src: '../../gallery/img13.jpg', 
+            title : '벽에 꽃',
+            desc: '인스타 갬성샷인데 뭔지 모름',
+        },
+        { 
+            src: '../../gallery/img14.jpg', 
+            title : '정신없는 식사, 초밥',
+            desc: '정신 없어보이지, 정신없이 먹었다',
+        },
+        { 
+            src: '../../gallery/img15.jpg', 
+            title : '하늘',
+            desc: '점심시간, 하늘이 맑다. 퇴근시켜주세요.',
+        },
+        { 
+            src: '../../gallery/img16.jpg', 
+            title : '해산물',
+            desc: '난 킬러다. 해산물 킬러',
         },
 ];
 
@@ -144,13 +157,13 @@ const Gallery = () => {
 
     const renderViewComponent = useCallback(() => {
         if (status === SLIDE) {
-            return <SlideType images={sampleImages} />;
+            return <SlideType images={imageData} />;
 
         } else if (status === CARD) {
-            return <CardType images={sampleImages} />;
+            return <CardType images={imageData} />;
 
         } else if (status === LIST) {
-            return <ListType images={sampleImages} />;
+            return <ListType images={imageData} />;
         }
     }, [status]);
 

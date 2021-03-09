@@ -26,8 +26,6 @@ const Admin = () => {
         }
     }, []);
 
-    // TODO: 일정치 이상 틀릴 경우 강제로 접속 중지 시키는법?
-    // TODO: DB 작업일 듯 싶은데
     const onSubmit = useCallback(() => {
         if(!id || !id.trim()) {
             alert('관리자 id를 입력해주세요.');
@@ -108,3 +106,6 @@ const Admin = () => {
 };
 
 export default Admin;
+
+// TODO:
+// - 로그인 시도 일정치 이상 틀리면 벤시키기

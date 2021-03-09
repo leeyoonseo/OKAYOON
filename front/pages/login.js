@@ -15,21 +15,21 @@ import { AVATAR_MODAL_ID, AVATAR_MODAL_DATA } from '../components/ModalPopup/dat
 import styled, { css } from 'styled-components';
 import { Layout } from 'antd';
 import { LogoutOutlined, SmileOutlined } from '@ant-design/icons';
-import { DARK_MODE_COLOR } from '../theme/styles';
+import { colors, calcRem } from '../theme/styles';
 
 import Header from './Header';
 import Footer from './Footer';
 
 const Wrap = styled(Layout)`
-    font-size: 1rem;
-    background: #566270;
+    font-size: ${calcRem(16)};
+    background: ${colors.black};
     overflow: hidden;
 `;
 
 const Main = styled(Layout.Content)`
     display: flex;
     padding: 0 2%;
-    height: ${props => props.h}px;
+    height: ${({ h }) => h}px;
     align-items: center;
     justify-content: center;
 `;
@@ -38,10 +38,10 @@ const LoginFormArea = styled.div`
     // max-width: 300px;
     // min-width: 300px;
     // width: 100%;
-    width: 18.75rem;
+    width: ${calcRem(300)};
     
     & > div + div {
-        margin-top: 15px;
+        margin-top: ${calcRem(15)};
     }
 `;
 
@@ -54,18 +54,18 @@ const ButtonArea = styled.div`
 `;
 
 const btmButtonDefaultStyle = css`
-    font-size: 1rem;
-    color: ${props => props.themecolor};
+    font-size: ${calcRem(16)};
+    color: ${colors.white};
 
     &:hover {
-        color: ${props => props.themecolor};
+        color: ${colors.white};
         opacity: 0.8;
     }
 
     &:after {
         display: block;
-        margin-top: 0.313rem;
-        content: '${props => props.text}';
+        margin-top: ${calcRem(5)};
+        content: '${({ text }) => text}';
     }
 `;
 
@@ -77,7 +77,7 @@ const SleepButton = styled.a`
 
 const AdminButton = styled.button`
     ${btmButtonDefaultStyle}
-    margin-left: 25px;
+    margin-left: ${calcRem(25)};
     background: none;
     border: none;
     outline: none;
@@ -91,8 +91,8 @@ const ButtonInner = styled.div`
 `;
 
 const defaultIconStyle = css`
-    font-size: 1.25rem;
-    color: ${props => props.themecolor};
+    font-size: ${calcRem(20)};
+    color: ${colors.white};
     vertical-align: middle;
 `;
 
@@ -106,7 +106,6 @@ const AdminIcon = styled(SmileOutlined)`
 
 const Login = () => {
     const dispatch = useDispatch();
-    // const { me, avatarList } = useSelector((state) => state.user);
     const { modalToggleLoading, modals } = useSelector((state) => state.site);
     const [avatar, setAvatar] = useState('nickname');
     const [isAdmin, setIsAdmin] = useState(false);
@@ -114,7 +113,7 @@ const Login = () => {
     const [mainHeight, setMainHeight] = useState(null);
     const [headerHeight, setHeaderHeight] = useState(null);
     const [footerHeight, setFooterHeight] = useState(null);
-    const themecolor = DARK_MODE_COLOR;
+    const themeColor = colors.white;
 
     useEffect(() => {
         if (!headerHeight || !footerHeight) return;
@@ -156,9 +155,9 @@ const Login = () => {
             <Head>
                 <title>접속페이지 | OKAYOON</title>
             </Head>
-            <Wrap>
+            <Wrap color={colors.black}>
                 <Header 
-                    themecolor={themecolor}
+                    themecolor={themeColor}
                     setHeight={setHeaderHeight}
                 />
 
@@ -197,21 +196,19 @@ const Login = () => {
                             <Link href="./sleep">
                                 <SleepButton 
                                     text="잠자기모드"
-                                    themecolor={themecolor}
                                 >  
                                     <ButtonInner>
-                                        <SleepIcon themecolor={themecolor} />
+                                        <SleepIcon />
                                     </ButtonInner>
                                 </SleepButton>
                             </Link>
 
                             <AdminButton
                                 text={isAdmin ? '사용자' : '관리자'}
-                                themecolor={themecolor}
                                 onClick={onToggleAdmin}
                             >
                                 <ButtonInner>
-                                    <AdminIcon themecolor={themecolor}/>
+                                    <AdminIcon />
                                 </ButtonInner>
                             </AdminButton>
                         </ButtonArea>
@@ -232,26 +229,3 @@ const Login = () => {
 // - 메타태그
 
 export default Login;
-
-
-
-// TODO:
-// 조합 (1)
-// 1. #fd7576
-// 2. #fec85d
-// 3. #4db9de
-// 4. #34324b
-
-// 조합 (2)
-// #a7dff8 #ed5586 #64c5ba #64c5baF
-
-// 조합 3
-// #A593E0 #E0E3DA #FFFFF3 #566270
-
-
-
-// #84B1ED #C89EC4 #EE7785 #67D5B5
-
-// #feee7d #60c5ba #ef5285 #a5dff9
-
-// #9DC8C8 #58C9B9 #519D9E #D1B6E1

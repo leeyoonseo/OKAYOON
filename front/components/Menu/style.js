@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { colors, calcRem } from '../../theme/styles';
 import { UpCircleOutlined } from '@ant-design/icons';
 
 export const Wrap = styled.div`
@@ -23,31 +24,31 @@ export const MenuButton = styled.button`
 `;
 
 export const MenuIcon = styled(UpCircleOutlined)`
-    font-size: 17px;
-    color: ${props => props.themecolor};
+    font-size: ${calcRem(17)};
+    color: ${colors.white};
 `;
 
 export const MenuTooltip = styled.div`
     position: absolute;
     top: 0;
     left: 50%;
-    min-width: 250px;
+    min-width: ${calcRem(250)};
     text-align: center;
-    border-radius: 10px 10px 0 0;
-    background: rgba(86, 98, 112, 0.5);
+    border-radius: ${calcRem(10)} ${calcRem(10)}; 0 0;
+    background: ${colors.rgbaGray};
     transform: translate(-50%, -100%);
     overflow: hidden;
 `;
 
 export const SiteName = styled.span`
-    padding: 0.625rem;
+    padding: ${calcRem(10)};
     display: inline-block;
     width: 100%;
     cursor: default;
-    background: #566270;
+    background: ${colors.black};
 
     span {
-        margin-right: 2px;
+        margin-right: ${calcRem(2)};
     }
 `;
 
@@ -57,11 +58,11 @@ export const List = styled.ul`
 `;
 
 export const Item = styled.li`
-    padding: 0.625rem 0;
+    padding: ${calcRem(10)}; 0;
 `;
 
 export const ItemButton = styled.button`
-    font-size: 1rem;
+    font-size: ${calcRem(16)};
     border: none;
     background: none;
     outline: none;
@@ -76,16 +77,16 @@ export const ItemButton = styled.button`
 
 export const GitAnchor = styled.a`
     display: inline-block;
-    font-size: 1rem;
-    color: ${props => props.themecolor};
+    font-size: ${calcRem(16)};
+    color: ${colors.white};
 
     &:hover { 
-        color: ${props => props.themecolor};
+        color: ${colors.white};
         opacity: 0.8;
     }
 
     span {
-        margin-left: 0.313rem;
+        margin-left: ${calcRem(5)};
         vertical-align: middle;
     }
 `;

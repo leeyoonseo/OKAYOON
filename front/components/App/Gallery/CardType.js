@@ -32,39 +32,41 @@ const Image = styled.img`
 `;
 
 const CardType = ({ images }) => {
-    const [opendZoom, setOpendZoom] = useState(false);
-    const [imageSrc, setImageSrc] = useState(null);
+    const [openedZoomPopup, setOpenedZoomPopup] = useState(false);
+    const [item, setItem] = useState(null);
 
     const onCloseZoom = useCallback(() => {
-        setOpendZoom(false);
-        setImageSrc(null);
+        setOpenedZoomPopup(false);
+        setZoomImageURL(null);
     }, []);
 
-    const onClickZoom = useCallback((src) => () => {
-        setImageSrc(src);
-        setOpendZoom(!opendZoom);
-    }, [opendZoom]);
+    const onClickZoom = useCallback((item) => () => {
+        setItem(item);
+        setOpenedZoomPopup(!openedZoomPopup);
+    }, [openedZoomPopup]);
 
     return (
         <>
             <Wrap>
                 {images.map((v, i) => {
+                    const { title, src } = v;
+
                     return (
                         <Items 
-                            key={`${v.title}_${i}`}
-                            onClick={onClickZoom(v.src)}
+                            key={`${title}_${i}`}
+                            onClick={onClickZoom(v)}
                         >
                             <Figure>
-                                <Image src={v.src} />
+                                <Image src={src} alt={title} />
                             </Figure>
                         </Items>
                     )
                 })}
             </Wrap>
 
-            {opendZoom && (
+            {openedZoomPopup && (
                 <ImageZoom 
-                    src={imageSrc}
+                    item={item}
                     onClose={onCloseZoom}
                 />
             )}

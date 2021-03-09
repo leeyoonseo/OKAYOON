@@ -15,11 +15,11 @@ import {
     Wrap, MenuButton, MenuIcon, MenuTooltip, 
     List, Item, ItemButton, SiteName, GitAnchor, SiteInfo,
 } from './style';
-
+import { colors } from '../../theme/styles';
 import { SmileOutlined, GithubOutlined } from '@ant-design/icons';
 
 
-const Menu = ({ themecolor }) => {
+const Menu = () => {
     const dispatch = useDispatch();
     const { me, admin } = useSelector((state) => state.user);
     const { modals } = useSelector((state) => state.site);
@@ -87,7 +87,7 @@ const Menu = ({ themecolor }) => {
     return(
         <Wrap ref={menuRef}>
             <MenuButton onClick={onToggleMenu}>
-                <MenuIcon themecolor={themecolor} />
+                <MenuIcon />
             </MenuButton>
 
             {openedMenu && (
@@ -102,10 +102,9 @@ const Menu = ({ themecolor }) => {
                                 href="https://github.com/leeyoonseo"
                                 target="_blank"
                                 rel="noreferrer noopener"
-                                themecolor={themecolor}
                             >
                                 Github
-                                <GithubOutlined style={{ color: themecolor }}/>
+                                <GithubOutlined style={{ color: colors.white }}/>
                             </GitAnchor>
                         </Item>
                         <Item>
@@ -134,14 +133,6 @@ const Menu = ({ themecolor }) => {
             )}
         </Wrap>
     );
-};
-
-Menu.propTypes = {
-    themecolor: PropTypes.string,
-};
-
-Menu.defaultProps = {
-    themecolor: '#333',
 };
 
 export default Menu;

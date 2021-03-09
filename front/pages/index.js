@@ -9,7 +9,7 @@ import { TOGGLE_MODAL_REQUEST } from '../reducers/site';
 import { LOAD_ADMIN_INFO_REQUEST, LOG_IN_REQUEST } from '../reducers/user';
 
 import { Layout } from 'antd';
-import { DARK_MODE_COLOR } from '../theme/styles';
+import { colors } from '../theme/styles';
 
 import AppList from '../components/AppList';
 import Menu from '../components/Menu/index';
@@ -20,14 +20,14 @@ import Header from './Header';
 import Footer from './Footer';
 
 const Wrap = styled(Layout)`
-    background: #64c5ba;
+    background: ${colors.mint};
     overflow: hidden;
 `;
 
 const Main = styled(Layout.Content)`
     display: flex;
     padding: 0 2%;
-    height: ${props => props.h}px;
+    height: ${({ h }) => h}px;
     align-items: center;
     justify-content: center;
 `;
@@ -40,7 +40,7 @@ const Home = () => {
     const [mainHeight, setMainHeight] = useState(null);
     const [headerHeight, setHeaderHeight] = useState(null);
     const [footerHeight, setFooterHeight] = useState(null);
-    const themecolor = DARK_MODE_COLOR;
+    const themecolor = colors.white;
 
     useEffect(() => {
         if (!headerHeight || !footerHeight) return;
@@ -117,7 +117,7 @@ const Home = () => {
                 </Main>
 
                 <Footer setHeight={setFooterHeight}>
-                    <Menu themecolor={themecolor}/>
+                    <Menu />
                 </Footer>
             </Wrap>
         </>
