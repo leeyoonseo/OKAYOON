@@ -27,67 +27,67 @@ export const initialState = {
     // TODO: src, title 수정
     avatarList: [   
         {
-            src: '../Avatar/avatar_bear.png',
+            src: '../avatar/avatar_bear.png',
             title: 'bear',
         },
         {
-            src: '../Avatar/avatar_bear_winter.png',
+            src: '../avatar/avatar_bear_winter.png',
             title: 'bear_winter',
         },
         {
-            src: '../Avatar/avatar_bird.png',
+            src: '../avatar/avatar_bird.png',
             title: 'bird',
         },
         {
-            src: '../Avatar/avatar_cat.png',
+            src: '../avatar/avatar_cat.png',
             title: 'cat',
         },
         {
-            src: '../Avatar/avatar_ducky.png',
+            src: '../avatar/avatar_ducky.png',
             title: 'ducky',
         },
         {
-            src: '../Avatar/avatar_elephant.png',
+            src: '../avatar/avatar_elephant.png',
             title: 'elephant',
         },
         {
-            src: '../Avatar/avatar_fox.png',
+            src: '../avatar/avatar_fox.png',
             title: 'fox',
         },
         {
-            src: '../Avatar/avatar_hedgehog.png',
+            src: '../avatar/avatar_hedgehog.png',
             title: 'hedgehog',
         },
         {
-            src: '../Avatar/avatar_monkey.png',
+            src: '../avatar/avatar_monkey.png',
             title: 'monkey',
         },
         {
-            src: '../Avatar/avatar_octopus.png',
+            src: '../avatar/avatar_octopus.png',
             title: 'octopus',
         },
         {
-            src: '../Avatar/avatar_puffer-fish1.png',
+            src: '../avatar/avatar_puffer-fish1.png',
             title: 'puffer-fish1',
         },
         {
-            src: '../Avatar/avatar_puffer-fish2.png',
+            src: '../avatar/avatar_puffer-fish2.png',
             title: 'puffer-fish2',
         },
         {
-            src: '../Avatar/avatar_sheep.png',
+            src: '../avatar/avatar_sheep.png',
             title: 'sheep',
         },
         {
-            src: '../Avatar/avatar_beetle.png',
+            src: '../avatar/avatar_beetle.png',
             title: 'beetle',
         },
         {
-            src: '../Avatar/avatar_pig.png',
+            src: '../avatar/avatar_pig.png',
             title: 'pig',
         },
         {
-            src: '../Avatar/avatar_sleeping_bunny.png',
+            src: '../avatar/avatar_sleeping_bunny.png',
             title: 'sleeping_bunny',
         },
     ],

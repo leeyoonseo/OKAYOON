@@ -11,7 +11,7 @@ import { LOAD_ADMIN_INFO_REQUEST, LOG_IN_REQUEST } from '../reducers/user';
 import { Layout } from 'antd';
 import { DARK_MODE_COLOR } from '../theme/styles';
 
-import AppList from '../components/AppList/index';
+import AppList from '../components/AppList';
 import Menu from '../components/Menu/index';
 import ModalPopup from '../components/ModalPopup/index';
 import Loading from '../components/Loading';
