@@ -31,6 +31,7 @@ function* getPermission(action){
         });
 
     }catch(err){
+        alert(err.response.data);
         console.error(err);
         yield put({
             type: GET_PERMISSION_FAILURE,
@@ -219,5 +220,5 @@ export default function* guestbookSaga(){
     ]);
 }
 
-// TODO
+// TODO:
 // API 통신
