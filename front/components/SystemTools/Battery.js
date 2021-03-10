@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import dayjs from 'dayjs';
+import styled from 'styled-components';
+import { colors, calcRem } from '../../theme/styles';
 
 const Gauge = styled.span`
     display: inline-block;
-    width: 25px;
-    height: 15px;
+    width: ${calcRem(25)};
+    height: ${calcRem(15)};
     vertical-align: text-bottom;
-    border: 1px solid ${props => props.themecolor};
+    border: 1px solid ${({ themecolor }) => themecolor};
 
     &:before {
         display: block;
         content: '';
-        width: ${props => props.percent}%;
+        width: ${({ percent }) => percent}%;
         height: 100%;
-        background-color: ${props => props.themecolor};
+        background-color: ${({ themecolor }) => themecolor};
     }
 `;
 
@@ -24,7 +25,7 @@ function getPercent(time){
     const dayMinutes = 24 * 60;
     const currentMinutes = (time.format('HH') * 60) + Number(time.format('mm'));
 
-    // 최대 값(100%) - (최대 값(100%) / 하루 총 분 / 현재 분) 
+    // [D] 최대 값(100%) - (최대 값(100%) / 하루 총 분 / 현재 분) 
     return (maxNum - Math.floor(maxNum / (dayMinutes / currentMinutes)));
 };
 
@@ -63,7 +64,7 @@ Battery.propTypes = {
 };
 
 Battery.defaultProps = {
-    themecolor: '#333',
+    themecolor: colors.black,
 };
 
 export default Battery;

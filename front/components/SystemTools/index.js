@@ -1,16 +1,15 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import Router from 'next/router';
-
 import { useSelector, useDispatch } from 'react-redux';
+import Router from 'next/router';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { colors, calcRem } from '../../theme/styles';
 
 import { SoundOutlined } from '@ant-design/icons';
 
 import Wifi from './Wifi';
 import Battery from './Battery';
 import Clock from './Clock';
-// import Menu from './Menu/index';
 
 const SystemToolsWrap = styled.div`
     line-height: 1 !important;
@@ -22,9 +21,9 @@ const SystemToolsWrap = styled.div`
 
 const IconBox = styled.div`
     display: inline-block;
-    width: ${props => props.iconwidth ? props.iconwidth + 'px' : 'auto'};
+    width: ${({ iconwidth }) => iconwidth ? calcRem(iconwidth) : 'auto'};
     vertical-align: middle;
-    ${props => props.addstyled && props.addstyled};
+    ${({ addstyled }) => addstyled && addstyled};
 `;
 
 const SoundButton = styled.button`
@@ -42,8 +41,8 @@ const SoundButton = styled.button`
 `;
 
 const SoundIcon = styled(SoundOutlined)`
-    font-size: 18px;
-    color: ${props => props.themecolor};
+    font-size: ${calcRem(18)};
+    color: ${({ themecolor }) => themecolor};
 
     &:hover,
     &:focus,
@@ -70,7 +69,10 @@ const SystemTools = ({ themecolor }) => {
                 <Wifi themecolor={themecolor} />
             </IconBox>
 
-            <IconBox iconwidth={25} addstyled="text-align: left;">
+            <IconBox 
+                iconwidth={25} 
+                addstyled="text-align: left;"
+            >
                 <SoundButton onClick={onClickSound}>
                     <SoundIcon
                         className={isMuted && 'active'} 
@@ -95,7 +97,7 @@ SystemTools.propTypes = {
 }
 
 SystemTools.defaultProps = {
-    themeColor: '#333',
+    themeColor: colors.black,
 }
 
 export default SystemTools;

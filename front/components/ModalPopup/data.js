@@ -143,7 +143,6 @@ export const MEMO_MODAL_DATA = {
     visible: false,
     size: {
         w: '200px',
-        // h: '300px'
         h: 'auto'
     },
     title: "메모",

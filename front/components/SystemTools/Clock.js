@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import dayjs from 'dayjs';
+import styled from 'styled-components';
+import { colors } from '../../theme/styles';
 
 const ClockWrapper = styled.div`
     text-align: center;
-    color: ${props => props.themecolor}
+    color: ${({ themecolor }) => themecolor}
 `;
 
 const Clock = ({ themecolor }) => {
     const [currentTime, setCurrentTime] = useState(dayjs().format('HH:mm'));
-
 
     useEffect(() => {
         let time = null;
@@ -41,7 +41,7 @@ Clock.propTypes = {
 };
 
 Clock.defaultProps = {
-    themecolor: '#333',
+    themecolor: colors.black,
 };
 
 export default Clock;
