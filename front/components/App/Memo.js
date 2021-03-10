@@ -2,13 +2,15 @@ import React, { useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useInput from '../../hooks/useInput';
 import { CHANGE_MEMO_REQUEST } from '../../reducers/site';
-
 import styled  from 'styled-components';
+import { calcRem } from '../../theme/styles';
 
 const Textarea = styled.textarea`
+    padding: 2%;
     width: 100%;
-    padding: 5%;
-    height: 98%;
+    height: 100%;
+    font-size: ${calcRem(16)};
+    vertical-align: top;
     background: none;
     border: none;
     outline: none;
@@ -18,35 +20,29 @@ const Textarea = styled.textarea`
 const Memo = () => {
     const dispatch = useDispatch();
     const { memo } = useSelector((state) => state.site);
-    const textareaRef = useRef(null);
     const [val, onChangeVal, setVal] = useInput(memo);
 
     useEffect(() => {
-        // TODO: focus 방법 생각하기
-        textareaRef.current.focus();
-
-        if(memo) {
-            setVal(memo);
-        }
-    }, []);
+        memo && setVal(memo);
+    }, [memo]);
     
     const onSave = useCallback((e) => {
-        const memo = e.target.value;
-        console.log('onSave', memo);
-        
+        const { value } = e.target;
+
+        if (value === memo) return;
+
         dispatch({
             type: CHANGE_MEMO_REQUEST,
-            data: memo
+            data: value
         })
     }, [memo]); 
 
     return (
         <Textarea 
             value={val}
-            placeholder={`메모를 입력해주세요.\n포커스아웃 시 저장됩니다.`}
+            placeholder={`메모를 입력해주세요.\n포커스아웃 시 저장됩니다.\n세로로 늘려서 사용할 수 있어요.`}
             onChange={onChangeVal}
             onBlur={onSave}
-            ref={textareaRef}
         />
     );
 };

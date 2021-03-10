@@ -1,7 +1,6 @@
-import React, { useEffect, useCallback, useState, useRef } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-
-import { HeartFilled } from '@ant-design/icons';
+import { colors } from '../../theme/styles';
 
 const IframeWrap = styled.div`
     position: relative;
@@ -9,23 +8,11 @@ const IframeWrap = styled.div`
     height: 95%;
 `;
 
-const MouseCursor = styled(HeartFilled)`
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 9999;
-    content: 'aa';
-    display: block;
-    width: 10px;
-    height: 10px;
-    color: Red;
-`;
-
 const Iframe = styled.iframe`
     width: 100%;
     height: 100%;
     border: none;
-    background: #fff;
+    background: ${colors.white};
 `;      
 
 const Blog = () => {
@@ -37,7 +24,3 @@ const Blog = () => {
 };
 
 export default Blog;
-
-// TODO:
-// DB 연결
-// - 마우스 커서 사용하기, iframe에 제한이 있다면 다른 콘텐츠에서 이용하자!
