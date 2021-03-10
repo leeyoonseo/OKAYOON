@@ -5,7 +5,6 @@ import useInput from '../../../hooks/useInput';
 import { DELETE_MESSAGE, SEND_MESSAGE_REQUEST } from '../../../reducers/simsimi';
 
 import styled, { keyframes } from 'styled-components';
-import { colors, calcRem } from '../../../theme/styles';
 
 import { Avatar } from 'antd';
 import { LeftOutlined, ArrowUpOutlined } from '@ant-design/icons';
@@ -24,7 +23,7 @@ const Header = styled.div`
     height: 10%;
     align-items: center;
     justify-content: center;
-    border-bottom: 1px solid ${colors.gray};
+    border-bottom: 1px solid ${({ theme }) => theme.colors.gray};
     box-sizing: border-box;
 `;
 
@@ -41,8 +40,8 @@ const BackButton = styled.button`
 `;
 
 const BackIcon = styled(LeftOutlined)`
-    font-size: ${calcRem(16)};
-    color: ${colors.black};
+    font-size: ${({ theme }) => theme.calcRem(16)};
+    color: ${({ theme }) => theme.colors.black};
 `;
 
 const Content = styled.div`
@@ -52,7 +51,7 @@ const Content = styled.div`
     box-sizing: border-box;
 
     div + div {
-        margin-top: ${calcRem(10)};
+        margin-top: ${({ theme }) => theme.calcRem(10)};
     }
 `;
 
@@ -69,18 +68,18 @@ const Footer = styled.div`
 `;
 
 const Input = styled.input`
-    padding: ${calcRem(5)} ${calcRem(10)};
+    padding: ${({ theme }) => theme.calcRem(5)} ${({ theme }) => theme.calcRem(10)};
     width: 80%;
-    height: ${calcRem(35)};
-    border: 1px solid ${colors.gray};
+    height: ${({ theme }) => theme.calcRem(35)};
+    border: 1px solid ${({ theme }) => theme.colors.gray};
     outline: none;
     box-sizing: border-box;
 `;
 
 const SendButton = styled.button`
     width: 20%;
-    height: ${calcRem(35)};
-    border: 1px solid ${colors.gray};
+    height: ${({ theme }) => theme.calcRem(35)};
+    border: 1px solid ${({ theme }) => theme.colors.gray};
     border-left: none;
     outline: none;
     background: none;

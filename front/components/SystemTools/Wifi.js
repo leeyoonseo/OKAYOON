@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { keyframes, css } from 'styled-components';
-import { colors, calcRem } from '../../theme/styles';
 
 const lineDefaultStyle = css`
-    border: ${calcRem(2)} solid transparent;
+    border: ${({ theme }) => theme.calcRem(2)} solid transparent;
     border-radius: 100%;
 `;
 
@@ -32,10 +31,10 @@ const appearOut = (themecolor) => keyframes`
 const OutLine = styled.div`
     ${lineDefaultStyle}
     position: relative;
-    top: ${calcRem(2)};
+    top: ${({ theme }) => theme.calcRem(2)};
     margin: 0 auto;
-    width: ${calcRem(25)};
-    height: ${calcRem(20)};
+    width: ${({ theme }) => theme.calcRem(25)};
+    height: ${({ theme }) => theme.calcRem(20)};
     border-top-color: ${({ themecolor }) => themecolor};
     animation: ${({ themecolor }) => appearOut(themecolor)} 1.5s infinite linear;
 
@@ -46,25 +45,25 @@ const OutLine = styled.div`
 
 const MiddleLine = styled.div`
     ${lineDefaultStyle}
-    margin: ${calcRem(1)} auto;
-    width: ${calcRem(18)};
-	height: ${calcRem(15)};
+    margin: ${({ theme }) => theme.calcRem(1)} auto;
+    width: ${({ theme }) => theme.calcRem(18)};
+	height: ${({ theme }) => theme.calcRem(15)};
 	animation: ${({ themecolor }) => appearMiddle(themecolor)} 1.5s infinite linear;
 `;
 
 const InLine = styled.div`
     ${lineDefaultStyle}
-    margin: ${calcRem(1)} auto;
-    width: ${calcRem(14)};
-    height: ${calcRem(13)};
+    margin: ${({ theme }) => theme.calcRem(1)} auto;
+    width: ${({ theme }) => theme.calcRem(14)};
+    height: ${({ theme }) => theme.calcRem(13)};
 	animation: ${({ themecolor }) => appearIn(themecolor)} 1.5s infinite linear;
 `;
 
 const Dot = styled.div`
     ${lineDefaultStyle}
-    margin: ${calcRem(2)} auto;
-    width: ${calcRem(3)};
-    height: ${calcRem(3)};
+    margin: ${({ theme }) => theme.calcRem(2)} auto;
+    width: ${({ theme }) => theme.calcRem(3)};
+    height: ${({ theme }) => theme.calcRem(3)};
     border: 0;
     background: ${({ themecolor }) => themecolor};
 `;
@@ -86,7 +85,7 @@ Wifi.propTypes = {
 };
 
 Wifi.defaultProps = {
-    themecolor: colors.black,
+    themecolor: '#566270',
 };
 
 export default Wifi;

@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { colors } from '../../theme/styles';
 
 const IframeWrap = styled.div`
     position: relative;
@@ -12,7 +11,7 @@ const Iframe = styled.iframe`
     width: 100%;
     height: 100%;
     border: none;
-    background: ${colors.white};
+    background: ${({ theme }) => theme.colors.white};
 `;      
 
 const Blog = () => {

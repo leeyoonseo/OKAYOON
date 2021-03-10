@@ -1,13 +1,11 @@
-import React, { useEffect, useState, useCallback, useRef } from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useState, useCallback, useRef, useContext } from 'react';
+import styled, { ThemeContext } from 'styled-components';
 import { Layout } from 'antd';
-import { colors, calcRem } from '../theme/styles';
-
 import SystemTools from '../components/SystemTools';
 
 const Wrap = styled(Layout)`
     height: 100%;
-    font-size: ${calcRem(16)};
+    font-size: ${({ theme }) => theme.calcRem(16)};
     background: ${({ bgcolor }) => bgcolor};
     overflow: hidden;
 `;
@@ -15,7 +13,7 @@ const Wrap = styled(Layout)`
 const Header = styled(Layout.Header)` 
     padding: 0;
     height: auto;
-    color: ${colors.white};
+    color: ${({ theme }) => theme.colors.white};
     background: none;
 `;
 
@@ -24,7 +22,7 @@ const HeaderInner = styled.div`
     display: flex;
     width: 100%;
     height: 100%;
-    min-height: ${calcRem(30)};
+    min-height: ${({ theme }) => theme.calcRem(30)};
     align-items: center;
     justify-content: flex-end;
 `;
@@ -39,10 +37,10 @@ const Main = styled(Layout.Content)`
 
 const Footer = styled(Layout.Footer)`
     padding: 0;
-    font-size: ${calcRem(16)};
+    font-size: ${({ theme }) => theme.calcRem(16)};
     line-height: 1;
-    color: ${colors.white};
-    background: ${colors.black};
+    color: ${({ theme }) => theme.colors.white};
+    background: ${({ theme }) => theme.colors.black};
     box-sizing: border-box;
 `;
 
@@ -50,12 +48,13 @@ const FooterInner = styled.div`
     position: relative;
     padding: 0 2%;
     display: flex;
-    min-height: ${calcRem(30)};
+    min-height: ${({ theme }) => theme.calcRem(30)};
     align-items: center;
     justify-content: center;
 `;
 
 const AppLayout = ({ bgcolor, main, footer }) => {
+    const themeContext = useContext(ThemeContext);
     const headerRef = useRef(null);
     const footerRef = useRef(null);
     const [windowHeight, setWindowHeight] = useState(null);
@@ -98,11 +97,11 @@ const AppLayout = ({ bgcolor, main, footer }) => {
     return (
         <Wrap 
             bgcolor={bgcolor}
-            color={colors.black}
+            color={themeContext.colors.black}
         >
             <Header>
                 <HeaderInner ref={headerRef}>
-                    <SystemTools themecolor={colors.ivory} />    
+                    <SystemTools themecolor={themeContext.colors.ivory} />    
                 </HeaderInner>
             </Header>
 

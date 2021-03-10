@@ -1,7 +1,5 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
-import { colors, calcRem } from '../../../theme/styles';
-
 import { AppstoreOutlined, SplitCellsOutlined, ProfileOutlined } from '@ant-design/icons';
 
 import SlideType from './SlideType';
@@ -107,48 +105,48 @@ const MenuArea = styled.div`
     padding: 2%;
     display: flex;
     width: 100%;
-    min-height: ${calcRem(30)};
+    min-height: ${({ theme }) => theme.calcRem(30)};
     left: 0;
-    background: ${colors.gray};
+    background: ${({ theme }) => theme.colors.gray};
     align-items: center;
     
     button + button {
-        margin-left: ${calcRem(7)};
+        margin-left: ${({ theme }) => theme.calcRem(7)};
     }
 `;
 
 const Button = styled.button`
     padding: 0;
-    width: ${calcRem(25)};
-    height: ${calcRem(25)};
-    border: 1px solid ${colors.black};
+    width: ${({ theme }) => theme.calcRem(25)};
+    height: ${({ theme }) => theme.calcRem(25)};
+    border: 1px solid ${({ theme }) => theme.colors.black};
     outline: none;
     background: none;
     cursor: pointer;
 
     &:hover { 
-        background: ${colors.rgbaGray};
+        background: ${({ theme }) => theme.colors.rgbaGray};
     }
 
     &.active {
-        background: ${colors.rgbaGray};
+        background: ${({ theme }) => theme.colors.rgbaGray};
     }
 `;
 
-const getIconColor = (type, name) => {
+const setIconColor = (type, name, colors) => {
     return (type === name) ? colors.white : colors.black;
 };
 
 const CardIcon = styled(AppstoreOutlined)`
-    color: ${({ type, name }) => getIconColor(type, name)};
+    color: ${({ type, name }) => setIconColor(type, name, `${({ theme }) => theme.colors}`)};
 `;
 
 const SlideIcon = styled(SplitCellsOutlined)`
-    color: ${({ type, name }) => getIconColor(type, name)};
+    color: ${({ type, name }) => setIconColor(type, name, `${({ theme }) => theme.colors}`)};
 `;
 
 const ListIcon = styled(ProfileOutlined)`
-    color: ${({ type, name }) => getIconColor(type, name)};
+    color: ${({ type, name }) => setIconColor(type, name, `${({ theme }) => theme.colors}`)};
 `;
 
 const Gallery = () => {

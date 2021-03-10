@@ -2,7 +2,6 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { colors, calcRem } from '../../theme/styles';
 
 const Wrap = styled.div`
     width: 100%;
@@ -20,7 +19,7 @@ const Inner = styled.div`
 
 const Items = styled.div`
     width: 18%;
-    height: ${calcRem(80)};
+    height: ${({ theme }) => theme.calcRem(80)};
     box-sizing: border-box;
     float: left;
 
@@ -38,8 +37,8 @@ const Button = styled.button`
     padding: 0;
     width:100%;
     height:100%;
-    font-size: ${calcRem(16)};
-    color: ${colors.black};
+    font-size: ${({ theme }) => theme.calcRem(16)};
+    color: ${({ theme }) => theme.colors.black};
     border: none;
     border-radius: 50%;
     outline: none;
@@ -47,9 +46,9 @@ const Button = styled.button`
     cursor: pointer;
 
     &.default {
-        border: ${calcRem(2)} solid ${colors.black};
+        border: ${({ theme }) => theme.calcRem(2)} solid ${({ theme }) => theme.colors.black};
         font-weight: 700;
-        background: ${colors.ivory};
+        background: ${({ theme }) => theme.colors.ivory};
     }
 
     img {

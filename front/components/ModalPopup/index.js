@@ -1,5 +1,6 @@
-import React, { useState, useCallback, useEffect, useRef } from 'react';
+import React, { useState, useCallback, useEffect, useRef, useContext } from 'react';
 import PropTypes from 'prop-types';
+import { ThemeContext } from 'styled-components';
 import { 
     Wrap, WrapInner, Header, HeaderInner,
     Title,
@@ -8,7 +9,6 @@ import {
     MinimizationIcon, 
     MaximizeIcon, 
 } from './styles';
-import { colors } from '../../theme/styles';
 
 const ModalPopup = ({
     id,
@@ -21,7 +21,7 @@ const ModalPopup = ({
     buttonDisabled, 
     onCloseModal,
 }) => {
-
+    const themeContext = useContext(ThemeContext);
     const [maxStatus, setMaxStatus] = useState(false);
     const modalRef = useRef(null);
     const headerRef = useRef(null);
@@ -70,20 +70,20 @@ const ModalPopup = ({
         <Wrap
             ref={modalRef}
             className={visible ? 'visible' : ''}
-            theme={theme}
+            color={theme === 'normal' ? themeContext.colors.black : themeContext.colors.white}
             z={zIndex}
             w={maxStatus ? maximizeSize : size.w}
             h={maxStatus ? maximizeSize : size.h}
         >
-            <WrapInner theme={theme}>   
+            <WrapInner color={themeContext.colors.lightGray}>   
                 <Header
                     ref={headerRef}
                     onMouseDown={onMouseDown}
                 >
-                    <HeaderInner theme={theme}>
+                    <HeaderInner color={themeContext.colors.lightGray}>
                         <Controls>
                             <ControlButton 
-                                bgcolor={colors.yellow}
+                                bgcolor={themeContext.colors.yellow}
                                 onClick={onCloseModal(id)}
                             >
                                 <MinimizationIcon />
@@ -91,7 +91,7 @@ const ModalPopup = ({
                             
                             {!buttonDisabled.Maximize && (
                                 <ControlButton 
-                                    bgcolor={colors.green}
+                                    bgcolor={themeContext.colors.green}
                                     onClick={onMaximize}
                                 >
                                     <MaximizeIcon />

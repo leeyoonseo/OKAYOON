@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import { theme } from '../theme/styles';
 
 import 'antd/dist/antd.css';
 import './app.css';
@@ -39,7 +40,7 @@ const Okayoon = ({ Component }) => {
     `;
 
     return(
-        <>
+        <ThemeProvider theme={theme} >
             <Head>
                 <meta charSet="utf-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -47,7 +48,7 @@ const Okayoon = ({ Component }) => {
             </Head>
             <Global />
             <Component />
-        </>
+        </ThemeProvider>
     );
 };
 

@@ -1,13 +1,12 @@
-import React, { useEffect, useState, useCallback, useRef } from 'react';
+import React, { useEffect, useState, useCallback, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useCookies } from 'react-cookie';
+import { ThemeContext } from 'styled-components';
 import Router from 'next/router';
 import Head from 'next/head';
 
 import { TOGGLE_MODAL_REQUEST } from '../reducers/site';
 import { LOAD_ADMIN_INFO_REQUEST, LOG_IN_REQUEST } from '../reducers/user';
-
-import { colors } from '../theme/styles';
 
 import AppList from '../components/AppList';
 import Menu from '../components/Menu/index';
@@ -16,8 +15,9 @@ import Loading from '../components/Loading';
 
 import AppLayout from './AppLayout';
 
-const Home = () => {
+const Home = ({ theme }) => {
     const dispatch = useDispatch();
+    const themeContext = useContext(ThemeContext);
     const { modals, modalToggleLoading } = useSelector((state) => state.site);
     const { me, admin, logInDone, loadInfoDone } = useSelector((state) => state.user);
     const [cookie] = useCookies(['me']);
@@ -63,7 +63,7 @@ const Home = () => {
             </Head>
             
             <AppLayout
-                bgcolor={colors.mint}
+                bgcolor={themeContext.colors.mint}
                 main={
                     <>
                         <AppList />
@@ -88,9 +88,7 @@ const Home = () => {
                     </>
                 }
 
-                footer={
-                    <Menu />
-                }
+                footer={<Menu />}
             />
         </>
     );

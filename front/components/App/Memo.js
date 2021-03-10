@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import useInput from '../../hooks/useInput';
 import { CHANGE_MEMO_REQUEST } from '../../reducers/site';
 import styled  from 'styled-components';
-import { calcRem } from '../../theme/styles';
 
 const Textarea = styled.textarea`
     padding: 2%;
     width: 100%;
     height: 100%;
-    font-size: ${calcRem(16)};
+    min-height: ${({ theme }) => theme.calcRem(120)};
+    font-size: ${({ theme }) => theme.calcRem(16)};
     vertical-align: top;
     background: none;
     border: none;

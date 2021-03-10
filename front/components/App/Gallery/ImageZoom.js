@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { colors, calcRem } from '../../../theme/styles';
-
 import { CloseOutlined } from '@ant-design/icons';
 
 const Wrap = styled.div`
@@ -20,8 +18,8 @@ const Wrap = styled.div`
 
 const Inner = styled.div`
     position: relative;
-    background ${colors.white};   
-    box-shadow: ${calcRem(1)} ${calcRem(1)} ${calcRem(10)} ${colors.rgbaBlack};
+    background ${({ theme }) => theme.colors.white};   
+    box-shadow: ${({ theme }) => theme.calcRem(1)} ${({ theme }) => theme.calcRem(1)} ${({ theme }) => theme.calcRem(10)} ${({ theme }) => theme.colors.rgbaBlack};
 `;
 
 const CloseButton = styled.button`
@@ -37,13 +35,13 @@ const CloseButton = styled.button`
 `;
 
 const CloseIcon = styled(CloseOutlined)`
-    font-size:  ${calcRem(16)};
-    color: ${colors.ivory};
+    font-size:  ${({ theme }) => theme.calcRem(16)};
+    color: ${({ theme }) => theme.colors.ivory};
 `;
 
 const Image = styled.img`
     max-width: 100%;
-    max-height: ${calcRem(400)};
+    max-height: ${({ theme }) => theme.calcRem(400)};
 `;
 
 const Info = styled.div`
@@ -51,17 +49,17 @@ const Info = styled.div`
     bottom: 0;
     padding: 2%;
     line-height: 1.25;
-    color: ${colors.white};
-    text-shadow: 1px 1px 1px ${colors.black};
+    color: ${({ theme }) => theme.colors.white};
+    text-shadow: 1px 1px 1px ${({ theme }) => theme.colors.black};
 `;
 
 const Title = styled.div`
-    font-size: ${calcRem(20)};
+    font-size: ${({ theme }) => theme.calcRem(20)};
 `;
 
 const Desc = styled.div`
-    margin-top: ${calcRem(5)};
-    font-size: ${calcRem(14)};
+    margin-top: ${({ theme }) => theme.calcRem(5)};
+    font-size: ${({ theme }) => theme.calcRem(14)};
 `;
 
 const ImageZoom = ({ item, onClose }) => {

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import styled from 'styled-components';
-import { colors } from '../../theme/styles';
 
 const ClockWrapper = styled.div`
     text-align: center;
@@ -41,7 +40,7 @@ Clock.propTypes = {
 };
 
 Clock.defaultProps = {
-    themecolor: colors.black,
+    themecolor: '#566270',
 };
 
 export default Clock;

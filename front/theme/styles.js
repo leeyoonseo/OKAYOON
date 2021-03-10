@@ -1,10 +1,3 @@
-// px to rem
-export const calcRem = (px) => `${px / 16}rem`;
-
-
-export const DARK_MODE_COLOR = '#FFFFF3';
-export const WHITE_MODE_COLOR = '#566270';
-
 
 export const colors = {
     black: '#566270',
@@ -24,6 +17,27 @@ export const colors = {
     chatUser: '#f18d8b',
 };
 
+const deviceSize = {
+    mobile: '767px',
+    tablet: '1023px',
+    laptop: '1460px',
+    desktop: '1920px',
+};
+
+const device = {
+    mobile: `(max-width: ${deviceSize.mobile})`,
+    tablet: `(max-width: ${deviceSize.tablet})`,
+    laptop: `(min-width: ${deviceSize.laptop})`,
+    desktop: `(min-width: ${deviceSize.desktop})`,
+};
+
+export const calcRem = (size) => `${size / 16}rem`;
+
+export const theme = {
+    calcRem,
+    colors,
+    device,
+};
 
 // TODO:
 // 조합 (1)
@@ -37,8 +51,6 @@ export const colors = {
 
 // 조합 3
 // #A593E0 #E0E3DA #FFFFF3 #566270
-
-
 
 // #84B1ED #C89EC4 #EE7785 #67D5B5
 

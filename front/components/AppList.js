@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { calcRem } from '../theme/styles';
 
 import { CREATE_MODAL_REQUEST, TOGGLE_MODAL_REQUEST } from '../reducers/site';
 
@@ -49,16 +48,16 @@ const applistData = [
 
 const AppButton = styled.button`
     padding: 0;        
-    width: ${calcRem(70)};
-    height: ${calcRem(70)};
-    font-size: ${calcRem(16)};
+    width: ${({ theme }) => theme.calcRem(70)};
+    height: ${({ theme }) => theme.calcRem(70)};
+    font-size: ${({ theme }) => theme.calcRem(16)};
     border: none;
     outline: none;
     background: none;
     cursor: pointer;
 
     & + button {
-        margin-left: ${calcRem(35)};
+        margin-left: ${({ theme }) => theme.calcRem(35)};
     }
 `;
 
@@ -68,7 +67,7 @@ const Icon = styled.img`
 `;
 
 const Name = styled.span`
-    margin-top: ${calcRem(5)};
+    margin-top: ${({ theme }) => theme.calcRem(5)};
     display: inline-block;
 `;
 

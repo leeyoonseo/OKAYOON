@@ -1,8 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { colors, calcRem } from '../../../theme/styles';
-
 import { List, Avatar } from 'antd';
 import ImageZoom from './ImageZoom';
 
@@ -28,12 +26,12 @@ const Item = styled(List.Item)`
     padding: 2%;
     width: 49%;
     float: left;
-    background: ${colors.white};
+    background: ${({ theme }) => theme.colors.white};
     box-sizing: border-box;
     cursor: pointer;
 
     &:hover {
-        box-shadow: ${calcRem(1)} ${calcRem(1)} ${calcRem(5)} ${colors.rgbaBlack};
+        box-shadow: ${({ theme }) => theme.calcRem(1)} ${({ theme }) => theme.calcRem(1)} ${({ theme }) => theme.calcRem(5)} ${({ theme }) => theme.colors.rgbaBlack};
     }
 `;
 

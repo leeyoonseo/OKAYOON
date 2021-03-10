@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import styled from 'styled-components';
-import { calcRem } from '../theme/styles';
 
 const DigitalClockWrap = styled.div`
-    font-size: ${calcRem(64)};
+    font-size: ${({ theme }) => theme.calcRem(64)};
     color: #fff;
 
     span {
@@ -12,10 +11,10 @@ const DigitalClockWrap = styled.div`
     }
 
     span + span {
-        margin-left: ${calcRem(1)};
+        margin-left: ${({ theme }) => theme.calcRem(1)};
 
         &:before {
-            padding: 0 ${calcRem(20)};
+            padding: 0 ${({ theme }) => theme.calcRem(20)};
             display: inline-block;
             content: ':';
         }

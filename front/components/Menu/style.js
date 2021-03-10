@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { colors, calcRem } from '../../theme/styles';
 import { UpCircleOutlined } from '@ant-design/icons';
 
 export const Wrap = styled.div`
@@ -24,31 +23,31 @@ export const MenuButton = styled.button`
 `;
 
 export const MenuIcon = styled(UpCircleOutlined)`
-    font-size: ${calcRem(17)};
-    color: ${colors.white};
+    font-size: ${({ theme }) => theme.calcRem(17)};
+    color: ${({ theme }) => theme.colors.white};
 `;
 
 export const MenuTooltip = styled.div`
     position: absolute;
     top: 0;
     left: 50%;
-    min-width: ${calcRem(250)};
+    min-width: ${({ theme }) => theme.calcRem(250)};
     text-align: center;
-    border-radius: ${calcRem(10)} ${calcRem(10)}; 0 0;
-    background: ${colors.rgbaGray};
+    border-radius: ${({ theme }) => theme.calcRem(10)} ${({ theme }) => theme.calcRem(10)}; 0 0;
+    background: ${({ theme }) => theme.colors.rgbaGray};
     transform: translate(-50%, -100%);
     overflow: hidden;
 `;
 
 export const SiteName = styled.span`
-    padding: ${calcRem(10)};
+    padding: ${({ theme }) => theme.calcRem(10)};
     display: inline-block;
     width: 100%;
     cursor: default;
-    background: ${colors.black};
+    background: ${({ theme }) => theme.colors.black};
 
     span {
-        margin-right: ${calcRem(2)};
+        margin-right: ${({ theme }) => theme.calcRem(2)};
     }
 `;
 
@@ -58,11 +57,11 @@ export const List = styled.ul`
 `;
 
 export const Item = styled.li`
-    padding: ${calcRem(10)}; 0;
+    padding: ${({ theme }) => theme.calcRem(10)}; 0;
 `;
 
 export const ItemButton = styled.button`
-    font-size: ${calcRem(16)};
+    font-size: ${({ theme }) => theme.calcRem(16)};
     border: none;
     background: none;
     outline: none;
@@ -77,16 +76,16 @@ export const ItemButton = styled.button`
 
 export const GitAnchor = styled.a`
     display: inline-block;
-    font-size: ${calcRem(16)};
-    color: ${colors.white};
+    font-size: ${({ theme }) => theme.calcRem(16)};
+    color: ${({ theme }) => theme.colors.white};
 
     &:hover { 
-        color: ${colors.white};
+        color: ${({ theme }) => theme.colors.white};
         opacity: 0.8;
     }
 
     span {
-        margin-left: ${calcRem(5)};
+        margin-left: ${({ theme }) => theme.calcRem(5)};
         vertical-align: middle;
     }
 `;

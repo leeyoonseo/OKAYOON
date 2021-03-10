@@ -1,20 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { colors, calcRem } from '../../../theme/styles';
+import styled, { ThemeContext } from 'styled-components';
 
 const Wrap = styled.div`
     text-align: ${({ align }) => align};
 `;
 
 const SpeechBubble = styled.div`
-    padding: ${calcRem(3)} ${calcRem(15)};
+    padding: ${({ theme }) => theme.calcRem(3)} ${({ theme }) => theme.calcRem(15)};
     display: inline-block;
-    border-radius: ${calcRem(5)};
+    border-radius: ${({ theme }) => theme.calcRem(5)};
     background: ${({ bg }) => bg};
 `;
 
 const Chat = ({ children, simsimi }) => {
+    const themeContext = useContext(ThemeContext);
+
     return (
         <Wrap 
             align={
@@ -26,8 +27,8 @@ const Chat = ({ children, simsimi }) => {
             <SpeechBubble 
                 bg={
                     simsimi
-                    ? colors.chatSimsimi 
-                    : colors.chatUser
+                    ? themeContext.colors.chatSimsimi 
+                    : themeContext.colors.chatUser
                 }
             >
                 {children}

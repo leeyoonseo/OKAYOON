@@ -1,7 +1,6 @@
 import React, { forwardRef, useEffect, useState, useRef, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { colors, calcRem } from '../../../theme/styles';
 import { LOAD_GUESTBOOK_REQUEST } from '../../../reducers/guestbook';
 
 import { Button } from 'antd';
@@ -16,18 +15,18 @@ const MoreWrap = styled.div`
 `;
 
 const MoreButton = styled(Button)`
-    padding: ${calcRem(10)} ${calcRem(25)};
+    padding: ${({ theme }) => theme.calcRem(10)} ${({ theme }) => theme.calcRem(25)};
     height: auto;
     line-height: 1;
-    border: 1px solid ${colors.black};
+    border: 1px solid ${({ theme }) => theme.colors.black};
     background: none;
     outline: none;
     cursor: pointer;
 
     &:hover,
     &:focus {
-        color: ${colors.black};
-        border: 1px solid ${colors.black};
+        color: ${({ theme }) => theme.colors.black};
+        border: 1px solid ${({ theme }) => theme.colors.black};
         background: none;
     }
 

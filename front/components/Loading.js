@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { colors } from '../theme/styles';
 import { Spin } from 'antd';
 
 const LoadingSpin = styled(Spin)`
@@ -9,7 +8,7 @@ const LoadingSpin = styled(Spin)`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: ${colors.white};
+    color: ${({ theme }) => theme.colors.white};
     opacity: 0.5;
     z-index: 999999999;
 
@@ -34,7 +33,7 @@ Loading.propTypes = {
 };
 
 Loading.defaultProps = {
-    bgcolor: colors.white,
+    bgcolor: '#fff',
 };
 
 export default Loading;

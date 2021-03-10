@@ -1,19 +1,18 @@
 import styled, { css } from 'styled-components';
 import { Avatar, Button } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
-import { colors, calcRem } from '../../theme/styles';
 
 export const InfoArea = styled.div`
     display:block;
     text-align: center;
 
     div + div {
-        margin-top: ${calcRem(20)};
+        margin-top: ${({ theme }) => theme.calcRem(20)};
     }
 `;
 
 const defaultAvatar = css`
-    margin-bottom: ${calcRem(20)};
+    margin-bottom: ${({ theme }) => theme.calcRem(20)};
     opacity: 0.8;
 `;
 
@@ -27,13 +26,13 @@ export const DefaultAvatar = styled(Avatar)`
 `;
 
 export const NicknameWrap = styled.div`
-    margin-bottom: ${calcRem(20)};
+    margin-bottom: ${({ theme }) => theme.calcRem(20)};
 `;
 
 export const InputWrap = styled.div`
     position: relative;
-    border: ${calcRem(2)} solid ${colors.white};
-    border-radius: ${calcRem(3)};
+    border: ${({ theme }) => theme.calcRem(2)} solid ${({ theme }) => theme.colors.white};
+    border-radius: ${({ theme }) => theme.calcRem(3)};
     opacity: 0.8;
     box-sizing: border-box;
 `;
@@ -42,16 +41,16 @@ export const UserIcon = styled(UserOutlined)`
     position: absolute;
     top: 0;
     left: 0;
-    color: ${colors.white};
+    color: ${({ theme }) => theme.colors.white};
     transform: translate(50%, 50%);
 `;
 
 export const Input = styled.input`
     padding: 0 10%;
     width: 100%;
-    height: ${calcRem(35)};
-    font-size: ${calcRem(16)};
-    color: ${colors.white};
+    height: ${({ theme }) => theme.calcRem(35)};
+    font-size: ${({ theme }) => theme.calcRem(16)};
+    color: ${({ theme }) => theme.colors.white};
     border: none;
     background: none;
     box-sizing: border-box;
@@ -63,15 +62,15 @@ export const Input = styled.input`
     }    
 
     &::placeholder {
-        color: ${colors.white};
+        color: ${({ theme }) => theme.colors.white};
     }
 `;
 
 export const Nickname = styled.div`
     padding: 2% 0;
-    font-size: ${calcRem(16)};
-    line-height: ${calcRem(16)};
-    color: ${colors.white};
+    font-size: ${({ theme }) => theme.calcRem(16)};
+    line-height: ${({ theme }) => theme.calcRem(16)};
+    color: ${({ theme }) => theme.colors.white};
     box-sizing: border-box;
 `;
 
@@ -79,15 +78,15 @@ export const InfoButtonArea = styled.div`
     text-align: center;
 
     button {
-        height: ${calcRem(35)};
+        height: ${({ theme }) => theme.calcRem(35)};
     }
 `;
 
 export const RemoveButton = styled.button`
     padding: 0;
-    margin-left: ${calcRem(5)};
+    margin-left: ${({ theme }) => theme.calcRem(5)};
     line-height: 1;
-    color: ${colors.white};
+    color: ${({ theme }) => theme.colors.white};
     border: none;
     background: none;
     cursor: pointer;
@@ -95,29 +94,29 @@ export const RemoveButton = styled.button`
 
     &:hover,
     &:focus { 
-        color: ${colors.white};
+        color: ${({ theme }) => theme.colors.white};
         border: none;
     }
 `;
 
 export const InfoButton = styled(Button)`
     padding: 2% 5%;
-    font-size: ${calcRem(16)};
-    line-height: ${calcRem(16)};
-    color: ${colors.white};
-    border: ${calcRem(2)} solid ${colors.white};
+    font-size: ${({ theme }) => theme.calcRem(16)};
+    line-height: ${({ theme }) => theme.calcRem(16)};
+    color: ${({ theme }) => theme.colors.white};
+    border: ${({ theme }) => theme.calcRem(2)} solid ${({ theme }) => theme.colors.white};
     background: none;
     cursor: pointer;
 
     &:hover,
     &:focus {
-        color: ${colors.white};
-        border-color: ${colors.white};
+        color: ${({ theme }) => theme.colors.white};
+        border-color: ${({ theme }) => theme.colors.white};
         background: none;
         opacity: 0.5;
     }
 
     & + button {
-        margin-left: ${calcRem(15)};
+        margin-left: ${({ theme }) => theme.calcRem(15)};
     }
 `;

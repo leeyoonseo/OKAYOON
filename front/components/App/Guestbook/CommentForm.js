@@ -2,19 +2,18 @@ import React, { useCallback, useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useInput from '../../../hooks/useInput';
 import styled from 'styled-components';
-import { colors, calcRem } from '../../../theme/styles';
 
 import { EyeOutlined } from '@ant-design/icons';
 import { ADD_COMMENT_REQUEST } from '../../../reducers/guestbook';
 
 const Wrap = styled.div`
-    margin-bottom: ${calcRem(15)};
+    margin-bottom: ${({ theme }) => theme.calcRem(15)};
 `;
 
 const Textarea = styled.textarea`
     padding: 2%;
     width: 100%;
-    height: ${calcRem(100)};
+    height: ${({ theme }) => theme.calcRem(100)};
     border: none;
     outline: none;
     box-sizing: border-box;
@@ -34,19 +33,19 @@ const LetterCheck = styled.span`
     left: 0;
 
     &.max {
-        color: ${colors.darkPink};
+        color: ${({ theme }) => theme.colors.darkPink};
     }
 `;
 
 const PasswordWrap = styled.div`
-    margin-top: ${calcRem(5)};
+    margin-top: ${({ theme }) => theme.calcRem(5)};
     position: relative;
     display: inline-block;
 `;
 
 const Input = styled.input`
-    padding: ${calcRem(2)} ${calcRem(20)} ${calcRem(2)} ${calcRem(10)};
-    width: ${calcRem(150)};
+    padding: ${({ theme }) => theme.calcRem(2)} ${({ theme }) => theme.calcRem(20)} ${({ theme }) => theme.calcRem(2)} ${({ theme }) => theme.calcRem(10)};
+    width: ${({ theme }) => theme.calcRem(150)};
     border: none;
     outline: none;
     box-sizing: border-box;
@@ -54,7 +53,7 @@ const Input = styled.input`
 
 const VisibleButtonPW = styled.button`
     position: absolute;
-    right: ${calcRem(5)};
+    right: ${({ theme }) => theme.calcRem(5)};
     padding: 0;
     height: 100%;
     border: none;
@@ -64,7 +63,7 @@ const VisibleButtonPW = styled.button`
 `;
 
 const SubmitButton = styled.button`
-    margin-left: ${calcRem(10)};
+    margin-left: ${({ theme }) => theme.calcRem(10)};
     padding: 0;
     border: none;
     outline: none;

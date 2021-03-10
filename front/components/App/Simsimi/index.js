@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { colors, calcRem } from '../../../theme/styles';
 
 import { Avatar } from 'antd';
 import ChatRoom from './ChatRoom';
@@ -20,18 +19,18 @@ const Inner = styled.div`
 `;
 
 const Nickname = styled.div`
-    margin-top: ${calcRem(20)};
+    margin-top: ${({ theme }) => theme.calcRem(20)};
     font-weight: 700;
     text-align: center;
 `;
 
 const AccessButton = styled.button`
-    padding: ${calcRem(7)} ${calcRem(20)};
-    margin-top: ${calcRem(20)};
+    padding: ${({ theme }) => theme.calcRem(7)} ${({ theme }) => theme.calcRem(20)};
+    margin-top: ${({ theme }) => theme.calcRem(20)};
     width: 100%;
-    font-size: ${calcRem(16)};
-    color: ${colors.black};
-    border: 1px solid ${colors.black};
+    font-size: ${({ theme }) => theme.calcRem(16)};
+    color: ${({ theme }) => theme.colors.black};
+    border: 1px solid ${({ theme }) => theme.colors.black};
     outline: none;
     background: none;
     cursor: pointer;

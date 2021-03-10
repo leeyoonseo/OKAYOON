@@ -1,15 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import { colors, calcRem } from '../../../theme/styles';
 
 import CommentForm from './CommentForm';
 import CommentCard from './CommentCard';
 
 const Wrap = styled.div`
-    padding: ${calcRem(20)};
-    margin: ${calcRem(20)};
-    border-radius: ${calcRem(5)};
-    background: ${colors.lightGray};
+    padding: ${({ theme }) => theme.calcRem(20)};
+    margin: ${({ theme }) => theme.calcRem(20)};
+    border-radius: ${({ theme }) => theme.calcRem(5)};
+    background: ${({ theme }) => theme.colors.lightGray};
 `;
 
 const Comment = ({

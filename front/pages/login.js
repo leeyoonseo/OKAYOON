@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef } from 'react';
+import React, { useEffect, useState, useCallback, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -12,9 +12,8 @@ import ModalPopup from '../components/ModalPopup';
 
 import { AVATAR_MODAL_ID, AVATAR_MODAL_DATA } from '../components/ModalPopup/data';
 
-import styled, { css } from 'styled-components';
+import styled, { ThemeContext, css } from 'styled-components';
 import { LogoutOutlined, SmileOutlined } from '@ant-design/icons';
-import { colors, calcRem } from '../theme/styles';
 
 import AppLayout from './AppLayout';
 
@@ -22,10 +21,10 @@ const LoginFormArea = styled.div`
     // max-width: 300px;
     // min-width: 300px;
     // width: 100%;
-    width: ${calcRem(300)};
+    width: ${({ theme }) => theme.calcRem(300)};
     
     & > div + div {
-        margin-top: ${calcRem(15)};
+        margin-top: ${({ theme }) => theme.calcRem(15)};
     }
 `;
 
@@ -38,17 +37,17 @@ const ButtonArea = styled.div`
 `;
 
 const btmButtonDefaultStyle = css`
-    font-size: ${calcRem(16)};
-    color: ${colors.white};
+    font-size: ${({ theme }) => theme.calcRem(16)};
+    color: ${({ theme }) => theme.colors.white};
 
     &:hover {
-        color: ${colors.white};
+        color: ${({ theme }) => theme.colors.white};
         opacity: 0.8;
     }
 
     &:after {
         display: block;
-        margin-top: ${calcRem(5)};
+        margin-top: ${({ theme }) => theme.calcRem(5)};
         content: '${({ text }) => text}';
     }
 `;
@@ -61,7 +60,7 @@ const SleepButton = styled.a`
 
 const AdminButton = styled.button`
     ${btmButtonDefaultStyle}
-    margin-left: ${calcRem(25)};
+    margin-left: ${({ theme }) => theme.calcRem(25)};
     background: none;
     border: none;
     outline: none;
@@ -75,8 +74,8 @@ const ButtonInner = styled.div`
 `;
 
 const defaultIconStyle = css`
-    font-size: ${calcRem(20)};
-    color: ${colors.white};
+    font-size: ${({ theme }) => theme.calcRem(20)};
+    color: ${({ theme }) => theme.colors.white};
     vertical-align: middle;
 `;
 
@@ -90,6 +89,7 @@ const AdminIcon = styled(SmileOutlined)`
 
 const Login = () => {
     const dispatch = useDispatch();
+    const themeContext = useContext(ThemeContext);
     const { modalToggleLoading, modals } = useSelector((state) => state.site);
     const [avatar, setAvatar] = useState('nickname');
     const [isAdmin, setIsAdmin] = useState(false);
@@ -128,7 +128,7 @@ const Login = () => {
                 <title>OKAYOON | LOGIN</title>
             </Head>
             <AppLayout 
-                bgcolor={colors.black}
+                bgcolor={themeContext.colors.black}
                 main={
                     <>
                         <LoginFormArea>

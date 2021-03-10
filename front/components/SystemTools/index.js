@@ -1,9 +1,8 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useCallback, useState, useEffect, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { colors, calcRem } from '../../theme/styles';
+import styled, { ThemeContext } from 'styled-components';
 
 import { SoundOutlined } from '@ant-design/icons';
 
@@ -21,7 +20,7 @@ const SystemToolsWrap = styled.div`
 
 const IconBox = styled.div`
     display: inline-block;
-    width: ${({ iconwidth }) => iconwidth ? calcRem(iconwidth) : 'auto'};
+    width: ${({ iconwidth }) => iconwidth ? iconwidth : 'auto'};
     vertical-align: middle;
     ${({ addstyled }) => addstyled && addstyled};
 `;
@@ -41,7 +40,7 @@ const SoundButton = styled.button`
 `;
 
 const SoundIcon = styled(SoundOutlined)`
-    font-size: ${calcRem(18)};
+    font-size: ${({ theme }) => theme.calcRem(18)};
     color: ${({ themecolor }) => themecolor};
 
     &:hover,
@@ -53,6 +52,7 @@ const SoundIcon = styled(SoundOutlined)`
 
 const SystemTools = ({ themecolor }) => {
     const dispatch = useDispatch();
+    const themeContext = useContext(ThemeContext);
     const { isMuted } = useSelector((state) => state.site);
     const [pathname, setPathname] = useState('');
 
@@ -65,12 +65,12 @@ const SystemTools = ({ themecolor }) => {
 
     return(
         <SystemToolsWrap>
-            <IconBox iconwidth={30}>
+            <IconBox iconwidth={themeContext.calcRem(30)}>
                 <Wifi themecolor={themecolor} />
             </IconBox>
 
             <IconBox 
-                iconwidth={25} 
+                iconwidth={themeContext.calcRem(25)} 
                 addstyled="text-align: left;"
             >
                 <SoundButton onClick={onClickSound}>
@@ -85,7 +85,7 @@ const SystemTools = ({ themecolor }) => {
                 <Battery themecolor={themecolor} />
             </IconBox>
 
-            <IconBox iconwidth={45}>
+            <IconBox iconwidth={themeContext.calcRem(45)}>
                 <Clock themecolor={themecolor} />
             </IconBox>
         </SystemToolsWrap>
@@ -97,7 +97,7 @@ SystemTools.propTypes = {
 }
 
 SystemTools.defaultProps = {
-    themeColor: colors.black,
+    themeColor: '#566270',
 }
 
 export default SystemTools;

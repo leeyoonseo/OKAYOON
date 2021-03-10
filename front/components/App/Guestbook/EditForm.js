@@ -4,18 +4,17 @@ import styled from 'styled-components';
 
 import useInput from '../../../hooks/useInput';
 import { UPDATE_GUESTBOOK_REQUEST } from '../../../reducers/guestbook';
-import { colors, calcRem } from '../../../theme/styles';
 
 import { UploadOutlined } from '@ant-design/icons';
 
 const Wrap = styled.div`
-    margin-bottom: ${calcRem(20)};
+    margin-bottom: ${({ theme }) => theme.calcRem(20)};
 `;
 
 const Textarea = styled.textarea`
     padding: 3%;
     width: 100%;
-    height: ${calcRem(130)};
+    height: ${({ theme }) => theme.calcRem(130)};
     border: none;
     outline: none;
     resize: none;
@@ -23,7 +22,7 @@ const Textarea = styled.textarea`
 `; 
 
 const BottomWrap = styled.div`
-    margin-top: ${calcRem(10)};
+    margin-top: ${({ theme }) => theme.calcRem(10)};
     position: relative;
     text-align: right;
 `;
@@ -34,7 +33,7 @@ const LetterCheck = styled.span`
     left: 0;
 
     &.max {
-        color: ${colors.darkPink};
+        color: ${({ theme }) => theme.colors.darkPink};
     }
 `;
 
@@ -43,7 +42,7 @@ const BottomInner = styled.div`
 `;
 
 const Button = styled.button`
-    margin-left: ${calcRem(10)};
+    margin-left: ${({ theme }) => theme.calcRem(10)};
     padding: 0;
     border: none;
     outline: none;

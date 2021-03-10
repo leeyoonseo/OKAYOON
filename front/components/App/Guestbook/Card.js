@@ -4,7 +4,6 @@ import dayjs from 'dayjs';
 import { DELETE_GUESTBOOK_REQUEST, GET_PERMISSION_REQUEST } from '../../../reducers/guestbook';
 import { getSrc } from './index';
 import styled from 'styled-components';
-import { colors, calcRem } from '../../../theme/styles';
 
 import WindowDialog from '../../WindowDialog/index';
 import Comment from './Comment';
@@ -14,11 +13,11 @@ import { MessageOutlined, DeleteOutlined, FormOutlined } from '@ant-design/icons
 
 const Wrap = styled.div`
     padding: 3%;
-    background: ${colors.white};
+    background: ${({ theme }) => theme.colors.white};
     box-sizing: border-box;
 
     & + div {
-        margin-top: ${calcRem(30)};
+        margin-top: ${({ theme }) => theme.calcRem(30)};
     }
 
     &:after {
@@ -30,7 +29,7 @@ const Wrap = styled.div`
 
 const Inner = styled.div`
     position: relative;
-    min-height: ${calcRem(100)};
+    min-height: ${({ theme }) => theme.calcRem(100)};
 `;
 
 const AvatarWrap = styled.div`
@@ -38,7 +37,7 @@ const AvatarWrap = styled.div`
     top: 0;
     float: left;
     display: flex;
-    width: ${calcRem(64)};
+    width: ${({ theme }) => theme.calcRem(64)};
     height: 100%;
     justify-content: center;
     align-items: center;
@@ -46,8 +45,8 @@ const AvatarWrap = styled.div`
 
 const Container = styled.div`
     float: right;
-    padding-left: ${calcRem(20)};
-    width: calc(100% - ${calcRem(64)});
+    padding-left: ${({ theme }) => theme.calcRem(20)};
+    width: calc(100% - ${({ theme }) => theme.calcRem(64)});
     height: 100%;
     box-sizing: border-box;
 `;
@@ -62,7 +61,7 @@ const CreatedDate = styled.div`
 `;
 
 const ContentWrap = styled.div`
-    margin-top: ${calcRem(5)};
+    margin-top: ${({ theme }) => theme.calcRem(5)};
     width: 100%;
     overflow-y: auto;
 `;
@@ -82,7 +81,7 @@ const MenuArea = styled.div`
     }
 
     button + button {
-        margin-left: ${calcRem(10)};
+        margin-left: ${({ theme }) => theme.calcRem(10)};
     }
 `;
 

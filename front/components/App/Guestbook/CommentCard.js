@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import { DELETE_COMMENT_REQUEST } from '../../../reducers/guestbook';
 import styled from 'styled-components';
-import { colors, calcRem } from '../../../theme/styles';
 
 import { getSrc } from './index';
 import WindowDialog from '../../WindowDialog/index';
@@ -13,11 +12,11 @@ import { DeleteOutlined } from '@ant-design/icons';
 
 const Wrap = styled.div`
     padding: 3%;
-    background: ${colors.white};
+    background: ${({ theme }) => theme.colors.white};
     box-sizing: border-box;
 
     & + div {
-        margin-top: ${calcRem(20)};
+        margin-top: ${({ theme }) => theme.calcRem(20)};
     }
 
     &:after {
@@ -29,7 +28,7 @@ const Wrap = styled.div`
 
 const Inner = styled.div`
     position: relative;
-    min-height: ${calcRem(70)};
+    min-height: ${({ theme }) => theme.calcRem(70)};
 `;
 
 const AvatarWrap = styled.div`
@@ -37,7 +36,7 @@ const AvatarWrap = styled.div`
     top: 0;
     float: left;
     display: flex;
-    width: ${calcRem(42)};
+    width: ${({ theme }) => theme.calcRem(42)};
     height: 100%;
     justify-content: center;
     align-items: center;
@@ -45,8 +44,8 @@ const AvatarWrap = styled.div`
 
 const Container = styled.div`
     float: right;
-    padding-left: ${calcRem(15)};
-    width: calc(100% - ${calcRem(42)});
+    padding-left: ${({ theme }) => theme.calcRem(15)};
+    width: calc(100% - ${({ theme }) => theme.calcRem(42)});
     height: 100%;
     box-sizing: border-box;
 `;
@@ -64,7 +63,7 @@ const CreatedDate = styled.span`
 `;
 
 const ContentWrap = styled.div`
-    margin-top: ${calcRem(5)};
+    margin-top: ${({ theme }) => theme.calcRem(5)};
     width: 100%;
     line-heioght: 1.25;
     overflow-y: auto;

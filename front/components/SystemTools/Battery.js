@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import styled from 'styled-components';
-import { colors, calcRem } from '../../theme/styles';
 
 const Gauge = styled.span`
     display: inline-block;
-    width: ${calcRem(25)};
-    height: ${calcRem(15)};
+    width: ${({ theme }) => theme.calcRem(25)};
+    height: ${({ theme }) => theme.calcRem(15)};
     vertical-align: text-bottom;
     border: 1px solid ${({ themecolor }) => themecolor};
 
@@ -64,7 +63,7 @@ Battery.propTypes = {
 };
 
 Battery.defaultProps = {
-    themecolor: colors.black,
+    themecolor: '#566270',
 };
 
 export default Battery;

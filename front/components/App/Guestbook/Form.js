@@ -3,18 +3,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import useInput from '../../../hooks/useInput';
 import { ADD_GUESTBOOK_REQUEST } from '../../../reducers/guestbook';
 import styled, { css } from 'styled-components';
-import { colors, calcRem } from '../../../theme/styles';
 
 import { UploadOutlined, EyeOutlined } from '@ant-design/icons';
 
 const Wrap = styled.div`
-    margin-bottom: ${calcRem(20)};
+    margin-bottom: ${({ theme }) => theme.calcRem(20)};
 `;
 
 const Textarea = styled.textarea`
     padding: 3%;
     width: 100%;
-    height: ${calcRem(130)};
+    height: ${({ theme }) => theme.calcRem(130)};
     border: none;
     box-sizing: border-box;
     outline: none;
@@ -24,7 +23,7 @@ const Textarea = styled.textarea`
 
 const BottomWrap = styled.div`
     position: relative;
-    margin-top: ${calcRem(10)};
+    margin-top: ${({ theme }) => theme.calcRem(10)};
     text-align: right;
 `;
 
@@ -34,7 +33,7 @@ const LetterCheck = styled.span`
     left: 0;
 
     &.max {
-        color: ${colors.darkPink};
+        color: ${({ theme }) => theme.colors.darkPink};
     }
 `;
 
@@ -49,8 +48,8 @@ const PasswordWrap = styled.div`
 `;
 
 const Input = styled.input`
-    padding: ${calcRem(2)} ${calcRem(20)} ${calcRem(2)} ${calcRem(10)};
-    width: ${calcRem(150)};
+    padding: ${({ theme }) => theme.calcRem(2)} ${({ theme }) => theme.calcRem(20)} ${({ theme }) => theme.calcRem(2)} ${({ theme }) => theme.calcRem(10)};
+    width: ${({ theme }) => theme.calcRem(150)};
     border: none;
     outline: none;
     box-sizing: border-box;
@@ -71,18 +70,18 @@ const defaultButtonStyle = css`
 const VisibleButtonPW = styled.button`
     ${defaultButtonStyle}
     position: absolute;
-    right: ${calcRem(5)};
+    right: ${({ theme }) => theme.calcRem(5)};
     height: 100%;
 `;
 
 const UploadButton = styled.button`
     ${defaultButtonStyle}
-    margin-left: ${calcRem(10)};
+    margin-left: ${({ theme }) => theme.calcRem(10)};
 `;
 
 const SubmitButton = styled.button`
     ${defaultButtonStyle}
-    margin-left: ${calcRem(10)};
+    margin-left: ${({ theme }) => theme.calcRem(10)};
 `;
 
 const GuestbookForm = ({ 

@@ -2,8 +2,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import Router from 'next/router';
 import Head from 'next/head';
 import styled from 'styled-components';
-import { colors, calcRem } from '../theme/styles';
-
 import Clock from '../components/DigitalClock';
 
 const Wrap = styled.div`
@@ -17,8 +15,8 @@ const Wrap = styled.div`
 const Text = styled.span`
     position: fixed;
     bottom: 5%;
-    font-size: ${calcRem(16)};
-    color: ${colors.white};
+    font-size: ${({ theme }) => theme.calcRem(16)};
+    color: ${({ theme }) => theme.colors.white};
     opacity: 0.8;
 `;
 

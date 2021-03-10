@@ -1,5 +1,4 @@
 import styled, { css, keyframes } from 'styled-components';
-import { colors, calcRem } from '../../theme/styles';
 
 import { Layout } from 'antd';
 import { MinusOutlined, FullscreenOutlined } from '@ant-design/icons';
@@ -9,25 +8,33 @@ export const Wrap = styled.div`
     position: fixed;
     top: 50%;
     left: 50%;
+    // min-width: ${({ theme }) => theme.calcRem(350)};
+    // min-height: ${({ theme }) => theme.calcRem(350)};
+    max-width: 98%;
+    max-height: 98%;
     width: ${({ w }) => w};
     height: ${({ h }) => h};
-    color: ${({ theme }) => theme === 'normal' ? colors.black : colors.white};
-    font-size: ${calcRem(16)};
-    border-radius: ${calcRem(5)};
+    color: ${({color}) => color};
+    font-size: ${({ theme }) => theme.calcRem(16)};
+    border-radius: ${({ theme }) => theme.calcRem(5)};
     transform: translate(-50%, -50%);
     z-index: ${({ z }) => z};
     overflow: hidden;
-    box-shadow: ${calcRem(1)} ${calcRem(1)} ${calcRem(10)} rgba(0,0,0,0.5);
+    box-shadow: ${({ theme }) => theme.calcRem(1)} ${({ theme }) => theme.calcRem(1)} ${({ theme }) => theme.calcRem(10)} rgba(0,0,0,0.5);
 
     &.visible {
         display: block;
+    }
+
+    @media all and (max-width: 767px) {
+        grid-template-columns: 1fr;
     }
 `;
 
 export const WrapInner = styled(Layout)`
     width: 100%;
     height: 100%;
-    background: ${colors.lightGray};
+    background: ${({ theme }) => theme.colors.lightGray};
 `;
 
 export const Header = styled.div`
@@ -36,21 +43,21 @@ export const Header = styled.div`
     text-align: center;
     line-height: 1;
     background: none;
-    color: ${colors.lightGray};
+    color: ${({ color }) => color};
     cursor: default;
 `;
 
 export const HeaderInner = styled(Layout.Header)`
-    padding: ${calcRem(10)} 2%;
+    padding: ${({ theme }) => theme.calcRem(10)} 2%;
     width: 100%;
     height: 100%;
     line-height: 1;
-    background: ${colors.purple};
-    color: ${colors.lightGray};
+    background: ${({ theme }) => theme.colors.purple};
+    color: ${({ color}) => color};
 `;
 
 export const Content = styled(Layout.Content)`
-    padding: ${calcRem(15)} 2%;
+    padding: ${({ theme }) => theme.calcRem(15)} 2%;
     height: 100%;
     background: none;
     box-sizing: border-box;
@@ -64,8 +71,8 @@ export const Controls = styled.div`
 `;
 export const ControlButton = styled.button`
     padding: 0;
-    width: ${calcRem(15)};
-    height ${calcRem(15)};
+    width: ${({ theme }) => theme.calcRem(15)};
+    height ${({ theme }) => theme.calcRem(15)};
     border: none;
     border-radius: 50%;
     background:${({ bgcolor }) => bgcolor};
@@ -73,14 +80,14 @@ export const ControlButton = styled.button`
     outline: none;
 
     & + button {
-        margin-left: ${calcRem(7)};
+        margin-left: ${({ theme }) => theme.calcRem(7)};
     }
 `;
 
 const defaultIconStyle = css`
     display:flex;
     font-size: 10px;
-    color: ${colors.white};
+    color: ${({ theme }) => theme.colors.white};
     justify-content: center;
     align-items: center;
     opacity: 0;
@@ -100,6 +107,6 @@ export const MaximizeIcon = styled(FullscreenOutlined)`
 
 export const Title = styled.div`
     display: inline-block;
-    max-width: ${calcRem(300)};
+    max-width: ${({ theme }) => theme.calcRem(300)};
     width: 100%;
 `;
