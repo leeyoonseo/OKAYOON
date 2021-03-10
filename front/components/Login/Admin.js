@@ -57,7 +57,7 @@ const Admin = () => {
         <>
             <InfoArea>
                 <DefaultAvatar 
-                    size={64}
+                    size={80}
                     // TODO: 이미지로 할지, 텍스트로 할지 고민 
                     // src=""
                     // icon={<UserOutlined />} 

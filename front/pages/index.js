@@ -1,14 +1,12 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useCookies } from 'react-cookie';
-import styled from 'styled-components';
 import Router from 'next/router';
 import Head from 'next/head';
 
 import { TOGGLE_MODAL_REQUEST } from '../reducers/site';
 import { LOAD_ADMIN_INFO_REQUEST, LOG_IN_REQUEST } from '../reducers/user';
 
-import { Layout } from 'antd';
 import { colors } from '../theme/styles';
 
 import AppList from '../components/AppList';
@@ -17,20 +15,6 @@ import ModalPopup from '../components/ModalPopup/index';
 import Loading from '../components/Loading';
 
 import AppLayout from './AppLayout';
-
-const Wrap = styled(Layout)`
-    height: 100%;
-    background: ${colors.mint};
-    overflow: hidden;
-`;
-
-const Main = styled(Layout.Content)`
-    display: flex;
-    padding: 0 2%;
-    height: ${({ h }) => h}px;
-    align-items: center;
-    justify-content: center;
-`;
 
 const Home = () => {
     const dispatch = useDispatch();

@@ -47,8 +47,9 @@ export const UserIcon = styled(UserOutlined)`
 `;
 
 export const Input = styled.input`
-    padding: 2% 10%;
+    padding: 0 10%;
     width: 100%;
+    height: ${calcRem(35)};
     font-size: ${calcRem(16)};
     color: ${colors.white};
     border: none;
@@ -74,6 +75,14 @@ export const Nickname = styled.div`
     box-sizing: border-box;
 `;
 
+export const InfoButtonArea = styled.div`
+    text-align: center;
+
+    button {
+        height: ${calcRem(35)};
+    }
+`;
+
 export const RemoveButton = styled.button`
     padding: 0;
     margin-left: ${calcRem(5)};
@@ -89,10 +98,6 @@ export const RemoveButton = styled.button`
         color: ${colors.white};
         border: none;
     }
-`;
-
-export const InfoButtonArea = styled.div`
-    text-align: center;
 `;
 
 export const InfoButton = styled(Button)`

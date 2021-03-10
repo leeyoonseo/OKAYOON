@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Router from 'next/router';
+import Head from 'next/head';
 import styled from 'styled-components';
 import { colors, calcRem } from '../theme/styles';
 
@@ -37,17 +38,22 @@ const sleep = () => {
     const onClick = useCallback(() => Router.replace('./login'), []);
 
     return(
-        <Wrap
-            h={windowH}
-            onClick={onClick}
-            bg={bgcolor}
-        >
-            <Clock />       
+        <>
+            <Head>
+                <title>OKAYOON | SLEEP</title>
+            </Head>
+            <Wrap
+                h={windowH}
+                onClick={onClick}
+                bg={bgcolor}
+            >
+                <Clock />       
 
-            <Text>
-                Click anywhere!
-            </Text>
-        </Wrap>
+                <Text>
+                    Click anywhere!
+                </Text>
+            </Wrap>
+        </>
     );
 };
 
