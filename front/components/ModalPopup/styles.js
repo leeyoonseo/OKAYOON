@@ -1,4 +1,5 @@
 import styled, { css, keyframes } from 'styled-components';
+import { colors, calcRem } from '../../theme/styles';
 
 import { Layout } from 'antd';
 import { MinusOutlined, FullscreenOutlined } from '@ant-design/icons';
@@ -8,15 +9,15 @@ export const Wrap = styled.div`
     position: fixed;
     top: 50%;
     left: 50%;
-    width: ${props => props.w};
-    height: ${props => props.h};
-    color: ${props => props.theme === 'normal' ? '#566270' : '#FFFFF3'};
-    font-size: 1rem;
-    border-radius: 5px;
+    width: ${({ w }) => w};
+    height: ${({ h }) => h};
+    color: ${({ theme }) => theme === 'normal' ? colors.black : colors.white};
+    font-size: ${calcRem(16)};
+    border-radius: ${calcRem(5)};
     transform: translate(-50%, -50%);
-    z-index: ${props => props.z};
+    z-index: ${({ z }) => z};
     overflow: hidden;
-    box-shadow: 1px 1px 10px rgba(0,0,0,0.5);
+    box-shadow: ${calcRem(1)} ${calcRem(1)} ${calcRem(10)} rgba(0,0,0,0.5);
 
     &.visible {
         display: block;
@@ -26,7 +27,7 @@ export const Wrap = styled.div`
 export const WrapInner = styled(Layout)`
     width: 100%;
     height: 100%;
-    background: #f0f2f5;
+    background: ${colors.lightGray};
 `;
 
 export const Header = styled.div`
@@ -35,21 +36,21 @@ export const Header = styled.div`
     text-align: center;
     line-height: 1;
     background: none;
-    color: #f0f2f5;
+    color: ${colors.lightGray};
     cursor: default;
 `;
 
 export const HeaderInner = styled(Layout.Header)`
-    padding: 0.625rem 2%;
+    padding: ${calcRem(10)} 2%;
     width: 100%;
     height: 100%;
     line-height: 1;
-    background: #A593E0;
-    color: #f0f2f5;
+    background: ${colors.purple};
+    color: ${colors.lightGray};
 `;
 
 export const Content = styled(Layout.Content)`
-    padding: 0.938rem 2%;
+    padding: ${calcRem(15)} 2%;
     height: 100%;
     background: none;
     box-sizing: border-box;
@@ -63,23 +64,23 @@ export const Controls = styled.div`
 `;
 export const ControlButton = styled.button`
     padding: 0;
-    width: 15px;
-    height 15px;
+    width: ${calcRem(15)};
+    height ${calcRem(15)};
     border: none;
     border-radius: 50%;
-    background:${props => props.bgcolor};
+    background:${({ bgcolor }) => bgcolor};
     cursor: pointer;
     outline: none;
 
     & + button {
-        margin-left: 7px;
+        margin-left: ${calcRem(7)};
     }
 `;
 
 const defaultIconStyle = css`
     display:flex;
     font-size: 10px;
-    color: #FFFFF3;
+    color: ${colors.white};
     justify-content: center;
     align-items: center;
     opacity: 0;
@@ -99,6 +100,6 @@ export const MaximizeIcon = styled(FullscreenOutlined)`
 
 export const Title = styled.div`
     display: inline-block;
-    max-width: 300px;
+    max-width: ${calcRem(300)};
     width: 100%;
 `;

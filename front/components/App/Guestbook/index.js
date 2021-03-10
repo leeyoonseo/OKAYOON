@@ -1,10 +1,10 @@
 import React, { forwardRef, useEffect, useState, useRef, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { colors, calcRem } from '../../../theme/styles';
 import { LOAD_GUESTBOOK_REQUEST } from '../../../reducers/guestbook';
 
 import { Button } from 'antd';
-import { DownCircleOutlined } from '@ant-design/icons';
 
 import Loading from '../../Loading';
 import Form from './Form';
@@ -12,26 +12,28 @@ import Card from './Card';
 import EditForm from './EditForm';
 
 const MoreWrap = styled.div`
-    margin-top:15px !important;
     text-align: center;
 `;
 
 const MoreButton = styled(Button)`
-    padding: 5px 15px;
+    padding: ${calcRem(10)} ${calcRem(25)};
+    height: auto;
     line-height: 1;
-    border: 1px solid #666;
-    background: #fff;
+    border: 1px solid ${colors.black};
+    background: none;
     outline: none;
     cursor: pointer;
 
-    &:hover {
-        background: #eee;
+    &:hover,
+    &:focus {
+        color: ${colors.black};
+        border: 1px solid ${colors.black};
+        background: none;
     }
-`;
 
-const MoreIcon = styled(DownCircleOutlined)`
-    color: #666;
-    vertical-align: middle;
+    &:hover {
+        opacity: 0.5;
+    }
 `;
 
 export const getSrc = (list, title) => {
@@ -124,7 +126,7 @@ const Guestbook = () => {
                 {guestbookCount > guestbook.length && (
                     <MoreWrap>
                         <MoreButton loading={loadGuestbookLoading} onClick={onClickMore}>
-                            More <MoreIcon />
+                            More
                         </MoreButton>
                     </MoreWrap>
                 )}

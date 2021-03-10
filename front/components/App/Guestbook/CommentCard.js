@@ -1,8 +1,9 @@
 import React, { useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
-import styled from 'styled-components';
 import { DELETE_COMMENT_REQUEST } from '../../../reducers/guestbook';
+import styled from 'styled-components';
+import { colors, calcRem } from '../../../theme/styles';
 
 import { getSrc } from './index';
 import WindowDialog from '../../WindowDialog/index';
@@ -11,12 +12,12 @@ import { Avatar } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 
 const Wrap = styled.div`
-    padding: 2%;
-    background: #fff;
+    padding: 3%;
+    background: ${colors.white};
     box-sizing: border-box;
 
     & + div {
-        margin-top: 15px;
+        margin-top: ${calcRem(20)};
     }
 
     &:after {
@@ -28,7 +29,7 @@ const Wrap = styled.div`
 
 const Inner = styled.div`
     position: relative;
-    min-height: 70px;
+    min-height: ${calcRem(70)};
 `;
 
 const AvatarWrap = styled.div`
@@ -36,7 +37,7 @@ const AvatarWrap = styled.div`
     top: 0;
     float: left;
     display: flex;
-    width: 42px;
+    width: ${calcRem(42)};
     height: 100%;
     justify-content: center;
     align-items: center;
@@ -44,27 +45,35 @@ const AvatarWrap = styled.div`
 
 const Container = styled.div`
     float: right;
-    padding-left: 10px;
-    width: calc(100% - 42px);
+    padding-left: ${calcRem(15)};
+    width: calc(100% - ${calcRem(42)});
     height: 100%;
     box-sizing: border-box;
 `;
 
 const Nickname = styled.span`
     display: block;
-    font-size: 13px;
+    font-size: 90%;
     font-weight: 700;
 `;
 
 const CreatedDate = styled.span`
     display: block;
-    font-size: 70%;
+    font-size: 80%;
+    line-height: 1;
 `;
 
-const Menu = styled.div`
-    position: absolute;
-    right: 0;
-    top: 0;
+const ContentWrap = styled.div`
+    margin-top: ${calcRem(5)};
+    width: 100%;
+    line-heioght: 1.25;
+    overflow-y: auto;
+`;
+
+const MenuArea = styled.div`
+    text-align: right;
+    line-height: 1;
+    clear: both;
 
     button {
         padding: 0;
@@ -74,12 +83,6 @@ const Menu = styled.div`
         background: none;
         cursor: pointer;
     }
-`;
-
-const ContentWrap = styled.div`
-    margin-top: 5px;
-    width: calc(100% - 30px);
-    overflow-y: auto;
 `;
 
 const CommentCard = ({
@@ -123,27 +126,28 @@ const CommentCard = ({
                         <Avatar size={42} src={getSrc(avatarList, avatar)} />
                     )}
                 </AvatarWrap>
+
                 <Container>
                     <Nickname>{nickname}</Nickname>
                     <CreatedDate>{dayjs(createdAt).format('YYYY.MM.DD')}</CreatedDate>
-
-                    <Menu>
-                        <button onClick={onClickDelete}>
-                            <DeleteOutlined />
-                            <span className="hidden">삭제</span>
-                        </button>
-                    </Menu>
 
                     <ContentWrap>
                         {content}
                     </ContentWrap>
                 </Container>
+
+                <MenuArea>
+                    <button onClick={onClickDelete}>
+                        <DeleteOutlined />
+                        <span className="hidden">삭제</span>
+                    </button>
+                </MenuArea>
             </Inner>
 
             {openedModal && (
                 <WindowDialog
                     type="prompt"
-                    text="비밀번호를 입력해주세요." 
+                    text="삭제 비밀번호를 입력해주세요." 
                     callback={passwordCheck}
                 />
             )}

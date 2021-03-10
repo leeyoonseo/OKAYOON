@@ -8,6 +8,7 @@ import {
     MinimizationIcon, 
     MaximizeIcon, 
 } from './styles';
+import { colors } from '../../theme/styles';
 
 const ModalPopup = ({
     id,
@@ -82,7 +83,7 @@ const ModalPopup = ({
                     <HeaderInner theme={theme}>
                         <Controls>
                             <ControlButton 
-                                bgcolor="#ffbf2e" 
+                                bgcolor={colors.yellow}
                                 onClick={onCloseModal(id)}
                             >
                                 <MinimizationIcon />
@@ -90,7 +91,7 @@ const ModalPopup = ({
                             
                             {!buttonDisabled.Maximize && (
                                 <ControlButton 
-                                    bgcolor="#26ca3f"
+                                    bgcolor={colors.green}
                                     onClick={onMaximize}
                                 >
                                     <MaximizeIcon />

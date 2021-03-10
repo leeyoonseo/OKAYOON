@@ -7,7 +7,6 @@ import {
     InfoArea, DefaultAvatar, InputWrap, Input,
     UserIcon, InfoButtonArea, InfoButton, 
 } from './style';
-import { UserOutlined } from '@ant-design/icons';
 
 const Admin = () => {
     const dispatch = useDispatch();

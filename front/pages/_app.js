@@ -7,7 +7,6 @@ import 'antd/dist/antd.css';
 import './app.css';
 import wrapper from '../store/configurestore';
 
-
 const Okayoon = ({ Component }) => {
 
     const Global = createGlobalStyle`
@@ -39,6 +38,7 @@ const Okayoon = ({ Component }) => {
         <>
             <Head>
                 <meta charSet="utf-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <title>OKAYOON</title>
             </Head>
             <Global />

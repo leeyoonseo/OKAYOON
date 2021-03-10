@@ -2,18 +2,19 @@ import React, { useCallback, useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useInput from '../../../hooks/useInput';
 import styled from 'styled-components';
+import { colors, calcRem } from '../../../theme/styles';
 
-import { UploadOutlined, EyeOutlined } from '@ant-design/icons';
+import { EyeOutlined } from '@ant-design/icons';
 import { ADD_COMMENT_REQUEST } from '../../../reducers/guestbook';
 
 const Wrap = styled.div`
-    margin-bottom: 15px;
+    margin-bottom: ${calcRem(15)};
 `;
 
 const Textarea = styled.textarea`
     padding: 2%;
     width: 100%;
-    height: 80px;
+    height: ${calcRem(100)};
     border: none;
     outline: none;
     box-sizing: border-box;
@@ -33,26 +34,27 @@ const LetterCheck = styled.span`
     left: 0;
 
     &.max {
-        color: red;
+        color: ${colors.darkPink};
     }
 `;
 
 const PasswordWrap = styled.div`
+    margin-top: ${calcRem(5)};
     position: relative;
     display: inline-block;
 `;
 
 const Input = styled.input`
-    padding: 2px 20px 2px 10px;
-    width: 150px;
+    padding: ${calcRem(2)} ${calcRem(20)} ${calcRem(2)} ${calcRem(10)};
+    width: ${calcRem(150)};
     border: none;
     outline: none;
     box-sizing: border-box;
 `;
 
-const ToggleButton = styled.button`
+const VisibleButtonPW = styled.button`
     position: absolute;
-    right: 5px;
+    right: ${calcRem(5)};
     padding: 0;
     height: 100%;
     border: none;
@@ -61,8 +63,8 @@ const ToggleButton = styled.button`
     cursor: pointer;
 `;
 
-const Button = styled.button`
-    margin-left: 10px;
+const SubmitButton = styled.button`
+    margin-left: ${calcRem(10)};
     padding: 0;
     border: none;
     outline: none;
@@ -144,14 +146,17 @@ const CommentForm = ({
                         onChange={onChangePassword}
                     />
 
-                    <ToggleButton onClick={onClickVisiblePassword}>
+                    <VisibleButtonPW onClick={onClickVisiblePassword}>
                         <EyeOutlined />
-                    </ToggleButton>
+                    </VisibleButtonPW>
                 </PasswordWrap>
 
-                <Button type="button" onClick={onSubmit}>
+                <SubmitButton 
+                    type="button" 
+                    onClick={onSubmit}
+                >
                     등록
-                </Button>
+                </SubmitButton>
             </BottomInner>
         </Wrap>
     );

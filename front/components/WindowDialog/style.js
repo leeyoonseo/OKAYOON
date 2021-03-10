@@ -1,61 +1,64 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { colors, calcRem } from '../../theme/styles';
+
+const defaultButtonStyle = css`
+    padding: ${calcRem(2)} ${calcRem(10)};
+    border: 1px solid ${colors.black};
+    box-sizing: border-box;
+    outline: none;
+    cursor: pointer;
+
+    &:hover {
+        opacity: 0.5;
+    }
+`;
 
 export const Wrap = styled.div`
     position: fixed;
     top: 50%;
     left: 50%;
-    padding: 20px;
-    max-width: 300px;
-    max-height: 300px;
+    padding: 3%;
+    max-width: ${calcRem(300)};
+    max-height: ${calcRem(300)};
     transform: translate(-50%, -50%);
-    background: #fff;
-    border-radius: 5px;
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+    background: ${colors.white};
+    border-radius: ${calcRem(5)};
+    box-shadow: ${calcRem(1)} ${calcRem(1)} ${calcRem(5)} ${colors.rgbaBlack};
     box-sizing: border-box;
     z-index: 9999999;
 `;
 
-export const TextArea = styled.div`
-    max-height: 200px;
+export const Text = styled.div`
     overflow-y: auto;
 `;
 
 export const InputWrap = styled.div`
-    margin-top: 10px;
+    margin-top: ${calcRem(10)};
 
     input {
-        padding: 5px 10px;
-        font-size: 13px;
-        border: 1px solid #333;
+        padding: ${calcRem(5)} ${calcRem(10)};
+        width: 100%;
+        border: 1px solid ${colors.black};
         box-sizing: border-box;
         outline: none;
     }
 `;
 
 export const ButtonArea = styled.div`
-    margin-top: 15px;
-    font-size: 13px;
+    margin-top: ${calcRem(15)};
     text-align: center;
 
     button + button {
-        margin-left: 10px;
+        margin-left: ${calcRem(15)};
     }
 `;
 
 export const CancelButton = styled.button`
-    padding: 2px 10px;
-    border: 1px solid #666;
+    ${defaultButtonStyle}
     background: none;
-    box-sizing: border-box;
-    outline: none;
-    cursor: pointer;
 `;
 
 export const ConfirmButton = styled.button`
-    padding: 2px 10px;
-    border: 1px solid #666;
-    background: #eee;
-    box-sizing: border-box;
-    outline: none;
-    cursor: pointer;
+    ${defaultButtonStyle}
+    background: ${colors.gray};
 `;

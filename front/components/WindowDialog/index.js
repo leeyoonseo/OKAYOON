@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import useInput from '../../hooks/useInput';
 
 import {
-    Wrap, TextArea, InputWrap, 
+    Wrap, Text, InputWrap, 
     ButtonArea, CancelButton, ConfirmButton,
 } from './style';
 
@@ -29,9 +29,9 @@ const WindowDialog = ({ type, text, callback }) => {
 
     return (
         <Wrap>
-            <TextArea>
+            <Text>
                 <span dangerouslySetInnerHTML={renderReqText()} ></span>
-            </TextArea>
+            </Text>
 
             {type === 'prompt' && (
                 <InputWrap>

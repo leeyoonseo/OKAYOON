@@ -32,7 +32,7 @@ export const NicknameWrap = styled.div`
 
 export const InputWrap = styled.div`
     position: relative;
-    border: ${calcRem(2)}; solid ${colors.white};
+    border: ${calcRem(2)} solid ${colors.white};
     border-radius: ${calcRem(3)};
     opacity: 0.8;
     box-sizing: border-box;

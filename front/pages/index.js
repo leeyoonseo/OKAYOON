@@ -40,7 +40,6 @@ const Home = () => {
     const [mainHeight, setMainHeight] = useState(null);
     const [headerHeight, setHeaderHeight] = useState(null);
     const [footerHeight, setFooterHeight] = useState(null);
-    const themecolor = colors.white;
 
     useEffect(() => {
         if (!headerHeight || !footerHeight) return;
@@ -91,7 +90,7 @@ const Home = () => {
             
             <Wrap>
                 <Header 
-                    themecolor={themecolor}
+                    themecolor={colors.ivory}
                     setHeight={setHeaderHeight} 
                 />
                 <Main h={mainHeight}>

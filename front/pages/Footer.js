@@ -5,7 +5,7 @@ import { colors, calcRem } from '../theme/styles';
 
 const Wrap = styled(Layout.Footer)`
     padding: 0;
-    font-size: 1rem;
+    font-size: ${calcRem(16)};
     line-height: 1;
     color: ${colors.white};
     background: ${colors.black};

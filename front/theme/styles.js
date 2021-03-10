@@ -8,13 +8,17 @@ export const WHITE_MODE_COLOR = '#566270';
 
 export const colors = {
     black: '#566270',
+    rgbaBlack: 'rgba(0, 0, 0, 0.5)',
     rgbaGray: 'rgba(86, 98, 112, 0.5)',
-    white: '#FFFFF3',
-    grey : '#E0E3DA',
+    white: '#fff',
+    ivory: '#FFFFF3',
+    lightGray: '#f0f2f5',
+    gray : '#E0E3DA',
     purple: '#A593E0',
     mint: '#64c5ba',
     yellow: '#ffbf2e',
     green: '#26ca3f',
+    darkPink : '#ef5285',
 };
 
 

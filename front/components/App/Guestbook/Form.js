@@ -2,18 +2,19 @@ import React, { useCallback, useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useInput from '../../../hooks/useInput';
 import { ADD_GUESTBOOK_REQUEST } from '../../../reducers/guestbook';
+import styled, { css } from 'styled-components';
+import { colors, calcRem } from '../../../theme/styles';
 
 import { UploadOutlined, EyeOutlined } from '@ant-design/icons';
-import styled from 'styled-components';
 
 const Wrap = styled.div`
-    margin-bottom: 20px;
+    margin-bottom: ${calcRem(20)};
 `;
 
 const Textarea = styled.textarea`
     padding: 3%;
     width: 100%;
-    height: 100px;
+    height: ${calcRem(130)};
     border: none;
     box-sizing: border-box;
     outline: none;
@@ -22,8 +23,8 @@ const Textarea = styled.textarea`
 `;
 
 const BottomWrap = styled.div`
-    margin-top: 10px;
     position: relative;
+    margin-top: ${calcRem(10)};
     text-align: right;
 `;
 
@@ -33,7 +34,7 @@ const LetterCheck = styled.span`
     left: 0;
 
     &.max {
-        color: red;
+        color: ${colors.darkPink};
     }
 `;
 
@@ -48,41 +49,41 @@ const PasswordWrap = styled.div`
 `;
 
 const Input = styled.input`
-    padding: 2px 20px 2px 10px;
-    width: 150px;
+    padding: ${calcRem(2)} ${calcRem(20)} ${calcRem(2)} ${calcRem(10)};
+    width: ${calcRem(150)};
     border: none;
     outline: none;
     box-sizing: border-box;
 `;
 
-const ToggleButton = styled.button`
+const defaultButtonStyle = css`
+    padding: 0;
+    border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
+
+    &:hover {
+        opacity: 0.5;
+    }
+`;
+
+const VisibleButtonPW = styled.button`
+    ${defaultButtonStyle}
     position: absolute;
-    right: 5px;
-    padding: 0;
+    right: ${calcRem(5)};
     height: 100%;
-    border: none;
-    outline: none;
-    background: none;
-    cursor: pointer;
-
-    &:focus {
-        opacity: 0.5;
-    }
 `;
 
-const Button = styled.button`
-    margin-left: 10px;
-    padding: 0;
-    border: none;
-    outline: none;
-    background: none;
-    cursor: pointer;
-
-    &:focus {
-        opacity: 0.5;
-    }
+const UploadButton = styled.button`
+    ${defaultButtonStyle}
+    margin-left: ${calcRem(10)};
 `;
 
+const SubmitButton = styled.button`
+    ${defaultButtonStyle}
+    margin-left: ${calcRem(10)};
+`;
 
 const GuestbookForm = ({ 
     MAX_TEXTAREA_LENGTH,
@@ -162,19 +163,19 @@ const GuestbookForm = ({
                             onChange={onChangePassword}
                         />
 
-                        <ToggleButton onClick={onClickVisiblePassword}>
+                        <VisibleButtonPW onClick={onClickVisiblePassword}>
                             <EyeOutlined />
-                        </ToggleButton>
+                        </VisibleButtonPW>
                     </PasswordWrap>
 
                     {/* TODO: 이미지업로드 기능 */}
-                    <Button>
+                    <UploadButton>
                         <UploadOutlined />
-                    </Button>
+                    </UploadButton>
 
-                    <Button type="button" onClick={onSubmit}>
+                    <SubmitButton type="button" onClick={onSubmit}>
                         등록
-                    </Button>
+                    </SubmitButton>
                 </BottomInner>
             </BottomWrap>
         </Wrap>

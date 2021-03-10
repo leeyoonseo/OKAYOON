@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { colors, calcRem } from '../../theme/styles';
 
 const Wrap = styled.div`
     width: 100%;
@@ -19,7 +20,7 @@ const Inner = styled.div`
 
 const Items = styled.div`
     width: 18%;
-    height: 5rem;
+    height: ${calcRem(80)};
     box-sizing: border-box;
     float: left;
 
@@ -37,8 +38,8 @@ const Button = styled.button`
     padding: 0;
     width:100%;
     height:100%;
-    font-size: 1rem;
-    color: #777;
+    font-size: ${calcRem(16)};
+    color: ${colors.black};
     border: none;
     border-radius: 50%;
     outline: none;
@@ -46,8 +47,9 @@ const Button = styled.button`
     cursor: pointer;
 
     &.default {
-        border: 2px solid #566270;
+        border: ${calcRem(2)} solid ${colors.black};
         font-weight: 700;
+        background: ${colors.ivory};
     }
 
     img {
@@ -86,14 +88,4 @@ const ModalAvatar = ({ id, onCloseModal }) => {
     );
 };
 
-ModalAvatar.propTypes = {
-    id: PropTypes.string.isRequired,
-    onCloseModal: PropTypes.func.isRequired,
-};
-
 export default ModalAvatar;
-
-
-// TODO:
-// - 기본 이미지 스타일 수정
-// - 이미지 s3 추가

@@ -1,22 +1,23 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Router from 'next/router';
 import styled from 'styled-components';
+import { colors, calcRem } from '../theme/styles';
 
 import Clock from '../components/DigitalClock';
 
 const Wrap = styled.div`
     display: flex;
-    height: ${props => props.h}px;
+    height: ${({ h }) => h}px;
     justify-content: center;
     align-items: center;
-    background: ${props => props.bg};
+    background: ${({ bg }) => bg};
 `;
 
 const Text = styled.span`
     position: fixed;
     bottom: 5%;
-    font-size: 1rem;
-    color: #fff;
+    font-size: ${calcRem(16)};
+    color: ${colors.white};
     opacity: 0.8;
 `;
 

@@ -113,7 +113,6 @@ const Login = () => {
     const [mainHeight, setMainHeight] = useState(null);
     const [headerHeight, setHeaderHeight] = useState(null);
     const [footerHeight, setFooterHeight] = useState(null);
-    const themeColor = colors.white;
 
     useEffect(() => {
         if (!headerHeight || !footerHeight) return;
@@ -157,7 +156,7 @@ const Login = () => {
             </Head>
             <Wrap color={colors.black}>
                 <Header 
-                    themecolor={themeColor}
+                    themecolor={colors.ivory}
                     setHeight={setHeaderHeight}
                 />
 
