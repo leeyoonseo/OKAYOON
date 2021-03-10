@@ -47,8 +47,7 @@ const BackIcon = styled(LeftOutlined)`
 
 const Content = styled.div`
     padding: 5%;
-    // height: 85%;
-    height: 20%;
+    height: 85%;
     overflow-y: auto;
     box-sizing: border-box;
 
@@ -114,34 +113,44 @@ const ChatRoom = ({ onPrevStep }) => {
     const dispatch = useDispatch();
     const { chatList, sendMessageLoading, sendMessageDone } = useSelector((state) => state.simsimi);
     const [message, onChangeMessage, setMessage] = useInput('');
-    const [myTurn, setMyTurn] = useState(true);
-    const [openedDialog, setOpenedDialog] = useState(false);
-    const [startedChat, setStartedChat] = useState(false);
+
     const [scrollTop, setScrollTop] = useState(null);
+    const [openedDialog, setOpenedDialog] = useState(false);
+
+    const [startedChat, setStartedChat] = useState(false);
+    const [myTurn, setMyTurn] = useState(true);
+
     const chatContRef = useRef(null);
     const inputRef = useRef(null);
 
-    useEffect(() => inputRef.current.focus(), []); 
     useEffect(() => {
-        sendMessageLoading && setMessage('');
-        onScrollTop();
-        setMyTurn(false);
+        if (!inputRef.current) return;
 
+        inputRef.current.focus()
+    }, []); 
+
+    useEffect(() => {
+        if (sendMessageLoading) {
+            setMessage('');
+            onScrollTop();
+            setMyTurn(false);
+        }
     }, [sendMessageLoading]);
 
     useEffect(() => {
         if (sendMessageDone) {
-            onScrollTop();
             setMyTurn(true);
         }
     }, [sendMessageDone]);
 
     const onScrollTop = useCallback(() => {
         if (!chatContRef.current) return;
-        if (scrollTop === chatContRef.current.scrollHeight) return;
+        const {scrollHeight} = chatContRef.current;
 
-        setScrollTop(chatContRef.current.scrollHeight);
-        chatContRef.current.scrollTop = chatContRef.current.scrollHeight;
+        if (scrollTop === scrollHeight) return;
+        
+        chatContRef.current.scrollTop = scrollHeight;
+        setScrollTop(scrollHeight);
     }, [scrollTop, chatContRef]);
 
     const onCloseDialog = useCallback(({ state }) => {
@@ -177,25 +186,13 @@ const ChatRoom = ({ onPrevStep }) => {
             }
         });
     }, [message]);
-    
+
+    const onInput = useCallback(() => onScrollTop(), []);
     const onKeyPress = useCallback(({ code }) => {
         if (code === 'Enter') {
             onSendMessage();
         }
     }, [message]);
-
-    const renderLoading = useCallback(() => {
-        return (
-            <LoadingText>
-                <span>입</span>
-                <span>력</span>
-                <span>중</span>
-                <span>.</span>
-                <span>.</span>
-                <span>.</span>
-            </LoadingText>
-        )
-    }, []);
 
     return (
         <>   
@@ -205,7 +202,6 @@ const ChatRoom = ({ onPrevStep }) => {
                         <BackIcon />
                     </BackButton>
 
-                    {/* TODO: simsimi 이미지 다운받아서 사용할 수 없을까? */}
                     <Avatar
                         size={48}
                         src="../../avatar/avatar_simsimi.png"
@@ -213,7 +209,9 @@ const ChatRoom = ({ onPrevStep }) => {
                 </Header>
 
                 <Content ref={chatContRef}>
-                    {(!startedChat && !message) && <EmptyData>심심이와 대화를 시작해보세요!</EmptyData>}
+                    {(!startedChat && !message) && (
+                        <EmptyData>심심이와 대화를 시작해보세요!</EmptyData>
+                    )}
 
                     {chatList.map(({ simsimi, text }, i) => {
                         return (
@@ -229,11 +227,17 @@ const ChatRoom = ({ onPrevStep }) => {
                     {/* [D] loading */}
                     {(message || sendMessageLoading) && (
                         <Chat simsimi={!myTurn}>
-                            {renderLoading()}
+                            <LoadingText>
+                                {('입력중...').split('').map((v, i) => {
+                                    return (
+                                        <span key={`loading_text_${v}_${i}`}>
+                                            {v}
+                                        </span>
+                                    )
+                                })}
+                            </LoadingText>
                         </Chat>
                     )}
-                    {/* {message && <Chat>{renderLoading()}</Chat>}  
-                    {sendMessageLoading && <Chat simsimi={true}>{renderLoading()}</Chat>} */}
                 </Content>
 
                 <Footer>
@@ -243,7 +247,7 @@ const ChatRoom = ({ onPrevStep }) => {
                             value={message}
                             onChange={onChangeMessage}
                             onKeyPress={onKeyPress}
-                            onInput={onScrollTop}
+                            onInput={onInput}
                             placeholder="채팅을 시작해보세요"
                         />
 
