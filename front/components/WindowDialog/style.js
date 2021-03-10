@@ -60,5 +60,5 @@ export const CancelButton = styled.button`
 
 export const ConfirmButton = styled.button`
     ${defaultButtonStyle}
-    background: ${colors.gray};
+    background: ${colors.lightYellowGray};
 `;

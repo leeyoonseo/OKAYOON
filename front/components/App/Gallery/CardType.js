@@ -3,10 +3,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import ImageZoom from './ImageZoom';
-import { Card } from 'antd';
 
 const Wrap = styled.div`
-    padding-bottom: 6%;
     column-count: 4;
     column-gap: 1em;
 `;
@@ -31,24 +29,20 @@ const Image = styled.img`
     width: 100%;
 `;
 
-const CardType = ({ images }) => {
-    const [openedZoomPopup, setOpenedZoomPopup] = useState(false);
+const CardType = ({ data }) => {
+    const [openedZoom, setOpenedZoom] = useState(false);
     const [item, setItem] = useState(null);
 
-    const onCloseZoom = useCallback(() => {
-        setOpenedZoomPopup(false);
-        setZoomImageURL(null);
-    }, []);
-
+    const onCloseZoom = useCallback(() => setOpenedZoom(false), []);
     const onClickZoom = useCallback((item) => () => {
         setItem(item);
-        setOpenedZoomPopup(!openedZoomPopup);
-    }, [openedZoomPopup]);
+        setOpenedZoom(!openedZoom);
+    }, [openedZoom]);
 
     return (
         <>
             <Wrap>
-                {images.map((v, i) => {
+                {data.map((v, i) => {
                     const { title, src } = v;
 
                     return (
@@ -64,7 +58,7 @@ const CardType = ({ images }) => {
                 })}
             </Wrap>
 
-            {openedZoomPopup && (
+            {openedZoom && (
                 <ImageZoom 
                     item={item}
                     onClose={onCloseZoom}
@@ -72,10 +66,6 @@ const CardType = ({ images }) => {
             )}
         </>
     );
-};
-
-CardType.propTypes = {
-    images: PropTypes.array.isRequired,
 };
 
 export default CardType;

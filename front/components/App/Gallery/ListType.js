@@ -1,13 +1,12 @@
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { colors, calcRem } from '../../../theme/styles';
 
 import { List, Avatar } from 'antd';
 import ImageZoom from './ImageZoom';
 
 const ListWrap = styled(List)`
-    padding-bottom: 6%;
-
     &:after {
         content: '';
         display: block;
@@ -29,12 +28,12 @@ const Item = styled(List.Item)`
     padding: 2%;
     width: 49%;
     float: left;
-    background: #fff;
+    background: ${colors.white};
     box-sizing: border-box;
     cursor: pointer;
 
     &:hover {
-        box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+        box-shadow: ${calcRem(1)} ${calcRem(1)} ${calcRem(5)} ${colors.rgbaBlack};
     }
 `;
 
@@ -42,27 +41,26 @@ const ItemMeta = styled(List.Item.Meta)`
     align-items: center;
 `;
 
-const ListType = ({ images }) => {
-    const [opendZoom, setOpendZoom] = useState(false);
-    const [imageSrc, setImageSrc] = useState(null);
+const ListType = ({ data }) => {
+    const [openedZoom, setOpenedZoom] = useState(false);
+    const [item, setItem] = useState(null);
 
     const onCloseZoom = useCallback(() => {
-        setOpendZoom(false);
-        setImageSrc(null);
+        setOpenedZoom(false);
     }, []);
 
-    const onClickZoom = useCallback((src) => () => {
-        setImageSrc(src);
-        setOpendZoom(!opendZoom);
-    }, [opendZoom]);
+    const onClickZoom = useCallback((item) => () => {
+        setItem(item);
+        setOpenedZoom(!openedZoom);
+    }, [openedZoom]);
 
     return (
         <>
             <ListWrap
                 itemLayout="horizontal"
-                dataSource={images}
+                dataSource={data}
                 renderItem={item => (
-                <Item onClick={onClickZoom(item.src)}>
+                <Item onClick={onClickZoom(item)}>
                     <ItemMeta
                         avatar={<Avatar src={item.src} />}
                         title={<span>{item.title}</span>}
@@ -72,18 +70,14 @@ const ListType = ({ images }) => {
                 )}
             />
 
-            {opendZoom && (
+            {openedZoom && (
                 <ImageZoom 
-                    src={imageSrc}
+                    item={item}
                     onClose={onCloseZoom}
                 />
             )}
         </>
     );
-};
-
-ListType.propTypes = {
-    images: PropTypes.array.isRequired,
 };
 
 export default ListType;

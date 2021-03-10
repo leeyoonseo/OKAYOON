@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import Slick from 'react-slick';
 import styled, { css } from 'styled-components';
+import { colors, calcRem } from '../../../theme/styles';
 
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 
@@ -14,11 +15,10 @@ const Wrap = styled.div`
 
 const Inner = styled.div`
     position: relative;
-    top: -25px;
     overflow: hidden;
 
     & > div + div {
-        margin-top: 20px;
+        margin-top: ${calcRem(20)};
     }
 `;
 
@@ -50,7 +50,7 @@ const defaultItemStyle = css`
 
 const MainSlickItems = styled.div`
     ${defaultItemStyle}    
-    height: 350px;
+    height: ${calcRem(350)};
 
     img {
         max-width: 100%;
@@ -59,7 +59,7 @@ const MainSlickItems = styled.div`
 
 const PagingItems = styled.div`
     ${defaultItemStyle}    
-    height: 80px;
+    height: ${calcRem(80)};
     cursor: pointer;
     
     img {
@@ -71,8 +71,8 @@ const defaultButtonStyle = css`
     position: absolute;
     top: 50%;
     padding: 0;
-    width: 30px;
-    height: 30px;
+    width: ${calcRem(30)};
+    height: ${calcRem(30)};
     line-height: 1;
     border: none;
     border-radius: 50%;
@@ -93,12 +93,12 @@ const NextButton = styled.button`
 `;
 
 const defaultIconStyle = css`
-    font-size: 22px;
-    color: #dedede;
+    font-size: ${calcRem(22)};
+    color: ${colors.gray};
 
     &:focus,
     &:hover { 
-        color: #666;
+        color: ${colors.black};
     }
 `;
 
@@ -110,7 +110,7 @@ const NextIcon = styled(RightOutlined)`
     ${defaultIconStyle}
 `;
 
-const SlideType = ({ images }) => {
+const SlideType = ({ data }) => {
     const [mainSlick, setMainSlick] = useState(null);
     const [pagingSlick, setPagingSlick] = useState(null);
     const mainSlickRef = useRef(null);
@@ -150,7 +150,7 @@ const SlideType = ({ images }) => {
                         asNavFor={pagingSlick}
                         {...mainSettings}
                     >
-                        {images.map((v, i) => {
+                        {data.map((v, i) => {
                             return (
                                 <MainSlickItems key={`${v.title}_${i}`}>
                                     <img src={v.src} alt={v.title} />
@@ -179,7 +179,7 @@ const SlideType = ({ images }) => {
                         asNavFor={mainSlick}
                         {...pagingSettings}
                     >
-                        {images.map((v, i) => {
+                        {data.map((v, i) => {
                             return (
                                 <PagingItems 
                                     key={`${v.title}_${i}`}
@@ -206,10 +206,6 @@ const SlideType = ({ images }) => {
             </Inner>
         </Wrap>
     );
-};
-
-SlideType.propTypes = {
-    images: PropTypes.array.isRequired,
 };
 
 export default SlideType;
