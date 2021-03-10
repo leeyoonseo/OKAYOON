@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import styled from 'styled-components';
+import { calcRem } from '../theme/styles';
 
 const DigitalClockWrap = styled.div`
-    font-size: 64px;
+    font-size: ${calcRem(64)};
     color: #fff;
 
     span {
@@ -11,10 +12,10 @@ const DigitalClockWrap = styled.div`
     }
 
     span + span {
-        margin-left: 1px;
+        margin-left: ${calcRem(1)};
 
         &:before {
-            padding: 0 20px;
+            padding: 0 ${calcRem(20)};
             display: inline-block;
             content: ':';
         }
@@ -63,8 +64,3 @@ const DigitalClock = () => {
 };
 
 export default DigitalClock;
-
-// TODO
-// - 시간을 state로 하나로 관리하는게 나을지, 아니면 각각의 컴포넌트에서 구해서 사용해서 나을지.
-// -- 디지털시계만 초 단위로 사용, 배터리랑 상단 시계는 분 단위로 사용
-// -- 하나로 관리하게되면 reducer 호출을 계속하는게 어떤게 좋을지? (Clock.js 로직과 동일함...)

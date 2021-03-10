@@ -1,6 +1,8 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { calcRem } from '../theme/styles';
+
 import { CREATE_MODAL_REQUEST, TOGGLE_MODAL_REQUEST } from '../reducers/site';
 
 import { 
@@ -47,16 +49,16 @@ const applistData = [
 
 const AppButton = styled.button`
     padding: 0;        
-    width: 4.375rem;
-    height: 4.375rem;
-    font-size: 1rem;
+    width: ${calcRem(70)};
+    height: ${calcRem(70)};
+    font-size: ${calcRem(16)};
     border: none;
     outline: none;
     background: none;
     cursor: pointer;
 
     & + button {
-        margin-left: 2.188rem;
+        margin-left: ${calcRem(35)};
     }
 `;
 
@@ -66,7 +68,7 @@ const Icon = styled.img`
 `;
 
 const Name = styled.span`
-    margin-top: 0.313rem;
+    margin-top: ${calcRem(5)};
     display: inline-block;
 `;
 
@@ -128,14 +130,15 @@ const AppList = () => {
 
     return (
         <>
-            {applistData.map((v, i) => {
+            {applistData.map((v) => {
+                const { id, name, src } = v;
                 return(
                     <AppButton
-                        key={`icon_${v.id}_${v.name}`}
-                        onClick={onClickApp(v.id)}
+                        key={`icon_${id}_${name}`}
+                        onClick={onClickApp(id)}
                     >
-                        <Icon src={v.src} alt={`${v.name} 아이콘`} />
-                        <Name>{v.name}</Name>
+                        <Icon src={src} alt={`${name} 아이콘`} />
+                        <Name>{name}</Name>
                     </AppButton>
                 )
             })}
