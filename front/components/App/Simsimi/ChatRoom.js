@@ -47,7 +47,9 @@ const BackIcon = styled(LeftOutlined)`
 
 const Content = styled.div`
     padding: 5%;
-    height: 85%;
+    // height: 85%;
+    height: 20%;
+    overflow-y: auto;
     box-sizing: border-box;
 
     div + div {
@@ -110,14 +112,37 @@ const LoadingText = styled.div`
 
 const ChatRoom = ({ onPrevStep }) => {
     const dispatch = useDispatch();
-    const { chatList, sendMessageLoading } = useSelector((state) => state.simsimi);
+    const { chatList, sendMessageLoading, sendMessageDone } = useSelector((state) => state.simsimi);
     const [message, onChangeMessage, setMessage] = useInput('');
+    const [myTurn, setMyTurn] = useState(true);
     const [openedDialog, setOpenedDialog] = useState(false);
     const [startedChat, setStartedChat] = useState(false);
+    const [scrollTop, setScrollTop] = useState(null);
+    const chatContRef = useRef(null);
     const inputRef = useRef(null);
 
     useEffect(() => inputRef.current.focus(), []); 
-    useEffect(() => sendMessageLoading && setMessage(''), [sendMessageLoading]);
+    useEffect(() => {
+        sendMessageLoading && setMessage('');
+        onScrollTop();
+        setMyTurn(false);
+
+    }, [sendMessageLoading]);
+
+    useEffect(() => {
+        if (sendMessageDone) {
+            onScrollTop();
+            setMyTurn(true);
+        }
+    }, [sendMessageDone]);
+
+    const onScrollTop = useCallback(() => {
+        if (!chatContRef.current) return;
+        if (scrollTop === chatContRef.current.scrollHeight) return;
+
+        setScrollTop(chatContRef.current.scrollHeight);
+        chatContRef.current.scrollTop = chatContRef.current.scrollHeight;
+    }, [scrollTop, chatContRef]);
 
     const onCloseDialog = useCallback(({ state }) => {
         setOpenedDialog(false);
@@ -152,7 +177,7 @@ const ChatRoom = ({ onPrevStep }) => {
             }
         });
     }, [message]);
-
+    
     const onKeyPress = useCallback(({ code }) => {
         if (code === 'Enter') {
             onSendMessage();
@@ -187,7 +212,7 @@ const ChatRoom = ({ onPrevStep }) => {
                     />
                 </Header>
 
-                <Content>
+                <Content ref={chatContRef}>
                     {(!startedChat && !message) && <EmptyData>심심이와 대화를 시작해보세요!</EmptyData>}
 
                     {chatList.map(({ simsimi, text }, i) => {
@@ -202,8 +227,13 @@ const ChatRoom = ({ onPrevStep }) => {
                     })}
 
                     {/* [D] loading */}
-                    {message && <Chat>{renderLoading()}</Chat>}  
-                    {sendMessageLoading && <Chat simsimi={true}>{renderLoading()}</Chat>}
+                    {(message || sendMessageLoading) && (
+                        <Chat simsimi={!myTurn}>
+                            {renderLoading()}
+                        </Chat>
+                    )}
+                    {/* {message && <Chat>{renderLoading()}</Chat>}  
+                    {sendMessageLoading && <Chat simsimi={true}>{renderLoading()}</Chat>} */}
                 </Content>
 
                 <Footer>
@@ -213,6 +243,7 @@ const ChatRoom = ({ onPrevStep }) => {
                             value={message}
                             onChange={onChangeMessage}
                             onKeyPress={onKeyPress}
+                            onInput={onScrollTop}
                             placeholder="채팅을 시작해보세요"
                         />
 
