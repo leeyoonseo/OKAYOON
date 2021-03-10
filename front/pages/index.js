@@ -16,10 +16,10 @@ import Menu from '../components/Menu/index';
 import ModalPopup from '../components/ModalPopup/index';
 import Loading from '../components/Loading';
 
-import Header from './Header';
-import Footer from './Footer';
+import AppLayout from './AppLayout';
 
 const Wrap = styled(Layout)`
+    height: 100%;
     background: ${colors.mint};
     overflow: hidden;
 `;
@@ -37,16 +37,6 @@ const Home = () => {
     const { modals, modalToggleLoading } = useSelector((state) => state.site);
     const { me, admin, logInDone, loadInfoDone } = useSelector((state) => state.user);
     const [cookie] = useCookies(['me']);
-    const [mainHeight, setMainHeight] = useState(null);
-    const [headerHeight, setHeaderHeight] = useState(null);
-    const [footerHeight, setFooterHeight] = useState(null);
-
-    useEffect(() => {
-        if (!headerHeight || !footerHeight) return;
-        const windowH = window.innerHeight;
-
-        setMainHeight(windowH - headerHeight - footerHeight);
-    }, [headerHeight, footerHeight]);
 
     useEffect(() => {
         if (logInDone) return;
@@ -85,40 +75,39 @@ const Home = () => {
     return (
         <>
             <Head>
-                <title>OKAYOON</title>
+                <title>OKAYOON | HOME</title>
             </Head>
             
-            <Wrap>
-                <Header 
-                    themecolor={colors.ivory}
-                    setHeight={setHeaderHeight} 
-                />
-                <Main h={mainHeight}>
-                    <AppList />
+            <AppLayout
+                bgcolor={colors.mint}
+                main={
+                    <>
+                        <AppList />
 
-                    {modalToggleLoading && <Loading />}
-                    {modals?.map((v) => {
-                        if(v){
-                            return (
-                                <ModalPopup 
-                                    key={v.id} 
-                                    onCloseModal={onToggleModal} 
-                                    {...v}
-                                >
-                                    <v.content 
-                                        id={v.id}
-                                        onCloseModal={onToggleModal}
-                                    />  
-                                </ModalPopup>
-                            );
-                        }
-                    })}
-                </Main>
+                        {modalToggleLoading && <Loading />}
+                        {modals?.map((v) => {
+                            if(v){
+                                return (
+                                    <ModalPopup 
+                                        key={v.id} 
+                                        onCloseModal={onToggleModal} 
+                                        {...v}
+                                    >
+                                        <v.content 
+                                            id={v.id}
+                                            onCloseModal={onToggleModal}
+                                        />  
+                                    </ModalPopup>
+                                );
+                            }
+                        })}
+                    </>
+                }
 
-                <Footer setHeight={setFooterHeight}>
+                footer={
                     <Menu />
-                </Footer>
-            </Wrap>
+                }
+            />
         </>
     );
 };

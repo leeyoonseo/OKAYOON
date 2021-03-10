@@ -12,6 +12,10 @@ const Okayoon = ({ Component }) => {
     const Global = createGlobalStyle`
         body {
             font-size: 16px;
+
+            & > div {
+                height: 100%;
+            }
         }
 
         .hidden {

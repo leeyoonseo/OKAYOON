@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { colors, calcRem } from '../../../theme/styles';
 
 const Wrap = styled.div`
-    text-align: ${props => props.align};
+    text-align: ${({ align }) => align};
 `;
 
 const SpeechBubble = styled.div`
-    padding: 5px 10px;
+    padding: ${calcRem(3)} ${calcRem(15)};
     display: inline-block;
-    border-radius: 5px;
-    background: ${props => props.bgcolor};
+    border-radius: ${calcRem(5)};
+    background: ${({ bg }) => bg};
 `;
 
 const Chat = ({ children, simsimi }) => {
@@ -23,10 +24,10 @@ const Chat = ({ children, simsimi }) => {
             }
         >
             <SpeechBubble 
-                bgcolor={
+                bg={
                     simsimi
-                    ? '#ffe34f' 
-                    : '#f18d8b'
+                    ? colors.chatSimsimi 
+                    : colors.chatUser
                 }
             >
                 {children}

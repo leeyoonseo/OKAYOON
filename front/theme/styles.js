@@ -20,6 +20,8 @@ export const colors = {
     yellow: '#ffbf2e',
     green: '#26ca3f',
     darkPink : '#ef5285',
+    chatSimsimi: '#ffe34f',
+    chatUser: '#f18d8b',
 };
 
 

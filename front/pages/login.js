@@ -13,26 +13,10 @@ import ModalPopup from '../components/ModalPopup';
 import { AVATAR_MODAL_ID, AVATAR_MODAL_DATA } from '../components/ModalPopup/data';
 
 import styled, { css } from 'styled-components';
-import { Layout } from 'antd';
 import { LogoutOutlined, SmileOutlined } from '@ant-design/icons';
 import { colors, calcRem } from '../theme/styles';
 
-import Header from './Header';
-import Footer from './Footer';
-
-const Wrap = styled(Layout)`
-    font-size: ${calcRem(16)};
-    background: ${colors.black};
-    overflow: hidden;
-`;
-
-const Main = styled(Layout.Content)`
-    display: flex;
-    padding: 0 2%;
-    height: ${({ h }) => h}px;
-    align-items: center;
-    justify-content: center;
-`;
+import AppLayout from './AppLayout';
 
 const LoginFormArea = styled.div`
     // max-width: 300px;
@@ -110,17 +94,6 @@ const Login = () => {
     const [avatar, setAvatar] = useState('nickname');
     const [isAdmin, setIsAdmin] = useState(false);
 
-    const [mainHeight, setMainHeight] = useState(null);
-    const [headerHeight, setHeaderHeight] = useState(null);
-    const [footerHeight, setFooterHeight] = useState(null);
-
-    useEffect(() => {
-        if (!headerHeight || !footerHeight) return;
-        const windowH = window.innerHeight;
-
-        setMainHeight(windowH - headerHeight - footerHeight);
-    }, [headerHeight, footerHeight]);
-
     useEffect(() => {
         const haveSameModalData = modals.some((v) => v.id === AVATAR_MODAL_ID);
         if(!haveSameModalData){
@@ -152,67 +125,65 @@ const Login = () => {
     return (
         <>
             <Head>
-                <title>접속페이지 | OKAYOON</title>
+                <title>OKAYOON | LOGIN</title>
             </Head>
-            <Wrap color={colors.black}>
-                <Header 
-                    themecolor={colors.ivory}
-                    setHeight={setHeaderHeight}
-                />
+            <AppLayout 
+                bgcolor={colors.black}
+                main={
+                    <>
+                        <LoginFormArea>
+                            {!isAdmin ? (
+                                <User 
+                                    avatar={avatar}
+                                    setAvatar={setAvatar}
+                                    onClickModal={onToggleModal}
+                                />
+                            ) : (
+                                <Admin />
+                            )}
+                        </LoginFormArea>
+                        
+                        {!isAdmin && modals?.map((v) => {
+                            if(v){
+                                return (
+                                    <ModalPopup 
+                                        key={v.id} 
+                                        id={v.id}
+                                        visible={v.visible} 
+                                        onCloseModal={onToggleModal} 
+                                        {...v}
+                                    >
+                                        <v.content id={v.id} onCloseModal={onToggleModal} />
+                                    </ModalPopup>
+                                );
+                            }
+                        })}
+                    </> 
+                }
 
-                <Main h={mainHeight}>
-                    <LoginFormArea>
-                        {!isAdmin ? (
-                            <User 
-                                avatar={avatar}
-                                setAvatar={setAvatar}
-                                onClickModal={onToggleModal}
-                            />
-                        ) : (
-                            <Admin />
-                        )}
-                    </LoginFormArea>
-                    
-                    {!isAdmin && modals?.map((v) => {
-                        if(v){
-                            return (
-                                <ModalPopup 
-                                    key={v.id} 
-                                    id={v.id}
-                                    visible={v.visible} 
-                                    onCloseModal={onToggleModal} 
-                                    {...v}
-                                >
-                                    <v.content id={v.id} onCloseModal={onToggleModal} />
-                                </ModalPopup>
-                            );
-                        }
-                    })}
-                </Main>
-
-                <Footer setHeight={setFooterHeight}>
+                footer={
                     <ButtonArea>
-                            <Link href="./sleep">
-                                <SleepButton 
-                                    text="잠자기모드"
-                                >  
-                                    <ButtonInner>
-                                        <SleepIcon />
-                                    </ButtonInner>
-                                </SleepButton>
-                            </Link>
-
-                            <AdminButton
-                                text={isAdmin ? '사용자' : '관리자'}
-                                onClick={onToggleAdmin}
-                            >
+                        <Link href="./sleep">
+                            <SleepButton 
+                                text="잠자기모드"
+                            >  
                                 <ButtonInner>
-                                    <AdminIcon />
+                                    <SleepIcon />
                                 </ButtonInner>
-                            </AdminButton>
-                        </ButtonArea>
-                </Footer>
-            </Wrap>
+                            </SleepButton>
+                        </Link>
+
+                        <AdminButton
+                            text={isAdmin ? '사용자' : '관리자'}
+                            onClick={onToggleAdmin}
+                        >
+                            <ButtonInner>
+                                <AdminIcon />
+                            </ButtonInner>
+                        </AdminButton>
+                    </ButtonArea>
+                }
+            />
 
             {modalToggleLoading && <Loading />}
         </>
