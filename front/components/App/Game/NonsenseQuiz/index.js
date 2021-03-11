@@ -16,7 +16,7 @@ export const STEP_GAME = 'game';
 export const STEP_FINISH = 'finish';
 
 // [D] dev
-const gameData = [
+const devData = [
     {
         question: '타이타닉의 구명 보트에는 몇 명이 탈수 있을까?',
         example: [{
@@ -173,7 +173,8 @@ const MainIcon = styled(LeftOutlined)`
 const NonsenseQuiz = ({ onClickHome }) => {
     const dispatch = useDispatch();
     // const { gameData } = useSelector((state) => state.game);
-    const [step, setStep] = useState(STEP_MAIN); // [D] STEP_MAIN이 default임
+    const gameData = devData;
+    const [step, setStep] = useState(STEP_FINISH); // [D] STEP_MAIN이 default임
     const [score, setScore] = useState(0);
     const MAX_ROUND = 20;
     const MAX_TIME = 500; // [D] 1000 = 1초

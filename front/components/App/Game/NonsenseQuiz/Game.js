@@ -1,24 +1,40 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 
-import { RightOutlined, ClockCircleOutlined } from '@ant-design/icons';
+import { ClockCircleOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { STEP_FINISH } from './index';
-import { shuffleArray, cloneObject } from '../index';
+import { shuffleArray } from '../index';
 
-import { Wrap } from './style';
+const Wrap = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 5%;
+    height: calc(100% - ${({ theme }) => theme.calcRem(30)});
+    font-size: ${({ theme }) => theme.calcRem(16)};
+    text-align: center;
+    background: ${({ theme }) => theme.nonsenseColors.lightPink};
+    border-radius: 0 0 ${({ theme }) => theme.calcRem(20)} ${({ theme }) => theme.calcRem(20)};
+`;
 
 const resultFadeIn = keyframes`
     0% {
         font-size: 10px;
     }
     100% {
-        font-size: 60px;
+        font-size: 60px;    
     }
 `;
 
 const Inner = styled.div`
     display: inline-block;
-    // max-width: 400px;
+    min-height: 380px;
+    position: relative;
+
+    & > div + div {
+        margin-top: 20px;
+    }
 `;
 
 const QuizArea = styled.div`
@@ -28,57 +44,67 @@ const QuizArea = styled.div`
     }
 `;
 
-const Round = styled.span`
-    font-size: 70px;
-    line-height: 1;
-    color: ${({ theme }) => theme.nonsenseColors.orange};
-`;
-
 const Question = styled.span`
-    margin-top: 10px;
     font-size: 35px;
+    font-weight: 700;
     line-height: 1.25;
+    text-shadow: -${({ theme }) => theme.calcRem(2)} 0  ${({ theme }) => theme.nonsenseColors.black}, 
+                0 ${({ theme }) => theme.calcRem(2)}  ${({ theme }) => theme.nonsenseColors.black}, 
+                ${({ theme }) => theme.calcRem(2)} 0  ${({ theme }) => theme.nonsenseColors.black}, 
+                0 -${({ theme }) => theme.calcRem(2)}  ${({ theme }) => theme.nonsenseColors.black};
     color: ${({ theme }) => theme.nonsenseColors.orange};
 `;
 
-const Timer = styled.div`
-    margin: 15px 0;
+const TimerArea = styled.div`
     text-align: center;
+    line-height: 1;
+    font-weight: 700;
+    color: ${({ theme }) => theme.nonsenseColors.black};
 `;
 
 const TimerIcon = styled(ClockCircleOutlined)`
+    font-size: 20px;
     margin-right: 5px;
-    font-size: 15px;
 `;
 
-const TimerTime = styled.span`
-    font-size: 18px;
+const Time = styled.span`
+    font-size: 25px;
 `;
-
 
 const AnswerArea = styled.div`
-    min-width: 300px;
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto 0;
 
     &:after {
         display: block;
         content: '';
         clear: both;
     }
+
+    & > div:nth-child(2n) {
+        margin-left: 6%;
+    }
+
+    & > div:nth-child(n + 3) {
+        margin-top: 5%;
+    }
 `;
 
 const Items = styled.div`
-    width: 50%;
+    width: 47%;
     float: left;
     height: 100px;
-
+    
     button {
         padding: 10%;
         width: 100%;
         height: 100%;
-        font-size: 18px;
-        border: 1px solid #fff;
+        font-size: 25px;
+        border: 2px solid ${({ theme }) => theme.nonsenseColors.black};
+        border-radius: 15px;
+        background: ${({ theme }) => theme.nonsenseColors.skyBlue};
         outline: none;
-        background: none;
         box-sizing: border-box;
         cursor: pointer;
 
@@ -88,47 +114,22 @@ const Items = styled.div`
     }
 `;
 
-const ResultModal = styled.div`
+const Result = styled.div`
+    margin: 0;
     position: absolute;
     top: 50%;
     left: 50%;
-    padding: 10px 20px;
     line-height: 1;
     text-align: center;
-    background: #fff;
     border-radius: 5px;
     transform: translate(-50%, -50%);
     animation: ${resultFadeIn} 0.1s linear ;
 `;
 
-const ResultMessage = styled.span`
-    font-size: 60px;    
+const Message = styled.span`
+    font-size: 200px;    
     color: ${props => props.isCorrect ? '#26ca3f' : '#ff6059'};
 `;
-
-const Description = styled.div`
-    margin-top: 10px;
-    font-size: 20px;
-    color: #333;
-`;
-
-const PassButton = styled.button`
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    
-    padding: 0;
-    line-height: 1;
-    border: none;
-    outline: none;
-    background: none;
-    cursor: pointer;
-
-    &[disabled] {
-        cursor: default;
-    }
-`;
-
 const Game = ({ 
     score,
     setScore, 
@@ -210,64 +211,51 @@ const Game = ({
         moveNextRound({ scoreUp: state });
     }, [round, openedResult]);
 
-    const onClickPass = useCallback(() => {
-        if (openedResult) return;
-
-        moveNextRound({ scoreUp: false });
-    }, [round, openedResult]);
-
     return (
         <Wrap>
             <Inner>
                 {quiz && (
                     <>
-                        <img src="../../game/nonsense/icon_ask.png" alt="QnA 아이콘" />
-
                         <QuizArea>
-                            <Round>{`Q. ${round + 1}`}</Round>
-                            <Question>{quiz.question}</Question>
+                            <Question>
+                                {`Q. ${round + 1} ${quiz.question}`}
+                            </Question>
                         </QuizArea>
 
-                        <Timer>
-                            <TimerIcon /> <TimerTime>{Math.floor(time / 100)}</TimerTime>
-                        </Timer>
+                        <TimerArea>
+                            <TimerIcon /> 
+                            <Time>
+                                {Math.floor(time / 100)}
+                            </Time>
+                        </TimerArea>
 
                         <AnswerArea>
                             {example && example.map((v, i) => {
+                                const { question, answer, isCorrect } = v;
+                                
                                 return (
-                                    <Items key={`Q_${i}_${v.question}`}>
+                                    <Items key={`Q_${i}_${question}`}>
                                         <button 
-                                            onClick={onClickExample(v.isCorrect)}
+                                            onClick={onClickExample(isCorrect)}
                                             disabled={openedResult}
                                         >
-                                            {v.answer}
+                                            {answer}
                                         </button>
                                     </Items>
                                 )
                             })}
                         </AnswerArea>
                     </>
-                )}                
+                )}     
 
                 {openedResult && (
-                    <ResultModal>
-                        <ResultMessage isCorrect={isCorrect}>
-                            {isCorrect ? '정답' : '오답'}
-                        </ResultMessage>
-
-                        <Description>
-                            "{quiz && quiz.description}"
-                        </Description>
-                    </ResultModal>
+                    <Result>
+                        <Message isCorrect={isCorrect}> 
+                            {isCorrect ? <CheckOutlined /> : <CloseOutlined />}
+                        </Message>
+                    </Result>
                 )}
             </Inner>
-
-            <PassButton 
-                onClick={onClickPass}
-                disabled={openedResult}
-            >
-                통과 <RightOutlined />
-            </PassButton>
         </Wrap>
     );
 };

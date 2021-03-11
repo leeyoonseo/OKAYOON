@@ -2,16 +2,15 @@ import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 
 import { STEP_GAME, STEP_GUIDE } from './index';
-import { Wrap } from './style';
 
-// const Wrap = styled.div`
-//     position: relative;
-//     padding: 5%;
-//     height: calc(100% - ${({ theme }) => theme.calcRem(30)});
-//     text-align: center;
-//     background: ${({ theme }) => theme.nonsenseColors.lightPink};
-//     border-radius: 0 0 ${({ theme }) => theme.calcRem(20)} ${({ theme }) => theme.calcRem(20)};
-// `;
+const Wrap = styled.div`
+    position: relative;
+    padding: 5%;
+    height: calc(100% - ${({ theme }) => theme.calcRem(30)});
+    text-align: center;
+    background: ${({ theme }) => theme.nonsenseColors.lightPink};
+    border-radius: 0 0 ${({ theme }) => theme.calcRem(20)} ${({ theme }) => theme.calcRem(20)};
+`;
 
 const Content = styled.div`
     display: inline-block;

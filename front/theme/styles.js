@@ -22,8 +22,9 @@ const nonsenseColors = {
     black: '#333',
     skyBlue: '#a4caff',
     orange: '#ff9256',
-    darkYellow : '#ffca19',
+    darkYellow: '#ffca19',
     lightPink: '#FADAD8',
+    red: '#ff6059',
 };
 
 const deviceSize = {
