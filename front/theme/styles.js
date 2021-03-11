@@ -1,5 +1,5 @@
 
-export const colors = {
+const colors = {
     black: '#566270',
     rgbaBlack: 'rgba(0, 0, 0, 0.5)',
     rgbaGray: 'rgba(86, 98, 112, 0.5)',
@@ -13,8 +13,17 @@ export const colors = {
     yellow: '#ffbf2e',
     green: '#26ca3f',
     darkPink : '#ef5285',
+    pink: '#ED9282',
     chatSimsimi: '#ffe34f',
     chatUser: '#f18d8b',
+};
+
+const nonsenseColors = {
+    black: '#333',
+    skyBlue: '#a4caff',
+    orange: '#ff9256',
+    darkYellow : '#ffca19',
+    lightPink: '#FADAD8',
 };
 
 const deviceSize = {
@@ -35,6 +44,7 @@ export const calcRem = (size) => `${size / 16}rem`;
 
 export const theme = {
     calcRem,
+    nonsenseColors,
     colors,
     device,
 };

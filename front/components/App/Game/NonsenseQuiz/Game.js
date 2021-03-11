@@ -1,9 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
+
 import { RightOutlined, ClockCircleOutlined } from '@ant-design/icons';
 import { STEP_FINISH } from './index';
-
 import { shuffleArray, cloneObject } from '../index';
+
+import { Wrap } from './style';
 
 const resultFadeIn = keyframes`
     0% {
@@ -14,17 +16,9 @@ const resultFadeIn = keyframes`
     }
 `;
 
-const Wrap = styled.div`
-    position: relative;        
-    display: flex;
-    height: calc(100% - 31px);
-    align-items: center;
-    justify-content: center;
-`;
-
 const Inner = styled.div`
     display: inline-block;
-    max-width: 400px;
+    // max-width: 400px;
 `;
 
 const QuizArea = styled.div`
@@ -35,12 +29,16 @@ const QuizArea = styled.div`
 `;
 
 const Round = styled.span`
-    font-size: 36px;
-    color: skyblue;
+    font-size: 70px;
+    line-height: 1;
+    color: ${({ theme }) => theme.nonsenseColors.orange};
 `;
 
 const Question = styled.span`
-    font-size: 28px;
+    margin-top: 10px;
+    font-size: 35px;
+    line-height: 1.25;
+    color: ${({ theme }) => theme.nonsenseColors.orange};
 `;
 
 const Timer = styled.div`
@@ -160,7 +158,7 @@ const Game = ({
         if(round === null) return;
 
         const q = quizList[round];
-        const ex = JSON.parse(q.example);
+        const ex = (typeof q.example === 'string') ? JSON.parse(q.example) : q.example;
         const shuffleEx = shuffleArray(Object.values(ex));
 
         setQuiz(q);
@@ -169,19 +167,19 @@ const Game = ({
     }, [quizList, round]); 
 
     useEffect(() => {
-        if (time === 0) {
-            clearInterval(timer);
-            onClickExample(false)();
-            return;
-        };
+        // if (time === 0) {
+        //     clearInterval(timer);
+        //     onClickExample(false)();
+        //     return;
+        // };
 
-        const timer = setInterval(() => {
-            setTime(time - 10);
-        }, 100);
+        // const timer = setInterval(() => {
+        //     setTime(time - 10);
+        // }, 100);
 
-        return () => {
-            clearInterval(timer);
-        }
+        // return () => {
+        //     clearInterval(timer);
+        // }
     }, [time]); 
     
     const moveNextRound = useCallback(({ scoreUp }) => {
@@ -223,6 +221,8 @@ const Game = ({
             <Inner>
                 {quiz && (
                     <>
+                        <img src="../../game/nonsense/icon_ask.png" alt="QnA 아이콘" />
+
                         <QuizArea>
                             <Round>{`Q. ${round + 1}`}</Round>
                             <Question>{quiz.question}</Question>

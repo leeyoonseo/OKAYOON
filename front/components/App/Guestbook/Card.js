@@ -145,7 +145,7 @@ const GuestbookCard = ({
 
                 <Container>
                     <Nickname>{nickname}</Nickname>
-                    <CreatedDate>{dayjs(createdAt).format('YYYY.MM.DD')}</CreatedDate>
+                    <CreatedDate>{dayjs(createdAt).format('YYYY.MM.DD | a hh:mm')}</CreatedDate>
 
                     <ContentWrap>
                         {content}

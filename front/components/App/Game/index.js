@@ -10,13 +10,15 @@ import CatchMindQuiz from './CatchMindQuiz/index';
 
 const initButtonStyled = css`
     padding: 0;
+    color: ${({theme}) => theme.colors.black};
+    font-size: ${({theme}) => theme.calcRem(16)};
     border: none;
     outline: none;
     background: none;
     cursor: pointer;
 
     &:hover {
-        opacity: 0.5;
+        opacity: 0.5;   
     }
 `;
 
@@ -26,17 +28,11 @@ const Wrap = styled.div`
     height: 100%;
 `;
 
-const HomeButton = styled.button`
-    ${initButtonStyled}
-`;
-
 const List= styled.div`
-    padding: 20px 0;
-    height: calc(100% - 40px);
     box-sizing: border-box;
     overflow-y: auto;
 
-    div + div:not(:nth-child(3n+1)) {
+    & > div + div:not(:nth-child(3n+1)) {
         margin-left: 5%;
     }
 `;
@@ -44,14 +40,19 @@ const List= styled.div`
 const Item = styled.div`
     display: inline-block;
     width: 30%;
-    min-width: 120px;
+    min-width: ${({ theme }) => theme.calcRem(120)};
+    border: 1px solid ${({ theme }) => theme.colors.black};
+    box-sizing: border-box;
     overflow: hidden;
+
+    &:hover {
+        box-shadow: 1px 1px 5px ${({ theme }) => theme.colors.rgbaBlack};
+    }
 `;
 
 const ItemButton = styled.button`
     ${initButtonStyled}
     width: 100%;
-    height: 200px;
     text-align: left;
 
     &:hover {
@@ -59,31 +60,36 @@ const ItemButton = styled.button`
     }
 `;
 
-const ItemCover = styled.span`
-    display: block;
+const Image = styled.div`
     width: 100%;
-    height: 120px;
-    background: url(${props => props.bg})no-repeat;
+    height: ${({ theme }) => theme.calcRem(120)};
+    border-bottom: 1px solid ${({ theme }) => theme.colors.black};
+    background: url(${props => props.bg})no-repeat center;
     background-size: cover;
+    box-sizing: border-box;
 `;
 
-const ItemTitle = styled.span`
-    margin-top: 10px;
+const Description = styled.div`
+    padding: ${({ theme }) => theme.calcRem(15)};
+`;
+
+const Title = styled.span`
     display: block;
     width: 100%;
-    height: 1.5em;
+    height: ${({ theme }) => theme.calcRem(16)};
     font-weight: 700;
+    line-height: 1;
     text-overflow:ellipsis; 
     white-space:nowrap;
     overflow: hidden;
 `;
 
-const ItemDesc = styled.span`
-    margin-top: 5px;
+const Text = styled.span`
+    margin-top: ${({ theme }) => theme.calcRem(5)};
     display: -webkit-box;
     width: 100%;
-    height: 3em;
-    font-size: 12px;
+    height: ${({ theme }) => theme.calcRem(48)};
+    font-size: ${({ theme }) => theme.calcRem(14)};
     line-height: 1.6;
     overflow: hidden;
     -webkit-line-clamp: 2;
@@ -133,13 +139,14 @@ const Game = () => {
                                             id={v.gameId}
                                         >
                                             <ItemButton onClick={onChangeCategory(v.name)}>
-                                                <ItemCover bg={v.image}>
+                                                <Image bg={v.image}>
                                                     <span className="hidden">{v.title} 표지</span>
-                                                </ItemCover>
-                                                {/* <img src={v.image} alt={`게임 ${v.title} 표지`}/> */}
+                                                </Image>
 
-                                                <ItemTitle>{v.title}</ItemTitle>
-                                                <ItemDesc>{v.description}</ItemDesc>
+                                                <Description>
+                                                    <Title>{v.title}</Title>
+                                                    <Text>{v.description}</Text>
+                                                </Description>
                                             </ItemButton>
                                         </Item>
                                     )   

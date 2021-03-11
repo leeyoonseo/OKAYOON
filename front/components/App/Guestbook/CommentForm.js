@@ -119,7 +119,15 @@ const CommentForm = ({
         });
     }, [text, password]);
 
-    const onClickVisiblePassword = useCallback(() => setVisiblePassword(!visiblePassword), [visiblePassword]);
+    const onClickVisiblePassword = useCallback(() => {
+        setVisiblePassword(!visiblePassword);
+    }, [visiblePassword]);
+
+    const onKeyPressPassword = useCallback(({ code }) => {
+        if (code === 'Enter') {
+            onSubmit();
+        }
+    }, [text, password]);
 
     return (
         <Wrap>
@@ -143,6 +151,7 @@ const CommentForm = ({
                         placeholder="비밀번호"
                         value={password}
                         onChange={onChangePassword}
+                        onKeyPress={onKeyPressPassword}
                     />
 
                     <VisibleButtonPW onClick={onClickVisiblePassword}>

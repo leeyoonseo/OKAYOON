@@ -76,7 +76,7 @@ const Main = ({
 
     useEffect(() => {
         if (data.length < 1) {
-            setStartButtonVal("Can't get data");
+            setStartButtonVal('No data');
             return;   
         };
 
