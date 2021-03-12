@@ -20,20 +20,20 @@ const Wrap = styled.div`
 
 const resultFadeIn = keyframes`
     0% {
-        font-size: 10px;
+        font-size: ${({ theme }) => theme.calcRem(10)};
     }
     100% {
-        font-size: 60px;    
+        font-size: ${({ theme }) => theme.calcRem(60)};
     }
 `;
 
 const Inner = styled.div`
     display: inline-block;
-    min-height: 380px;
+    min-height: ${({ theme }) => theme.calcRem(380)};
     position: relative;
 
     & > div + div {
-        margin-top: 20px;
+        margin-top: ${({ theme }) => theme.calcRem(20)};
     }
 `;
 
@@ -45,7 +45,7 @@ const QuizArea = styled.div`
 `;
 
 const Question = styled.span`
-    font-size: 35px;
+    font-size: ${({ theme }) => theme.calcRem(35)};
     font-weight: 700;
     line-height: 1.25;
     text-shadow: -${({ theme }) => theme.calcRem(2)} 0  ${({ theme }) => theme.nonsenseColors.black}, 
@@ -63,18 +63,18 @@ const TimerArea = styled.div`
 `;
 
 const TimerIcon = styled(ClockCircleOutlined)`
-    font-size: 20px;
-    margin-right: 5px;
+    font-size: ${({ theme }) => theme.calcRem(20)};
+    margin-right: ${({ theme }) => theme.calcRem(5)};
 `;
 
 const Time = styled.span`
-    font-size: 25px;
+    font-size: ${({ theme }) => theme.calcRem(25)};
 `;
 
 const AnswerArea = styled.div`
     width: 100%;
-    max-width: 400px;
-    margin: 20px auto 0;
+    max-width: ${({ theme }) => theme.calcRem(400)};
+    margin: ${({ theme }) => theme.calcRem(20)} auto 0;
 
     &:after {
         display: block;
@@ -94,15 +94,15 @@ const AnswerArea = styled.div`
 const Items = styled.div`
     width: 47%;
     float: left;
-    height: 100px;
+    height: ${({ theme }) => theme.calcRem(100)};
     
     button {
         padding: 10%;
         width: 100%;
         height: 100%;
-        font-size: 25px;
-        border: 2px solid ${({ theme }) => theme.nonsenseColors.black};
-        border-radius: 15px;
+        font-size: ${({ theme }) => theme.calcRem(25)};
+        border: ${({ theme }) => theme.calcRem(2)} solid ${({ theme }) => theme.nonsenseColors.black};
+        border-radius: ${({ theme }) => theme.calcRem(15)};
         background: ${({ theme }) => theme.nonsenseColors.skyBlue};
         outline: none;
         box-sizing: border-box;
@@ -121,13 +121,13 @@ const Result = styled.div`
     left: 50%;
     line-height: 1;
     text-align: center;
-    border-radius: 5px;
+    border-radius: ${({ theme }) => theme.calcRem(5)};
     transform: translate(-50%, -50%);
     animation: ${resultFadeIn} 0.1s linear ;
 `;
 
 const Message = styled.span`
-    font-size: 200px;    
+    font-size: ${({ theme }) => theme.calcRem(200)};   
     color: ${props => props.isCorrect ? '#26ca3f' : '#ff6059'};
 `;
 const Game = ({ 
@@ -168,19 +168,19 @@ const Game = ({
     }, [quizList, round]); 
 
     useEffect(() => {
-        // if (time === 0) {
-        //     clearInterval(timer);
-        //     onClickExample(false)();
-        //     return;
-        // };
+        if (time === 0) {
+            clearInterval(timer);
+            onClickExample(false)();
+            return;
+        };
 
-        // const timer = setInterval(() => {
-        //     setTime(time - 10);
-        // }, 100);
+        const timer = setInterval(() => {
+            setTime(time - 10);
+        }, 100);
 
-        // return () => {
-        //     clearInterval(timer);
-        // }
+        return () => {
+            clearInterval(timer);
+        }
     }, [time]); 
     
     const moveNextRound = useCallback(({ scoreUp }) => {

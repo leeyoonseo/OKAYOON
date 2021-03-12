@@ -29,25 +29,39 @@ export const initialState = {
     gameData: [],
 
     nunsenseGuideImages : [
+        // { 
+        //     src: awsBucketBaseURL + 'nonsense_guide00.png', 
+        //     alt : '넌센스: 게임 메인화면 설명',
+        // },
+        // { 
+        //     src: awsBucketBaseURL + 'nonsense_guide01.png', 
+        //     title : '넌센스: 게임 진행 화면 설명',
+        // },
+        // { 
+        //     src: awsBucketBaseURL + 'nonsense_guide02_0.png', 
+        //     title : '넌센스: 정답 시 설명',
+        // },
+        // { 
+        //     src: awsBucketBaseURL + 'nonsense_guide02_1.png', 
+        //     title : '넌센스: 오답 시 설명',
+        // },
+        // { 
+        //     src: awsBucketBaseURL + 'nonsense_guide03.png', 
+        //     title : '넌센스: 게임 종료 화면 설명',
+        // },
+
+        // [D] dev
         { 
-            src: awsBucketBaseURL + 'nonsense_guide00.png', 
+            src: '../../game/nonsense/guide_0.png', 
             alt : '넌센스: 게임 메인화면 설명',
         },
         { 
-            src: awsBucketBaseURL + 'nonsense_guide01.png', 
+            src: '../../game/nonsense/guide_1.png', 
             title : '넌센스: 게임 진행 화면 설명',
         },
         { 
-            src: awsBucketBaseURL + 'nonsense_guide02_0.png', 
-            title : '넌센스: 정답 시 설명',
-        },
-        { 
-            src: awsBucketBaseURL + 'nonsense_guide02_1.png', 
-            title : '넌센스: 오답 시 설명',
-        },
-        { 
-            src: awsBucketBaseURL + 'nonsense_guide03.png', 
-            title : '넌센스: 게임 종료 화면 설명',
+            src: '../../game/nonsense/guide_2.png', 
+            title : '넌센스: 결과화면',
         },
     ],
 
