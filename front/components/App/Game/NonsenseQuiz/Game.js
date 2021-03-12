@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 
-import { ClockCircleOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons';
+import { ClockCircleOutlined, CheckOutlined, CloseOutlined, ConsoleSqlOutlined } from '@ant-design/icons';
 import { STEP_FINISH } from './index';
 import { shuffleArray } from '../index';
 
@@ -95,12 +95,14 @@ const Items = styled.div`
     width: 47%;
     float: left;
     height: ${({ theme }) => theme.calcRem(100)};
+    overflow: hidden;
     
     button {
         padding: 10%;
         width: 100%;
         height: 100%;
         font-size: ${({ theme }) => theme.calcRem(25)};
+        line-height: 1.25;
         border: ${({ theme }) => theme.calcRem(2)} solid ${({ theme }) => theme.nonsenseColors.black};
         border-radius: ${({ theme }) => theme.calcRem(15)};
         background: ${({ theme }) => theme.nonsenseColors.skyBlue};
@@ -168,9 +170,16 @@ const Game = ({
     }, [quizList, round]); 
 
     useEffect(() => {
+        if (time === null) return;
+
+        if (openedResult) {
+            return clearInterval(timer);
+        }
+
+        // [D] 시간제한 실패
         if (time === 0) {
             clearInterval(timer);
-            onClickExample(false)();
+            moveNextRound({ scoreUp: false });  
             return;
         };
 
@@ -181,8 +190,8 @@ const Game = ({
         return () => {
             clearInterval(timer);
         }
-    }, [time]); 
-    
+    }, [time, openedResult]); 
+
     const moveNextRound = useCallback(({ scoreUp }) => {
         if (scoreUp) {
             setScore(score + 1);
@@ -194,7 +203,7 @@ const Game = ({
         setTimeout(() => {
             setOpenedResult(false);
             
-            if (round > MAX_ROUND || round >= (gameData.length - 1)) {
+            if (round > MAX_ROUND || round >= (data.length - 1)) {
                 setRound(null);
                 onChangeStep(STEP_FINISH)();
                 return;

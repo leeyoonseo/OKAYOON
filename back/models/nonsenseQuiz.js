@@ -12,10 +12,6 @@ module.exports = class NonsenseQuiz extends Model {
                 type: DataTypes.TEXT,
                 allowNull: false,
             },
-            description: {
-                type: DataTypes.STRING(100),
-                allowNull: false, 
-            },
         }, {
             modelName: "NonsenseQuiz", 
             tableName: "NonsenseQuiz", 

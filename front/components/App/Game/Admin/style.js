@@ -5,6 +5,7 @@ export const Wrap = styled.div`
     position: absolute;
     top: 0;
     left: 0;
+    padding: 2%;
     width: 100%;
     height: 100%;
     font-size: 16px;

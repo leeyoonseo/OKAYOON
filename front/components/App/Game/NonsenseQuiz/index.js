@@ -32,7 +32,6 @@ export const STEP_FINISH = 'finish';
 //             isCorrect: false,
 //             answer: '몇'
 //         }],
-//         description: '9명(구명 보트)',
 //     },
 //     {
 //         question: '고기 먹을 때마다 따라오는 개는?',
@@ -49,7 +48,6 @@ export const STEP_FINISH = 'finish';
 //             isCorrect: false,
 //             answer: '나의사랑스러운 뽀미'
 //         }],
-//         description: '항상 카운터에서 기다리고 있죠^^',
 //     },
 //     {
 //         question: '진짜 새의 이름은 무엇일까요?',
@@ -66,7 +64,6 @@ export const STEP_FINISH = 'finish';
 //             isCorrect: false,
 //             answer: '무명'
 //         }],
-//         description: '참: 사실이나 이치에 조금도 어긋남이 없는 것.',
 //     },
 //     {
 //         question: '젖소와 강아지가 싸우면 누가 이기는가?',
@@ -83,7 +80,6 @@ export const STEP_FINISH = 'finish';
 //             isCorrect: false,
 //             answer: '안싸운다'
 //         }],
-//         description: '강아지(젖소曰: "내가 졌소", 강아지曰: "나 강하지")',
 //     },
 //     {
 //         question: '눈치코치란?',
@@ -100,7 +96,6 @@ export const STEP_FINISH = 'finish';
 //             isCorrect: false,
 //             answer: '눈치를 알려주는 코치님'
 //         }],
-//         description: '눈(치고=때리고)코(치고=때리고)',
 //     },
 //     {
 //         question: '세상에서 제일 더러운 집은?',
@@ -117,7 +112,6 @@ export const STEP_FINISH = 'finish';
 //             isCorrect: false,
 //             answer: '고집'
 //         }],
-//         description: '다른 집들이 똥집보다 더 더러울수도~~',
 //     },
 // ];
 
@@ -176,7 +170,7 @@ const NonsenseQuiz = ({ onClickHome }) => {
     const [step, setStep] = useState(STEP_MAIN); // [D] default = STEP_MAIN
     const [score, setScore] = useState(0);
     const MAX_ROUND = 20;
-    const MAX_TIME = 500; // [D] 1000 = 1초
+    const MAX_TIME = 1000; // [D] 1000 = 1초
 
     useEffect(() => {
         dispatch({

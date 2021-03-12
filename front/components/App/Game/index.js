@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { STORE, NONSENSE_QUIZ, CATCH_MIND } from '../../../reducers/game';
 import styled, { css } from 'styled-components';
@@ -41,7 +41,8 @@ const Item = styled.div`
     display: inline-block;
     width: 30%;
     min-width: ${({ theme }) => theme.calcRem(120)};
-    border: 1px solid ${({ theme }) => theme.colors.black};
+    border: ${({ theme }) => theme.calcRem(2)} solid ${({ theme }) => theme.colors.black};
+    border-radius: ${({ theme }) => theme.calcRem(10)};
     box-sizing: border-box;
     overflow: hidden;
 
@@ -78,29 +79,17 @@ const Title = styled.span`
     width: 100%;
     height: ${({ theme }) => theme.calcRem(16)};
     font-weight: 700;
+    text-align: center;
     line-height: 1;
     text-overflow:ellipsis; 
     white-space:nowrap;
     overflow: hidden;
 `;
 
-const Text = styled.span`
-    margin-top: ${({ theme }) => theme.calcRem(5)};
-    display: -webkit-box;
-    width: 100%;
-    height: ${({ theme }) => theme.calcRem(48)};
-    font-size: ${({ theme }) => theme.calcRem(14)};
-    line-height: 1.6;
-    overflow: hidden;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    opacity: 0.7;
-`;
-
 const SetButton = styled.button`
     position: absolute;
-    right: 10px;
-    bottom: 10px;
+    right: 0;
+    bottom: 0;
     padding: 0;
     line-height: 1;
     border: none;
@@ -109,21 +98,21 @@ const SetButton = styled.button`
     cursor: pointer;
 `;
 
+const SetIcon = styled(SettingOutlined)`
+    color: ${({ theme }) => theme.colors.black};
+`;
+
 const Game = () => {
     const { gameList } = useSelector((state) => state.game);
     const { admin } = useSelector((state) => state.user);
     const [component, setComponent] = useState(STORE);
-    const [isSetting, setIsSetting] = useState(false);
+    const [openedSetting, setOpenedSetting] = useState(false);
 
     const onChangeCategory = useCallback((compName) => () => {
         setComponent(compName);
     }, []);
 
-    const onClickSetting = useCallback(() => {
-        if (!admin) return;
-
-        setIsSetting(!isSetting);
-    }, [isSetting]);
+    const onClickSetting = useCallback(() => setOpenedSetting(!openedSetting), [openedSetting]);
     
     return (
         <Wrap>
@@ -133,19 +122,20 @@ const Game = () => {
                         <>
                             <List>
                                 {gameList && gameList.map((v) => {
+                                    const { name, gameId, image, title } = v;
+                                    
                                     return (
                                         <Item 
-                                            key={`game_${v.name}`}
-                                            id={v.gameId}
+                                            key={`game_${name}`}
+                                            id={gameId}
                                         >
-                                            <ItemButton onClick={onChangeCategory(v.name)}>
-                                                <Image bg={v.image}>
-                                                    <span className="hidden">{v.title} 표지</span>
+                                            <ItemButton onClick={onChangeCategory(name)}>
+                                                <Image bg={image}>
+                                                    <span className="hidden">{title} 표지</span>
                                                 </Image>
 
                                                 <Description>
-                                                    <Title>{v.title}</Title>
-                                                    <Text>{v.description}</Text>
+                                                    <Title>{title}</Title>
                                                 </Description>
                                             </ItemButton>
                                         </Item>
@@ -153,13 +143,13 @@ const Game = () => {
                                 })}
                             </List>
 
-                            {admin && (
+                            {true && (
                                 <SetButton onClick={onClickSetting}>
-                                    <SettingOutlined />
+                                    <SetIcon />
                                 </SetButton>
                             )}
 
-                            {admin && isSetting && (
+                            {true && openedSetting && (
                                 <Admin 
                                     list={gameList}
                                     onClickBack={onClickSetting} 

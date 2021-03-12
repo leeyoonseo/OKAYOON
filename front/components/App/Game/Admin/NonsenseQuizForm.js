@@ -12,7 +12,6 @@ const NonsenseQuizForm = ({ gameName }) => {
     const [question, onChangeQuestion, setQuestion] = useInput('');
     const [answer, onChangeAnswer, setAnswer] = useInput('');
     const [wrongAnswer, onChangeWrongAnswer, setWrongAnswer] = useInput('');
-    const [desc, onChangeDesc, setDesc] = useInput('');
 
     useEffect(() => {
         if (addGameDone) {
@@ -24,7 +23,6 @@ const NonsenseQuizForm = ({ gameName }) => {
         setQuestion('');
         setAnswer('');
         setWrongAnswer('');
-        setDesc('');
     }, []);
 
     const onReset = useCallback((e) => {
@@ -117,18 +115,6 @@ const NonsenseQuizForm = ({ gameName }) => {
                     onChange={onChangeWrongAnswer}
                     onKeyPress={onEnter}
                     value={wrongAnswer}
-                />
-            </Item>
-
-            <Item>
-                <Input 
-                    placeholder="정답 설명"
-                    name="description"
-                    maxLength={300}
-                    autocomplete="off"
-                    onChange={onChangeDesc}
-                    onKeyPress={onEnter}
-                    value={desc}
                 />
             </Item>
 

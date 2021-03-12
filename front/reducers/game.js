@@ -15,13 +15,11 @@ export const initialState = {
             name:  'nonsensequiz',
             title: '넌센스 퀴즈',
             image: '../game/nonsense/cover.png',
-            description: '퀴즈 식의 문답형 말장난, 당신의 센스를 알아보아요',
         },
         {
             name: 'catchmind',
             title: '그림 퀴즈',
             image: 'http://www.topdaily.kr/news/photo/201910/59899_24563_3844.jpg',
-            description: '그림을 보고 정답을 맞춰봐요',
         },    
     ],
     isMuted: false,

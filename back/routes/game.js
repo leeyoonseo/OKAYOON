@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { sequelize, NonsenseQuiz, CatchMind } = require('../models');
+const { isAdminLoggedIn, isNotAdminLoggedIn } = require('./middlewares');
 
 // [D] 넌센스퀴즈 데이터 가져오기
 router.get('/nonsensequiz', async (req, res, next) => { // POST /game/nonsensequiz
@@ -41,12 +42,11 @@ router.get('/catchmind', async (req, res, next) => { // POST /game/nonsensequiz
 });
 
 // [D] 넌센스퀴즈 데이터 추가하기
-router.post('/nonsensequiz', async (req, res, next) => { // POST /game/nonsensequiz
+router.post('/nonsensequiz', isAdminLoggedIn, async (req, res, next) => { // POST /game/nonsensequiz
     try {
         await NonsenseQuiz.create({
             question: req.body.question,
             example: req.body.example,
-            description: req.body.description, 
         });
 
         res.status(200).send('넌센스퀴즈 데이터 추가 완료');
@@ -57,7 +57,7 @@ router.post('/nonsensequiz', async (req, res, next) => { // POST /game/nonsenseq
 });
 
 // [D] 그림퀴즈 데이터 추가하기
-router.post('/catchmind', async (req, res, next) => { // POST /game/catchmind
+router.post('/catchmind', isAdminLoggedIn, async (req, res, next) => { // POST /game/catchmind
     try {
         await CatchMind.create({
             question: req.body.question,
