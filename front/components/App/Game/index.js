@@ -1,12 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { STORE, NONSENSE_QUIZ, CATCH_MIND } from '../../../reducers/game';
+import { STORE, NONSENSE_QUIZ, CATCH_MIND, PERSONALITY_TEST } from '../../../reducers/game';
 import styled, { css } from 'styled-components';
 import { HomeOutlined, SettingOutlined } from '@ant-design/icons';
 
 import Admin from './Admin/index';
 import NonsenseQuiz from './NonsenseQuiz/index';
 import CatchMindQuiz from './CatchMindQuiz/index';
+import PersonalityTest from './PersonalityTest/index';
 
 const initButtonStyled = css`
     padding: 0;
@@ -167,6 +168,12 @@ const Game = () => {
                     } else if (component === CATCH_MIND) {
                         return (
                             <CatchMindQuiz
+                                onClickHome={onChangeCategory}
+                            />
+                        ) 
+                    } else if (component === PERSONALITY_TEST) {
+                        return (
+                            <PersonalityTest
                                 onClickHome={onChangeCategory}
                             />
                         ) 

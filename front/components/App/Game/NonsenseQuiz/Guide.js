@@ -32,18 +32,18 @@ const Title = styled.div`
     line-height: 1;
 
     font-size: ${({ theme }) => theme.calcRem(35)};
-    color: ${({ theme }) => theme.nonsenseColors.orange};
-    text-shadow: -${({ theme }) => theme.calcRem(2)} 0  ${({ theme }) => theme.nonsenseColors.black}, 
-                0 ${({ theme }) => theme.calcRem(2)}  ${({ theme }) => theme.nonsenseColors.black}, 
-                ${({ theme }) => theme.calcRem(2)} 0  ${({ theme }) => theme.nonsenseColors.black}, 
-                0 -${({ theme }) => theme.calcRem(2)}  ${({ theme }) => theme.nonsenseColors.black};
+    color: ${({ theme }) => theme.nColors.orange};
+    text-shadow: -${({ theme }) => theme.calcRem(2)} 0  ${({ theme }) => theme.nColors.black}, 
+                0 ${({ theme }) => theme.calcRem(2)}  ${({ theme }) => theme.nColors.black}, 
+                ${({ theme }) => theme.calcRem(2)} 0  ${({ theme }) => theme.nColors.black}, 
+                0 -${({ theme }) => theme.calcRem(2)}  ${({ theme }) => theme.nColors.black};
 `;
 
 const SlickWrap = styled.div`
     margin: 0 auto;
     position: relative;
     width: ${({ theme }) => theme.calcRem(550)};
-    border: ${({ theme }) => theme.calcRem(2)} solid ${({ theme }) => theme.nonsenseColors.black};
+    border: ${({ theme }) => theme.calcRem(2)} solid ${({ theme }) => theme.nColors.black};
     vertical-align: top;
     overflow: hidden;
 
@@ -80,7 +80,7 @@ const NextButton = styled.button`
 
 const defaultIconStyle = css`
     font-size: ${({ theme }) => theme.calcRem(22)};
-    color: ${({ theme }) => theme.nonsenseColors.black};
+    color: ${({ theme }) => theme.nColors.black};
 
     &:hover { 
         color: ${({ theme }) => theme.colors.white};

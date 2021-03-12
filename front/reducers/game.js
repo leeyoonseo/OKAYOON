@@ -5,6 +5,7 @@ import produce from '../util/produce';
 export const STORE = 'store';
 export const NONSENSE_QUIZ = 'nonsensequiz';
 export const CATCH_MIND = 'catchmind';
+export const PERSONALITY_TEST = 'personalitytest';
 
 // [D] S3
 const awsBucketBaseURL = 'https://okayoon-bucket.s3.ap-northeast-2.amazonaws.com/';
@@ -12,15 +13,20 @@ const awsBucketBaseURL = 'https://okayoon-bucket.s3.ap-northeast-2.amazonaws.com
 export const initialState = {
     gameList: [
         {
-            name:  'nonsensequiz',
+            name:  NONSENSE_QUIZ,
             title: '넌센스 퀴즈',
             image: '../game/nonsense/cover.png',
         },
         {
-            name: 'catchmind',
+            name: CATCH_MIND,
             title: '그림 퀴즈',
             image: 'http://www.topdaily.kr/news/photo/201910/59899_24563_3844.jpg',
-        },    
+        },  
+        {
+            name: PERSONALITY_TEST,
+            title: '성격 테스트',
+            image: '../game/personality/cover.png',
+        },   
     ],
     isMuted: false,
 

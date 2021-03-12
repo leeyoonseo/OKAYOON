@@ -13,7 +13,7 @@ const Wrap = styled.div`
     height: calc(100% - ${({ theme }) => theme.calcRem(30)});
     font-size: ${({ theme }) => theme.calcRem(16)};
     text-align: center;
-    background: ${({ theme }) => theme.nonsenseColors.lightPink};
+    background: ${({ theme }) => theme.nColors.lightPink};
     border-radius: 0 0 ${({ theme }) => theme.calcRem(20)} ${({ theme }) => theme.calcRem(20)};
 `;
 
@@ -29,7 +29,7 @@ const Title = styled.div`
     min-height: ${({ theme }) => theme.calcRem(150)};
     font-size: ${({ theme }) => theme.calcRem(70)};
     line-height: 1;
-    color: ${({ theme }) => theme.nonsenseColors.black};
+    color: ${({ theme }) => theme.nColors.black};
     background: url(../../game/nonsense/icon_speech_bubble.png)no-repeat;
     background-size: 100% 100%;
     box-sizing: border-box;
@@ -39,11 +39,11 @@ const Text = styled.div`
     margin-top: ${({ theme }) => theme.calcRem(20)};
     font-size: ${({ theme }) => theme.calcRem(35)};
     line-height: 1.25;
-    color: ${({ theme }) => theme.nonsenseColors.orange};
-    text-shadow: -${({ theme }) => theme.calcRem(2)} 0  ${({ theme }) => theme.nonsenseColors.black}, 
-                0 ${({ theme }) => theme.calcRem(2)}  ${({ theme }) => theme.nonsenseColors.black}, 
-                ${({ theme }) => theme.calcRem(2)} 0  ${({ theme }) => theme.nonsenseColors.black}, 
-                0 -${({ theme }) => theme.calcRem(2)}  ${({ theme }) => theme.nonsenseColors.black};
+    color: ${({ theme }) => theme.nColors.orange};
+    text-shadow: -${({ theme }) => theme.calcRem(2)} 0  ${({ theme }) => theme.nColors.black}, 
+                0 ${({ theme }) => theme.calcRem(2)}  ${({ theme }) => theme.nColors.black}, 
+                ${({ theme }) => theme.calcRem(2)} 0  ${({ theme }) => theme.nColors.black}, 
+                0 -${({ theme }) => theme.calcRem(2)}  ${({ theme }) => theme.nColors.black};
 `;
 
 const ImageArea = styled.div`

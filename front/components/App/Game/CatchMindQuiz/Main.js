@@ -3,7 +3,6 @@ import styled, { css } from 'styled-components';
 
 import { STEP_GAME, STEP_GUIDE } from './index';
 
-
 const initialButton = css`
     padding: 0;
     line-height: 1;

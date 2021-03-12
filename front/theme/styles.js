@@ -18,13 +18,20 @@ const colors = {
     chatUser: '#f18d8b',
 };
 
-const nonsenseColors = {
+// [D] Nonsense Quiz
+const nColors = {
     black: '#333',
     skyBlue: '#a4caff',
     orange: '#ff9256',
     darkYellow: '#ffca19',
     lightPink: '#FADAD8',
     red: '#ff6059',
+};
+
+// [D] Personality Test
+const pColors = {
+    black: '#333',
+    yellow: '#F6B352',
 };
 
 const deviceSize = {
@@ -45,8 +52,9 @@ export const calcRem = (size) => `${size / 16}rem`;
 
 export const theme = {
     calcRem,
-    nonsenseColors,
     colors,
+    nColors,
+    pColors,
     device,
 };
 

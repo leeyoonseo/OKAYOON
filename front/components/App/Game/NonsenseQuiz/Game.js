@@ -14,7 +14,7 @@ const Wrap = styled.div`
     height: calc(100% - ${({ theme }) => theme.calcRem(30)});
     font-size: ${({ theme }) => theme.calcRem(16)};
     text-align: center;
-    background: ${({ theme }) => theme.nonsenseColors.lightPink};
+    background: ${({ theme }) => theme.nColors.lightPink};
     border-radius: 0 0 ${({ theme }) => theme.calcRem(20)} ${({ theme }) => theme.calcRem(20)};
 `;
 
@@ -48,18 +48,18 @@ const Question = styled.span`
     font-size: ${({ theme }) => theme.calcRem(35)};
     font-weight: 700;
     line-height: 1.25;
-    text-shadow: -${({ theme }) => theme.calcRem(2)} 0  ${({ theme }) => theme.nonsenseColors.black}, 
-                0 ${({ theme }) => theme.calcRem(2)}  ${({ theme }) => theme.nonsenseColors.black}, 
-                ${({ theme }) => theme.calcRem(2)} 0  ${({ theme }) => theme.nonsenseColors.black}, 
-                0 -${({ theme }) => theme.calcRem(2)}  ${({ theme }) => theme.nonsenseColors.black};
-    color: ${({ theme }) => theme.nonsenseColors.orange};
+    text-shadow: -${({ theme }) => theme.calcRem(2)} 0  ${({ theme }) => theme.nColors.black}, 
+                0 ${({ theme }) => theme.calcRem(2)}  ${({ theme }) => theme.nColors.black}, 
+                ${({ theme }) => theme.calcRem(2)} 0  ${({ theme }) => theme.nColors.black}, 
+                0 -${({ theme }) => theme.calcRem(2)}  ${({ theme }) => theme.nColors.black};
+    color: ${({ theme }) => theme.nColors.orange};
 `;
 
 const TimerArea = styled.div`
     text-align: center;
     line-height: 1;
     font-weight: 700;
-    color: ${({ theme }) => theme.nonsenseColors.black};
+    color: ${({ theme }) => theme.nColors.black};
 `;
 
 const TimerIcon = styled(ClockCircleOutlined)`
@@ -103,9 +103,9 @@ const Items = styled.div`
         height: 100%;
         font-size: ${({ theme }) => theme.calcRem(25)};
         line-height: 1.25;
-        border: ${({ theme }) => theme.calcRem(2)} solid ${({ theme }) => theme.nonsenseColors.black};
+        border: ${({ theme }) => theme.calcRem(2)} solid ${({ theme }) => theme.nColors.black};
         border-radius: ${({ theme }) => theme.calcRem(15)};
-        background: ${({ theme }) => theme.nonsenseColors.skyBlue};
+        background: ${({ theme }) => theme.nColors.skyBlue};
         outline: none;
         box-sizing: border-box;
         cursor: pointer;

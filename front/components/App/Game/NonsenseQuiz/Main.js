@@ -8,7 +8,7 @@ const Wrap = styled.div`
     padding: 5%;
     height: calc(100% - ${({ theme }) => theme.calcRem(30)});
     text-align: center;
-    background: ${({ theme }) => theme.nonsenseColors.lightPink};
+    background: ${({ theme }) => theme.nColors.lightPink};
     border-radius: 0 0 ${({ theme }) => theme.calcRem(20)} ${({ theme }) => theme.calcRem(20)};
 `;
 
@@ -24,15 +24,15 @@ const Title = styled.span`
     display: block;
     font-size: ${({ theme }) => theme.calcRem(100)};
     line-height: 1;
-    color: ${({ theme }) => theme.nonsenseColors.darkYellow};
-    text-shadow: -${({ theme }) => theme.calcRem(3)} 0  ${({ theme }) => theme.nonsenseColors.black}, 
-                0 ${({ theme }) => theme.calcRem(3)}  ${({ theme }) => theme.nonsenseColors.black}, 
-                ${({ theme }) => theme.calcRem(3)} 0  ${({ theme }) => theme.nonsenseColors.black}, 
-                0 -${({ theme }) => theme.calcRem(3)}  ${({ theme }) => theme.nonsenseColors.black};
+    color: ${({ theme }) => theme.nColors.darkYellow};
+    text-shadow: -${({ theme }) => theme.calcRem(3)} 0  ${({ theme }) => theme.nColors.black}, 
+                0 ${({ theme }) => theme.calcRem(3)}  ${({ theme }) => theme.nColors.black}, 
+                ${({ theme }) => theme.calcRem(3)} 0  ${({ theme }) => theme.nColors.black}, 
+                0 -${({ theme }) => theme.calcRem(3)}  ${({ theme }) => theme.nColors.black};
 `;
 
 const Highlight = styled.span`
-    color: ${({ theme }) => theme.nonsenseColors.skyBlue};
+    color: ${({ theme }) => theme.nColors.skyBlue};
 `;
 
 const initialButtonStyle = css`
@@ -54,10 +54,10 @@ const StartButton = styled.button`
     padding: ${({ theme }) => theme.calcRem(10)} ${({ theme }) => theme.calcRem(30)};
     font-size: ${({ theme }) => theme.calcRem(40)};
     border-radius: ${({ theme }) => theme.calcRem(10)};
-    border: ${({ theme }) => theme.calcRem(4)} solid ${({ theme }) => theme.nonsenseColors.black};
-    background: ${({ theme }) => theme.nonsenseColors.darkYellow};
+    border: ${({ theme }) => theme.calcRem(4)} solid ${({ theme }) => theme.nColors.black};
+    background: ${({ theme }) => theme.nColors.darkYellow};
     font-weight: 700;
-    color: ${({ theme }) => theme.nonsenseColors.black};
+    color: ${({ theme }) => theme.nColors.black};
 `;
 
 const GuideIcon = styled.img`
