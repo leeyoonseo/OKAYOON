@@ -2,23 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 
 import { STEP_GAME } from './index';
-
-const Wrap = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-family: 'Black Han Sans';
-    position: relative;
-    padding: 5%;
-    height: calc(100% - ${({ theme }) => theme.calcRem(30)});
-    text-align: center;
-    background: ${({ theme }) => theme.pColors.yellow};
-`;
-
-const Inner = styled.div`
-    display: inline-block;
-`;
+import Layout from './Layout';
 
 const SubTitle = styled.div`
     font-size: 45px;
@@ -27,6 +11,7 @@ const SubTitle = styled.div`
 `;
 
 const Title = styled.div`
+    margin-top: 5px;
     font-size: 80px;
     line-height: 1;
     padding: 10px 10px 0 10px;
@@ -67,18 +52,20 @@ const Main = ({
     }, [data]);
 
     return (
-        <Wrap>
-            <Inner>
-                <SubTitle>두개의 퀴즈로 알아보는</SubTitle>
+        <Layout>
+            <SubTitle>두개의 퀴즈로 알아보는</SubTitle>
                 <Title>내 성격 유형</Title>
 
                 <div>
-                    <StartButton>시작하기</StartButton>
+                    <StartButton
+                        onClick={onChangeStep(STEP_GAME)}
+                    >
+                        시작하기
+                    </StartButton>
                 </div>
 
                 <MainIcon />
-            </Inner>
-        </Wrap>
+        </Layout>
     );
 };
 

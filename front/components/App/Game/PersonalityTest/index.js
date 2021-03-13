@@ -63,17 +63,9 @@ const MainIcon = styled(LeftOutlined)`
 `;
 
 const PersonalityTest = ({ onClickHome }) => {
-    const dispatch = useDispatch();
-    const { gameData } = useSelector((state) => state.game);
-    const [step, setStep] = useState(STEP_MAIN); // [D] default = STEP_MAIN
-    // const [score, setScore] = useState(0);
-
-    useEffect(() => {
-        // dispatch({
-        //     type: LOAD_GAME_REQUEST,
-        //     data: PERSONALITY_TEST
-        // });
-    }, []);
+    const { personalityTest } = useSelector((state) => state.game);
+    const [step, setStep] = useState(STEP_FINISH); // [D] default = STEP_MAIN
+    const [type, setType] = useState(null);
 
     const onChangeStep = useCallback((changeStep) => () => setStep(changeStep), []);
 
@@ -97,26 +89,23 @@ const PersonalityTest = ({ onClickHome }) => {
                 if (step === STEP_MAIN) {
                     return (
                         <Main 
-                            data={gameData}
+                            data={personalityTest}
                             onChangeStep={onChangeStep}
                         />
                     )
                 } else if (step === STEP_GAME) {
                     return (
                         <Game 
-                            score={score}
-                            setScore={setScore}
-                            MAX_ROUND={MAX_ROUND}
-                            MAX_TIME={MAX_TIME}
-                            data={gameData}
+                            type={type}
+                            setType={setType}
+                            data={personalityTest}
                             onChangeStep={onChangeStep}
                         />
                     )
                 } else if (step === STEP_FINISH) {
                     return (
                         <Finish 
-                            score={score}
-                            MAX_ROUND={MAX_ROUND}
+                            type={type}
                             onChangeStep={onChangeStep}
                         />
                     )

@@ -32,6 +32,7 @@ const nColors = {
 const pColors = {
     black: '#333',
     yellow: '#F6B352',
+    // darkRed: '#b0371c',
 };
 
 const deviceSize = {
