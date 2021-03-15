@@ -64,7 +64,7 @@ const MainIcon = styled(LeftOutlined)`
 
 const PersonalityTest = ({ onClickHome }) => {
     const { personalityTest } = useSelector((state) => state.game);
-    const [step, setStep] = useState(STEP_FINISH); // [D] default = STEP_MAIN
+    const [step, setStep] = useState(STEP_MAIN); // [D] default = STEP_MAIN
     const [type, setType] = useState(null);
 
     const onChangeStep = useCallback((changeStep) => () => setStep(changeStep), []);

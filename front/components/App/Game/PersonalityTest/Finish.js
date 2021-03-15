@@ -23,11 +23,6 @@ const Tag = styled.div`
     }
 `;
 
-// const SubTitle = styled.div`
-//     font-size: 25px;
-//     color: #000;
-// `;
-
 const SpeechBubble = styled.div`
     position: relative;
     display: inline-block;
@@ -100,62 +95,146 @@ const BottomArea = styled.div`
 `;
 
 const Popup = styled.div`
-    padding: 5% 0;
+    padding: 10% 0;
     background: #F6B352;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 50%;
+    left: 50%;
+    width: 90%;
+    height: 90%;
     position: absolute;
+    transform: translate(-50%, -50%);
+    border: 2px solid #000;
+    box-shadow: 1px 1px 5px rgb(0 0 0 / 50%);
+`;
+
+const PopupTitle = styled.div`
+    font-size: 25px;
+    line-height: 1.25;
+    font-weight: 700;
+    color: #b0371c;
+`;
+
+const PopupTag = styled.div`
+    margin-top: 5px;
+    color: #bc5027;
+
+    span + span {
+        margin-left: 10px;
+    }
 `;
 
 const CloseButton = styled.button`
     ${initButtonStyle}
     position: absolute;
     top: 2%;
+    font-size: 18px;
     right: 2%;
-    color: #000;
+    color: #b0371c;
 `;
 
-const PopupContent = styled.div`
-    border-top: 2px solid #000;
-    border-bottom: 2px solid #000;
+const AdjacentArea = styled.div`
+    position: relative;
 `;
 
-const ArrowButtonArea = styled.div`
-    button {
-        ${initButtonStyle}
-        color: #000;
+const TooltipWrap = styled.div`
+    position: absolute;
+    left: 50%;
+    min-width: 340px;
+    transform: translateX(-50%);
+    color: #fff;
+    bottom: 100%;
+`;
+
+const Tooltip = styled.div`
+    padding: 5%;
+    box-sizing: border-box;
+    font-size: 13px;
+    position: relative;
+    display: inline-block;
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.6);
+    text-align: center;
+    word-break: keep-all;
+    
+    &:after {
+        position: absolute;
+        top: 100%;
+        transform: translate(-50%, 0);
+        left: 50%;
+        content: '';
+        display: block;
+        width: 0px;
+        height: 0px;
+        border-bottom: 10px solid none;
+        border-top: 10px solid  rgba(0, 0, 0, 0.6);
+        border-right: 10px solid transparent;
+        border-left: 10px solid  transparent;
     }
 `;
 
-const Finish = ({ 
-    type,
-    onChangeStep,
-}) => {
-    const [openedPopup, setOpenedPopup] = useState(false);
-    // const [popupViewPage, setPopupViewPage] = useState(0);
+const ArrowButtonArea = styled.div`
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+
+    button {
+        ${initButtonStyle}
+        font-size: 18px;
+        color: #000;
+
+        &[disabled] {
+            opacity: 0.2;
+            cursor: default;
+        }
+    }
+
+    button + button {
+        margin-left: 5px;
+    }
+`;
+
+const Finish = ({ type }) => {
     const { personalityType } = useSelector((state) => state.game);
     const [data, setData] = useState(null);
-    const [prevTypeData, setPrevTypeData] = useState(null);
-    const [nextTypeData, setNextTypeData] = useState(null);
+    const [openedPopup, setOpenedPopup] = useState(false);
+    const [popupFirstPage, setPopupFirstPage] = useState(true);
+    const [popupData, setPopupData] = useState(null);
+    const [showTooltip, setShowTooltip] = useState(false);
+    const tooltipText = `
+        ※주의※<br />
+        각 유형의 인접한 두 개의 유형에 영향을 받을 수 있습니다.<br />
+        화살표를 통해 인접한 유형을 확인해보세요.<br /> 
+    `;
 
     useEffect(() => {
-        const type = '1a';
         setData(personalityType.find((v) => v.type === type));
     }, []);
 
-    useEffect(() => {
+    useEffect(() => {   
         if (!data) return;
-        const typeIndex = data.typeIndex;
-        let prevIndex = (typeIndex === 1) ? 9 : typeIndex - 1;
-        let nextIndex = (typeIndex === 9) ? 1 : typeIndex + 1;
+        const { typeIndex } = data;
+        let index = '';
 
-        setPrevTypeData(personalityType((v) => v.typeIndex === prevIndex));
-        setNextTypeData(personalityType((v) => v.typeIndex === nextIndex));
-    }, [data]);
+        if (popupFirstPage) {
+            index = (typeIndex === 1) ? 9 : typeIndex - 1;
 
+        } else {
+            index = (typeIndex === 9) ? 1 : typeIndex + 1;
+        }
 
+        for (let i = 0; i < personalityType.length; i++) {
+            if (personalityType[i].typeIndex === index){
+                setPopupData(personalityType[i]);
+                break;
+            }
+        }
+    }, [data, popupFirstPage]);
+
+    const onShowTooltip = useCallback((state) => () => setShowTooltip(state), []);
+
+    const onClickArrow = useCallback(() => {
+        setPopupFirstPage(!popupFirstPage);
+    }, [popupFirstPage]);
 
     const onClickPopup = useCallback(() => {
         setOpenedPopup(!openedPopup);
@@ -201,15 +280,27 @@ const Finish = ({
                 <div>
                     ※ 주의: 인접한 유형에 영향을 받을 수 있습니다. 
                 </div>
-                        
-                <button
-                    onClick={onClickPopup}
-                >
-                    인접한 유형 확인하기
-                </button>
+
+                <AdjacentArea>
+                        <button
+                            onMouseEnter={onShowTooltip(true)}
+                            onMouseLeave={onShowTooltip(false)}
+                            onClick={onClickPopup}
+                        >
+                            인접한 유형 확인하기
+                        </button>
+
+                        {showTooltip && (
+                            <TooltipWrap>
+                                <Tooltip
+                                    dangerouslySetInnerHTML={{__html: tooltipText}}
+                                />
+                            </TooltipWrap>
+                        )}
+                </AdjacentArea>  
             </BottomArea>
 
-            {!openedPopup && (
+            {openedPopup && (
                 <Popup>
                     <CloseButton 
                         onClick={onClickPopup}
@@ -217,48 +308,55 @@ const Finish = ({
                         <CloseOutlined />
                         <span className="hidden">팝업 닫기</span>
                     </CloseButton>
-                    {/* <button>예시보기</button> */}
 
-                    <PopupContent>
-                        {/* <Title>
-                            {data.title}
-                        </Title>
+                    {popupData && (
+                        <>
+                            <PopupTitle>
+                                {popupData.title}
+                            </PopupTitle>
 
-                        <Tag>
-                            {data.tag.map((o) => {
-                                return (
-                                    <span key={o}>
-                                        {`#${o}`}
-                                    </span>
-                                );
-                            })}
-                        </Tag>
+                            <PopupTag>
+                                {popupData.tag.map((o) => {
+                                    return (
+                                        <span key={o}>
+                                            {`#${o}`}
+                                        </span>
+                                    );
+                                })}
+                            </PopupTag>
 
-                        <SpeechBubble>
-                            <span className="title">
-                                말 버릇
-                            </span>
+                            <SpeechBubble>
+                                <span className="title">
+                                    말 버릇
+                                </span>
 
-                            {data.habit.map((o) => {
-                                return (
-                                    <span key={o}>
-                                        {`'${o}'`}
-                                    </span>
-                                );
-                            })}
-                        </SpeechBubble>
+                                {popupData.habit.map((o) => {
+                                    return (
+                                        <span key={o}>
+                                            {`'${o}'`}
+                                        </span>
+                                    );
+                                })}
+                            </SpeechBubble>
 
-                        <Description 
-                            dangerouslySetInnerHTML={{ __html: data.description }} 
-                        /> */}
-                    </PopupContent>
+                            <Description 
+                                dangerouslySetInnerHTML={{ __html: popupData.description }} 
+                            />
+                        </>
+                    )}
 
                     <ArrowButtonArea>
-                        <button>
+                        <button
+                            disabled={popupFirstPage}
+                            onClick={onClickArrow}
+                        >
                             <LeftOutlined />
                             <span className="hidden">왼쪽 인접한 유형보기</span>
                         </button>
-                        <button>
+                        <button
+                            disabled={!popupFirstPage}
+                            onClick={onClickArrow}
+                        >
                             <RightOutlined />
                             <span className="hidden">오른쪽 인접한 유형보기</span>
                         </button>
@@ -271,10 +369,3 @@ const Finish = ({
 
 export default Finish;
 
-// 주의
-// 각 유형의 양쪽에 인접한 두 개의 유형에 영향을 받을 수 있습니다.
-// 예시 4번 독창형의 사람
-// - 3번 성취형의 요소가 강하면
-// 경쟁의식이 강해져 자신의 위치나 실력을 향상하려는 경향이 있습니다.
-// 5번 탐구형의 요소가 강하면 
-// - 독창성이 한층 강해져 자신이 상상한 세계에 빠져 버리는 경향이 있습니다.
