@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useCallback, useState } from 'react';
+import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 
 import { HomeOutlined, LeftOutlined } from '@ant-design/icons';
-import { STORE, LOAD_GAME_REQUEST, PERSONALITY_TEST } from '../../../../reducers/game';
+import { STORE } from '../../../../reducers/game';
 
 import Main from './Main';
 import Game from './Game';

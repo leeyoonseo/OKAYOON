@@ -39,6 +39,24 @@ const StartButton = styled.button`
     cursor: pointer;
 `;
 
+const Copyright = styled.span`
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+
+    a {
+        color: #fff;
+        font-size: 12px; 
+        
+        &:hover,
+        &:focus {
+            color: #fff;
+        }
+    }
+`;
+
 const Main = ({ 
     data,
     onChangeStep,
@@ -65,11 +83,18 @@ const Main = ({
                 </div>
 
                 <MainIcon />
+
+                <Copyright>
+                    <a 
+                        href="https://post.naver.com/viewer/postView.nhn?volumeNo=30753987&memberNo=1192430&vType=VERTICAL" 
+                        title="쌤앤파커스"
+                        target="_blank"
+                    >
+                        원본 바로가기 (쌤앤파커스)
+                    </a>
+                </Copyright>
         </Layout>
     );
 };
 
 export default Main;
-
-// TODO:
-// 출처 언급 : https://post.naver.com/viewer/postView.nhn?volumeNo=30753987&memberNo=1192430&vType=VERTICAL
