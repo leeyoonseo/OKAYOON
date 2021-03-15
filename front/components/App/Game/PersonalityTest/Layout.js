@@ -2,17 +2,15 @@ import React from 'react';
 import styled  from 'styled-components';
 
 const Wrap = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
     font-family: 'Sunflower';
+    display: flex;
     position: relative;
     padding: 5% 0;
-    // padding: 5%;
     height: calc(100% - ${({ theme }) => theme.calcRem(30)});
     text-align: center;
     background: ${({ theme }) => theme.pColors.yellow};
+    align-items: center;
+    justify-content: center;
 
     button {
         font-family: 'Sunflower';

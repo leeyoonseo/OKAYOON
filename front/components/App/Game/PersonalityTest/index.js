@@ -14,8 +14,8 @@ export const STEP_GAME = 'game';
 export const STEP_FINISH = 'finish';
 
 const iconColor = css`
-    color: ${({ theme }) => theme.colors.purple};
     font-size: ${({ theme }) => theme.calcRem(16)};
+    color: ${({ theme }) => theme.colors.purple};
 `;
 
 const TopNav = styled.div`
@@ -116,6 +116,3 @@ const PersonalityTest = ({ onClickHome }) => {
 };
 
 export default PersonalityTest;
-
-// TODO:
-// - https://post.naver.com/viewer/postView.nhn?volumeNo=30753987&memberNo=1192430&vType=VERTICAL

@@ -48,7 +48,7 @@ const Item = styled.div`
     overflow: hidden;
 
     &:hover {
-        box-shadow: 1px 1px 5px ${({ theme }) => theme.colors.rgbaBlack};
+        box-shadow: 1px 1px ${({ theme }) => theme.calcRem(5)} ${({ theme }) => theme.colors.rgbaBlack};
     }
 `;
 

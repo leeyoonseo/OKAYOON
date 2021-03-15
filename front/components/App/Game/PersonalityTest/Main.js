@@ -5,32 +5,32 @@ import { STEP_GAME } from './index';
 import Layout from './Layout';
 
 const SubTitle = styled.div`
-    font-size: 45px;
+    font-size: ${({ theme }) => theme.calcRem(45)};
     line-height: 1;
     color: black;
 `;
 
 const Title = styled.div`
-    margin-top: 5px;
-    font-size: 80px;
+padding: ${({ theme }) => theme.calcRem(10)} ${({ theme }) => theme.calcRem(10)} 0 ${({ theme }) => theme.calcRem(10)};
+    margin-top: ${({ theme }) => theme.calcRem(5)};
+    font-size: ${({ theme }) => theme.calcRem(80)};
     line-height: 1;
-    padding: 10px 10px 0 10px;
-    background: #000;
+    background: black;
 `;
 
 const MainIcon = styled.div`
-    margin-top: 20px;
     display: inline-block;
-    width: 150px;
-    height: 150px;
+    margin-top: ${({ theme }) => theme.calcRem(20)};
+    width: ${({ theme }) => theme.calcRem(150)};
+    height: ${({ theme }) => theme.calcRem(150)};
     background: url(../../../game/personality/icon_person_question.png)no-repeat;
     background-size: cover;
 `;
 
 const StartButton = styled.button`
     padding: 0;
-    font-size: 30px;
-    margin-top: 20px;
+    margin-top: ${({ theme }) => theme.calcRem(20)};
+    font-size: ${({ theme }) => theme.calcRem(30)};
     line-height: 1;
     color: black;
     border: none;
@@ -47,28 +47,17 @@ const Copyright = styled.span`
     text-align: center;
 
     a {
-        color: #fff;
-        font-size: 12px; 
+        color: white;
+        font-size: ${({ theme }) => theme.calcRem(12)}; 
         
         &:hover,
         &:focus {
-            color: #fff;
+            color: white;
         }
     }
 `;
 
-const Main = ({ 
-    data,
-    onChangeStep,
-}) => {
-    const [ready, setReady] = useState(false);
-
-    useEffect(() => {
-        if (data.length < 1) return;
-
-        setReady(true);
-    }, [data]);
-
+const Main = ({ onChangeStep }) => {
     return (
         <Layout>
             <SubTitle>두개의 퀴즈로 알아보는</SubTitle>

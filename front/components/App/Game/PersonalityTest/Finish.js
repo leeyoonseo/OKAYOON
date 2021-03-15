@@ -7,66 +7,67 @@ import { LeftOutlined, RightOutlined, CloseOutlined } from '@ant-design/icons';
 import Layout from './Layout';
 
 const Title = styled.div`
-    font-size: 35px;
-    line-height: 1;
+    font-size: ${({ theme }) => theme.calcRem(35)};
     font-weight: 700;
-    color: #b0371c;
+    line-height: 1;
+    color: ${({ theme }) => theme.pColors.darkRed};
 `;
 
 const Tag = styled.div`
-    font-size: 20px;
-    margin-top: 5px;
-    color: #bc5027;
+    margin-top: ${({ theme }) => theme.calcRem(5)};
+    font-size: ${({ theme }) => theme.calcRem(20)};
+    color: ${({ theme }) => theme.pColors.orangeRed};
 
     span + span {
-        margin-left: 10px;
+        margin-left: ${({ theme }) => theme.calcRem(10)};
     }
 `;
 
 const SpeechBubble = styled.div`
     position: relative;
     display: inline-block;
-    padding: 10px 25px;
-    border-radius: 30px;
-    background: #b0371c;
-    margin-top: 25px;
+    padding: ${({ theme }) => theme.calcRem(10)} ${({ theme }) => theme.calcRem(25)};
+    margin-top: ${({ theme }) => theme.calcRem(25)};
+    border-radius: ${({ theme }) => theme.calcRem(30)};
+    background: ${({ theme }) => theme.pColors.darkRed};
+
     &:after {
         position: absolute;
-        bottom: -9px;
+        bottom: -${({ theme }) => theme.calcRem(9)};
         left: 50%;
-        transform: translateX(-50%);
-        content: '';
         display: block;
+        content: '';
         width: 0px;
         height: 0px;
-        border-bottom: 10px solid none;
-        border-top: 10px solid #b0371c;
-        border-right: 10px solid transparent;
-        border-left: 10px solid  transparent;
+        border-bottom: ${({ theme }) => theme.calcRem(10)} solid none;
+        border-top: ${({ theme }) => theme.calcRem(10)} solid ${({ theme }) => theme.pColors.darkRed};
+        border-right: ${({ theme }) => theme.calcRem(10)} solid transparent;
+        border-left: ${({ theme }) => theme.calcRem(10)} solid  transparent;
+        transform: translateX(-50%);
     }
 
     span {
         display: block;
-        font-size: 14px;
+        font-size: ${({ theme }) => theme.calcRem(14)};
     }
 
     span.title {
-        color: #F6B352;
-        margin-bottom: 10px;
-        font-size: 16px;
+        margin-bottom: ${({ theme }) => theme.calcRem(10)};
+        color: ${({ theme }) => theme.pColors.yellow};
+        font-size: ${({ theme }) => theme.calcRem(16)};
     }
 `;
 
 const Description = styled.div`
-    background: #fff;
-    color: #000;
-    padding: 20px;
-    margin: 20px 0;
-    border-top: 2px solid #000;
-    border-bottom: 2px solid #000;
+    padding: ${({ theme }) => theme.calcRem(20)};
+    margin: ${({ theme }) => theme.calcRem(20)} 0;
+    color: black;
+    border-top: ${({ theme }) => theme.calcRem(2)} solid black;
+    border-bottom: ${({ theme }) => theme.calcRem(2)} solid black;
+    background: white;
 
     .strong {
-        color: #b0371c;
+        color: ${({ theme }) => theme.pColors.darkRed};
     }
 `;
 
@@ -83,43 +84,43 @@ const initButtonStyle = css`
 `;
 
 const BottomArea = styled.div`
-    font-size: 14px;
-    color: #000;
+    font-size: ${({ theme }) => theme.calcRem(14)};
+    color: black;
 
     button {
         ${initButtonStyle}
-        margin-top: 5px;
-        padding: 0 5px;
-        border: 1px solid #000;
+        margin-top: ${({ theme }) => theme.calcRem(5)};
+        padding: 0 ${({ theme }) => theme.calcRem(5)};
+        border: 1px solid black;
     }
 `;
 
 const Popup = styled.div`
-    padding: 10% 0;
-    background: #F6B352;
+    position: absolute;
     top: 50%;
     left: 50%;
+    padding: 10% 0;
     width: 90%;
     height: 90%;
-    position: absolute;
+    border: ${({ theme }) => theme.calcRem(2)} solid black;
+    background: ${({ theme }) => theme.pColors.yellow};
     transform: translate(-50%, -50%);
-    border: 2px solid #000;
     box-shadow: 1px 1px 5px rgb(0 0 0 / 50%);
 `;
 
 const PopupTitle = styled.div`
-    font-size: 25px;
+    font-size: ${({ theme }) => theme.calcRem(25)};
     line-height: 1.25;
     font-weight: 700;
-    color: #b0371c;
+    color: ${({ theme }) => theme.pColors.darkRed};
 `;
 
 const PopupTag = styled.div`
-    margin-top: 5px;
-    color: #bc5027;
+    margin-top: ${({ theme }) => theme.calcRem(5)};
+    color: ${({ theme }) => theme.pColors.orangeRed};
 
     span + span {
-        margin-left: 10px;
+        margin-left: ${({ theme }) => theme.calcRem(10)};
     }
 `;
 
@@ -127,9 +128,9 @@ const CloseButton = styled.button`
     ${initButtonStyle}
     position: absolute;
     top: 2%;
-    font-size: 18px;
     right: 2%;
-    color: #b0371c;
+    font-size: ${({ theme }) => theme.calcRem(18)};
+    color: ${({ theme }) => theme.pColors.darkRed};
 `;
 
 const AdjacentArea = styled.div`
@@ -139,36 +140,36 @@ const AdjacentArea = styled.div`
 const TooltipWrap = styled.div`
     position: absolute;
     left: 50%;
-    min-width: 340px;
-    transform: translateX(-50%);
-    color: #fff;
     bottom: 100%;
+    min-width: ${({ theme }) => theme.calcRem(340)};
+    color: white;
+    transform: translateX(-50%);
 `;
 
 const Tooltip = styled.div`
-    padding: 5%;
-    box-sizing: border-box;
-    font-size: 13px;
     position: relative;
     display: inline-block;
-    border-radius: 5px;
-    background: rgba(0, 0, 0, 0.6);
+    padding: 5%;
+    font-size: ${({ theme }) => theme.calcRem(13)};
     text-align: center;
     word-break: keep-all;
+    border-radius: ${({ theme }) => theme.calcRem(5)};
+    background: rgba(0, 0, 0, 0.6);
+    box-sizing: border-box;
     
     &:after {
         position: absolute;
         top: 100%;
-        transform: translate(-50%, 0);
         left: 50%;
-        content: '';
         display: block;
+        content: '';
         width: 0px;
         height: 0px;
-        border-bottom: 10px solid none;
-        border-top: 10px solid  rgba(0, 0, 0, 0.6);
-        border-right: 10px solid transparent;
-        border-left: 10px solid  transparent;
+        border-bottom: ${({ theme }) => theme.calcRem(10)} solid none;
+        border-top: ${({ theme }) => theme.calcRem(10)} solid  rgba(0, 0, 0, 0.6);
+        border-right: ${({ theme }) => theme.calcRem(10)} solid transparent;
+        border-left: ${({ theme }) => theme.calcRem(10)} solid  transparent;
+        transform: translate(-50%, 0);
     }
 `;
 
@@ -179,8 +180,8 @@ const ArrowButtonArea = styled.div`
 
     button {
         ${initButtonStyle}
-        font-size: 18px;
-        color: #000;
+        font-size: ${({ theme }) => theme.calcRem(18)};
+        color: black;
 
         &[disabled] {
             opacity: 0.2;
@@ -189,7 +190,7 @@ const ArrowButtonArea = styled.div`
     }
 
     button + button {
-        margin-left: 5px;
+        margin-left: ${({ theme }) => theme.calcRem(5)};
     }
 `;
 
