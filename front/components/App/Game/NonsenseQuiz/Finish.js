@@ -1,24 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import { STEP_MAIN } from './index';
-
-const Wrap = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    padding: 5%;
-    height: calc(100% - ${({ theme }) => theme.calcRem(30)});
-    font-size: ${({ theme }) => theme.calcRem(16)};
-    text-align: center;
-    background: ${({ theme }) => theme.nColors.lightPink};
-    border-radius: 0 0 ${({ theme }) => theme.calcRem(20)} ${({ theme }) => theme.calcRem(20)};
-`;
+import Layout from './Layout';
 
 const Inner = styled.div`
-    padding: 0 5%;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+`;
+
+const Content = styled.div`
     display: inline-block;
 `;
 
@@ -102,23 +95,25 @@ const Finish = ({
     }, [score]);
 
     return (
-        <Wrap>
+        <Layout>
             <Inner>
-                <Title>
-                    {title && title}
-                </Title>
+                <Content>
+                    <Title>
+                        {title && title}
+                    </Title>
 
-                {randomChar && (
-                    <ImageArea>
-                        <img src={randomChar} alt="아이 캐릭터"/>
-                    </ImageArea>
-                )}
+                    {randomChar && (
+                        <ImageArea>
+                            <img src={randomChar} alt="아이 캐릭터"/>
+                        </ImageArea>
+                    )}
 
-                <Text>
-                    {`'${score}점'`} <span dangerouslySetInnerHTML={{__html: text}}></span>
-                </Text>
+                    <Text>
+                        {`'${score}점'`} <span dangerouslySetInnerHTML={{__html: text}}></span>
+                    </Text>
+                </Content>
             </Inner>
-        </Wrap>
+        </Layout>
     );
 };
 

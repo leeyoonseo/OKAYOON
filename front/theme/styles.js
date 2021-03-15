@@ -33,6 +33,7 @@ const pColors = {
     black: '#333',
     yellow: '#F6B352',
     darkRed: '#b0371c',
+    orangeRed: '#bc5027',
 };
 
 const deviceSize = {

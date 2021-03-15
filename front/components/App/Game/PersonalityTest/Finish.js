@@ -99,7 +99,7 @@ const Popup = styled.div`
     position: absolute;
     top: 50%;
     left: 50%;
-    padding: 10% 0;
+    padding: 5% 0;
     width: 90%;
     height: 90%;
     border: ${({ theme }) => theme.calcRem(2)} solid black;

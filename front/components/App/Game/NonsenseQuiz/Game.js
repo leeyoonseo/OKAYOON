@@ -5,18 +5,7 @@ import { ClockCircleOutlined, CheckOutlined, CloseOutlined, ConsoleSqlOutlined }
 import { STEP_FINISH } from './index';
 import { shuffleArray } from '../index';
 
-const Wrap = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    padding: 5%;
-    height: calc(100% - ${({ theme }) => theme.calcRem(30)});
-    font-size: ${({ theme }) => theme.calcRem(16)};
-    text-align: center;
-    background: ${({ theme }) => theme.nColors.lightPink};
-    border-radius: 0 0 ${({ theme }) => theme.calcRem(20)} ${({ theme }) => theme.calcRem(20)};
-`;
+import Layout from './Layout';
 
 const resultFadeIn = keyframes`
     0% {
@@ -28,13 +17,21 @@ const resultFadeIn = keyframes`
 `;
 
 const Inner = styled.div`
-    display: inline-block;
-    min-height: ${({ theme }) => theme.calcRem(380)};
     position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    min-height: ${({ theme }) => theme.calcRem(380)};
+    justify-content: center;
+    align-items: center;
 
     & > div + div {
         margin-top: ${({ theme }) => theme.calcRem(20)};
     }
+`;
+
+const Content = styled.div`
+    display: inline-block;
 `;
 
 const QuizArea = styled.div`
@@ -56,6 +53,7 @@ const Question = styled.span`
 `;
 
 const TimerArea = styled.div`
+    margin-top: ${({ theme }) => theme.calcRem(20)};
     text-align: center;
     line-height: 1;
     font-weight: 700;
@@ -221,13 +219,13 @@ const Game = ({
     }, [round, openedResult]);
 
     return (
-        <Wrap>
+        <Layout>
             <Inner>
                 {quiz && (
-                    <>
+                    <Content>
                         <QuizArea>
                             <Question>
-                                {`Q. ${round + 1} ${quiz.question}`}
+                                {`Q.${round + 1} ${quiz.question}`}
                             </Question>
                         </QuizArea>
 
@@ -254,7 +252,7 @@ const Game = ({
                                 )
                             })}
                         </AnswerArea>
-                    </>
+                    </Content>
                 )}     
 
                 {openedResult && (
@@ -265,7 +263,7 @@ const Game = ({
                     </Result>
                 )}
             </Inner>
-        </Wrap>
+        </Layout>
     );
 };
 

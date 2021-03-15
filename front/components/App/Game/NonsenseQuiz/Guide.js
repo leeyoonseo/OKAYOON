@@ -4,22 +4,9 @@ import Slick from 'react-slick';
 import styled, { css } from 'styled-components';
 
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
-
-const Wrap = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    padding: 5%;
-    height: calc(100% - ${({ theme }) => theme.calcRem(30)});
-    font-size: ${({ theme }) => theme.calcRem(16)};
-    text-align: center;
-    background: none;
-    border-radius: 0 0 ${({ theme }) => theme.calcRem(20)} ${({ theme }) => theme.calcRem(20)};
-`;
+import Layout from './Layout';
 
 const Inner = styled.div`
-    padding: 0 5%;
     display: inline-block;
 
     & > div + div {
@@ -43,7 +30,7 @@ const SlickWrap = styled.div`
     margin: 0 auto;
     position: relative;
     width: ${({ theme }) => theme.calcRem(550)};
-    border: ${({ theme }) => theme.calcRem(2)} solid ${({ theme }) => theme.nColors.black};
+    border: ${({ theme }) => theme.calcRem(3)} solid ${({ theme }) => theme.nColors.black};
     vertical-align: top;
     overflow: hidden;
 
@@ -111,7 +98,7 @@ const Guide = () => {
     const onClickNext = useCallback(() => slickRef.current.slickNext(), []);
 
     return (
-        <Wrap>
+        <Layout>
             <Inner>
                 <Title>게임 방법</Title>
                 <SlickWrap>
@@ -135,7 +122,7 @@ const Guide = () => {
                     </NextButton>
                 </SlickWrap>
             </Inner>
-        </Wrap>
+        </Layout>
     );
 };
 

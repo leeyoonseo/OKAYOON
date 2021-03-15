@@ -2,15 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 
 import { STEP_GAME, STEP_GUIDE } from './index';
-
-const Wrap = styled.div`
-    position: relative;
-    padding: 5%;
-    height: calc(100% - ${({ theme }) => theme.calcRem(30)});
-    text-align: center;
-    background: ${({ theme }) => theme.nColors.lightPink};
-    border-radius: 0 0 ${({ theme }) => theme.calcRem(20)} ${({ theme }) => theme.calcRem(20)};
-`;
+import Layout from './Layout';
 
 const Content = styled.div`
     display: inline-block;
@@ -102,7 +94,7 @@ const Main = ({
     }, [data]);
 
     return (
-        <Wrap>
+        <Layout>
             <Content>
                 <AskIcon src="../../game/nonsense/icon_ask.png" alt="QnA 아이콘" />
                 
@@ -127,7 +119,7 @@ const Main = ({
                     <img src="../../game/nonsense/icon_children.png" alt="아이들 이미지" />
                 </BottomInner>
             </Bottom>
-        </Wrap>
+        </Layout>
     );
 };
 
