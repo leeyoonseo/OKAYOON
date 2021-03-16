@@ -10,6 +10,7 @@ import Comment from './Comment';
 
 import { Avatar } from 'antd';
 import { MessageOutlined, DeleteOutlined, FormOutlined } from '@ant-design/icons';
+import Admin from '../Game/Admin';
 
 const Wrap = styled.div`
     padding: 3%;
@@ -96,19 +97,46 @@ const GuestbookCard = ({
     authorAvatar,
 }) => {
     const dispatch = useDispatch();
-    const { avatarList } = useSelector((state) => state.user);
+    const { avatarList, admin } = useSelector((state) => state.user);
     const [openedComment, setOpenedComment] = useState(false);
     const [openedModal, setOpenedModal] = useState(false);
+    const [modalText, setModalText] = useState(false);
     const [requestTitle, setRequestTitle] = useState('');
 
-    const passwordCheck = useCallback(({state, text}) => {
-        setOpenedModal(false);
+    useEffect(() => {
+        let text = ''; 
 
+        if (admin.userId) {
+            text = '관리자 권한으로 삭제합니다.';
+
+        } else {
+            text = `${(requestTitle === 'edit') ? '수정' : '삭제'} 비밀번호를 입력해주세요`;
+        }
+
+        setModalText(text);
+    }, [admin, requestTitle]);
+
+    const passwordCheck = useCallback(({state, text}) => {
+        console.log('passwordCheck', state);
+        setOpenedModal(false);
         if (!state) return;
-        const type = (requestTitle === 'edit') 
+
+        let type = '';
+
+        // [D] 관리자 
+        if (admin.userId) {
+            type = DELETE_GUESTBOOK_REQUEST;
+            text = admin.userId;
+
+            console.log('id', id);
+            console.log('type', type);
+            console.log('text', text);
+        } else {
+            type = (requestTitle === 'edit') 
                     ? GET_PERMISSION_REQUEST 
                     : DELETE_GUESTBOOK_REQUEST;
-
+        }
+        
         dispatch({
             type: type,
             data: {
@@ -116,14 +144,17 @@ const GuestbookCard = ({
                 password: text
             }
         });
-    }, [requestTitle, id]);
+    }, [admin, requestTitle, id]);
 
     const onClickEdit = useCallback(() => {
+        if (admin.userId) return;
+        
         setOpenedModal(true);
         setRequestTitle('edit');
     }, []);
 
     const onClickDelete = useCallback(() => {
+        console.log('onClickDelete');
         setOpenedModal(true);
         setRequestTitle('delete');
     }, []);
@@ -167,6 +198,7 @@ const GuestbookCard = ({
                         <MessageOutlined />
                         <span className="hidden">댓글</span>
                     </button>
+
                 </MenuArea>
             </Inner>
             
@@ -182,10 +214,7 @@ const GuestbookCard = ({
             {openedModal && (
                 <WindowDialog
                     type="prompt"
-                    text={
-                        `${requestTitle === 'edit' ? '수정' : '삭제'} 
-                        비밀번호를 입력해주세요`
-                    }  
+                    text={modalText}  
                     callback={passwordCheck}
                 />
             )}

@@ -48,17 +48,20 @@ export const getSrc = (list, title) => {
 const Guestbook = () => {
     const dispatch = useDispatch();
     const { me, admin } = useSelector((state) => state.user);
-    const { guestbook, guestbookCount, loadGuestbookLoading, } = useSelector((state) => state.guestbook);
+    const { guestbook, guestbookCount, loadGuestbookLoading, loadGuestbookDone, } = useSelector((state) => state.guestbook);
     const [isFirstReq, setIsFirstReq] = useState(false);
     const [nickname, setNickname] = useState(null);
     const [avatar, setAvatar] = useState(me.avatar ? me.avatar : 'nickname');
     const MAX_TEXTAREA_LENGTH = 100;
 
     useEffect(() => {
-        // TODO: 메인에서 load되지 않도록 수정할 것
-        dispatch({
-            type: LOAD_GUESTBOOK_REQUEST
-        });
+        console.log('???', guestbook)
+
+        if (!loadGuestbookDone) {
+            dispatch({
+                type: LOAD_GUESTBOOK_REQUEST
+            });
+        }
     }, []);
 
     useEffect(() => {

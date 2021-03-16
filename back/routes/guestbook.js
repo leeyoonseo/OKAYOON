@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { Op } = require('sequelize');
 const bcrypt = require('bcrypt');
-const { Comment, Image, Guestbook } = require('../models');
+const { Comment, Image, Guestbook, Admin } = require('../models');
 
 // [D] 방명록 가져오기
 router.get('/', async (req, res, next) => { // GET /guestbook
@@ -133,9 +133,15 @@ router.post('/:guestbookId/delete', async (req, res, next) => {
         if (!guestbook) {
             return res.status(403).send('존재하지 않는 게시글입니다.');
         }
-    
-        if (!bcrypt.compareSync(req.body.password, guestbook.password)) {
-            return res.status(403).send('비밀번호가 틀렸습니다.');
+
+        const admin = await Admin.findOne({
+            where: { userId: req.body.password }
+        });
+
+        if (!admin) {
+            if (!bcrypt.compareSync(req.body.password, guestbook.password)) {
+                return res.status(403).send('비밀번호가 틀렸습니다.');
+            }
         }
 
         await Guestbook.destroy({

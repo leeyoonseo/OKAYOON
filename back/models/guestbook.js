@@ -31,7 +31,6 @@ module.exports = class Guestbook extends Model {
 
     static associate(db) {
         db.Guestbook.hasMany(db.Comment);
-        db.Guestbook.hasMany(db.Image);
     }
 };
 

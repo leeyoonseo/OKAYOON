@@ -4,7 +4,7 @@ import useInput from '../../../hooks/useInput';
 import { ADD_GUESTBOOK_REQUEST } from '../../../reducers/guestbook';
 import styled, { css } from 'styled-components';
 
-import { UploadOutlined, EyeOutlined } from '@ant-design/icons';
+import { EyeOutlined } from '@ant-design/icons';
 
 const Wrap = styled.div`
     margin-bottom: ${({ theme }) => theme.calcRem(20)};
@@ -72,11 +72,6 @@ const VisibleButtonPW = styled.button`
     position: absolute;
     right: ${({ theme }) => theme.calcRem(5)};
     height: 100%;
-`;
-
-const UploadButton = styled.button`
-    ${defaultButtonStyle}
-    margin-left: ${({ theme }) => theme.calcRem(10)};
 `;
 
 const SubmitButton = styled.button`
@@ -175,11 +170,6 @@ const GuestbookForm = ({
                             <EyeOutlined />
                         </VisibleButtonPW>
                     </PasswordWrap>
-
-                    {/* TODO: 이미지업로드 기능 */}
-                    <UploadButton>
-                        <UploadOutlined />
-                    </UploadButton>
 
                     <SubmitButton type="button" onClick={onSubmit}>
                         등록

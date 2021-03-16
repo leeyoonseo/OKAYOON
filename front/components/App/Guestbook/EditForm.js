@@ -5,8 +5,6 @@ import styled from 'styled-components';
 import useInput from '../../../hooks/useInput';
 import { UPDATE_GUESTBOOK_REQUEST } from '../../../reducers/guestbook';
 
-import { UploadOutlined } from '@ant-design/icons';
-
 const Wrap = styled.div`
     margin-bottom: ${({ theme }) => theme.calcRem(20)};
 `;
@@ -98,11 +96,6 @@ const EditForm = ({
                 </LetterCheck>
 
                 <BottomInner>
-                    {/* TODO: 이미지업로드 기능 */}
-                    <Button>
-                        <UploadOutlined />
-                    </Button>
-
                     <Button type="button" onClick={onSubmit}>
                         완료
                     </Button>

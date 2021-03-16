@@ -30,6 +30,10 @@ const Wrap = styled.div`
     overflow: hidden;
 `;
 
+const Inner = styled.div`
+    display: inline-block;
+`;
+
 const List= styled.div`
     box-sizing: border-box;
     overflow-y: auto;

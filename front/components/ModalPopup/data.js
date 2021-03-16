@@ -30,8 +30,8 @@ export const INFO_MODAL_DATA = {
     id: INFO_MODAL_ID,
     visible: false,
     size: {
-        w: '300px',
-        h: '300px'
+        w: '500px',
+        h: '350px'
     },
     title: "Info",
     content: Info,
@@ -48,8 +48,8 @@ export const WELCOME_MODAL_DATA = {
     id: WELCOME_MODAL_ID,
     visible: false,
     size: {
-        w: '300px',
-        h: '300px'
+        w: '500px',
+        h: '500px'
     },
     title: "Welcome",
     content: Welcome,

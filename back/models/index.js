@@ -2,7 +2,6 @@ const Sequelize = require('sequelize');
 const admin = require('./admin');
 const comment = require('./comment');
 const guestbook = require('./guestbook');
-const image = require('./image');
 const NonsenseQuiz = require('./NonsenseQuiz');
 const CatchMind = require('./CatchMind');
 
@@ -15,7 +14,6 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
 db.Admin = admin;
 db.Comment = comment;
 db.Guestbook = guestbook;
-db.Image = image;
 db.NonsenseQuiz = NonsenseQuiz;
 db.CatchMind = CatchMind;
 
