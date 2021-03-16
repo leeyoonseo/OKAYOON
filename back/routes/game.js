@@ -7,7 +7,7 @@ const { isAdminLoggedIn, isNotAdminLoggedIn } = require('./middlewares');
 router.get('/nonsensequiz', async (req, res, next) => { // POST /game/nonsensequiz
     try {
         const quiz = await NonsenseQuiz.findAll({
-            limit: 20,
+            limit: 10,
             order: sequelize.random()
         });
 

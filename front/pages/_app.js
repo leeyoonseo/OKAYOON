@@ -14,6 +14,10 @@ const Okayoon = ({ Component }) => {
         body {
             font-size: 16px;
 
+            @media only screen and ${({ theme }) => theme.device.mobileS} {
+                font-size: 14px;
+            }
+
             & > div {
                 height: 100%;
             }

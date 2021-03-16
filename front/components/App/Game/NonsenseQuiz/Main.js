@@ -61,6 +61,7 @@ const Bottom = styled.div`
 `;
 
 const BottomInner = styled.div`
+    margin: 0 auto;
     max-width: ${({ theme }) => theme.calcRem(900)};
 
     img {

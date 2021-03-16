@@ -47,6 +47,7 @@ const cColors = {
 };
 
 const deviceSize = {
+    mobileS: '640px',
     mobile: '767px',
     tablet: '1023px',
     laptop: '1460px',
@@ -54,6 +55,7 @@ const deviceSize = {
 };
 
 const device = {
+    mobileS: `(max-width: ${deviceSize.mobileS})`,
     mobile: `(max-width: ${deviceSize.mobile})`,
     tablet: `(max-width: ${deviceSize.tablet})`,
     laptop: `(min-width: ${deviceSize.laptop})`,

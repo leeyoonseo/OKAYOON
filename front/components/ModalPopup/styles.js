@@ -8,8 +8,6 @@ export const Wrap = styled.div`
     position: fixed;
     top: 50%;
     left: 50%;
-    // min-width: ${({ theme }) => theme.calcRem(350)};
-    // min-height: ${({ theme }) => theme.calcRem(350)};
     max-width: 98%;
     max-height: 98%;
     width: ${({ w }) => w};
@@ -24,10 +22,6 @@ export const Wrap = styled.div`
 
     &.visible {
         display: block;
-    }
-
-    @media all and (max-width: 767px) {
-        grid-template-columns: 1fr;
     }
 `;
 
@@ -67,7 +61,7 @@ export const Content = styled(Layout.Content)`
 export const Controls = styled.div` 
     display: inline-block;
     position: absolute;
-    left: 3%;
+    left: 2%;
 `;
 export const ControlButton = styled.button`
     padding: 0;

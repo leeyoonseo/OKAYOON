@@ -55,14 +55,12 @@ const Guestbook = () => {
     const MAX_TEXTAREA_LENGTH = 100;
 
     useEffect(() => {
-        console.log('???', guestbook)
-
         if (!loadGuestbookDone) {
             dispatch({
                 type: LOAD_GUESTBOOK_REQUEST
             });
         }
-    }, []);
+    }, [loadGuestbookDone]);
 
     useEffect(() => {
         if (me.nickname) {

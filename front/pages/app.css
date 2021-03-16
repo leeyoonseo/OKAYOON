@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Stylish:400');
-/* @import url('https://fonts.googleapis.com/css?family=Black+Han+Sans:400'); */
 @import url('https://fonts.googleapis.com/css?family=Sunflower:500,700');
 
 body, 
@@ -8,5 +7,5 @@ input,
 button, 
 a {
     font-family: 'Stylish';
-    font-size: 14px;
+    font-size: 16px;
 }

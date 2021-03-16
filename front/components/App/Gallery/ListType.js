@@ -33,6 +33,15 @@ const Item = styled(List.Item)`
     &:hover {
         box-shadow: ${({ theme }) => theme.calcRem(1)} ${({ theme }) => theme.calcRem(1)} ${({ theme }) => theme.calcRem(5)} ${({ theme }) => theme.colors.rgbaBlack};
     }
+
+
+    @media only screen and ${({ theme }) => theme.device.mobileS} {
+        .ant-list-item-meta-description {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+    }
 `;
 
 const ItemMeta = styled(List.Item.Meta)`

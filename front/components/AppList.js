@@ -46,22 +46,47 @@ const applistData = [
         },
 ];
 
+const Wrap = styled.div`
+    display: inline-block;
+    max-width: ${({ theme }) => theme.calcRem(600)};    
+    width: 100%;
+`;
+
 const AppButton = styled.button`
     padding: 0;        
-    width: ${({ theme }) => theme.calcRem(70)};
-    height: ${({ theme }) => theme.calcRem(70)};
+    max-width: 15%;
+    width: 100%;
     font-size: ${({ theme }) => theme.calcRem(16)};
     border: none;
     outline: none;
     background: none;
     cursor: pointer;
 
+    @media only screen and ${({ theme }) => theme.device.mobile} {
+        max-width: none;
+        width: 30%;
+
+        &:nth-child(4n) {
+            margin-left: 0;
+        }
+
+        &:nth-child(n+3) {
+            margin-top: 3%;
+        }
+    }
+
     & + button {
-        margin-left: ${({ theme }) => theme.calcRem(35)};
+        margin-left: 2%;
+    }
+
+    span {
+        display: block;
     }
 `;
 
 const Icon = styled.img`
+    max-width: ${({ theme }) => theme.calcRem(70)};
+    max-height: ${({ theme }) => theme.calcRem(70)};
     width: 100%;
     height: 100%;
 `;
@@ -128,7 +153,7 @@ const AppList = () => {
     }, [modals]);
 
     return (
-        <>
+        <Wrap>
             {applistData.map((v) => {
                 const { id, name, src } = v;
                 return(
@@ -136,12 +161,17 @@ const AppList = () => {
                         key={`icon_${id}_${name}`}
                         onClick={onClickApp(id)}
                     >
-                        <Icon src={src} alt={`${name} 아이콘`} />
-                        <Name>{name}</Name>
+                        <span>
+                            <Icon src={src} alt={`${name} 아이콘`} />
+                        </span>
+
+                        <span>
+                            <Name>{name}</Name>
+                        </span>
                     </AppButton>
                 )
             })}
-        </>
+        </Wrap>
     );
 }
 

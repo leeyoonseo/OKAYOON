@@ -4,6 +4,7 @@ import { Layout } from 'antd';
 import SystemTools from '../components/SystemTools';
 
 const Wrap = styled(Layout)`
+    min-width: 320px;
     height: 100%;
     font-size: ${({ theme }) => theme.calcRem(16)};
     background: ${({ bgcolor }) => bgcolor};
