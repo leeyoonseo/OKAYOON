@@ -11,7 +11,7 @@ const SubTitle = styled.div`
 `;
 
 const Title = styled.div`
-padding: ${({ theme }) => theme.calcRem(10)} ${({ theme }) => theme.calcRem(10)} 0 ${({ theme }) => theme.calcRem(10)};
+    padding: ${({ theme }) => theme.calcRem(10)} ${({ theme }) => theme.calcRem(10)} 0 ${({ theme }) => theme.calcRem(10)};
     margin-top: ${({ theme }) => theme.calcRem(5)};
     font-size: ${({ theme }) => theme.calcRem(80)};
     line-height: 1;

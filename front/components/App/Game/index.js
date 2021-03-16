@@ -27,6 +27,7 @@ const Wrap = styled.div`
     position: relative;
     width: 100%;
     height: 100%;
+    overflow: hidden;
 `;
 
 const List= styled.div`
@@ -79,7 +80,6 @@ const Title = styled.span`
     display: block;
     width: 100%;
     height: ${({ theme }) => theme.calcRem(16)};
-    font-weight: 700;
     text-align: center;
     line-height: 1;
     text-overflow:ellipsis; 

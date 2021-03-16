@@ -36,6 +36,16 @@ const pColors = {
     orangeRed: '#bc5027',
 };
 
+// [D] CatchMind
+const cColors = {
+    black: '#666',
+    orange: '#f5b36e',
+    blue: '#59cffa',
+    green: '#cae37f',
+    red: '#eb6b66',
+    ivory: '#fffff4',
+};
+
 const deviceSize = {
     mobile: '767px',
     tablet: '1023px',
@@ -57,6 +67,7 @@ export const theme = {
     colors,
     nColors,
     pColors,
+    cColors,
     device,
 };
 

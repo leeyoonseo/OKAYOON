@@ -3,69 +3,75 @@ import { useSelector } from 'react-redux';
 import { shuffleArray, cloneObject } from '../index';
 
 import styled, { css, keyframes } from 'styled-components';
-import { ArrowLeftOutlined, ClockCircleOutlined, ConsoleSqlOutlined, DeleteOutlined } from '@ant-design/icons';
+import { ArrowLeftOutlined, CheckOutlined, CloseOutlined, DeleteOutlined } from '@ant-design/icons';
 import useInput from '../../../../hooks/useInput';
 
 import { STEP_FINISH } from './index';
+import Layout from './Layout';
 
 const resultFadeIn = keyframes`
     0% {
-        font-size: 10px;
+        font-size: ${({ theme }) => theme.calcRem(10)};
     }
     100% {
-        font-size: 60px;
+        font-size: ${({ theme }) => theme.calcRem(60)};
     }
 `;
 
-const Wrap = styled.div`
-    position: relative;        
-    height: calc(100% - 31px);
+const Inner = styled.div`
+    width: 100%;
+    height: 100%:
 `;
 
 const OutputArea = styled.div`
     position: relative;
 
+    & > div + div {
+        margin-top: ${({ theme }) => theme.calcRem(15)};
+    }
+
     &:after {
-        content: '';
         display: block;
+        content: '';
         clear: both;
     }
 `;
 
-const TimerWrap = styled.div`
-    padding: 10px 0;
-    text-align: center;
+const Round = styled.div`
+    position: relative;
+    display: block;
+    font-size: ${({ theme }) => theme.calcRem(25)};
+    line-height: 1;
+    text-shadow: ${({ theme }) => theme.calcRem(2)} ${({ theme }) => theme.calcRem(2)} ${({ theme }) => theme.calcRem(2)} white;
+    color: ${({ theme }) => theme.cColors.red};
 `;
 
-const TimerIcon = styled(ClockCircleOutlined)`
-    color: #ffbf2e;
-    font-size: 18px;
-    margin-right: 5px;
+const TimerWrap = styled.div`
+    text-align: center;
     line-height: 1;
-    vertical-align: middle;
 `;
 
 const TimerInner = styled.div`
     display: inline-block;
-    width: 400px;
+    width: ${({ theme }) => theme.calcRem(400)};
 `;
 
 const TimerBar = styled.div`
     display: inline-block;
-    height: 10px;
     width: 100%;
+    height: ${({ theme }) => theme.calcRem(10)};
     text-align: center;
-    border-radius: 0 3px 3px 0;
+    border-radius: ${({ theme }) => theme.calcRem(3)};
     background: none;
     overflow: hidden;
 
     &:after {
-        content: '';
         display: block;
-        width: ${props => props.progress}%;
+        content: '';
+        width: ${({ progress }) => progress}%;
         height: 100%;
-        border-radius: 0 3px 3px 0;
-        background: #ffbf2e;
+        border-radius: ${({ theme }) => theme.calcRem(3)};
+        background: ${({ progress }) => progress <= 30 ? '#eb6b66' : '#f5b36e'};
     }
 `;
 
@@ -73,74 +79,73 @@ const Container = styled.div`
     position: relative;
     float: left;
     width: 100%;
-    height: 300px;
-    border-radius: 10px;
-    background: #fffff4;
+    height: ${({ theme }) => theme.calcRem(300)};
+    border-radius: ${({ theme }) => theme.calcRem(10)};
 `;  
 
 const InputBox = styled.div`
+    font-size: ${({ theme }) => theme.calcRem(30)};
     text-align: center;
-    font-size: 30px;
-    color: #666;
+    color: ${({ theme }) => theme.cColors.black};
 
     span {
         display: inline-block;
-        width: 50px;
-        height: 50px;
+        width: ${({ theme }) => theme.calcRem(50)};
+        height: ${({ theme }) => theme.calcRem(50)};
         vertical-align: top;
-        border-radius: 5px;
-        background: #fffff4;
-        box-shadow: 2px 2px 3px rgb(0 0 0);
+        border-radius: ${({ theme }) => theme.calcRem(5)};
+        background: ${({ theme }) => theme.cColors.ivory};
+        border: ${({ theme }) => theme.calcRem(2)} solid ${({ theme }) => theme.cColors.black};
+        box-shadow: inset 1px 1px ${({ theme }) => theme.calcRem(3)} ${({ theme }) => theme.colors.rgbaBlack}
         cursor: default;
 
         & + span {
-            margin-left: 5px;
+            margin-left: ${({ theme }) => theme.calcRem(5)};
+        }
+
+        &.active {
+            box-shadow: none;
         }
     }
 `;
 
 const QuizBoard = styled.div`
+    display: flex;
     width: 100%;
     height: 100%;
-    background: url(${props => props.bg})no-repeat;
-    background-size: 100% 100%;
+    justify-content: center;
+    align-items: center;
     overflow: hidden;
-`;
 
-const Round = styled.span`
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    display: inline-block;
-    font-size: 20px;
-    line-height: 1;
-    color: #666;
-    1px 1px 1px rgb(0 0 0 / 50%)
+    img {
+        max-height: 100%;
+    }
 `;
 
 const Score = styled.span`
     position: absolute;
     right: 0;
-    bottom: -20px;
+    bottom: -${({ theme }) => theme.calcRem(20)};
     display: inline-block;
-    font-size: 18px;
+    font-size: ${({ theme }) => theme.calcRem(18)};
     line-height: 1;
+    color: ${({ theme }) => theme.cColors.black};
 `;
 
 const InputArea = styled.div`
-    > div {
-        margin-top: 15px;
+    & > div {
+        margin-top: ${({ theme }) => theme.calcRem(15)};
     }
 `;
 
 const initialLetterStyle = css`
     padding: 0;
     display: inline-block;
-    font-size: 20px;
-    color: #666;
-    background: #fff;
+    font-size: ${({ theme }) => theme.calcRem(20)};
+    color: ${({ theme }) => theme.cColors.black};
+    background: white;
     border: none;
-    border-radius: 3px;
+    border-radius: ${({ theme }) => theme.calcRem(3)};;
     outline: none;
     cursor: pointer;
 
@@ -156,6 +161,7 @@ const ExampleArea = styled.div`
     button {
         ${initialLetterStyle}
         width: 16%;
+        border: ${({ theme }) => theme.calcRem(2)} solid ${({ theme }) => theme.cColors.black};
 
         & + button {
             margin-left: 0.5%;
@@ -170,9 +176,9 @@ const ExampleArea = styled.div`
         }
 
         &.active {
-            background: #ffbf2e;
-            color: #ffbf2e;
-            box-shadow: inset 2px 3px 5px rgba(0, 0, 0, 0.5);
+            background: ${({ theme }) => theme.cColors.orange};
+            color: ${({ theme }) => theme.cColors.orange};
+            box-shadow: inset ${({ theme }) => theme.calcRem(2)} ${({ theme }) => theme.calcRem(3)} ${({ theme }) => theme.calcRem(5)} ${({ theme }) => theme.colors.rgbaBlack};
         }
     }
 `;
@@ -184,7 +190,8 @@ const RemoveButtons = styled.div`
     button {
         ${initialLetterStyle}
         width: 100%;
-        background: #ffbf2e;
+        background: ${({ theme }) => theme.cColors.orange};
+        border: ${({ theme }) => theme.calcRem(2)} solid ${({ theme }) => theme.cColors.black};
 
         & + button {
             margin-top: 3%;
@@ -196,17 +203,17 @@ const ResultModal = styled.div`
     position: absolute;
     top: 50%;
     left: 50%;
-    padding: 10px 20px;
+    width: ${({ theme }) => theme.calcRem(200)};
+    height: ${({ theme }) => theme.calcRem(200)};
     line-height: 1;
-    text-align: center;
-    background: #fff;
-    border-radius: 5px;
     transform: translate(-50%, -50%);
     animation: ${resultFadeIn} 0.1s linear ;
 `;
 
-const ResultMessage = styled.span`
-    font-size: 60px;    
+const Result = styled.div`
+    width: 100%;
+    height: 100%;
+    font-size: ${({ theme }) => theme.calcRem(200)};   
     color: ${props => props.isCorrect ? '#26ca3f' : '#ff6059'};
 `;
 
@@ -265,26 +272,26 @@ const Game = ({
     }, [example]);
 
     useEffect(() => {
-        if (time === null) return;
+        // if (time === null) return;
 
-        if (openedResult) {
-            return clearInterval(timer);
-        }
+        // if (openedResult) {
+        //     return clearInterval(timer);
+        // }
 
-        // [D] 시간제한 실패
-        if (time === 0) {
-            clearInterval(timer);
-            moveNextRound({ scoreUp: false });  
-            return;
-        };
+        // // [D] 시간제한 실패
+        // if (time === 0) {
+        //     clearInterval(timer);
+        //     moveNextRound({ scoreUp: false });  
+        //     return;
+        // };
 
-        const timer = setInterval(() => {
-            setTime(time - 10);
-        }, 100);
+        // const timer = setInterval(() => {
+        //     setTime(time - 10);
+        // }, 100);
 
-        return () => {
-            clearInterval(timer);
-        }
+        // return () => {
+        //     clearInterval(timer);
+        // }
     }, [time, openedResult]); 
 
     useEffect(() => {
@@ -337,14 +344,17 @@ const Game = ({
         
         setTimeout(() => {
             setOpenedResult(false);
+            setRound(round + 1);
+
+            console.log('round', round);
+            console.log('MAX_ROUND', MAX_ROUND);
             
-            if (round > MAX_ROUND || round >= (data.length - 1)) {
+            if (round >= MAX_ROUND || round >= (data.length - 1)) {
                 setRound(null);
                 onChangeStep(STEP_FINISH)();
                 return;
             }
 
-            setRound(round + 1);
             reset();
         }, 1000);
     }, [round, examRef]);
@@ -358,89 +368,94 @@ const Game = ({
     }, [correctWord, userAnswer]);
 
     return (
-        <Wrap>
-            <OutputArea>
-                <TimerWrap>
-                    <TimerIcon />
-                    <TimerInner>
-                        <TimerBar 
-                            progress={(time / MAX_TIME) * 100}
-                        />
-                    </TimerInner>
-                </TimerWrap>
-
-                <Container>                    
-                    {quiz && (
-                        <QuizBoard bg={quiz.question}/>
-                    )}
-
+        <Layout>
+            <Inner>
+                <OutputArea>
                     <Round>Round {round + 1}</Round>
 
-                    <Score>Score {score}</Score>
-                </Container>
-            </OutputArea>
+                    <TimerWrap>
+                        <TimerInner>
+                            <TimerBar 
+                                progress={(time / MAX_TIME) * 100}
+                            />
+                        </TimerInner>
+                    </TimerWrap>
 
-            <InputArea>
-                <InputBox>
-                    <input 
-                        type="hidden"
-                        ref={userAnswerInputRef}  
-                        value={userAnswer} 
-                        onChange={onChangeUserAnswer}
-                    />
+                    <Container>                    
+                        {quiz && (
+                            <QuizBoard>
+                                <img src={quiz.question} />
+                            </QuizBoard>
+                        )}
+                        <Score>Score {score}</Score>
+                    </Container>
+                </OutputArea>
 
-                    {correctWord && correctWord.split('').map((v, i) => {
-                        return (
-                            <span key={`submit_word_${i}`}>
-                                {userAnswer.split('')[i]}
-                            </span>
-                        )
-                    })}
-                </InputBox>
+                <InputArea>
+                    <InputBox>
+                        <input 
+                            type="hidden"
+                            ref={userAnswerInputRef}  
+                            value={userAnswer} 
+                            onChange={onChangeUserAnswer}
+                        />
 
-                <div>
-                    <ExampleArea>
-                        {example && example.map((v, i) => (
-                            <button 
-                                key={`example_${v}`}
-                                value={v}
-                                onClick={onClickExample}
-                                ref={examRef[i]}
+                        {correctWord && Array(correctWord.length).fill().map((_, i) => {
+                            return (
+                                <span 
+                                    key={`${correctWord}_word_${i}`}
+                                    className={userAnswer.split('')[i] ? 'active' : ''}
+                                >
+                                    {userAnswer.split('')[i]}
+                                </span>
+                            )
+                        })}
+                    </InputBox>
+
+                    <div>
+                        <ExampleArea>
+                            {example && example.map((v, i) => (
+                                <button 
+                                    key={`example_${v}_${i}`}
+                                    value={v}
+                                    onClick={onClickExample}
+                                    ref={examRef[i]}
+                                    disabled={openedResult}
+                                > 
+                                    {v}
+                                </button>
+                            ))}
+                        </ExampleArea>
+                        
+                        <RemoveButtons>
+                            <button
+                                onClick={onClickRemove}
                                 disabled={openedResult}
-                            > 
-                                {v}
+                            >
+                                <ArrowLeftOutlined style={{ color: '#666' }} />
+                                <span className="hidden">한글자 지우기</span>
                             </button>
-                        ))}
-                    </ExampleArea>
-                    
-                    <RemoveButtons>
-                        <button
-                            onClick={onClickRemove}
-                            disabled={openedResult}
-                        >
-                            <ArrowLeftOutlined style={{ color: '#666' }} />
-                            <span className="hidden">한글자 지우기</span>
-                        </button>
 
-                        <button
-                            onClick={onClickAllRemove}
-                            disabled={openedResult}
-                        >
-                            <DeleteOutlined style={{ color: '#666' }} />
-                            <span className="hidden">전체 지우기</span>
-                        </button>
-                    </RemoveButtons>
-                </div>
-            </InputArea>
+                            <button
+                                onClick={onClickAllRemove}
+                                disabled={openedResult}
+                            >
+                                <DeleteOutlined style={{ color: '#666' }} />
+                                <span className="hidden">전체 지우기</span>
+                            </button>
+                        </RemoveButtons>
+                    </div>
+                </InputArea>
 
-            {openedResult && (
-                <ResultModal>
-                    <ResultMessage isCorrect={isCorrect}>
-                        {isCorrect ? '정답' : '오답'}
-                    </ResultMessage>
-                </ResultModal>
-            )}
-        </Wrap>
+                {openedResult && (
+                    <ResultModal>
+                        <Result isCorrect={isCorrect}>
+                            {isCorrect ? <CheckOutlined /> : <CloseOutlined />}
+                        </Result>
+                    </ResultModal>
+                )}
+            </Inner>
+        </Layout>
     );
 };
 

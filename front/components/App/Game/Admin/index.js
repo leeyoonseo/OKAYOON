@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, useState } from 'react';
-import { NONSENSE_QUIZ, CATCH_MIND } from '../../../../reducers/game';
+import { NONSENSE_QUIZ, CATCH_MIND, PERSONALITY_TEST } from '../../../../reducers/game';
 import { LeftOutlined } from '@ant-design/icons';
 
 import { Wrap, BackButton, SelectArea, Title, Select, OptionItems, NotifyMessage } from './style';
@@ -25,7 +25,10 @@ const Admin = ({ list, onClickBack }) => {
                 <Title>데이터 항목 선택</Title>
                 
                 <Select>
-                    {list && list.map((v) => (
+                    {list && list.map((v) => {
+                        if (v.name === PERSONALITY_TEST) return;
+
+                        return (
                             <OptionItems key={`admin_${v.name}`}>                                
                                 <input 
                                     type="radio" 
@@ -40,8 +43,8 @@ const Admin = ({ list, onClickBack }) => {
                                     {v.title}
                                 </label>
                             </OptionItems>
-                        )
-                    )}
+                        )  
+                    })}
                 </Select>  
             </SelectArea>
 

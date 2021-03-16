@@ -130,6 +130,7 @@ const Message = styled.span`
     font-size: ${({ theme }) => theme.calcRem(200)};   
     color: ${props => props.isCorrect ? '#26ca3f' : '#ff6059'};
 `;
+
 const Game = ({ 
     score,
     setScore, 

@@ -6,12 +6,10 @@ import { HomeOutlined, LeftOutlined } from '@ant-design/icons';
 import { STORE, LOAD_GAME_REQUEST, NONSENSE_QUIZ } from '../../../../reducers/game';
 
 import Main from './Main';
-import Guide from './Guide';
 import Game from './Game';
 import Finish from './Finish';
 
 export const STEP_MAIN = 'main';
-export const STEP_GUIDE = 'guide';
 export const STEP_GAME = 'game';
 export const STEP_FINISH = 'finish';
 
@@ -202,12 +200,6 @@ const NonsenseQuiz = ({ onClickHome }) => {
                     return (
                         <Main 
                             data={gameData}
-                            onChangeStep={onChangeStep}
-                        />
-                    )
-                } else if (step === STEP_GUIDE) {
-                    return (
-                        <Guide  
                             onChangeStep={onChangeStep}
                         />
                     )

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 
-import { STEP_GAME, STEP_GUIDE } from './index';
+import { STEP_GAME } from './index';
 import Layout from './Layout';
 
 const Content = styled.div`
@@ -52,10 +52,6 @@ const StartButton = styled.button`
     color: ${({ theme }) => theme.nColors.black};
 `;
 
-const GuideIcon = styled.img`
-    width: ${({ theme }) => theme.calcRem(60)};
-`;
-
 const Bottom = styled.div`
     position: absolute;
     bottom: 0;
@@ -65,20 +61,11 @@ const Bottom = styled.div`
 `;
 
 const BottomInner = styled.div`
-    position: relative;
     max-width: ${({ theme }) => theme.calcRem(900)};
 
     img {
         max-width: 100%;
     }
-`;
-
-const GuideButton = styled.button`
-    ${initialButtonStyle}
-    position: absolute;
-    right: 0;
-    top: 0;
-    transform: translateY(-50%);
 `;
 
 const Main = ({ 
@@ -110,12 +97,6 @@ const Main = ({
 
             <Bottom>
                 <BottomInner>
-                    <GuideButton
-                        onClick={onChangeStep(STEP_GUIDE)}
-                    >
-                        <GuideIcon src="../../game/nonsense/icon_question_mark.png" alt="물음표 아이콘" />
-                        <span className="hidden">게임방법</span>
-                    </GuideButton>
                     <img src="../../game/nonsense/icon_children.png" alt="아이들 이미지" />
                 </BottomInner>
             </Bottom>

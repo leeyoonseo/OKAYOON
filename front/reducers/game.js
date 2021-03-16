@@ -21,7 +21,7 @@ export const initialState = {
         {
             name: CATCH_MIND,
             title: "그림 퀴즈",
-            image: "http://www.topdaily.kr/news/photo/201910/59899_24563_3844.jpg",
+            image: "../game/catchmind/cover.png",
         },  
         {
             name: PERSONALITY_TEST,
