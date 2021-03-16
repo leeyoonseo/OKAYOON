@@ -122,16 +122,6 @@ const QuizBoard = styled.div`
     }
 `;
 
-const Score = styled.span`
-    position: absolute;
-    right: 0;
-    bottom: -${({ theme }) => theme.calcRem(20)};
-    display: inline-block;
-    font-size: ${({ theme }) => theme.calcRem(18)};
-    line-height: 1;
-    color: ${({ theme }) => theme.cColors.black};
-`;
-
 const InputArea = styled.div`
     & > div {
         margin-top: ${({ theme }) => theme.calcRem(15)};
@@ -214,11 +204,11 @@ const Result = styled.div`
     width: 100%;
     height: 100%;
     font-size: ${({ theme }) => theme.calcRem(200)};   
-    color: ${props => props.isCorrect ? '#26ca3f' : '#ff6059'};
+    color: ${({ isCorrect }) => isCorrect ? '#26ca3f' : '#ff6059'};
 `;
 
 const Game = ({
-    score, 
+    score,
     setScore,
     MAX_ROUND,
     MAX_TIME,
@@ -244,12 +234,10 @@ const Game = ({
 
         setQuizList(data);
         setRound(0);
-        setScore(0);
-        setTime(MAX_TIME);
     }, []);
 
     useEffect(() => {
-        if (round === null || !quizList) return;
+        if (round === null) return;
 
         const currentQuiz = quizList[round];
         let { correct, incorrect } = currentQuiz;
@@ -272,26 +260,26 @@ const Game = ({
     }, [example]);
 
     useEffect(() => {
-        // if (time === null) return;
+        if (time === null) return;
 
-        // if (openedResult) {
-        //     return clearInterval(timer);
-        // }
+        if (openedResult) {
+            return clearInterval(timer);
+        }
 
-        // // [D] 시간제한 실패
-        // if (time === 0) {
-        //     clearInterval(timer);
-        //     moveNextRound({ scoreUp: false });  
-        //     return;
-        // };
+        // [D] 시간제한 실패
+        if (time === 0) {
+            clearInterval(timer);
+            moveNextRound({ scoreUp: false });  
+            return;
+        };
 
-        // const timer = setInterval(() => {
-        //     setTime(time - 10);
-        // }, 100);
+        const timer = setInterval(() => {
+            setTime(time - 10);
+        }, 100);
 
-        // return () => {
-        //     clearInterval(timer);
-        // }
+        return () => {
+            clearInterval(timer);
+        }
     }, [time, openedResult]); 
 
     useEffect(() => {
@@ -344,17 +332,14 @@ const Game = ({
         
         setTimeout(() => {
             setOpenedResult(false);
-            setRound(round + 1);
-
-            console.log('round', round);
-            console.log('MAX_ROUND', MAX_ROUND);
             
-            if (round >= MAX_ROUND || round >= (data.length - 1)) {
+            if (round > MAX_ROUND || round >= (data.length - 1)) {
                 setRound(null);
                 onChangeStep(STEP_FINISH)();
                 return;
             }
 
+            setRound(round + 1);
             reset();
         }, 1000);
     }, [round, examRef]);
@@ -387,7 +372,6 @@ const Game = ({
                                 <img src={quiz.question} />
                             </QuizBoard>
                         )}
-                        <Score>Score {score}</Score>
                     </Container>
                 </OutputArea>
 

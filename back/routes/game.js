@@ -26,7 +26,7 @@ router.get('/nonsensequiz', async (req, res, next) => { // POST /game/nonsensequ
 router.get('/catchmind', async (req, res, next) => { // POST /game/nonsensequiz
     try {
         const quiz = await CatchMind.findAll({
-            // limit: 10,
+            limit: 10,
             order: sequelize.random()
         });
 
