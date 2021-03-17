@@ -109,6 +109,8 @@ const Popup = styled.div`
 `;
 
 const PopupTitle = styled.div`
+    margin: 0 auto;
+    width: 90%;
     font-size: ${({ theme }) => theme.calcRem(25)};
     line-height: 1.25;
     font-weight: 700;
@@ -195,7 +197,7 @@ const ArrowButtonArea = styled.div`
 `;
 
 const Finish = ({ type }) => {
-    const { personalityType } = useSelector((state) => state.game);
+    const { personalityTestResult } = useSelector((state) => state.game);
     const [data, setData] = useState(null);
     const [openedPopup, setOpenedPopup] = useState(false);
     const [popupFirstPage, setPopupFirstPage] = useState(true);
@@ -208,11 +210,12 @@ const Finish = ({ type }) => {
     `;
 
     useEffect(() => {
-        setData(personalityType.find((v) => v.type === type));
+        setData(personalityTestResult.find((v) => v.type === type));
     }, []);
 
     useEffect(() => {   
         if (!data) return;
+        const resultData = personalityTestResult;
         const { typeIndex } = data;
         let index = '';
 
@@ -223,9 +226,9 @@ const Finish = ({ type }) => {
             index = (typeIndex === 9) ? 1 : typeIndex + 1;
         }
 
-        for (let i = 0; i < personalityType.length; i++) {
-            if (personalityType[i].typeIndex === index){
-                setPopupData(personalityType[i]);
+        for (let i = 0; i < resultData.length; i++) {
+            if (resultData[i].typeIndex === index){
+                setPopupData(resultData[i]);
                 break;
             }
         }

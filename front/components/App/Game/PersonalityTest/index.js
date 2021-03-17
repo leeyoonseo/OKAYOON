@@ -63,7 +63,7 @@ const MainIcon = styled(LeftOutlined)`
 `;
 
 const PersonalityTest = ({ onClickHome }) => {
-    const { personalityTest } = useSelector((state) => state.game);
+    const { personalityTestData } = useSelector((state) => state.game);
     const [step, setStep] = useState(STEP_MAIN); // [D] default = STEP_MAIN
     const [type, setType] = useState(null);
 
@@ -89,7 +89,7 @@ const PersonalityTest = ({ onClickHome }) => {
                 if (step === STEP_MAIN) {
                     return (
                         <Main 
-                            data={personalityTest}
+                            data={personalityTestData}
                             onChangeStep={onChangeStep}
                         />
                     )
@@ -98,7 +98,7 @@ const PersonalityTest = ({ onClickHome }) => {
                         <Game 
                             type={type}
                             setType={setType}
-                            data={personalityTest}
+                            data={personalityTestData}
                             onChangeStep={onChangeStep}
                         />
                     )

@@ -30,49 +30,11 @@ export const initialState = {
         },   
     ],
 
-    // [D] db에 저장된 게임 데이터
-    gameData: [],
-
-    // [D] 넌센스
-    nunsenseGuideImages : [
-        // { 
-        //     src: awsBucketBaseURL + 'nonsense_guide00.png', 
-        //     alt : '넌센스: 게임 메인화면 설명',
-        // },
-        // { 
-        //     src: awsBucketBaseURL + 'nonsense_guide01.png', 
-        //     title : '넌센스: 게임 진행 화면 설명',
-        // },
-        // { 
-        //     src: awsBucketBaseURL + 'nonsense_guide02_0.png', 
-        //     title : '넌센스: 정답 시 설명',
-        // },
-        // { 
-        //     src: awsBucketBaseURL + 'nonsense_guide02_1.png', 
-        //     title : '넌센스: 오답 시 설명',
-        // },
-        // { 
-        //     src: awsBucketBaseURL + 'nonsense_guide03.png', 
-        //     title : '넌센스: 게임 종료 화면 설명',
-        // },
-
-        // [D] dev
-        { 
-            src: "../../game/nonsense/guide_0.png", 
-            alt : "넌센스: 게임 메인화면 설명",
-        },
-        { 
-            src: "../../game/nonsense/guide_1.png", 
-            title : "넌센스: 게임 진행 화면 설명",
-        },
-        { 
-            src: "../../game/nonsense/guide_2.png", 
-            title : "넌센스: 결과화면",
-        },
-    ],
+    nonsenseData: [],
+    catchmindData: [],
 
     // [D] 성격 테스트
-    personalityTest : [
+    personalityTestData : [
         {
             round: 1,
             question: `마카롱 세트를 선물 받아서 가족과 함께 먹으려고한다. 다 같이 모여서 마카롱 포장을 뜯었는데,<br />
@@ -113,8 +75,7 @@ export const initialState = {
     ],
 
     // [D] 성격 테스트 결과
-    // TODO: 인접 유형 추가하기.
-    personalityType: [
+    personalityTestResult: [
         {   
             typeIndex: 3,
             type: "1a",
@@ -286,7 +247,15 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             break;
 
         case LOAD_GAME_SUCCESS: {
-            draft.gameData = (typeof action.data === 'object') ? action.data : [];
+            const { name, quiz } = action.data;
+            let data = (typeof quiz === 'object') ? quiz : []; 
+
+            if (name === NONSENSE_QUIZ) {
+                draft.nonsenseData = data;
+            } else if (name === CATCH_MIND) {
+                draft.catchmindData = data;
+            }
+
             draft.loadGameLoading = false;
             draft.loadGameDone = true;
             draft.loadGameError = false;

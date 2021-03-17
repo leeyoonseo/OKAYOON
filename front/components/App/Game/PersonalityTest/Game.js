@@ -21,6 +21,8 @@ const Round = styled.div`
 `;
 
 const Question = styled.div`
+    margin: ${({ theme }) => theme.calcRem(20)} auto 0;
+    width: 90%;
     word-break: keep-all;
     font-size: ${({ theme }) => theme.calcRem(26)};
     line-height: 1.25;
@@ -39,8 +41,8 @@ const Example = styled.div`
 const Items = styled.div`
     button {
         padding: 0;
-        font-size: 22px;
-        line-height: 1;
+        font-size: ${({ theme }) => theme.calcRem(22)};
+        line-height: 1.25;
         border: none;
         background: none;
         outline: none;

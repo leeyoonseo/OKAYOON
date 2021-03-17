@@ -41,6 +41,28 @@ const List= styled.div`
     & > div + div:not(:nth-child(3n+1)) {
         margin-left: 5%;
     }
+
+    & > div + div:nth-child(n+4) {
+        margin-top: ${({ theme }) => theme.calcRem(20)};
+    }
+
+    @media only screen and ${({ theme }) => theme.device.mobileS} {
+        & > div + div:nth-child(n+4) {
+            margin-top: 0;
+        }
+
+        & > div + div:nth-child(even) {
+            margin-left: 5%;
+        }
+
+        & > div + div:nth-child(odd) {
+            margin-left: 0;
+        }
+
+        & > div + div:nth-child(n+3) {
+            margin-top: ${({ theme }) => theme.calcRem(15)};
+        }
+    }
 `;
 
 const Item = styled.div`
@@ -54,6 +76,10 @@ const Item = styled.div`
 
     &:hover {
         box-shadow: 1px 1px ${({ theme }) => theme.calcRem(5)} ${({ theme }) => theme.colors.rgbaBlack};
+    }
+
+    @media only screen and ${({ theme }) => theme.device.mobileS} {
+        width: 45%;
     }
 `;
 

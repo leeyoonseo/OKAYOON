@@ -1,6 +1,8 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import styled, { css } from 'styled-components';
 
+import { shuffleArray, cloneObject } from '../index';
+
 import { STEP_GAME } from './index';
 import Layout from './Layout';
 
@@ -67,8 +69,21 @@ const Copyright = styled.span`
 
 const Main = ({ 
     data,
+    setGameData,
     onChangeStep,
 }) => {
+    const [ready, setReady] = useState(false);
+
+    useEffect(() => {
+        if (data.length < 1) return;
+
+        let gameData = cloneObject(data);
+        gameData = shuffleArray(data);
+
+        setGameData(gameData.slice(0, 10));
+        setReady(true);
+    }, [data]);
+
     return (
         <Layout>
             <Inner>
@@ -80,9 +95,9 @@ const Main = ({
                     <Highlighter />
                     <StartButton 
                         onClick={onChangeStep(STEP_GAME)}
-                        disabled={data.length < 1}
+                        disabled={!ready}
                     >
-                        {data.length < 1 ? 'No Data' : '시작하기'}
+                        {ready ? '시작하기' : 'No Data'}
                     </StartButton>
                 </TitleArea>
             </Inner>
@@ -94,5 +109,3 @@ const Main = ({
 
 
 export default Main;
-
-// TODO: 디자인/아이디어 -> 쿵야 캐치마인드 클론 코딩 표시

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 
+import { shuffleArray, cloneObject } from '../index';
+
 import { STEP_GAME } from './index';
 import Layout from './Layout';
 
@@ -71,6 +73,7 @@ const BottomInner = styled.div`
 
 const Main = ({ 
     data,
+    setGameData,
     onChangeStep,
 }) => {
     const [ready, setReady] = useState(false);
@@ -78,6 +81,10 @@ const Main = ({
     useEffect(() => {
         if (data.length < 1) return;
 
+        let gameData = cloneObject(data);
+        gameData = shuffleArray(data);
+
+        setGameData(gameData.slice(0, 10));
         setReady(true);
     }, [data]);
 

@@ -64,13 +64,16 @@ const MainIcon = styled(LeftOutlined)`
 
 const CatchMindQuiz = ({ onClickHome }) => {
     const dispatch = useDispatch();
-    const { gameData } = useSelector((state) => state.game);
-    const [step, setStep] = useState(STEP_MAIN);
+    const { catchmindData } = useSelector((state) => state.game);
+    const [gameData, setGameData] = useState(null);
+    const [step, setStep] = useState(STEP_MAIN); // [D] default = STEP_MAIN
     const [score, setScore] = useState(0);
     const MAX_ROUND = 10;
     const MAX_TIME = 1000; // [D] 1000 = 1초
 
     useEffect(() => {
+        if (catchmindData.length >= 1) return;
+
         dispatch({
             type: LOAD_GAME_REQUEST,
             data: CATCH_MIND
@@ -99,11 +102,14 @@ const CatchMindQuiz = ({ onClickHome }) => {
                 if (step === STEP_MAIN) {
                     return (
                         <Main 
-                            data={gameData}
+                            data={catchmindData}
+                            setGameData={setGameData}
                             onChangeStep={onChangeStep}
                         />
                     )
                 } else if (step === STEP_GAME) {
+                    if (!gameData) return;
+
                     return (
                         <Game 
                             score={score}
