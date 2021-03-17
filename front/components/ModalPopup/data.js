@@ -128,7 +128,8 @@ export const GAME_MODAL_DATA = {
     theme: 'dark',
     size: {
         w: '650px',
-        h: '650px'
+        // h: '650px'
+        h: 'auto'
     },
     title: "Game Store",
     content: Store,

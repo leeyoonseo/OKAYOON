@@ -4,7 +4,8 @@ import styled  from 'styled-components';
 const Wrap = styled.div`
     position: relative;
     display: flex;
-    height: calc(100% - ${({ theme }) => theme.calcRem(30)});
+    height: ${({ theme }) => theme.calcRem(550)};
+    // height: calc(100% - ${({ theme }) => theme.calcRem(30)});
     font-family: 'Sunflower';
     text-align: center;
     justify-content: center;

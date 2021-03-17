@@ -7,6 +7,8 @@ import { LeftOutlined, RightOutlined, CloseOutlined } from '@ant-design/icons';
 import Layout from './Layout';
 
 const Title = styled.div`
+    margin: 0 auto; 
+    width: 90%;
     font-size: ${({ theme }) => theme.calcRem(35)};
     font-weight: 700;
     line-height: 1;

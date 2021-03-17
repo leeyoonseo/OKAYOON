@@ -174,13 +174,13 @@ const Game = () => {
                                 })}
                             </List>
 
-                            {true && (
+                            {admin.userId && (
                                 <SetButton onClick={onClickSetting}>
                                     <SetIcon />
                                 </SetButton>
                             )}
 
-                            {true && openedSetting && (
+                            {admin.userId && openedSetting && (
                                 <Admin 
                                     list={gameList}
                                     onClickBack={onClickSetting} 

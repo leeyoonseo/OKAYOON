@@ -6,7 +6,8 @@ const Wrap = styled.div`
     display: flex;
     position: relative;
     padding: 5% 0;
-    height: calc(100% - ${({ theme }) => theme.calcRem(30)});
+    height: ${({ theme }) => theme.calcRem(550)};
+    // height: calc(100% - ${({ theme }) => theme.calcRem(30)});
     text-align: center;
     background: ${({ theme }) => theme.pColors.yellow};
     align-items: center;
