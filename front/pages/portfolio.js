@@ -3,25 +3,25 @@ import Head from 'next/head';
 
 import styled from 'styled-components';
 
-const skilData = [
+const skilsData = [
     {
-        title: 'Javascript/ES6',
+        name: 'Javascript',
         src: './portfolio/skils/icon_javascript.png',
     },
     {
-        title: 'jQuery',
-        src: './portfolio/skils/icon_jquery.jpg',
+        name: 'jquery',
+        src: './portfolio/skils/icon_jquery.png',
     },
     {
-        title: 'React',
+        name: 'react',
         src: './portfolio/skils/icon_react.png',
     },
     {
-        title: 'Redux',
-        src: './portfolio/skils/icon_redux.jpg',
+        name: 'redux',
+        src: './portfolio/skils/icon_redux.png',
     },
     {
-        title: 'Redux-Saga',
+        name: 'redux_saga',
         src: './portfolio/skils/icon_redux_saga.png',
     },
     {
@@ -29,36 +29,36 @@ const skilData = [
         src: './portfolio/skils/icon_vue.png',
     },
     {
-        title: 'Axios',
+        name: 'axios',
         src: './portfolio/skils/icon_axios.jpg',
     },
     {
-        title: 'Sequelize',
+        name: 'sequelize',
         src: './portfolio/skils/icon_sequelize.png',
     },
     {
-        title: 'HTML5',
-        src: './portfolio/skils/icon_html5.jpg',
+        name: 'html',
+        src: './portfolio/skils/icon_html5.png',
     },
     {
-        title: 'CSS3',
-        src: './portfolio/skils/icon_css3.jpg',
+        name: 'css',
+        src: './portfolio/skils/icon_css3.png',
     },
     {
-        title: 'SCSS',
+        name: 'scss',
         src: './portfolio/skils/icon_scss.png',
     },
     
     {
-        title: 'Styled Components',
+        name: 'styled_components',
         src: './portfolio/skils/icon_styled_components.png',
     },
     {
-        title: 'Git',
+        name: 'git',
         src: './portfolio/skils/icon_git.png',
     },
     {
-        title: 'SVN',
+        name: 'svn',
         src: './portfolio/skils/icon_svn.png',
     },
 ];
@@ -197,7 +197,44 @@ const Introduce = styled.div`
 `;
 
 const Skils = styled.div`
+    margin: 0 auto;
+    max-width: 700px;
+`;
 
+const Items = styled.div`
+    height: 50px;
+    width: 19%;
+    height: 100px;
+    display: inline-block;
+
+    &:nth-child(n+6) {
+        margin-top: 10px;
+    }
+
+    & + div {
+        margin-left: 1%;
+    }    
+
+    span {
+        display: inline-block;
+        padding: 5px;
+
+        img {
+            width: 100%;
+        }
+    }
+
+    &.jquery {
+        span {
+            background: #0769ad;
+        }
+    }
+
+    &.styled_components {
+        span {
+            background: #3e3e3e;
+        }
+    }
 `;
 
 const MyInfo = styled.div`
@@ -294,9 +331,21 @@ const portfolio = () => {
                     </Contents>
 
                     <Contents>
-                        <ArticleTitle>Skils</ArticleTitle>
+                        <ArticleTitle>Experience</ArticleTitle>
 
                         <Skils> 
+                            {skilsData.map((v, i) => {
+                                return(
+                                    <Items 
+                                        key={`skils_${v.name}`}
+                                        className={v.name}
+                                    >
+                                        <span>
+                                            <img src={v.src} alt={`${v.title} 아이콘`} />
+                                        </span>
+                                    </Items>
+                                )
+                            })}
                             {/* <span>Javascript/ES6</span>
                             <span>jQuery</span>
                             <span>React</span>
