@@ -237,16 +237,88 @@ const Items = styled.div`
     }
 `;
 
-const MyInfo = styled.div`
-    display: inline-block;
+const ContactInner = styled.div`
+    max-width:700px;
+    margin: 0 auto;
+    border: 1px solid #666;
+    padding: 30px;
 
-    span {
-        display: inline-block;
+    &:after { 
+        content: '';
+        display: block;
+        clear: both;
+    }
+`;
 
-        &.label {
-            margin-right: 5px;
-            color: #333;
-        }
+const FormArea = styled.div`
+    border-right: 1px solid #666;
+    display: block;
+    float: left;
+    width: 50%;
+    padding-right: 10%;
+    box-sizing: border-box;
+    
+    button { 
+        line-height: 1;
+        border: 1px solid #666;
+        outline: none;
+        background: none;
+        padding: 5px 10px;
+        margin: 20px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+`;
+
+const InputWrap = styled.div`
+    input,
+    textarea {
+        min-height: 35px;
+        width: 100%;
+        border: 1px solid #666;
+        font-size: 14px;
+        padding: 5px 10px;
+        box-sizing: border-box;
+        outline: none;
+    }
+
+    & + div {
+        margin-top: 20px;
+    }
+`;
+
+
+const InfoArea = styled.div`
+    font-size: 14px;
+    display: block;
+    float: left;
+    width: 50%;
+
+    & > div + div{
+        margin-top: 5px;
+    }
+`;
+
+const InfoImage = styled.div`
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 15px;
+
+    img {
+        max-width: 100%;
+    }
+`;
+
+const FormMessage = styled.div`
+    max-width: 700px;
+    margin: 10px auto 0;
+    font-size: 13px;
+
+    a {
+        font-size: 13px;
+        border-bottom: 1px solid #666;
     }
 `;
 
@@ -331,7 +403,7 @@ const portfolio = () => {
                     </Contents>
 
                     <Contents>
-                        <ArticleTitle>Experience</ArticleTitle>
+                        <ArticleTitle>Skils</ArticleTitle>
 
                         <Skils> 
                             {skilsData.map((v, i) => {
@@ -346,48 +418,47 @@ const portfolio = () => {
                                     </Items>
                                 )
                             })}
-                            {/* <span>Javascript/ES6</span>
-                            <span>jQuery</span>
-                            <span>React</span>
-                            <span>Redux</span>
-                            <span>Redux-Saga</span>
-                            <span>Vue</span>
-                            <span>Axios</span>
-                            <span>Sequelize</span>
-                            <span>HTML5</span>
-                            <span>CSS3</span>
-                            <span>SCSS</span>
-                            <span>Styled Components</span>
-                            <span>Git</span>
-                            <span>SVN</span> */}
                         </Skils>
                     </Contents>
 
-                    <Contents>
-                        <h3 className="hidden">Portfolio</h3>
+                    <Contents bg='#fff4ce'>
+                        <ArticleTitle>Portfolio</ArticleTitle>
+
+                        <div>
+
+                        </div>
                     </Contents>
                     
                     <Contents>
-                        <h3 className="hidden">Contact</h3>
+                        <ArticleTitle>Contact</ArticleTitle>
 
-                            
-                        {/* <div>
-                            <MyInfo>
-                                <div>
-                                    <span>이윤서</span>
-                                </div>
-                                <div>
-                                    <span>1992.04.23</span>
-                                </div>
-                                <div>
-                                    <span>010.0000.0000</span>
-                                </div>
-                                <div>
-                                    <span>okayoon.lee@gmail.com</span>
-                                </div>
-                            </MyInfo>
-                        </div> */}
+                        <ContactInner>
+                            <FormArea>
+                                <InputWrap>
+                                    <input placeholder="이름 혹은 이메일"/>
+                                </InputWrap>
+                                <InputWrap>
+                                    <textarea placeholder="메세지"/>
+                                </InputWrap>
 
+
+                                <button>보내기</button>
+                            </FormArea>
+
+                            <InfoArea>
+                                <InfoImage>
+                                    <img src="./portfolio/img_cat.jpg" title="고양이 사진"/>
+                                </InfoImage>
+
+                                <div><span>이윤서 / 1992.04.23</span></div>
+                                <div><span>okayoon.lee@gmail.com</span></div>
+                            </InfoArea>
+                        </ContactInner>
+
+                        <FormMessage>
+                            파일이 있는 메세지는&nbsp;
+                            <a href="mailto:okayoon.lee@gmail.com">okayoon.lee@gmail.com</a>로 발송해주세요.
+                        </FormMessage>
                     </Contents>
                 </Container>
 
