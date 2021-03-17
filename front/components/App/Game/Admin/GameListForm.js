@@ -12,7 +12,7 @@ const NotifyMessage = styled.div`
     left: 0;
     transform: translateY(100%);
     width: 100%;
-    font-size: 13px;
+    font-size: ${({ theme }) => theme.calcRem(13)};
     text-align: center;
     line-height: 1.5;
     color: red;
@@ -62,8 +62,6 @@ const GameListForm = ({ gameName }) => {
         }); 
 
         if(!validateNum) {
-            console.log(data);
-    
             dispatch({
                 type: ADD_GAMELIST_REQUEST,
                 data: data

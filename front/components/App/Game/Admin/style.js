@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-
 export const Wrap = styled.div`
     position: absolute;
     top: 0;
@@ -8,11 +7,11 @@ export const Wrap = styled.div`
     padding: 2%;
     width: 100%;
     height: 100%;
-    font-size: 16px;
+    font-size: ${({ theme }) => theme.calcRem(16)};
     background: #333;
 
-    > div + div {
-        margin-top: 40px;
+    & > div + div {
+        margin-top: ${({ theme }) => theme.calcRem(40)};
     }
 `;
 
@@ -31,12 +30,12 @@ export const SelectArea = styled.div`
 
 export const Title = styled.div`
     display: inline-block;
-    font-size: 20px;
-    border-bottom: 1px solid #fff;
+    font-size: ${({ theme }) => theme.calcRem(20)};
+    border-bottom: 1px solid white;
 `;
 
 export const Select = styled.div`
-    margin-top: 15px;
+    margin-top: ${({ theme }) => theme.calcRem(15)};
 `;
 
 export const OptionItems = styled.div`
@@ -65,14 +64,14 @@ export const OptionItems = styled.div`
     }
 
     & + div {
-        margin-left: 10px;
+        margin-left: ${({ theme }) => theme.calcRem(10)};
     }
 `;
 
 export const NotifyMessage = styled.div`
     display: flex;
     margin: 0 !important;
-    height: calc(100% - 110px);
+    height: calc(100% - ${({ theme }) => theme.calcRem(110)});
     box-sizing: border-box;
     align-items: center;
     justify-content: center;

@@ -10,7 +10,7 @@ const IncorrectNum = styled.span`
     margin: 0 auto;
     display: block;
     width: 50%;
-    font-size: 12px;
+    font-size: ${({ theme }) => theme.calcRem(12)}; 
     text-align: right;
 `;
 
@@ -32,8 +32,6 @@ const CatchMindForm = ({ gameName }) => {
     useEffect(() => {
         let arr = incorrect.split(',');
         arr = arr.filter((v) => v !== '');
-
-        console.log('arr', arr.length)
 
         setIncorrectNum(arr.length);
     }, [incorrect]);
