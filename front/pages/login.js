@@ -18,9 +18,6 @@ import { LogoutOutlined, SmileOutlined } from '@ant-design/icons';
 import AppLayout from './AppLayout';
 
 const LoginFormArea = styled.div`
-    // max-width: 300px;
-    // min-width: 300px;
-    // width: 100%;
     width: ${({ theme }) => theme.calcRem(300)};
     
     & > div + div {
@@ -127,6 +124,7 @@ const Login = () => {
             <Head>
                 <title>OKAYOON | LOGIN</title>
             </Head>
+            
             <AppLayout 
                 bgcolor={themeContext.colors.black}
                 main={

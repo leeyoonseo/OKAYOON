@@ -134,21 +134,3 @@ export const GAME_MODAL_DATA = {
     title: "Game Store",
     content: Store,
 };
-
-// [D] App, 메모
-import Memo from '../App/Memo';
-
-export const MEMO_MODAL_ID = 'MM_M_0';
-export const MEMO_MODAL_DATA = {
-    id: MEMO_MODAL_ID,
-    visible: false,
-    size: {
-        w: '200px',
-        h: 'auto'
-    },
-    title: "메모",
-    content: Memo,
-    buttonDisabled : {
-        Maximize: true,
-    },   
-};

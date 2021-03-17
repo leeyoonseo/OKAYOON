@@ -1,15 +1,20 @@
-import React from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import styled from 'styled-components';
 
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+
 const Wrap = styled.div`
+    position: relative;
     display: flex;
     width: 100%;
     height: 100%;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
 `;
 
 const Inner = styled.div`
+    position: relative;
     display: inline-block;
     text-align: center;
 `;
@@ -25,7 +30,6 @@ const IconWrap = styled.span`
         max-height: 100%;
     }
 `;
-
 const Welcome = () => {
     return (
         <Wrap>
@@ -33,7 +37,8 @@ const Welcome = () => {
                 <IconWrap>
                     <img src="./icon_smile.png" alt="스마일 아이콘" />
                 </IconWrap>
-                안녕하세요? OKAYOON에 방문해주셔서 감사합니다!<br />
+                안녕하세요?<br />
+                OKAYOON에 방문해주셔서 감사합니다!<br />
                 OKAYOON은 React 공부 목적으로 제작된 사이트입니다.<br />
                 제작기간은 디자인 포함 2달정도입니다.<br /><br />
 
@@ -43,7 +48,7 @@ const Welcome = () => {
                 방명록에 적어주시면 감사하겠습니다.<br /><br />
 
                 발전하기 위해 더 노력하는 사람이 되겠습니다.<br />
-                다시한 번 방문해주셔서 감사합니다^^.
+                다시한 번 방문해주셔서 감사합니다^^.<br />
             </Inner>
         </Wrap>
     );

@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
@@ -30,14 +31,9 @@ const applistData = [
             src: '../app/icon_gallery.png',
         },
         {
-            id: MEMO_MODAL_ID,
-            name: '메모',
-            src: '../app/icon_meme.png',
-        },
-        {
             id: SIMSIMI_MODAL_ID,
             name: '심심이',
-            src: '../app/icon_simsimi1.png',
+            src: '../app/icon_simsimi.png',
         },
         {
             id: GAME_MODAL_ID,
@@ -45,6 +41,12 @@ const applistData = [
             src: '../app/icon_game.png',
         },
 ];
+
+const portfolio = {
+    id: 'portfolio',
+    name: '포트폴리오',
+    src: '../app/icon_portfolio.png',
+};
 
 const Wrap = styled.div`
     display: inline-block;
@@ -94,6 +96,7 @@ const Icon = styled.img`
 const Name = styled.span`
     margin-top: ${({ theme }) => theme.calcRem(5)};
     display: inline-block;
+    line-height: 1.25;
 `;
 
 const AppList = () => {
@@ -124,10 +127,6 @@ const AppList = () => {
             
             case GAME_MODAL_ID:
                 data = GAME_MODAL_DATA;
-                break;
-
-            case MEMO_MODAL_ID:
-                data = MEMO_MODAL_DATA;
                 break;
 
             default:
@@ -165,12 +164,22 @@ const AppList = () => {
                             <Icon src={src} alt={`${name} 아이콘`} />
                         </span>
 
-                        <span>
-                            <Name>{name}</Name>
-                        </span>
+                        <span><Name>{name}</Name></span>
                     </AppButton>
                 )
             })}
+
+            {/* [D] 포트폴리오 */}
+            <Link href="./portfolio">
+                <AppButton key="icon_portfolio">
+                    <span>
+                        <Icon src={portfolio.src} alt={`${portfolio.name} 아이콘`} />
+                    </span>
+                    <span>
+                        <Name>{portfolio.name}<br/>바로가기</Name>
+                    </span>
+                </AppButton>
+            </Link>
         </Wrap>
     );
 }
