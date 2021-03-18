@@ -107,8 +107,6 @@ const GuestbookForm = ({
         }
     }, [text]);
 
-    // TODO: 이미지 업로드 구현
-
     const onSubmit = useCallback(() => {
         if (!text || !text.trim()) {
             return alert('내용을 입력하세요.');
@@ -184,3 +182,4 @@ export default GuestbookForm;
 
 // TODO:
 // - 보안 작업 (스크립트 금지 등)
+// - 패스워드 확인 눈아이콘 처음에 눈금지 아이콘으로 바꾸기!!

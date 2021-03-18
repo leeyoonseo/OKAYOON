@@ -8,7 +8,7 @@ import Head from 'next/head';
 import { TOGGLE_MODAL_REQUEST } from '../reducers/site';
 import { LOAD_ADMIN_INFO_REQUEST, LOG_IN_REQUEST } from '../reducers/user';
 
-import AppList from '../components/AppList';
+import AppIndex from '../components/App/index';
 import Menu from '../components/Menu/index';
 import ModalPopup from '../components/ModalPopup/index';
 import Loading from '../components/Loading';
@@ -66,7 +66,7 @@ const Home = ({ theme }) => {
                 bgcolor={themeContext.colors.mint}
                 main={
                     <>
-                        <AppList />
+                        <AppIndex />
 
                         {modalToggleLoading && <Loading />}
                         {modals?.map((v) => {

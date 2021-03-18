@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import { CREATE_MODAL_REQUEST, TOGGLE_MODAL_REQUEST } from '../reducers/site';
+import { CREATE_MODAL_REQUEST, TOGGLE_MODAL_REQUEST } from '../../reducers/site';
 
 import { 
     GUESTBOOK_MODAL_ID, GUESTBOOK_MODAL_DATA,
@@ -12,7 +12,7 @@ import {
     MEMO_MODAL_ID, MEMO_MODAL_DATA,
     SIMSIMI_MODAL_ID, SIMSIMI_MODAL_DATA,
     GAME_MODAL_ID, GAME_MODAL_DATA,
-} from './ModalPopup/data';
+} from '../ModalPopup/data';
 
 const applistData = [
         {
@@ -99,7 +99,7 @@ const Name = styled.span`
     line-height: 1.25;
 `;
 
-const AppList = () => {
+const AppIndex = () => {
     const dispatch = useDispatch();
     const { modals } = useSelector((state) => state.site);
     
@@ -184,4 +184,4 @@ const AppList = () => {
     );
 }
 
-export default AppList;
+export default AppIndex;

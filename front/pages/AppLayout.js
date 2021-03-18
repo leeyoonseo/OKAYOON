@@ -47,7 +47,7 @@ const Footer = styled(Layout.Footer)`
 
 const FooterInner = styled.div`
     position: relative;
-    padding: 0 2%;
+    padding: ${({ theme }) => theme.calcRem(10)} 2%;
     display: flex;
     min-height: ${({ theme }) => theme.calcRem(30)};
     align-items: center;

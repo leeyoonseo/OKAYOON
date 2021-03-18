@@ -23,7 +23,7 @@ export const MenuButton = styled.button`
 `;
 
 export const MenuIcon = styled(UpCircleOutlined)`
-    font-size: ${({ theme }) => theme.calcRem(17)};
+    font-size: ${({ theme }) => theme.calcRem(20)};
     color: ${({ theme }) => theme.colors.white};
 `;
 
