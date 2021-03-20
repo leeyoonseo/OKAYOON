@@ -46,7 +46,7 @@ const MenuInfo = () => {
                 <div>
                     <span>사용</span>
                     <span>
-                        React, redux-saga, reducer, next, antd, styled-components, eslint, dayjs, axios, immer
+                        React, redux-saga, next, antd, styled-components, eslint, dayjs, axios, immer
                         github, sequelize, mySQL, slick
                     </span>
                 </div>
