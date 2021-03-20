@@ -19,9 +19,6 @@ export const initialState = {
     changeMemoError: false,
     memo: '',
 
-    // TODO: 소리 넣기
-    // isMuted: false, // 음소거
-    // theme: null, // 사이트 테마
     battery: null,
     time: null,
 };
@@ -40,11 +37,6 @@ export const TOGGLE_MODAL_SUCCESS = 'TOGGLE_MODAL_SUCCESS';
 export const TOGGLE_MODAL_FAILURE = 'TOGGLE_MODAL_FAILURE';
 
 export const ALL_CLOSED_MODAL = 'ALL_CLOSED_MODAL';
-
-// [D] 메모
-export const CHANGE_MEMO_REQUEST = 'CHANGE_MEMO_REQUEST';
-export const CHANGE_MEMO_SUCCESS = 'CHANGE_MEMO_SUCCESS';
-export const CHANGE_MEMO_FAILURE = 'TOGGLE_MODAL_FAILURE';
 
 const reducer = (state = initialState, action) => produce(state,(draft) => {
     switch(action.type){
@@ -75,18 +67,13 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             break;
 
         case TOGGLE_MODAL_SUCCESS: {
-            // if(action.data === null && draft.modals.length > 0) {
-            //     console.log('toggleModal');
-            //     draft.modals.map((v) => v.visible = false);
-            // }else {
-                const modal = draft.modals.find((v) => v.id === action.data);
-                modal.visible = !modal.visible;
+            const modal = draft.modals.find((v) => v.id === action.data);
+            modal.visible = !modal.visible;
 
-                if(modal.visible){
-                    draft.modalIndex = draft.modalIndex + 1;
-                    modal.zIndex = draft.modalIndex;
-                }
-            // }
+            if(modal.visible){
+                draft.modalIndex = draft.modalIndex + 1;
+                modal.zIndex = draft.modalIndex;
+            }
 
             draft.modalToggleLoading = false;
             draft.modalToggleDone = true;
@@ -107,28 +94,6 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
                 } 
             });
             break;
-
-        // [D] 메모 변경
-        case CHANGE_MEMO_REQUEST:
-            draft.changeMemoLoading = true;
-            draft.changeMemoDone = false;
-            draft.changeMemoError = false;
-            draft.memo = action.data;
-            break;
-
-        case CHANGE_MEMO_SUCCESS: {
-            draft.changeMemoLoading = false;
-            draft.changeMemoDone = true;
-            draft.changeMemoError = false;
-            break;
-        }
-
-        case CHANGE_MEMO_FAILURE:
-            draft.changeMemoLoading = false;
-            draft.changeMemoDone = false;
-            draft.changeMemoError = true;
-            break;
-
 
         default:
             break;

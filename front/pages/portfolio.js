@@ -1,11 +1,12 @@
 import React, { useCallback, useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import useInput from '../hooks/useInput';
 import Slick from 'react-slick';
 import Head from 'next/head';
 import { LeftOutlined, RightOutlined, ExportOutlined } from '@ant-design/icons';
 import styled, { css } from 'styled-components';
-import { SEND_MAIL_REQUEST } from '../reducers/email';
+
+import Header from '../components/Portfolio/Header';
+import Home from '../components/Portfolio/Home';
+import Contact from '../components/Portfolio/Contact';
 
 // TODO: 데이터 옮기기
 const skilsData = [
@@ -68,24 +69,6 @@ const skilsData = [
     },
 ];
 
-const socialData = [
-    {
-        name: 'tstory',
-        image: '../portfolio/icon_blog.png',
-        src: 'https://okayoon.tistory.com/',
-    },
-    {
-        name: 'github',
-        image: '../portfolio/icon_github.png',
-        src: 'https://github.com/leeyoonseo',
-    },
-    {
-        name: 'instagram',
-        image: '../portfolio/icon_instagram.png',
-        // src: 'https://www.instagram.com/okayoon.lee/',
-        src: '',
-    },
-];
 
 const PortfolioData = [
     {
@@ -158,6 +141,7 @@ const PortfolioData = [
     //     skils: [],
     // }
 ];
+const MAX_WIDTH = '1240px';
 
 const Wrap = styled.div`
     font-family: 'Nanum Gothic';
@@ -168,129 +152,12 @@ const Wrap = styled.div`
     }
 `;
 
-const Header = styled.header`
-    position: relative;
-    padding: 20px 2%;
-    text-align: right;
-    box-sizing: border-box;
-`;
-
-const Logo = styled.span`
-    position: absolute;
-    left: 2%;
-    vertical-align: top;
-    line-height: 1;
-`;
-
-const LogoInner = styled.span`
-    position: relative;
-`;
-
-const LogoIcon = styled.span`
-    position: absolute;
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    background: url(./icon_logo.png)no-repeat;
-    background-size: 100% 100%;
-`;
-
-const LogoText = styled.span`
-    padding-left: 22px;
-    font-size: 22px;
-    color: #ffd54f;
-    text-shadow: 1px 1px 1px #666;
-`;
-
-const Nav = styled.div`
-    display: inline-block;
-    
-    button {
-        padding: 0;
-        font-size: 17px;
-        line-height: 1;
-        border: none;
-        outline: none;
-        background: none;
-        cursor: pointer;
-
-        & + button {
-            margin-left: 50px;
-        }
-
-        &:hover {
-            opacity: 0.5;
-        }
-    }
-`;
-
 const Contents = styled.article`
     padding: 120px 2%;
     text-align: center;
     background: ${({ bg }) => bg ? bg : 'none'};
 `;
 
-const TitleArea = styled.div`
-    line-height: 1;
-`;
-
-const SubTitle = styled.div`
-    font-size: 25px;
-`;
-
-const Title = styled.div`
-    font-size: 55px;
-`;
-
-const Frame = styled.div`
-    margin: 30px auto 0;
-    width: 250px;
-    height: 250px;
-    overflow: hidden;
-    border-radius: 50%;
-
-    img {
-        width: 100%;
-    }
-`;
-
-const Tags = styled.div`
-    margin-top: 20px;
-    font-size: 14px;
-
-    span + span {
-        margin-left: 10px;
-    }
-
-    a {
-        color: #666;
-        border-bottom: 1px solid #666;
-
-        &:hover {
-            opacity: 0.5;
-        }
-    }
-`;
-
-const Social = styled.div`
-    margin-top: 20px;
-    line-height: 1;
-
-    a {
-        display: inline-block;
-        width: 25px;
-        height: 25px;
-        color: #666;
-
-        & + a {
-            margin-left: 15px;   
-        }
-
-        img {
-            max-width: 100%;
-        }
-    }
-`;
 
 const ContTitleArea = styled.div`
     margin-bottom: 50px;
@@ -357,44 +224,10 @@ const SkilItems = styled.div`
     }
 `;
 
-const ContactInner = styled.div`
-    max-width:700px;
-    margin: 0 auto;
-    padding: 30px;
-
-    &:after { 
-        content: '';
-        display: block;
-        clear: both;
-    }
-
-    & > div + div {
-        margin-top: 20px;
-    }
-`;
-
-const InfoArea = styled.div`
-    display: block;
-    font-size: 14px;
-
-    & > div + div{
-        margin-top: 5px;
-    }
-`;
-
-const InfoImage = styled.div`
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin: 0 auto 15px;
-
-    img {
-        max-width: 100%;
-    }
-`;
-
 const PortfolioArea = styled.div`
+    margin: 0 auto;
+    max-width: ${MAX_WIDTH};
+
     .slick-center img {
         filter: none;
     }
@@ -478,51 +311,6 @@ const PortfolioSkils = styled.span`
     }
 `;
 
-const FormArea = styled.div`
-    display: block;
-    width: 100%
-    box-sizing: border-box;
-`;
-
-const Form = styled.form`
-    input,
-    textarea {
-        min-height: 35px;
-        width: 100%;
-        border: 1px solid #666;
-        font-size: 14px;
-        padding: 5px 10px;
-        box-sizing: border-box;
-        outline: none;
-        resize: none;
-        IME-MODE: auto;
-    }
-
-    button { 
-        line-height: 1;
-        border: 1px solid #666;
-        outline: none;
-        background: none;
-        padding: 10px 20px;
-        margin: 20px;
-        cursor: pointer;
-        font-size: 14px;
-    }
-
-    & > div + div {
-        margin-top: 20px;
-    }
-`;
-
-const FormReferenceMSG = styled.div`
-    max-width: 700px;
-    font-size: 13px;
-
-    a {
-        font-size: 13px;
-        border-bottom: 1px solid #666;
-    }
-`;
 
 const Footer = styled.footer`
     padding: 20px 2%;
@@ -532,24 +320,6 @@ const Footer = styled.footer`
 `;
 
 const portfolio = () => {
-    const dispatch = useDispatch();
-    const { sendMailDone } = useSelector((state) => state.email);
-    const formRef = useRef(null);
-    const [name, onChangeName, setName] = useInput('');
-    const [email, onChangeEmail, setEmail] = useInput('');
-    const [phone, onChangePhone, setPhone] = useInput('');
-    const [message, onChangeMessage, setMessage] = useInput('');
-
-    
-
-    useEffect(() => {
-        if (sendMailDone) {
-            setName('');
-            setEmail('');
-            setPhone('');
-            setMessage('');
-        }
-    }, [sendMailDone]);
 
     const SlickNextArrow = (props) => {
         const { className, style, onClick } = props;
@@ -582,52 +352,13 @@ const portfolio = () => {
         centerMode: true,
         infinite: true,
         centerPadding: "60px",
-        slidesToShow: 3,
+        slidesToShow: 4,
         autoplay: true,
         autoplaySpeed: 2000,
         speed: 500,
         nextArrow: <SlickNextArrow />,
         prevArrow: <SlickPrevArrow />,
     };
-
-    const validation = useCallback((target) => {
-        const inputNum = target.childElementCount - 1; // [D] 버튼한개 제외
-        const data = new FormData(target);
-        const entries = data.entries();
-        let failNum = 0;
-        let next = '';
-        let key = '';
-        let value = '';
-
-        for (let i = 0; i < inputNum; i++) {
-            next = entries.next();
-            key = next.value[0];
-            value = next.value[1];
-
-            if (!value) {
-                if (key !== 'phone') {
-                    failNum++;
-                    alert(`${key} 비어있습니다.`);
-                    break;
-                }
-            }
-        }
-
-        return !failNum ? true : false;
-    }, []);
-    
-    const onSubmit = useCallback((e) => {
-        e.preventDefault();
-        const { target } = e;
-        const isChecked = validation(target);
-
-        if (isChecked) {
-            dispatch({
-                type: SEND_MAIL_REQUEST,
-                data: target
-            });
-        }
-    }, []);
 
     return (
         <>
@@ -638,22 +369,7 @@ const portfolio = () => {
             <Wrap>
                 <h1 className="hidden">Portfolio 페이지</h1>
 
-                <Header>
-                    <h2 className="hidden">header 영역</h2>
-
-                    <Logo>
-                        <LogoInner>
-                            <LogoIcon /><LogoText>kayoon</LogoText>
-                        </LogoInner>
-                    </Logo>
-
-                    <Nav>
-                        <button>Home</button>
-                        <button>I am</button>
-                        <button>Portfolio</button>
-                        <button>Contact</button>
-                    </Nav>
-                </Header>
+                <Header/>
 
                 <section>
                     <h2 className="hidden">content 영역</h2>
@@ -661,45 +377,7 @@ const portfolio = () => {
                     <Contents>
                         <h3 className="hidden">HOME</h3>
 
-                        <TitleArea>
-                            <SubTitle>FRONT-END DEVELOPER</SubTitle>
-                            <Title>PORTFOLIO</Title>
-                        </TitleArea>
-
-                        <Frame>
-                            <img src="./portfolio/img_iam.jpg" alt="okayoon 사진" />
-                        </Frame>
-
-                        <Tags>
-                            <span>#집사_견주</span>
-                            <span>#집순이</span>
-                            <span>#흥미로운_도전</span>
-                            <span>#카공_얼죽아</span>
-                            <span>#공유</span>
-                            <span>#오버워치</span>
-                            <span>#
-                                <a 
-                                    href="https://www.16personalities.com/ko/%EC%84%B1%EA%B2%A9%EC%9C%A0%ED%98%95-istp" 
-                                    target="_blank" 
-                                    title="ISTP 성격유형 새창으로보기"
-                                >
-                                    ISTP
-                                </a>
-                            </span>
-                        </Tags>
-
-                        <Social>
-                            {socialData.map((v) => (
-                                <a 
-                                    key={`social_${v.name}`}
-                                    href={v.src} 
-                                    title={`${v.name} 바로가기`} 
-                                    target="_blank"
-                                >
-                                    <img src={v.image} alt={`${v.name} 아이콘`} />
-                                </a>
-                            ))}
-                        </Social>
+                        <Home />
                     </Contents>
 
                     <Contents bg='#fff4ce'>
@@ -839,72 +517,7 @@ const portfolio = () => {
                     
                     <Contents>
                         <ContTitle>Contact</ContTitle>
-
-                        <ContactInner>
-                            <InfoArea>
-                                <InfoImage>
-                                    <img src="./portfolio/img_cat.jpg" title="고양이 사진"/>
-                                </InfoImage>
-
-                                <div><span>이윤서 / 1992.04.23</span></div>
-                                <div><span>okayoon.lee@gmail.com</span></div>
-                            </InfoArea>
-
-                            <FormArea>
-                                <Form 
-                                    ref={formRef}
-                                    onSubmit={onSubmit}
-                                >
-                                    <div>
-                                        <input 
-                                            type="text" 
-                                            name="name" 
-                                            placeholder="성함을 입력해주세요"
-                                            value={name}
-                                            onChange={onChangeName}
-                                        />
-                                    </div>
-
-                                    <div>
-                                        <input 
-                                            type="text" 
-                                            name="email" 
-                                            placeholder="메일 주소를 입력해주세요" 
-                                            value={email}
-                                            onChange={onChangeEmail}
-                                        />
-                                    </div>
-
-                                    <div>
-                                        <input 
-                                            type="text" 
-                                            name="phone" 
-                                            placeholder="연락처를 입력해주세요 (생략 가능)" 
-                                            value={phone}
-                                            onChange={onChangePhone}
-                                        />
-                                    </div>
-
-                                    <div>
-                                        <textarea 
-                                            name="message" 
-                                            rows="5" 
-                                            placeholder="내용을 입력해주세요" 
-                                            value={message}
-                                            onChange={onChangeMessage}
-                                        />
-                                        <FormReferenceMSG>
-                                            파일이 있는 메세지는&nbsp;
-                                            <a href="mailto:okayoon.lee@gmail.com">okayoon.lee@gmail.com</a>로 발송해주세요.
-                                        </FormReferenceMSG>
-                                    </div>
-
-                                    <button type="submit">
-                                        보내기
-                                    </button>
-                                </Form>
-                            </FormArea>
-                        </ContactInner>                        
+                        <Contact />                    
                     </Contents>
                 </section>
 
