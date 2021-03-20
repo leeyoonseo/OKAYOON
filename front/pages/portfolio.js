@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useInput from '../hooks/useInput';
+import Slick from 'react-slick';
 import Head from 'next/head';
-
-import styled from 'styled-components';
+import { LeftOutlined, RightOutlined, ExportOutlined } from '@ant-design/icons';
+import styled, { css } from 'styled-components';
 import { SEND_MAIL_REQUEST } from '../reducers/email';
 
 // TODO: 데이터 옮기기
@@ -102,12 +103,60 @@ const PortfolioData = [
         skils: ['next', 'React', 'redux-saga', 'axios', 'styled-components', 'eslint', 'dayjs', 'immer', 'sequelize', 'mySQL' ],
     },
     {
-        name: '',
-        image: ['', '', '',],
-        src: '',
-        desc: '',
+        name: '녹음기',
+        image: [
+            '../portfolio/site/portfolio_site0.png', 
+            '../portfolio/site/portfolio_site1.png', 
+            '../portfolio/site/portfolio_site2.png', 
+        ],
+        src: 'http://www.okayoon.com', 
+        desc: 'React, Redux등 ',
+        skils: ['next', 'React', 'redux-saga', 'axios'],
+    },
+    {
+        name: 'Rsupport 브랜드사이트',
+        image: [
+            '../portfolio/site/portfolio_site0.png', 
+            '../portfolio/site/portfolio_site1.png', 
+            '../portfolio/site/portfolio_site2.png', 
+            '../portfolio/site/portfolio_site2.png', 
+            '../portfolio/site/portfolio_site2.png', 
+            '../portfolio/site/portfolio_site3.png', 
+            '../portfolio/site/portfolio_site4.png', 
+            '../portfolio/site/portfolio_site5.png', 
+        ],
+        src: 'http://www.okayoon.com', 
+        desc: 'React, Redux등 학습목적으로 만든 포플사이트입니다.',
+        skils: ['next', 'React', 'redux-saga', 'axios', 'styled-components', 'eslint', 'dayjs', 'immer', 'sequelize', 'mySQL' ],
+    },
+    {
+        name: 'Newsletter (사내 솔루션)',
+        image: [
+            '../portfolio/site/portfolio_site0.png', 
+            '../portfolio/site/portfolio_site1.png', 
+            '../portfolio/site/portfolio_site2.png', 
+            '../portfolio/site/portfolio_site3.png', 
+            '../portfolio/site/portfolio_site4.png', 
+            '../portfolio/site/portfolio_site5.png', 
+        ],
+        src: 'http://www.okayoon.com', 
+        desc: 'React, Redux등 학습목적으로 만든 포플사이트입니다.',
         skils: [],
-    }
+    },
+    {
+        name: 'OKAYOON',
+        image: [],
+        src: 'http://www.okayoon.com', 
+        desc: 'React, Redux등 학습목적으로 만든 포플사이트입니다.',
+        skils: [],
+    },
+    // {
+    //     name: '',
+    //     image: ['', '', '',],
+    //     src: '',
+    //     desc: '',
+    //     skils: [],
+    // }
 ];
 
 const Wrap = styled.div`
@@ -345,8 +394,88 @@ const InfoImage = styled.div`
     }
 `;
 
-const Portfolio = styled.div`
+const PortfolioArea = styled.div`
+    .slick-center img {
+        filter: none;
+    }
+`;
 
+const PortfolioItems = styled.div`
+    & + div {
+        margin-top: 60px;
+    }
+`;
+
+const PortfolioInfo = styled.div`
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 1.25;
+`;
+
+const PortfolioName = styled.div`
+    margin-bottom: 15px;
+    font-weight: 700;
+
+    a { 
+        margin-left: 10px;
+        line-height: 1;
+    }
+`;
+
+const SlickWrap = styled.div`
+    position: relative;
+    width: 100%;
+    line-height: 1;
+    overflow: hidden;
+`;
+
+const initSlickButtonStyle = css`
+    position: absolute;
+    top: 50%;
+    padding: 0;
+    line-height: 1;
+    border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
+    transform: translateY(-50%);
+    z-index: 1;
+`;
+
+const SlickPrevButton = styled.button`
+    ${initSlickButtonStyle}
+    left: 0;
+`;
+
+const SlickNextButton = styled.button`
+    ${initSlickButtonStyle}
+    right: 0;
+`;
+
+const PortfolioImg = styled.div`
+    width: 300px;
+    height: 240px;
+    overflow: hidden;
+
+    img {
+        width: 98%;
+        height: 98%;
+        filter: grayscale(1);
+    }
+
+    &:hover img {
+        filter: none;
+    }
+
+    
+`;
+
+const PortfolioSkils = styled.span`
+    display: inline-block;
+
+    & + span {
+        margin-left: 5px;
+    }
 `;
 
 const FormArea = styled.div`
@@ -411,6 +540,8 @@ const portfolio = () => {
     const [phone, onChangePhone, setPhone] = useInput('');
     const [message, onChangeMessage, setMessage] = useInput('');
 
+    
+
     useEffect(() => {
         if (sendMailDone) {
             setName('');
@@ -419,6 +550,45 @@ const portfolio = () => {
             setMessage('');
         }
     }, [sendMailDone]);
+
+    const SlickNextArrow = (props) => {
+        const { className, style, onClick } = props;
+        return (
+            <SlickNextButton
+                className={className}
+                style={{ ...style }}
+                onClick={onClick}
+            >
+                <RightOutlined />
+            </SlickNextButton>
+        );
+    };
+
+    const SlickPrevArrow = (props) => {
+        const { className, style, onClick } = props;
+        return (
+            <SlickPrevButton
+                className={className}
+                style={{ ...style }}
+                onClick={onClick}
+            >
+                <LeftOutlined />
+            </SlickPrevButton>
+        );
+    };
+
+    const slickSettings = {
+        className: "center",
+        centerMode: true,
+        infinite: true,
+        centerPadding: "60px",
+        slidesToShow: 3,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        speed: 500,
+        nextArrow: <SlickNextArrow />,
+        prevArrow: <SlickPrevArrow />,
+    };
 
     const validation = useCallback((target) => {
         const inputNum = target.childElementCount - 1; // [D] 버튼한개 제외
@@ -612,9 +782,59 @@ const portfolio = () => {
                             </ContReferenctMSG>
                         </ContTitleArea>
                         
-                        <Portfolio>
-                            
-                        </Portfolio>
+                        {/* 
+    //     name: '',
+    //     image: ['', '', '',],
+    //     src: '',
+    //     desc: '',
+    //     skils: [], */}
+    
+                        <PortfolioArea>
+                            {PortfolioData.map((v) => (
+                                <PortfolioItems key={`portfolio_${v.name}`}>
+                                    <PortfolioInfo>
+                                        <PortfolioName>
+                                            <span>
+                                                {v.name}
+                                            </span>
+                                            <a
+                                                href={v.src} 
+                                                title={`${v.name} 바로가기`} 
+                                                target="_blank"
+                                            >
+                                                <ExportOutlined />
+                                            </a>
+                                        </PortfolioName>
+
+                                        <div>
+                                            {v.desc}
+                                        </div>
+                                        
+                                        {v.skils.length >= 1 && v.skils.map((o, i) =>(
+                                            <PortfolioSkils key={`${v.name}_skils_${i}`}>
+                                                {(i === v.skils.length - 1) ? o : `${o},`}
+                                            </PortfolioSkils>
+                                        ))}
+                                    </PortfolioInfo>
+
+
+                                    <SlickWrap>
+                                        <Slick
+                                            {...slickSettings}
+                                        >
+                                            {v.image.length >= 1 && v.image.map((o, i) => (
+                                                <PortfolioImg key={`${v.name}_image_${i}`}>
+                                                    <img 
+                                                        src={o} 
+                                                        alt={`${v.name}_image_${i}`}
+                                                    />
+                                                </PortfolioImg>
+                                            ))}
+                                        </Slick>
+                                    </SlickWrap>
+                                </PortfolioItems>
+                            ))}
+                        </PortfolioArea>
                     </Contents>
                     
                     <Contents>
