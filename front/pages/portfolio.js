@@ -56,7 +56,7 @@ const WorkArea = styled.div`
 
 const WorkItems = styled.div`
     & + div {
-        margin-top: 60px;
+        margin-top: 100px;
     }
 `;
 
@@ -139,7 +139,7 @@ const WorkSkils = styled.span`
     }
 
     img {
-        max-height: 100%;
+        max-height: 80%;
     }
 `;
 
@@ -178,8 +178,6 @@ const portfolio = () => {
         infinite: true,
         centerPadding: "60px",
         slidesToShow: 5,
-        autoplay: true,
-        autoplaySpeed: 2000,
         speed: 500,
         nextArrow: <SlickNextArrow />,
         prevArrow: <SlickPrevArrow />,
@@ -225,7 +223,7 @@ const portfolio = () => {
                         <Skils />
                     </Contents>
 
-                    <Contents bg='#fff4ce'>
+                    <Contents>
                         <ContTitleArea>
                             <ContTitle>Portfolio</ContTitle>
                             <ContSubTitle>
