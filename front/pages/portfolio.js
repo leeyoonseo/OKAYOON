@@ -172,6 +172,7 @@ const portfolio = () => {
         );
     };
 
+    // TODO: 슬라이드 빼기..
     const slickSettings = {
         className: "center",
         centerMode: true,

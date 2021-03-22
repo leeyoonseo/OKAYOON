@@ -32,7 +32,7 @@ export const initialState = {
 
     skilsData: [
         {
-            name: 'Javascript',
+            name: 'javascript',
             src: './portfolio/skils/icon_javascript.png',
         },
         {
@@ -106,20 +106,16 @@ export const initialState = {
             skils: ['next', 'react', 'redux', 'redux_saga', 'axios', 'styled_components', 'eslint', 'dayjs', 'immer', 'sequelize', 'mysql' ],
         },
         {
-            name: 'Rsupport 브랜드사이트',
+            name: 'littlefox 녹음기',
             image: [
-                '../portfolio/site/portfolio_site0.png', 
-                '../portfolio/site/portfolio_site1.png', 
-                '../portfolio/site/portfolio_site2.png', 
-                '../portfolio/site/portfolio_site2.png', 
-                '../portfolio/site/portfolio_site2.png', 
-                '../portfolio/site/portfolio_site3.png', 
-                '../portfolio/site/portfolio_site4.png', 
-                '../portfolio/site/portfolio_site5.png', 
+                '../portfolio/site/portfolio_recorder0.png', 
+                '../portfolio/site/portfolio_recorder1.png', 
+                '../portfolio/site/portfolio_recorder2.png', 
+                '../portfolio/site/portfolio_recorder3.png', 
             ],
-            src: 'http://www.okayoon.com', 
+            src: 'https://recorder-9c060.web.app/', 
             desc: 'React, Redux등 학습목적으로 만든 포플사이트입니다.',
-            skils: ['next', 'react', 'redux', 'redux_saga', 'axios', 'styled_components', 'eslint', 'dayjs', 'immer', 'sequelize', 'mysql' ],
+            skils: ['javascript', 'jquery', 'firebase'],
         },
         {
             name: 'Newsletter (사내 솔루션)',
