@@ -60,8 +60,6 @@ const Nav = styled.div`
 const Header = () => {
     return (
         <Wrap>
-            <h2 className="hidden">header 영역</h2>
-
             <Logo>
                 <Inner>
                     <Icon /><Text>kayoon</Text>

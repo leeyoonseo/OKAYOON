@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Head from 'next/head';
 import Slick from 'react-slick';
@@ -10,6 +10,7 @@ import Footer from '../components/Portfolio/Footer';
 import Home from '../components/Portfolio/Home';
 import Introduce from '../components/Portfolio/Introduce';
 import Skils from '../components/Portfolio/Skils';
+import ImageZoom from '../components/Portfolio/ImageZoom';
 import Contact from '../components/Portfolio/Contact';
 
 const MAX_WIDTH = '1240px';
@@ -51,6 +52,10 @@ const WorkArea = styled.div`
 
     .slick-center img {
         filter: none;
+    }
+
+    .slick-track {
+        margin: 0 auto;
     }
 `;
 
@@ -110,17 +115,24 @@ const SlickNextButton = styled.button`
 const SlickImage = styled.div`
     width: 20%;
     height: 12vw;
+    cursor: pointer;
     overflow: hidden;
 
     img {
         width: 98%;
         height: 98%;
         filter: grayscale(1);
+        border: 1px solid #666;
+        box-sizing: border-box;
     }
 
     &:hover img {
         filter: none;
     }
+`;
+
+const WorkDesk = styled.div`
+    line-height: 1.5;
 `;
 
 const WorkSkilsArea = styled.div`
@@ -145,6 +157,8 @@ const WorkSkils = styled.span`
 
 const portfolio = () => {
     const { portfolioData } = useSelector((state) => state.portfolio);
+    const [openedZoom, setOpenedZoom] = useState(false);
+    const [zoomImageSrc, setZoomImageSrc] = useState(null);
 
     const SlickNextArrow = (props) => {
         const { className, style, onClick } = props;
@@ -172,17 +186,24 @@ const portfolio = () => {
         );
     };
 
-    // TODO: 슬라이드 빼기..
     const slickSettings = {
         className: "center",
         centerMode: true,
         infinite: true,
         centerPadding: "60px",
-        slidesToShow: 5,
         speed: 500,
         nextArrow: <SlickNextArrow />,
         prevArrow: <SlickPrevArrow />,
     };
+
+    const onClickSlickImage = useCallback((src) => () => {
+        setZoomImageSrc(src);
+        onToggleZoom();
+    }, [zoomImageSrc]);
+
+    const onToggleZoom = useCallback(() => {
+        setOpenedZoom(!openedZoom);
+    }, [openedZoom]);
 
     return (
         <>
@@ -234,56 +255,71 @@ const portfolio = () => {
                         </ContTitleArea>
 
                         <WorkArea>
-                            {portfolioData.map((v) => (
-                                <WorkItems key={`portfolio_${v.name}`}>
-                                    <InfoArea>
-                                        <WorkName>
-                                            <span>
-                                                {v.name}
-                                            </span>
-                                            <a
-                                                href={v.src} 
-                                                title={`${v.name} 바로가기`} 
-                                                target="_blank"
+                            {portfolioData.map((v) => {
+                                const max = 5;
+                                const {length} = v.image;
+                                const slickLenght = length < max ? length : max;
+
+                                return (
+                                    <WorkItems key={`portfolio_${v.name}`}>
+                                        <InfoArea>
+                                            <WorkName>
+                                                <span>
+                                                    {v.name}
+                                                </span>
+                                                <a
+                                                    href={v.src} 
+                                                    title={`${v.name} 바로가기`} 
+                                                    target="_blank"
+                                                >
+                                                    <ExportOutlined />
+                                                </a>
+                                            </WorkName>
+    
+                                            <WorkDesk dangerouslySetInnerHTML={{__html: v.desc}} />
+    
+                                            <WorkSkilsArea>
+                                                {v.skils.length >= 1 && v.skils.map((o, i) =>(
+                                                    <WorkSkils key={`${v.name}_skils_${i}`}>
+                                                        <img src={`../portfolio/skils/icon_${o}.png`} alt={`icon_${o}`}/>
+                                                        {/* {(i === v.skils.length - 1) ? o : `${o},`} */}
+                                                    </WorkSkils>
+                                                ))}
+                                            </WorkSkilsArea>
+                                        </InfoArea>
+    
+                                        <SlickWrap>
+                                            <Slick
+                                                slidesToShow={slickLenght}
+                                                {...slickSettings}
                                             >
-                                                <ExportOutlined />
-                                            </a>
-                                        </WorkName>
-
-                                        <div>
-                                            {v.desc}
-                                        </div>
-
-                                        <WorkSkilsArea>
-                                            {v.skils.length >= 1 && v.skils.map((o, i) =>(
-                                                <WorkSkils key={`${v.name}_skils_${i}`}>
-                                                    <img src={`../portfolio/skils/icon_${o}.png`} alt={`icon_${o}`}/>
-                                                    {/* {(i === v.skils.length - 1) ? o : `${o},`} */}
-                                                </WorkSkils>
-                                            ))}
-                                        </WorkSkilsArea>
-                                    </InfoArea>
-
-                                    <SlickWrap>
-                                        <Slick
-                                            {...slickSettings}
-                                        >
-                                            {v.image.length >= 1 && v.image.map((o, i) => (
-                                                <SlickImage key={`${v.name}_image_${i}`}>
-                                                    <img 
-                                                        src={o} 
-                                                        alt={`${v.name}_image_${i}`}
-                                                    />
-                                                </SlickImage>
-                                            ))}
-                                        </Slick>
-                                    </SlickWrap>
-                                </WorkItems>
-                            ))}
+                                                {v.image.length >= 1 && v.image.map((o, i) => (
+                                                    <SlickImage 
+                                                        key={`${v.name}_image_${i}`}
+                                                        onClick={onClickSlickImage(o)}
+                                                    >
+                                                        <img 
+                                                            src={o} 
+                                                            alt={`${v.name}_image_${i}`}
+                                                        />
+                                                    </SlickImage>
+                                                ))}
+                                            </Slick>
+                                        </SlickWrap>
+                                    </WorkItems>
+                                )
+                            })}
                         </WorkArea>
+
+                        {openedZoom && (
+                            <ImageZoom 
+                                src={zoomImageSrc} 
+                                onClose={onToggleZoom}
+                            />
+                        )}
                     </Contents>
                     
-                    <Contents>
+                    <Contents bg='#fff4ce'>
                         <ContTitle>Contact</ContTitle>
                         <Contact />                    
                     </Contents>

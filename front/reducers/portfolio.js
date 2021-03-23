@@ -88,6 +88,10 @@ export const initialState = {
             name: 'svn',
             src: './portfolio/skils/icon_svn.png',
         },
+        {
+            name: 'construct',
+            src: './portfolio/skils/icon_construct.png',
+        },
     ],
 
     portfolioData: [
@@ -102,11 +106,20 @@ export const initialState = {
                 '../portfolio/site/portfolio_site5.png', 
             ],
             src: 'http://www.okayoon.com', 
-            desc: 'React, Redux등 학습목적으로 만든 포플사이트입니다.',
-            skils: ['next', 'react', 'redux', 'redux_saga', 'axios', 'styled_components', 'eslint', 'dayjs', 'immer', 'sequelize', 'mysql' ],
+            desc: `
+                React, Redux등 학습목적으로 만든 포트폴리오 사이트입니다.<br />
+                기획부터 개발까지 작업하여 협업 과정에 대해 더 많이 이해하는 시간이었습니다.<br /> 
+                결론은, 굉장히 재미있는 작업이었습니다.
+            `,
+            skils: [
+                'next', 'react', 'redux', 'redux_saga', 'axios', 
+                'styled_components', 'eslint', 'dayjs', 'immer', 
+                'sequelize', 'mysql', 'html5', 'css3' 
+            ],
         },
+        
         {
-            name: 'littlefox 녹음기',
+            name: '어학원 녹음기',
             image: [
                 '../portfolio/site/portfolio_recorder0.png', 
                 '../portfolio/site/portfolio_recorder1.png', 
@@ -114,22 +127,61 @@ export const initialState = {
                 '../portfolio/site/portfolio_recorder3.png', 
             ],
             src: 'https://recorder-9c060.web.app/', 
-            desc: 'React, Redux등 학습목적으로 만든 포플사이트입니다.',
-            skils: ['javascript', 'jquery', 'firebase'],
+            desc: `
+                리틀팍스 어학원에서 사용하는 녹음기 개발에 참여하였습니다.<br />
+                가입자만 확인 가능하기 때문에 firebase에서 테스트 할 수 있도록 추가 작업했습니다.<br />
+                Audio Web API에 대해 공부할 수 있었습니다. 
+            `,
+            skils: ['javascript', 'jquery', 'firebase', 'css3', 'html5'],
         },
         {
             name: 'Newsletter (사내 솔루션)',
             image: [
-                '../portfolio/site/portfolio_site0.png', 
-                '../portfolio/site/portfolio_site1.png', 
-                '../portfolio/site/portfolio_site2.png', 
-                '../portfolio/site/portfolio_site3.png', 
-                '../portfolio/site/portfolio_site4.png', 
-                '../portfolio/site/portfolio_site5.png', 
+                '../portfolio/site/portfolio_newsletter0.png', 
+                '../portfolio/site/portfolio_newsletter1.png', 
+                '../portfolio/site/portfolio_newsletter2.png', 
+                '../portfolio/site/portfolio_newsletter3.png', 
+                '../portfolio/site/portfolio_newsletter4.png', 
             ],
-            src: 'http://www.okayoon.com', 
-            desc: 'React, Redux등 학습목적으로 만든 포플사이트입니다.',
-            skils: ['next', 'react', 'mysql' ],
+            src: 'https://toy-littlefox-newsletter.web.app/global', 
+            desc: `
+                타 부서와 협업 시 불편함을 느끼고 개발한 사이트입니다.<br/>
+                정적인 코드들을 통해 아웃풋을 확인하고 필요한 부분의 코드를 결합하여 제공합니다.<br />
+                Vue 학습 후 토이프로젝트로 제작한 사이트입니다.
+            `,
+            skils: ['javascript', 'vue', 'jquery', 'firebase', 'html5', 'css3' ],
+        },
+        {
+            name: '리틀팍스 사이트 / 크로스워드, 스타워즈 게임',
+            image: [
+                '../portfolio/site/portfolio_littlefox0.png', 
+                '../portfolio/site/portfolio_littlefox1.png', 
+                '../portfolio/site/portfolio_littlefox2.png', 
+                '../portfolio/site/portfolio_littlefox3.png', 
+                '../portfolio/site/portfolio_littlefox4.png', 
+                '../portfolio/site/portfolio_littlefox5.png', 
+            ],
+            src: 'https://www.littlefox.co.kr/ko/main', 
+            desc: `
+                사이트 프론트엔드 개발을 진행했습니다.<br />
+                자주 사용하는 기능들을 컴포넌트로 개발하였습니다.<br />
+                컨스트럭트와 js로 개발된 게임들을 리팩토링 및 추가 개발하였습니다.<br />
+                컨스트럭트는 HTML5 기반 게임편집기(게임엔진)입니다.<br /> 
+                처음 접하는 툴이었지만 좋은 경험이었습니다. 
+            `,
+            skils: ['javascript', 'jquery', 'firebase', 'css3', 'html5', 'construct'],
+        },
+        {
+            name: '알서포브 브랜드사이트 / Remotecall 솔루션',
+            image: [
+                '../portfolio/site/portfolio_rsupport0.png', 
+                '../portfolio/site/portfolio_rsupport1.png', 
+                '../portfolio/site/portfolio_rsupport2.png', 
+                '../portfolio/site/portfolio_rsupport3.png', 
+            ],
+            src: 'https://www.rsupport.com/ko-kr/', 
+            desc: '알서포트 브랜드 사이트와 자사 솔루션 Remotecall 프론트엔드 담당이었습니다.',
+            skils: ['javascript', 'jquery', 'css3', 'html5' ],
         },
         
         // {

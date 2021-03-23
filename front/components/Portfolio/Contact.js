@@ -66,7 +66,7 @@ const Form = styled.form`
         line-height: 1;
         border: 1px solid #666;
         outline: none;
-        background: none;
+        background: #fff;
         padding: 10px 20px;
         margin: 20px;
         cursor: pointer;
