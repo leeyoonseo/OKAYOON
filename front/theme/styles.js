@@ -11,6 +11,7 @@ const colors = {
     purple: '#A593E0',
     mint: '#64c5ba',
     yellow: '#ffbf2e',
+    lightYellow: '#fff4ce',
     green: '#26ca3f',
     darkPink : '#ef5285',
     pink: '#ED9282',

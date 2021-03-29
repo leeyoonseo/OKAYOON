@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
 
 const Wrap = styled.header`
@@ -58,6 +58,11 @@ const Nav = styled.div`
 `;
 
 const Header = () => {
+    const onClickButton = useCallback((e) => {
+        const target = document.querySelector(`.${e.target.dataset.name}`);
+        window.scrollTo(0, target.offsetTop);
+    }, []); 
+
     return (
         <Wrap>
             <Logo>
@@ -67,10 +72,33 @@ const Header = () => {
             </Logo>
 
             <Nav>
-                <button>Home</button>
-                <button>I am</button>
-                <button>Portfolio</button>
-                <button>Contact</button>
+                <button 
+                    onClick={onClickButton}
+                    data-name="home"
+                >
+                    Home
+                </button>
+                
+                <button
+                    onClick={onClickButton}
+                    data-name="iam"
+                >
+                    I am
+                </button>
+                
+                <button
+                    onClick={onClickButton}
+                    data-name="portfolio"
+                >
+                    Portfolio
+                </button>
+                
+                <button
+                    onClick={onClickButton}
+                    data-name="contact"
+                >
+                    Contact
+                </button>
             </Nav>
         </Wrap>
     );

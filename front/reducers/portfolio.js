@@ -25,8 +25,7 @@ export const initialState = {
         {
             name: 'instagram',
             image: '../portfolio/icon_instagram.png',
-            // src: 'https://www.instagram.com/okayoon.lee/',
-            src: '',
+            src: 'https://www.instagram.com/okayoon.lee/',
         },
     ],
 
@@ -38,6 +37,10 @@ export const initialState = {
         {
             name: 'jquery',
             src: './portfolio/skils/icon_jquery.png',
+        },
+        {
+            name: 'nodejs',
+            src: './portfolio/skils/icon_nodejs.png',
         },
         {
             name: 'react',
@@ -58,6 +61,10 @@ export const initialState = {
         {
             name: 'axios',
             src: './portfolio/skils/icon_axios.png',
+        },
+        {
+            name: 'gulp',
+            src: './portfolio/skils/icon_gulp.png',
         },
         {
             name: 'sequelize',
@@ -89,6 +96,10 @@ export const initialState = {
             src: './portfolio/skils/icon_svn.png',
         },
         {
+            name: 'firebase',
+            src: './portfolio/skils/icon_firebase.png',
+        },
+        {
             name: 'construct',
             src: './portfolio/skils/icon_construct.png',
         },
@@ -116,8 +127,7 @@ export const initialState = {
                 'styled_components', 'eslint', 'dayjs', 'immer', 
                 'sequelize', 'mysql', 'html5', 'css3' 
             ],
-        },
-        
+        },        
         {
             name: '어학원 녹음기',
             image: [
@@ -147,7 +157,7 @@ export const initialState = {
             desc: `
                 타 부서와 협업 시 불편함을 느끼고 개발한 사이트입니다.<br/>
                 정적인 코드들을 통해 아웃풋을 확인하고 필요한 부분의 코드를 결합하여 제공합니다.<br />
-                Vue 학습 후 토이프로젝트로 제작한 사이트입니다.
+                Vue 학습 후 개인적으로 제작하여 오픈했었던 사이트입니다.
             `,
             skils: ['javascript', 'vue', 'jquery', 'firebase', 'html5', 'css3' ],
         },
@@ -183,14 +193,6 @@ export const initialState = {
             desc: '알서포트 브랜드 사이트와 자사 솔루션 Remotecall 프론트엔드 담당이었습니다.',
             skils: ['javascript', 'jquery', 'css3', 'html5' ],
         },
-        
-        // {
-        //     name: '',
-        //     image: ['', '', '',],
-        //     src: '',
-        //     desc: '',
-        //     skils: [],
-        // }
     ],
 
     sendMailLoading: false,

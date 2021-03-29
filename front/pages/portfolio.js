@@ -8,6 +8,7 @@ import { LeftOutlined, RightOutlined, ExportOutlined } from '@ant-design/icons';
 import Header from '../components/Portfolio/Header';
 import Footer from '../components/Portfolio/Footer';
 import Home from '../components/Portfolio/Home';
+import SideNav from '../components/Portfolio/SideNav';
 import Introduce from '../components/Portfolio/Introduce';
 import Skils from '../components/Portfolio/Skils';
 import ImageZoom from '../components/Portfolio/ImageZoom';
@@ -187,8 +188,6 @@ const portfolio = () => {
     };
 
     const slickSettings = {
-        className: "center",
-        centerMode: true,
         infinite: true,
         centerPadding: "60px",
         speed: 500,
@@ -219,13 +218,13 @@ const portfolio = () => {
                 <section>
                     <h2 className="hidden">content 영역</h2>
 
-                    <Contents>
+                    <Contents className="home">
                         <h3 className="hidden">HOME</h3>
 
                         <Home />
                     </Contents>
 
-                    <Contents bg='#fff4ce'>
+                    <Contents className="iam" bg='#fff4ce'>
                         <ContTitleArea>
                             <ContTitle>I am</ContTitle>
                         </ContTitleArea>
@@ -245,7 +244,7 @@ const portfolio = () => {
                         <Skils />
                     </Contents>
 
-                    <Contents>
+                    <Contents className="portfolio">
                         <ContTitleArea>
                             <ContTitle>Portfolio</ContTitle>
                             <ContSubTitle>
@@ -319,18 +318,13 @@ const portfolio = () => {
                         )}
                     </Contents>
                     
-                    <Contents bg='#fff4ce'>
+                    <Contents className="contact" bg='#fff4ce'>
                         <ContTitle>Contact</ContTitle>
                         <Contact />                    
                     </Contents>
                 </section>
 
-                {/* <SideNav>
-                    <div>Home</div>
-                    <div>About us</div>
-                    <div>Portfolio</div>
-                    <div>Contact</div>
-                </SideNav> */}
+                <SideNav />
 
                 <Footer />
             </Wrap>
