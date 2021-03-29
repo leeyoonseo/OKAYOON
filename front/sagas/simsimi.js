@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { all, fork, put, takeLatest, delay, call } from 'redux-saga/effects';
 import { 
+    DEV_MODE,
     SEND_MESSAGE_REQUEST, SEND_MESSAGE_SUCCESS, SEND_MESSAGE_FAILURE,
 } from '../reducers/simsimi';
 
@@ -10,7 +11,20 @@ function sendMessageAPI(data){
 
 function* sendMessage(action){
     try{
-        const result = yield call(sendMessageAPI, action.data);
+
+        let result = {};
+
+        if (DEV_MODE) {
+            result = yield call(sendMessageAPI, action.data);
+
+        } else {
+            yield result.data = {
+                simsimi: true,
+                text: '주인장이 API 테스트를 정지해놓은 상태야^^~ 다음에 대화하장!!'
+            };
+
+            yield delay(1000);
+        }
 
         yield put({
             type: SEND_MESSAGE_SUCCESS,

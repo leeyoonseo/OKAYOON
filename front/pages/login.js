@@ -9,7 +9,6 @@ import User from '../components/Login/User';
 import Admin from '../components/Login/Admin';
 import Loading from '../components/Loading';
 import ModalPopup from '../components/ModalPopup';
-
 import { AVATAR_MODAL_ID, AVATAR_MODAL_DATA } from '../components/ModalPopup/data';
 
 import styled, { ThemeContext, css } from 'styled-components';
@@ -187,13 +186,5 @@ const Login = () => {
         </>
     );
 };
-
-// TODO
-// - index와 layout 공유하기(AppLayout 만들기)
-// - 버튼에 로딩 추가
-// - 처음들어왔을때 저번에 등록한 닉네임이 있다면
-// - 이미지들 S3 이용할 것 
-// - 대화명 simsimi로안되게 하기(대문자도 물론)
-// - 메타태그
 
 export default Login;

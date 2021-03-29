@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import { DELETE_COMMENT_REQUEST } from '../../../reducers/guestbook';
@@ -92,27 +92,52 @@ const CommentCard = ({
     content,
 }) => {
     const dispatch = useDispatch();
-    const { avatarList } = useSelector((state) => state.user);
+    const { avatarList, admin } = useSelector((state) => state.user);
     const [openedModal, setOpenedModal] = useState(false);
     const [reqStatus, setReqStatus] = useState('');
+    const [modalText, setModalText] = useState(false);
+
+    useEffect(() => {
+        let text = ''; 
+
+        if (admin.userId) {
+            text = '관리자 권한으로 삭제합니다.';
+
+        } else {
+            text = `${(reqStatus === 'edit') ? '수정' : '삭제'} 비밀번호를 입력해주세요`;
+        }
+
+        setModalText(text);
+    }, [admin, reqStatus]);
 
     const passwordCheck = useCallback(({state, text}) => {
         setOpenedModal(false);
-
         if (!state) return;
 
+        let type = '';
+
+        if (admin.userId) {
+            type = DELETE_COMMENT_REQUEST;
+            text = admin.userId;
+            
+        } else {
+            type = (reqStatus === 'edit') 
+                ? GET_PERMISSION_REQUEST 
+                : DELETE_COMMENT_REQUEST;
+        }
+
         dispatch({
-            type: DELETE_COMMENT_REQUEST,
+            type: type,
             data: {
                 id: id,
                 password: text
             }
         });
-    }, [reqStatus, id]);
+    }, [admin, reqStatus, id]);
 
     const onClickDelete = useCallback(() => {
         setOpenedModal(true);
-        setReqStatus();
+        setReqStatus('delete');
     }, []);
 
     return (
@@ -146,7 +171,7 @@ const CommentCard = ({
             {openedModal && (
                 <WindowDialog
                     type="prompt"
-                    text="삭제 비밀번호를 입력해주세요." 
+                    text={modalText}
                     callback={passwordCheck}
                 />
             )}

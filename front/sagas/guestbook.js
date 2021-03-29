@@ -130,7 +130,6 @@ function deleteGuestbookAPI(data){
 
 function* deleteGuestbook(action){
     try{
-        console.log('deleteGuestbook', action)
         const result = yield call(deleteGuestbookAPI, action.data);
         yield put({
             type: DELETE_GUESTBOOK_SUCCESS,

@@ -7,7 +7,7 @@ import { DELETE_MESSAGE, SEND_MESSAGE_REQUEST } from '../../../reducers/simsimi'
 import styled, { keyframes } from 'styled-components';
 
 import { Avatar } from 'antd';
-import { LeftOutlined, ArrowUpOutlined } from '@ant-design/icons';
+import { LeftOutlined, ArrowUpOutlined, RetweetOutlined } from '@ant-design/icons';
 
 import WindowDialog from '../../WindowDialog/index';
 import Chat from './Chat';
@@ -112,20 +112,16 @@ const ChatRoom = ({ onPrevStep }) => {
     const dispatch = useDispatch();
     const { chatList, sendMessageLoading, sendMessageDone } = useSelector((state) => state.simsimi);
     const [message, onChangeMessage, setMessage] = useInput('');
-
     const [scrollTop, setScrollTop] = useState(null);
     const [openedDialog, setOpenedDialog] = useState(false);
-
     const [startedChat, setStartedChat] = useState(false);
     const [myTurn, setMyTurn] = useState(true);
-
     const chatContRef = useRef(null);
     const inputRef = useRef(null);
 
     useEffect(() => {
         if (!inputRef.current) return;
-
-        inputRef.current.focus()
+        inputRef.current.focus();
     }, []); 
 
     useEffect(() => {
@@ -172,7 +168,6 @@ const ChatRoom = ({ onPrevStep }) => {
 
     const onSendMessage = useCallback(() => {
         if (!message || !message.trim()) return;
-
         if (!startedChat) {
             setStartedChat(true);
         }

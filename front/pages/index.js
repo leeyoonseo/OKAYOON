@@ -15,7 +15,7 @@ import Loading from '../components/Loading';
 
 import AppLayout from './AppLayout';
 
-const Home = ({ theme }) => {
+const Home = () => {
     const dispatch = useDispatch();
     const themeContext = useContext(ThemeContext);
     const { modals, modalToggleLoading } = useSelector((state) => state.site);

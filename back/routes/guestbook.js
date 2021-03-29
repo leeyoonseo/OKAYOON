@@ -203,8 +203,14 @@ router.post('/comment/:commentId/delete', async (req, res, next) => {
             return res.status(403).send('존재하지 않는 댓글입니다.');
         }
 
-        if (!bcrypt.compareSync(req.body.password, comment.password)) {
-            return res.status(403).send('비밀번호가 틀렸습니다.');
+        const admin = await Admin.findOne({
+            where: { userId: req.body.password }
+        });
+
+        if (!admin) {
+            if (!bcrypt.compareSync(req.body.password, comment.password)) {
+                return res.status(403).send('비밀번호가 틀렸습니다.');
+            }
         }
 
         await Comment.destroy({

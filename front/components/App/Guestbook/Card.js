@@ -101,7 +101,7 @@ const GuestbookCard = ({
     const [openedComment, setOpenedComment] = useState(false);
     const [openedModal, setOpenedModal] = useState(false);
     const [modalText, setModalText] = useState(false);
-    const [requestTitle, setRequestTitle] = useState('');
+    const [reqStatus, setReqStatus] = useState('');
 
     useEffect(() => {
         let text = ''; 
@@ -110,14 +110,13 @@ const GuestbookCard = ({
             text = '관리자 권한으로 삭제합니다.';
 
         } else {
-            text = `${(requestTitle === 'edit') ? '수정' : '삭제'} 비밀번호를 입력해주세요`;
+            text = `${(reqStatus === 'edit') ? '수정' : '삭제'} 비밀번호를 입력해주세요`;
         }
 
         setModalText(text);
-    }, [admin, requestTitle]);
+    }, [admin, reqStatus]);
 
     const passwordCheck = useCallback(({state, text}) => {
-        console.log('passwordCheck', state);
         setOpenedModal(false);
         if (!state) return;
 
@@ -128,11 +127,8 @@ const GuestbookCard = ({
             type = DELETE_GUESTBOOK_REQUEST;
             text = admin.userId;
 
-            console.log('id', id);
-            console.log('type', type);
-            console.log('text', text);
         } else {
-            type = (requestTitle === 'edit') 
+            type = (reqStatus === 'edit') 
                     ? GET_PERMISSION_REQUEST 
                     : DELETE_GUESTBOOK_REQUEST;
         }
@@ -144,19 +140,19 @@ const GuestbookCard = ({
                 password: text
             }
         });
-    }, [admin, requestTitle, id]);
+    }, [admin, reqStatus, id]);
 
     const onClickEdit = useCallback(() => {
         if (admin.userId) return;
         
         setOpenedModal(true);
-        setRequestTitle('edit');
+        setReqStatus('edit');
     }, []);
 
     const onClickDelete = useCallback(() => {
         console.log('onClickDelete');
         setOpenedModal(true);
-        setRequestTitle('delete');
+        setReqStatus('delete');
     }, []);
 
     const onClickComment = useCallback(() => {
