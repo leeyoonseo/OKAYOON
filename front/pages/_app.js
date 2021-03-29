@@ -47,7 +47,15 @@ const Okayoon = ({ Component }) => {
         <ThemeProvider theme={theme} >
             <Head>
                 <meta charSet="utf-8" />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <meta http-euqiv="x-UA-Compatible" content="ie=edge"/>
+                <meta name="Robot"content="all"/>
+                <meta name="author" content="Okayoon.lee" />
+                <meta name="description" content="Front-end Web Developer Portfolio Site: react, redux" />
+                <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+                <meta property="og:image" content="../public/icon_logo.png" />
+                <meta property="og:description" content="Front-end Web Developer Portfolio Site: react, redux" />
+                <meta property="og:title" content="Okayoon" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
                 <title>OKAYOON</title>
             </Head>
             <Global />
@@ -59,9 +67,5 @@ const Okayoon = ({ Component }) => {
 Okayoon.propTypes = {
     Component: PropTypes.elementType.isRequired,
 };
-
-// export function reportWebVitals(metric){
-//     console.log(metric);
-// }
 
 export default wrapper.withRedux(Okayoon);

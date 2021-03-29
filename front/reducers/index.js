@@ -15,7 +15,7 @@ const rootReducer = (state, action) => {
             return action.payload;
 
         default: {
-            const combineReducer = combineReducers({
+            const combinedReducer = combineReducers({
                 user,
                 site,
                 guestbook,
@@ -24,7 +24,7 @@ const rootReducer = (state, action) => {
                 portfolio,
             });
 
-            return combineReducer(state, action);
+            return combinedReducer(state, action);
         }
     }
 };
