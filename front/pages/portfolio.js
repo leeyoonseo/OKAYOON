@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Head from 'next/head';
 import Slick from 'react-slick';
-import styled, { css } from 'styled-components';
+import styled, { ThemeContext, css } from 'styled-components';
 import { LeftOutlined, RightOutlined, ExportOutlined } from '@ant-design/icons';
 
 import Header from '../components/Portfolio/Header';
@@ -18,33 +18,33 @@ const MAX_WIDTH = '1240px';
 
 const Wrap = styled.div`
     font-family: 'Nanum Gothic';
-    color: #666;
+    color: ${({ theme }) => theme.colors.black};
 
     a, button, h1, h2, h3, h4 {
-        color: #666;
+        color: ${({ theme }) => theme.colors.black};
     }
 `;
 
 const Contents = styled.article`
-    padding: 120px 2%;
+    padding: ${({ theme }) => theme.calcRem(120)} 2%;
     text-align: center;
     background: ${({ bg }) => bg ? bg : 'none'};
 `;
 
 const ContTitleArea = styled.div`
-    margin-bottom: 50px;
+    margin-bottom: ${({ theme }) => theme.calcRem(50)};
     text-align: center;
 `;
 
 const ContTitle = styled.h3`
-    font-size: 30px;
-    color: #333;
     display: inline-block;
-    border-bottom: 2px solid #666;
+    font-size: ${({ theme }) => theme.calcRem(30)};
+    color: #333;
+    border-bottom: ${({ theme }) => theme.calcRem(2)} solid ${({ theme }) => theme.colors.black};
 `;
 
 const ContSubTitle = styled.div`
-    font-size: 12px;
+    font-size: ${({ theme }) => theme.calcRem(12)};
 `;
 
 const WorkArea = styled.div`
@@ -62,22 +62,22 @@ const WorkArea = styled.div`
 
 const WorkItems = styled.div`
     & + div {
-        margin-top: 100px;
+        margin-top: ${({ theme }) => theme.calcRem(100)};
     }
 `;
 
 const InfoArea = styled.div`
-    margin-bottom: 10px;
-    font-size: 14px;
+    margin-bottom: ${({ theme }) => theme.calcRem(10)};
+    font-size: ${({ theme }) => theme.calcRem(14)};
     line-height: 1.25;
 `;
 
 const WorkName = styled.div`
-    margin-bottom: 15px;
+    margin-bottom: ${({ theme }) => theme.calcRem(15)};
     font-weight: 700;
 
     a { 
-        margin-left: 10px;
+        margin-left: ${({ theme }) => theme.calcRem(10)};
         line-height: 1;
     }
 `;
@@ -123,7 +123,7 @@ const SlickImage = styled.div`
         width: 98%;
         height: 98%;
         filter: grayscale(1);
-        border: 1px solid #666;
+        border: 1px solid ${({ theme }) => theme.colors.black};
         box-sizing: border-box;
     }
 
@@ -137,18 +137,18 @@ const WorkDesk = styled.div`
 `;
 
 const WorkSkilsArea = styled.div`
-    margin-top: 15px;   
+    margin-top: ${({ theme }) => theme.calcRem(15)};  
     line-height: 2;
 `;
 
 const WorkSkils = styled.span`
     display: inline-block;
-    height: 30px;
-    border-radius: 10px;
+    height: ${({ theme }) => theme.calcRem(30)};
+    border-radius: ${({ theme }) => theme.calcRem(10)};
     overflow: hidden;
 
     & + span {
-        margin-left: 10px;
+        margin-left: ${({ theme }) => theme.calcRem(10)};
     }
 
     img {
@@ -157,6 +157,7 @@ const WorkSkils = styled.span`
 `;
 
 const portfolio = () => {
+    const themeContext = useContext(ThemeContext);
     const { portfolioData } = useSelector((state) => state.portfolio);
     const [openedZoom, setOpenedZoom] = useState(false);
     const [zoomImageSrc, setZoomImageSrc] = useState(null);
@@ -189,7 +190,7 @@ const portfolio = () => {
 
     const slickSettings = {
         infinite: true,
-        centerPadding: "60px",
+        centerPadding: `${themeContext.calcRem(60)}`,
         speed: 500,
         nextArrow: <SlickNextArrow />,
         prevArrow: <SlickPrevArrow />,

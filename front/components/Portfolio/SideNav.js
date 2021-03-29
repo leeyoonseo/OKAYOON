@@ -5,7 +5,7 @@ const Wrap = styled.div`
     position: fixed;
     top: 50%;
     right: 0;
-    width: 50px;
+    width: ${({ theme }) => theme.calcRem(50)};
     transform: translateY(-50%);
 `;
 
@@ -13,20 +13,20 @@ const Item = styled.div`
     text-align: center;
 
     & + div {
-        margin-top: 10px;   
+        margin-top: ${({ theme }) => theme.calcRem(10)};
     }
     
     button {
         padding: 0;
-        width: 20px;
-        height: 20px;
-        font-size: 14px;
+        width: ${({ theme }) => theme.calcRem(20)};
+        height: ${({ theme }) => theme.calcRem(20)};
+        font-size: ${({ theme }) => theme.calcRem(14)};
         font-weight: 700;
         line-height: 1;
         outline: none;
-        border: 2px solid #ffbf2e;
+        border: 2px solid ${({ theme }) => theme.colors.yellow};
         border-radius: 50%;
-        background: #fff4ce;
+        background: ${({ theme }) => theme.pfColors.yellow};
         overflow: hidden;
         cursor: pointer;
     }
@@ -46,7 +46,9 @@ const SideNav = () => {
                 const name = v.split(' ').join('').toLowerCase() 
                 
                 return(
-                    <Item>
+                    <Item 
+                        key={`nav_${name.charAt(0)}`}
+                    >
                         <button
                             onClick={onClickButton}
                             data-name={name}

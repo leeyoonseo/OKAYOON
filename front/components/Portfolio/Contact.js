@@ -5,9 +5,9 @@ import styled from 'styled-components';
 import { SEND_MAIL_REQUEST } from '../../reducers/portfolio';
 
 const Wrap = styled.div`
-    max-width:700px;
+    max-width: ${({ theme }) => theme.calcRem(700)};
     margin: 0 auto;
-    padding: 30px;
+    padding: ${({ theme }) => theme.calcRem(30)};
 
     &:after { 
         content: '';
@@ -16,25 +16,25 @@ const Wrap = styled.div`
     }
 
     & > div + div {
-        margin-top: 20px;
+        margin-top: ${({ theme }) => theme.calcRem(20)};
     }
 `;
 
 const Info = styled.div`
     display: block;
-    font-size: 14px;
+    font-size: ${({ theme }) => theme.calcRem(14)};
 
     & > div + div{
-        margin-top: 5px;
+        margin-top: ${({ theme }) => theme.calcRem(5)};
     }
 `;
 
 const ImageWrap = styled.div`
-    width: 100px;
-    height: 100px;
+    width: ${({ theme }) => theme.calcRem(100)};
+    height: ${({ theme }) => theme.calcRem(100)};
     border-radius: 50%;
     overflow: hidden;
-    margin: 0 auto 15px;
+    margin: 0 auto ${({ theme }) => theme.calcRem(15)};
 
     img {
         max-width: 100%;
@@ -51,11 +51,11 @@ const FormWrap = styled.div`
 const Form = styled.form`
     input,
     textarea {
-        min-height: 35px;
+        min-height: ${({ theme }) => theme.calcRem(35)};
         width: 100%;
-        border: 1px solid #666;
-        font-size: 14px;
-        padding: 5px 10px;
+        border: 1px solid ${({ theme }) => theme.colors.black};
+        font-size: ${({ theme }) => theme.calcRem(14)};
+        padding: ${({ theme }) => theme.calcRem(5)} ${({ theme }) => theme.calcRem(10)};
         box-sizing: border-box;
         outline: none;
         resize: none;
@@ -64,27 +64,27 @@ const Form = styled.form`
 
     button { 
         line-height: 1;
-        border: 1px solid #666;
+        border: 1px solid ${({ theme }) => theme.colors.black};
         outline: none;
-        background: #fff;
-        padding: 10px 20px;
-        margin: 20px;
+        background: white;
+        padding: ${({ theme }) => theme.calcRem(10)} ${({ theme }) => theme.calcRem(20)};
+        margin: ${({ theme }) => theme.calcRem(20)};
         cursor: pointer;
-        font-size: 14px;
+        font-size: ${({ theme }) => theme.calcRem(15)};
     }
 
     & > div + div {
-        margin-top: 20px;
+        margin-top: ${({ theme }) => theme.calcRem(20)};
     }
 `;
 
 const RefMessage = styled.div`
-    max-width: 700px;
-    font-size: 13px;
+    max-width: ${({ theme }) => theme.calcRem(700)};
+    font-size: ${({ theme }) => theme.calcRem(13)};
 
     a {
-        font-size: 13px;
-        border-bottom: 1px solid #666;
+        font-size: ${({ theme }) => theme.calcRem(13)};
+        border-bottom: 1px solid ${({ theme }) => theme.colors.black};
     }
 `;
 

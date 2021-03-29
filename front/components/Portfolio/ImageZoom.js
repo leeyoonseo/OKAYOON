@@ -9,41 +9,40 @@ const Wrap = styled.div`
     top: 0;
     bottom: 0;
     z-index: 999;
-    background: rgba(0,0,0,.5);
+    background: ${({ theme }) => theme.colors.rgabGray};
 `;
 
 const Inner = styled.div`
-width: 500px;
-height: 400px;
-position: absolute;
-left: 50%;
-transform: translate(-50%, -50%);
-top: 50%;
-border: 1px solid #fff;
-box-sizing: border-box;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: ${({ theme }) => theme.calcRem(500)};
+    height: ${({ theme }) => theme.calcRem(400)};
+    border: 1px solid white;
+    box-sizing: border-box;
+    transform: translate(-50%, -50%);
 `;
 
 const CloseButton = styled.button`
     position: absolute;
     right: 0;
-    top: -44px;
-    width: 38px;
-    height: 37px;
-    border: 0;
+    top: -${({ theme }) => theme.calcRem(44)};
     padding: 0;
-    background: none;
-    font-size: 32px;
-    cursor: pointer;
-    outline: none;
+    width: ${({ theme }) => theme.calcRem(38)};
+    height: ${({ theme }) => theme.calcRem(37)};
+    font-size: ${({ theme }) => theme.calcRem(32)};
     border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
 `;
 
 const CloseIcon = styled(CloseOutlined)`
-    color: #fff;
+    color: white;
 `;
 
 const ImageWrap = styled.div`
-    border: 9px solid #666;
+    border: ${({ theme }) => theme.calcRem(9)} solid ${({ theme }) => theme.colors.black};
     line-height: 0;
     width: 100%;
     height: 100%;

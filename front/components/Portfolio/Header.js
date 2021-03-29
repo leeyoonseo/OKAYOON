@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const Wrap = styled.header`
     position: relative;
-    padding: 20px 2%;
+    padding: ${({ theme }) => theme.calcRem(20)} 2%;
     text-align: right;
     box-sizing: border-box;
 `;
@@ -22,17 +22,17 @@ const Inner = styled.span`
 const Icon = styled.span`
     position: absolute;
     display: inline-block;
-    width: 20px;
-    height: 20px;
+    width: ${({ theme }) => theme.calcRem(20)};
+    height: ${({ theme }) => theme.calcRem(20)};
     background: url(./icon_logo.png)no-repeat;
     background-size: 100% 100%;
 `;
 
 const Text = styled.span`
-    padding-left: 22px;
-    font-size: 22px;
-    color: #ffd54f;
-    text-shadow: 1px 1px 1px #666;
+    padding-left: ${({ theme }) => theme.calcRem(22)};
+    font-size: ${({ theme }) => theme.calcRem(22)};
+    color: ${({ theme }) => theme.colors.black};
+    text-shadow: 1px 1px 1px ${({ theme }) => theme.colors.black};
 `;
 
 const Nav = styled.div`
@@ -40,7 +40,7 @@ const Nav = styled.div`
     
     button {
         padding: 0;
-        font-size: 17px;
+        font-size: ${({ theme }) => theme.calcRem(17)};
         line-height: 1;
         border: none;
         outline: none;
@@ -48,7 +48,7 @@ const Nav = styled.div`
         cursor: pointer;
 
         & + button {
-            margin-left: 50px;
+            margin-left: ${({ theme }) => theme.calcRem(50)};
         }
 
         &:hover {

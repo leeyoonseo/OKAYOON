@@ -4,17 +4,16 @@ import styled from 'styled-components';
 
 const Wrap = styled.div`
     margin: 0 auto;
-    max-width: 700px;
+    max-width: ${({ theme }) => theme.calcRem(700)};
 `;
 
 const Items = styled.div`
-    height: 50px;
-    width: 19%;
-    height: 100px;
     display: inline-block;
+    width: 19%;
+    height: ${({ theme }) => theme.calcRem(100)};
 
     &:nth-child(n+6) {
-        margin-top: 10px;
+        margin-top: ${({ theme }) => theme.calcRem(10)};
     }
 
     & + div {
@@ -23,7 +22,7 @@ const Items = styled.div`
 
     span {
         display: inline-block;
-        padding: 5px;
+        padding:${({ theme }) => theme.calcRem(5)};
 
         img {
             width: 100%;
@@ -48,7 +47,7 @@ const Skils = () => {
     
     return (
         <Wrap> 
-            {skilsData.map((v, i) => (
+            {skilsData.map((v) => (
                 <Items 
                     key={`skils_${v.name}`}
                     className={v.name}

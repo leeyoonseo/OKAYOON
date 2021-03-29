@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Wrap = styled.div`
-    padding: 30px;
-    background: white;
-    max-width: 700px;
+    padding: ${({ theme }) => theme.calcRem(30)};
     margin: 0 auto;
-    border-radius: 10px;
+    max-width: ${({ theme }) => theme.calcRem(700)};
+    border-radius: ${({ theme }) => theme.calcRem(10)};
+    background: white;
 `;
 
 const Introduce = () => {

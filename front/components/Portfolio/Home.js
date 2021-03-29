@@ -2,23 +2,22 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-
 const TitleArea = styled.div`
     line-height: 1;
 `;
 
 const Sub = styled.div`
-    font-size: 25px;
+    font-size: ${({ theme }) => theme.calcRem(25)};
 `;
 
 const Title = styled.div`
-    font-size: 55px;
+    font-size: ${({ theme }) => theme.calcRem(55)};
 `;
 
 const ImageWrap = styled.div`
-    margin: 30px auto 0;
-    width: 250px;
-    height: 250px;
+    margin: ${({ theme }) => theme.calcRem(30)} auto 0;
+    width: ${({ theme }) => theme.calcRem(250)};
+    height: ${({ theme }) => theme.calcRem(250)};
     overflow: hidden;
     border-radius: 50%;
 
@@ -28,16 +27,16 @@ const ImageWrap = styled.div`
 `;
 
 const Tags = styled.div`
-    margin-top: 20px;
-    font-size: 14px;
+    margin-top: ${({ theme }) => theme.calcRem(20)};
+    font-size: ${({ theme }) => theme.calcRem(14)};
 
     span + span {
-        margin-left: 10px;
+        margin-left: ${({ theme }) => theme.calcRem(10)};
     }
 
     a {
-        color: #666;
-        border-bottom: 1px solid #666;
+        color: ${({ theme }) => theme.colors.black};
+        border-bottom: 1px solid ${({ theme }) => theme.colors.black};
 
         &:hover {
             opacity: 0.5;
@@ -46,17 +45,17 @@ const Tags = styled.div`
 `;
 
 const Social = styled.div`
-    margin-top: 20px;
+    margin-top: ${({ theme }) => theme.calcRem(20)};
     line-height: 1;
 
     a {
         display: inline-block;
-        width: 25px;
-        height: 25px;
-        color: #666;
+        width: ${({ theme }) => theme.calcRem(25)};
+        height: ${({ theme }) => theme.calcRem(25)};
+        color: ${({ theme }) => theme.colors.black};
 
         & + a {
-            margin-left: 15px;   
+            margin-left: ${({ theme }) => theme.calcRem(15)}; 
         }
 
         img {

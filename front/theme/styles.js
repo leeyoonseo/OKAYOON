@@ -11,12 +11,17 @@ const colors = {
     purple: '#A593E0',
     mint: '#64c5ba',
     yellow: '#ffbf2e',
-    lightYellow: '#fff4ce',
+    // lightYellow: '#fff4ce',
     green: '#26ca3f',
     darkPink : '#ef5285',
     pink: '#ED9282',
     chatSimsimi: '#ffe34f',
     chatUser: '#f18d8b',
+};
+
+const pfColors = {
+    yellow: '#ffd54f',
+    lightYellow: '#fff4ce',
 };
 
 // [D] Nonsense Quiz
@@ -72,6 +77,7 @@ export const theme = {
     pColors,
     cColors,
     device,
+    pfColors,
 };
 
 // TODO:
