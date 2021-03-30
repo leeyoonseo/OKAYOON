@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { getScrollY } from './Header';
 
 const Wrap = styled.div`
     position: fixed;
@@ -40,8 +41,8 @@ const Item = styled.div`
 const SideNav = () => {
     const { navList } = useSelector((state) => state.portfolio);
     const onClickButton = useCallback((e) => {
-        const target = document.querySelector(`.${e.target.dataset.name}`);
-        window.scrollTo(0, target.offsetTop);
+        const scrollY = getScrollY(e.target.dataset.name);
+        window.scrollTo(0, scrollY);
     }, []); 
 
     return (

@@ -18,10 +18,14 @@ const Inner = styled.div`
     left: 50%;
     top: 50%;
     width: ${({ theme }) => theme.calcRem(500)};
-    height: ${({ theme }) => theme.calcRem(400)};
+    height: auto;
     border: 1px solid white;
     box-sizing: border-box;
     transform: translate(-50%, -50%);
+
+    @media only screen and ${({ theme }) => theme.device.mobileS} {
+        width: 80%;
+    }
 `;
 
 const CloseButton = styled.button`

@@ -3,7 +3,6 @@ const colors = {
     black: '#566270',
     rgbaBlack: 'rgba(0, 0, 0, 0.5)',
     rgbaGray: 'rgba(86, 98, 112, 0.5)',
-    white: '#fff',
     ivory: '#FFFFF3',
     lightGray: '#f0f2f5',
     gray: '#dedede',
@@ -54,6 +53,7 @@ const cColors = {
 };
 
 const deviceSize = {
+    mobileSS: '480px',
     mobileS: '640px',
     mobile: '767px',
     tablet: '1023px',
@@ -62,6 +62,7 @@ const deviceSize = {
 };
 
 const device = {
+    mobileSS: `(max-width: ${deviceSize.mobileSS})`,
     mobileS: `(max-width: ${deviceSize.mobileS})`,
     mobile: `(max-width: ${deviceSize.mobile})`,
     tablet: `(max-width: ${deviceSize.tablet})`,

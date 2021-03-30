@@ -40,6 +40,10 @@ const Text = styled.span`
 
 const Nav = styled.div`
     display: inline-block;
+
+    @media only screen and ${({ theme }) => theme.device.mobileS} {
+        display: none;
+    }
     
     button {
         padding: 0;
@@ -59,12 +63,17 @@ const Nav = styled.div`
         }
     }
 `;
+export const getScrollY = (name) => {
+    return (name === 'home') 
+        ? 0 
+        : document.querySelector(`.${name}`).offsetTop;
+};
 
 const Header = () => {
     const { navList } = useSelector((state) => state.portfolio);
     const onClickButton = useCallback((e) => {
-        const target = document.querySelector(`.${e.target.dataset.name}`);
-        window.scrollTo(0, target.offsetTop);
+        const scrollY = getScrollY(e.target.dataset.name);
+        window.scrollTo(0, scrollY);
     }, []); 
 
     return (

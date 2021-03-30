@@ -1,9 +1,8 @@
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Head from 'next/head';
-import Slick from 'react-slick';
 import styled, { ThemeContext, css } from 'styled-components';
-import { LeftOutlined, RightOutlined, ExportOutlined } from '@ant-design/icons';
+import { ExportOutlined } from '@ant-design/icons';
 
 import Header from '../components/Portfolio/Header';
 import Footer from '../components/Portfolio/Footer';
@@ -29,6 +28,10 @@ const Contents = styled.article`
     padding: ${({ theme }) => theme.calcRem(120)} 2%;
     text-align: center;
     background: ${({ bg }) => bg ? bg : 'none'};
+
+    @media only screen and ${({ theme }) => theme.device.mobileS} {
+        padding: ${({ theme }) => theme.calcRem(60)} 10%;
+    }
 `;
 
 const ContTitleArea = styled.div`
@@ -72,6 +75,40 @@ const InfoArea = styled.div`
     line-height: 1.25;
 `;
 
+const CaptureItem = styled.span`
+    display: inline-block;
+    width: 16%;
+    height: ${({ theme }) => theme.calcRem(190)};
+    line-height: 1;
+    border: 1px solid ${({ theme }) => theme.colors.black};
+    box-sizing: border-box;
+    overflow: hidden;
+    cursor: pointer;
+    filter: grayscale(1);
+
+    @media only screen and ${({ theme }) => theme.device.mobile} {
+        width: ${({ len }) => (len === 4) ? '40%' : '25%'};
+    }
+
+    @media only screen and ${({ theme }) => theme.device.mobileSS} {
+        width: 40%;
+        height: ${({ theme }) => theme.calcRem(150)};
+    }
+    
+    &:hover {
+        filter: none;
+    }
+    
+    & + span {
+        margin-left: 0.5%;
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
+`;
+
 const WorkName = styled.div`
     margin-bottom: ${({ theme }) => theme.calcRem(15)};
     font-weight: 700;
@@ -79,57 +116,6 @@ const WorkName = styled.div`
     a { 
         margin-left: ${({ theme }) => theme.calcRem(10)};
         line-height: 1;
-    }
-`;
-
-const SlickWrap = styled.div`
-    position: relative;
-    width: 100%;
-    line-height: 1;
-    overflow: hidden;
-`;
-
-
-const initSlickButtonStyle = css`
-    position: absolute;
-    top: 50%;
-    padding: ${({ theme }) => theme.calcRem(5)} 0;
-    line-height: 1;
-    font-size: ${({ theme }) => theme.calcRem(22)};
-    border: none;
-    outline: none;
-    background: white;
-    cursor: pointer;
-    transform: translateY(-50%);
-    z-index: 1;
-`;
-
-const SlickPrevButton = styled.button`
-    ${initSlickButtonStyle}
-    left: 0;
-`;
-
-const SlickNextButton = styled.button`
-    ${initSlickButtonStyle}
-    right: 0;
-`;
-
-const SlickImage = styled.div`
-    width: 20%;
-    height: 14vw;
-    cursor: pointer;
-    overflow: hidden;
-
-    img {
-        width: 98%;
-        height: 98%;
-        filter: grayscale(1);
-        border: 1px solid ${({ theme }) => theme.colors.black};
-        box-sizing: border-box;
-    }
-
-    &:hover img {
-        filter: none;
     }
 `;
 
@@ -163,44 +149,10 @@ const portfolio = () => {
     const [openedZoom, setOpenedZoom] = useState(false);
     const [zoomImageSrc, setZoomImageSrc] = useState(null);
 
-    const SlickNextArrow = (props) => {
-        const { className, style, onClick } = props;
-        return (
-            <SlickNextButton
-                className={className}
-                style={{ ...style }}
-                onClick={onClick}
-            >
-                <RightOutlined />
-            </SlickNextButton>
-        );
-    };
-
-    const SlickPrevArrow = (props) => {
-        const { className, style, onClick } = props;
-        return (
-            <SlickPrevButton
-                className={className}
-                style={{ ...style }}
-                onClick={onClick}
-            >
-                <LeftOutlined />
-            </SlickPrevButton>
-        );
-    };
-
-    const slickSettings = {
-        infinite: true,
-        centerPadding: `${themeContext.calcRem(60)}`,
-        speed: 500,
-        nextArrow: <SlickNextArrow />,
-        prevArrow: <SlickPrevArrow />,
-    };
-
-    const onClickSlickImage = useCallback((src) => () => {
-        setZoomImageSrc(src);
+    const onClickImage = useCallback((e) => {
+        setZoomImageSrc(e.target.src);
         onToggleZoom();
-    }, [zoomImageSrc]);
+    }, [zoomImageSrc, openedZoom]);
 
     const onToggleZoom = useCallback(() => {
         setOpenedZoom(!openedZoom);
@@ -257,9 +209,6 @@ const portfolio = () => {
 
                         <WorkArea>
                             {portfolioData.map(({ image, name, src, desc, skils }) => {
-                                const MAX = 5;
-                                const slickLenght = image.length < MAX ? image.length : MAX;
-
                                 return (
                                     <WorkItems key={`portfolio_${name}`}>
                                         <InfoArea>
@@ -293,29 +242,19 @@ const portfolio = () => {
                                                 })}
                                             </WorkSkilsArea>
                                         </InfoArea>
-    
-                                        <SlickWrap>
-                                            <Slick
-                                                slidesToShow={slickLenght}
-                                                {...slickSettings}
-                                            >
-                                                {image.length >= 1 && image.map((o, i) => {
-                                                    if (!o) return;
 
-                                                    return (
-                                                        <SlickImage 
-                                                            key={`${name}_image_${i}`}
-                                                            onClick={onClickSlickImage(o)}
-                                                        >
-                                                            <img 
-                                                                src={o} 
-                                                                alt={`${name}_image_${i}`}
-                                                            />
-                                                        </SlickImage>
-                                                    )
-                                                })}
-                                            </Slick>
-                                        </SlickWrap>
+                                            {image.length >= 1 && image.map((o, i) => (
+                                                <CaptureItem
+                                                    key={`${name}_image_${i}`}
+                                                    len={image.length}
+                                                    onClick={onClickImage}
+                                                >
+                                                    <img 
+                                                        src={o}
+                                                        alt={`${name}_image_${i}`}
+                                                    />
+                                                </CaptureItem>
+                                            ))}
                                     </WorkItems>
                                 )
                             })}
