@@ -39,7 +39,7 @@ const ContTitleArea = styled.div`
 const ContTitle = styled.h3`
     display: inline-block;
     font-size: ${({ theme }) => theme.calcRem(30)};
-    color: #333;
+    color: ${({ theme }) => theme.pfColors.black};
     border-bottom: ${({ theme }) => theme.calcRem(2)} solid ${({ theme }) => theme.colors.black};
 `;
 
@@ -93,11 +93,12 @@ const SlickWrap = styled.div`
 const initSlickButtonStyle = css`
     position: absolute;
     top: 50%;
-    padding: 0;
+    padding: ${({ theme }) => theme.calcRem(5)} 0;
     line-height: 1;
+    font-size: ${({ theme }) => theme.calcRem(22)};
     border: none;
     outline: none;
-    background: #fff;
+    background: white;
     cursor: pointer;
     transform: translateY(-50%);
     z-index: 1;
@@ -115,7 +116,7 @@ const SlickNextButton = styled.button`
 
 const SlickImage = styled.div`
     width: 20%;
-    height: 12vw;
+    height: 14vw;
     cursor: pointer;
     overflow: hidden;
 
@@ -225,7 +226,7 @@ const portfolio = () => {
                         <Home />
                     </Contents>
 
-                    <Contents className="iam" bg='#fff4ce'>
+                    <Contents className="iam" bg={themeContext.pfColors.lightYellow}>
                         <ContTitleArea>
                             <ContTitle>I am</ContTitle>
                         </ContTitleArea>
@@ -256,35 +257,43 @@ const portfolio = () => {
 
                         <WorkArea>
                             {portfolioData.map((v) => {
-                                const max = 5;
-                                const {length} = v.image;
-                                const slickLenght = length < max ? length : max;
+                                if (!v) return;
+                                
+                                const MAX = 5;
+                                const { image, name, src, desc, skils, } = v
+                                const slickLenght = image.length < MAX ? image.length : MAX;
 
                                 return (
-                                    <WorkItems key={`portfolio_${v.name}`}>
+                                    <WorkItems key={`portfolio_${name}`}>
                                         <InfoArea>
                                             <WorkName>
                                                 <span>
-                                                    {v.name}
+                                                    {name}
                                                 </span>
                                                 <a
-                                                    href={v.src} 
-                                                    title={`${v.name} 바로가기`} 
+                                                    href={src} 
+                                                    title={`${name} 바로가기`} 
                                                     target="_blank"
                                                 >
                                                     <ExportOutlined />
                                                 </a>
                                             </WorkName>
     
-                                            <WorkDesk dangerouslySetInnerHTML={{__html: v.desc}} />
+                                            <WorkDesk dangerouslySetInnerHTML={{__html: desc}} />
     
                                             <WorkSkilsArea>
-                                                {v.skils.length >= 1 && v.skils.map((o, i) =>(
-                                                    <WorkSkils key={`${v.name}_skils_${i}`}>
-                                                        <img src={`../portfolio/skils/icon_${o}.png`} alt={`icon_${o}`}/>
-                                                        {/* {(i === v.skils.length - 1) ? o : `${o},`} */}
-                                                    </WorkSkils>
-                                                ))}
+                                                {skils.length >= 1 && skils.map((o, i) => {
+                                                    if (!o) return;
+
+                                                    return (
+                                                        <WorkSkils key={`${name}_skils_${i}`}>
+                                                            <img 
+                                                                src={`../portfolio/skils/icon_${o}.png`} 
+                                                                alt={`icon_${o}`}
+                                                            />
+                                                        </WorkSkils>
+                                                    )
+                                                })}
                                             </WorkSkilsArea>
                                         </InfoArea>
     
@@ -293,17 +302,21 @@ const portfolio = () => {
                                                 slidesToShow={slickLenght}
                                                 {...slickSettings}
                                             >
-                                                {v.image.length >= 1 && v.image.map((o, i) => (
-                                                    <SlickImage 
-                                                        key={`${v.name}_image_${i}`}
-                                                        onClick={onClickSlickImage(o)}
-                                                    >
-                                                        <img 
-                                                            src={o} 
-                                                            alt={`${v.name}_image_${i}`}
-                                                        />
-                                                    </SlickImage>
-                                                ))}
+                                                {image.length >= 1 && image.map((o, i) => {
+                                                    if (!o) return;
+
+                                                    return (
+                                                        <SlickImage 
+                                                            key={`${name}_image_${i}`}
+                                                            onClick={onClickSlickImage(o)}
+                                                        >
+                                                            <img 
+                                                                src={o} 
+                                                                alt={`${name}_image_${i}`}
+                                                            />
+                                                        </SlickImage>
+                                                    )
+                                                })}
                                             </Slick>
                                         </SlickWrap>
                                     </WorkItems>
@@ -319,7 +332,7 @@ const portfolio = () => {
                         )}
                     </Contents>
                     
-                    <Contents className="contact" bg='#fff4ce'>
+                    <Contents className="contact" bg={themeContext.pfColors.lightYellow}>
                         <ContTitle>Contact</ContTitle>
                         <Contact />                    
                     </Contents>
@@ -334,12 +347,3 @@ const portfolio = () => {
 };
 
 export default portfolio;
-
-// TODO:
-// - reposistories 정리하기
-// - 녹음기 완성해서 올릴것 
-// - 뉴스레터 수정할 것 (망가진것들..)
-// ----  사용할 수 있는지 확인..
-// - trip checklist
-//- chatapp 
-// - pet_feed_calculator

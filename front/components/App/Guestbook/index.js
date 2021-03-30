@@ -94,14 +94,12 @@ const Guestbook = () => {
     return (
         <>
             <div>
-                {/* TODO: 엔터시 동작하도록, 폼 전체들!! */}
                 <Form 
                     MAX_TEXTAREA_LENGTH={MAX_TEXTAREA_LENGTH} 
                     nickname={nickname}
                     avatar={avatar}
                 />
                 
-                {/* TODO: 새로고침때나 로그아웃-> 로그인 시에 닫혀야함, edit!! */}
                 {guestbook && guestbook.map((v, i) => {
                     if (v.edit) {
                         return (

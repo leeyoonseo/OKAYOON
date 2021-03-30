@@ -11,7 +11,6 @@ const colors = {
     purple: '#A593E0',
     mint: '#64c5ba',
     yellow: '#ffbf2e',
-    // lightYellow: '#fff4ce',
     green: '#26ca3f',
     darkPink : '#ef5285',
     pink: '#ED9282',
@@ -19,7 +18,9 @@ const colors = {
     chatUser: '#f18d8b',
 };
 
+// [D] Portfolio
 const pfColors = {
+    black: '#333',
     yellow: '#ffd54f',
     lightYellow: '#fff4ce',
 };
@@ -79,22 +80,3 @@ export const theme = {
     device,
     pfColors,
 };
-
-// TODO:
-// 조합 (1)
-// 1. #fd7576
-// 2. #fec85d
-// 3. #4db9de
-// 4. #34324b
-
-// 조합 (2)
-// #a7dff8 #ed5586 #64c5ba #64c5baF
-
-// 조합 3
-// #A593E0 #E0E3DA #FFFFF3 #566270
-
-// #84B1ED #C89EC4 #EE7785 #67D5B5
-
-// #feee7d #60c5ba #ef5285 #a5dff9
-
-// #9DC8C8 #58C9B9 #519D9E #D1B6E1

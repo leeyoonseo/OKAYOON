@@ -9,7 +9,7 @@ const Wrap = styled.div`
     top: 0;
     bottom: 0;
     z-index: 999;
-    background: ${({ theme }) => theme.colors.rgabGray};
+    background: rgba(0,0,0,0.3);
 `;
 
 const Inner = styled.div`
@@ -26,14 +26,16 @@ const Inner = styled.div`
 const CloseButton = styled.button`
     position: absolute;
     right: 0;
-    top: -${({ theme }) => theme.calcRem(44)};
+    top: 0;
     padding: 0;
     width: ${({ theme }) => theme.calcRem(38)};
     height: ${({ theme }) => theme.calcRem(37)};
     font-size: ${({ theme }) => theme.calcRem(32)};
-    border: none;
+    line-height: 1;
+    border: 2px solid white;
     outline: none;
-    background: none;
+    background: #566270;
+    transform: translateY(-100%);
     cursor: pointer;
 `;
 

@@ -4,9 +4,13 @@ import styled from 'styled-components';
 const Wrap = styled.div`
     position: fixed;
     top: 50%;
-    right: 0;
-    width: ${({ theme }) => theme.calcRem(50)};
+    right: 2%;
+    padding: ${({ theme }) => theme.calcRem(5)};
+    line-height: 1;
+    background: ${({ theme }) => theme.pfColors.lightYellow};
+    border-radius: ${({ theme }) => theme.calcRem(5)};
     transform: translateY(-50%);
+    z-index: 100;
 `;
 
 const Item = styled.div`

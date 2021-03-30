@@ -31,7 +31,7 @@ const Icon = styled.span`
 const Text = styled.span`
     padding-left: ${({ theme }) => theme.calcRem(22)};
     font-size: ${({ theme }) => theme.calcRem(22)};
-    color: ${({ theme }) => theme.colors.black};
+    color: ${({ theme }) => theme.pfColors.yellow};
     text-shadow: 1px 1px 1px ${({ theme }) => theme.colors.black};
 `;
 
