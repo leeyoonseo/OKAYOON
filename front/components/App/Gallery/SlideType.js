@@ -148,11 +148,19 @@ const SlideType = ({ data }) => {
                         asNavFor={pagingSlick}
                         {...mainSettings}
                     >
-                        {data.map((v, i) => {
+                        {data.map(({ title, src, desc }, i) => {
                             return (
-                                <MainSlickItems key={`${v.title}_${i}`}>
-                                    <img src={v.src} alt={v.title} />
-                                    <div>{v.desc}</div>
+                                <MainSlickItems 
+                                    key={`${title}_${i}`}
+                                >
+                                    <img 
+                                        src={src} 
+                                        alt={title} 
+                                    />
+
+                                    <div>
+                                        {desc}
+                                    </div>
                                 </MainSlickItems>
                             )
                         })}
@@ -177,13 +185,13 @@ const SlideType = ({ data }) => {
                         asNavFor={mainSlick}
                         {...pagingSettings}
                     >
-                        {data.map((v, i) => {
+                        {data.map(({ title, src }, i) => {
                             return (
                                 <PagingItems 
-                                    key={`${v.title}_${i}`}
+                                    key={`${title}_${i}`}
                                     className="paging_items"
                                 >
-                                    <img src={v.src} />
+                                    <img src={src} />
                                 </PagingItems>
                             )
                         })}
@@ -204,6 +212,10 @@ const SlideType = ({ data }) => {
             </Inner>
         </Wrap>
     );
+};
+
+SlideType.propTypes = {
+    data: PropTypes.object.isRequired,
 };
 
 export default SlideType;

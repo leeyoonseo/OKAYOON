@@ -134,7 +134,7 @@ const Button = styled.button`
 `;
 
 const setIconColor = (type, name, colors) => {
-    return (type === name) ? colors.white : colors.black;
+    return (type === name) ? 'white' : colors.black;
 };
 
 const CardIcon = styled(AppstoreOutlined)`

@@ -1,9 +1,8 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useInput from '../../../../hooks/useInput';
-import PropTypes from 'prop-types';
 import { ADD_GAMELIST_REQUEST } from '../../../../reducers/game';
-
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Form, Item, Input, ButtonArea } from './formStyle';
 

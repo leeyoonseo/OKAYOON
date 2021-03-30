@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useRef, } from 'react';
 import { useDispatch, useSelector } from 'react-redux'; 
+import PropTypes from 'prop-types';
 import useInput from '../../../../hooks/useInput';
 import { ADD_GAME_REQUEST } from '../../../../reducers/game';
-
 import { Form, Item, Input, ButtonArea } from './formStyle';
 
 const NonsenseQuizForm = ({ gameName }) => {
@@ -33,26 +33,33 @@ const NonsenseQuizForm = ({ gameName }) => {
     const onsubmit = useCallback((e) => {
         e.preventDefault();
         let validateNum = 0;
+
         const data = {
             gameName: gameName,
             example: [],
         };
 
-        Array.from(formRef.current.elements).map((v, i) => {
-            if (v.nodeName !== 'INPUT') return;
+        Array.from(formRef.current.elements).map(({ 
+            nodeName, 
+            name, 
+            value, 
+            placeholder 
+        }) => {
+            if (nodeName !== 'INPUT') return;
         
-            if (!v.value || !v.value.trim()) {
+            if (!value || !value.trim()) {
                 validateNum++;
-                return alert(`${v.placeholder} 비었습니다.`);
+                return alert(`${placeholder} 비었습니다.`);
             }
 
-            if (v.name === 'answer') {
+            if (name === 'answer') {
                 data.example.push({
                     isCorrect: true,
-                    answer: v.value
+                    answer: value
                 });
-            } else if (v.name === 'wrongAnswer') {
-                v.value.split(',').map((txt) => {
+                
+            } else if (name === 'wrongAnswer') {
+                value.split(',').map((txt) => {
                     data.example.push({
                         isCorrect: false,
                         answer: txt
@@ -60,8 +67,9 @@ const NonsenseQuizForm = ({ gameName }) => {
                 });
 
                 data.example = JSON.stringify(data.example);
+
             } else {
-                data[v.name] = v.value;
+                data[name] = value;
             }
         });
 
@@ -124,6 +132,10 @@ const NonsenseQuizForm = ({ gameName }) => {
             </ButtonArea>
         </Form>
     );
+};
+
+NonsenseQuizForm.propTypes = {
+    gameName: PropTypes.string.isRequired,
 };
 
 export default NonsenseQuizForm;

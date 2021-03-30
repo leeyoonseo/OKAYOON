@@ -1,7 +1,7 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { NONSENSE_QUIZ, CATCH_MIND, PERSONALITY_TEST } from '../../../../reducers/game';
 import { LeftOutlined } from '@ant-design/icons';
-
+import PropTypes from 'prop-types';
 import { Wrap, BackButton, SelectArea, Title, Select, OptionItems, NotifyMessage } from './style';
 
 import NonsenseQuizForm from './NonsenseQuizForm';
@@ -25,22 +25,22 @@ const Admin = ({ list, onClickBack }) => {
                 <Title>데이터 항목 선택</Title>
                 
                 <Select>
-                    {list && list.map((v) => {
-                        if (v.name === PERSONALITY_TEST) return;
+                    {list && list.map(({ name, title }) => {
+                        if (name === PERSONALITY_TEST) return;
 
                         return (
-                            <OptionItems key={`admin_${v.name}`}>                                
+                            <OptionItems key={`admin_${name}`}>                                
                                 <input 
                                     type="radio" 
-                                    id={v.name} 
+                                    id={name} 
                                     name="add-data" 
-                                    value={v.name} 
-                                    onClick={onClickOption(v.name)} 
+                                    value={name} 
+                                    onClick={onClickOption(name)} 
                                 />
                                 <label 
-                                    htmlFor={v.name}
+                                    htmlFor={name}
                                 >
-                                    {v.title}
+                                    {title}
                                 </label>
                             </OptionItems>
                         )  
@@ -71,6 +71,11 @@ const Admin = ({ list, onClickBack }) => {
             })()}
         </Wrap>
     );
+};
+
+Admin.propTypes = {
+    list: PropTypes.object.isRequired,
+    onClickBack: PropTypes.func.isRequired,
 };
 
 export default Admin;

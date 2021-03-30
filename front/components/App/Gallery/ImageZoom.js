@@ -18,7 +18,7 @@ const Wrap = styled.div`
 
 const Inner = styled.div`
     position: relative;
-    background ${({ theme }) => theme.colors.white};   
+    background: white;
     box-shadow: ${({ theme }) => theme.calcRem(1)} ${({ theme }) => theme.calcRem(1)} ${({ theme }) => theme.calcRem(10)} ${({ theme }) => theme.colors.rgbaBlack};
 `;
 
@@ -49,7 +49,7 @@ const Info = styled.div`
     bottom: 0;
     padding: 2%;
     line-height: 1.25;
-    color: ${({ theme }) => theme.colors.white};
+    color: white;
     text-shadow: 1px 1px 1px ${({ theme }) => theme.colors.black};
 `;
 
@@ -72,7 +72,10 @@ const ImageZoom = ({ item, onClose }) => {
                     <CloseIcon />
                 </CloseButton>
 
-                <Image src={src} alt={title}/>
+                <Image 
+                    src={src} 
+                    alt={title}
+                />
                 
                 <Info>
                     <Title>{title}</Title>
@@ -82,5 +85,10 @@ const ImageZoom = ({ item, onClose }) => {
         </Wrap>
     );
 };
+
+ImageZoom.propTypes = {
+    item: PropTypes.object.isRequired, 
+    onClose: PropTypes.func.isRequired,
+};  
 
 export default ImageZoom;

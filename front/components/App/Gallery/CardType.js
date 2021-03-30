@@ -47,11 +47,14 @@ const CardType = ({ data }) => {
 
                     return (
                         <Items 
-                            key={`${title}_${i}`}
+                            key={`${title.charAt(0)}_${i}`}
                             onClick={onClickZoom(v)}
                         >
                             <Figure>
-                                <Image src={src} alt={title} />
+                                <Image 
+                                    src={src} 
+                                    alt={title} 
+                                />
                             </Figure>
                         </Items>
                     )
@@ -66,6 +69,10 @@ const CardType = ({ data }) => {
             )}
         </>
     );
+};
+
+CardType.propTypes = {
+    data: PropTypes.object.isRequired,
 };
 
 export default CardType;

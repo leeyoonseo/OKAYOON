@@ -26,7 +26,7 @@ const Item = styled(List.Item)`
     padding: 2%;
     width: 49%;
     float: left;
-    background: ${({ theme }) => theme.colors.white};
+    background: white;
     box-sizing: border-box;
     cursor: pointer;
 
@@ -85,6 +85,10 @@ const ListType = ({ data }) => {
             )}
         </>
     );
+};
+
+ListType.propTypes = {
+    data: PropTypes.object.isRequired,
 };
 
 export default ListType;
