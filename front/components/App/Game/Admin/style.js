@@ -1,14 +1,11 @@
 import styled from 'styled-components';
 
 export const Wrap = styled.div`
-    position: absolute;
-    top: 0;
-    left: 0;
     padding: 2%;
     width: 100%;
-    height: 100%;
+    height: ${({ theme }) => theme.calcRem(400)};
     font-size: ${({ theme }) => theme.calcRem(16)};
-    background: #333;
+    background: ${({ theme }) => theme.colors.black};
 
     & > div + div {
         margin-top: ${({ theme }) => theme.calcRem(40)};

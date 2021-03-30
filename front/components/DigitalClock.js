@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const DigitalClockWrap = styled.div`
     font-size: ${({ theme }) => theme.calcRem(64)};
-    color: #fff;
+    color: white;
 
     span {
         display: inline-block;

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import { DELETE_GUESTBOOK_REQUEST, GET_PERMISSION_REQUEST } from '../../../reducers/guestbook';
 import { getSrc } from './index';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import WindowDialog from '../../WindowDialog/index';
@@ -10,11 +11,10 @@ import Comment from './Comment';
 
 import { Avatar } from 'antd';
 import { MessageOutlined, DeleteOutlined, FormOutlined } from '@ant-design/icons';
-import Admin from '../Game/Admin';
 
 const Wrap = styled.div`
     padding: 3%;
-    background: ${({ theme }) => theme.colors.white};
+    background: white;
     box-sizing: border-box;
 
     & + div {
@@ -104,14 +104,9 @@ const GuestbookCard = ({
     const [reqStatus, setReqStatus] = useState('');
 
     useEffect(() => {
-        let text = ''; 
-
-        if (admin.userId) {
-            text = '관리자 권한으로 삭제합니다.';
-
-        } else {
-            text = `${(reqStatus === 'edit') ? '수정' : '삭제'} 비밀번호를 입력해주세요`;
-        }
+        const text = admin.userId 
+            ? '관리자 권한으로 삭제합니다.' 
+            : `${(reqStatus === 'edit') ? '수정' : '삭제'} 비밀번호를 입력해주세요`;
 
         setModalText(text);
     }, [admin, reqStatus]);
@@ -150,7 +145,6 @@ const GuestbookCard = ({
     }, []);
 
     const onClickDelete = useCallback(() => {
-        console.log('onClickDelete');
         setOpenedModal(true);
         setReqStatus('delete');
     }, []);
@@ -164,15 +158,22 @@ const GuestbookCard = ({
             <Inner>
                 <AvatarWrap>
                     {avatar === 'nickname' ? (
-                        <Avatar size={64}>{nickname}</Avatar>
+                        <Avatar size={64}>
+                            {nickname}
+                        </Avatar>
                     ) : (
-                        <Avatar size={64} src={getSrc(avatarList, avatar)} />
+                        <Avatar 
+                            size={64} 
+                            src={getSrc(avatarList, avatar)} 
+                        />
                     )}
                 </AvatarWrap>
 
                 <Container>
                     <Nickname>{nickname}</Nickname>
-                    <CreatedDate>{dayjs(createdAt).format('YYYY.MM.DD | a hh:mm')}</CreatedDate>
+                    <CreatedDate>
+                        {dayjs(createdAt).format('YYYY.MM.DD | a hh:mm')}
+                    </CreatedDate>
 
                     <ContentWrap>
                         {content}
@@ -216,6 +217,17 @@ const GuestbookCard = ({
             )}
         </Wrap>
     );
+};
+
+GuestbookCard.propTypes = {
+    id: PropTypes.string.isRequired,
+    nickname: PropTypes.string.isRequired,
+    avatar: PropTypes.string.isRequired,
+    createdAt: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+    Comments: PropTypes.string.isRequired,
+    authorNickname: PropTypes.string.isRequired,
+    authorAvatar: PropTypes.string.isRequired,
 };
 
 export default GuestbookCard;

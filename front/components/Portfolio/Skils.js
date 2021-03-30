@@ -47,13 +47,16 @@ const Skils = () => {
     
     return (
         <Wrap> 
-            {skilsData.map((v) => (
+            {skilsData.map(({ name, title, src }) => (
                 <Items 
-                    key={`skils_${v.name}`}
-                    className={v.name}
+                    key={`skils_${name}`}
+                    className={name}
                 >
                     <span>
-                        <img src={v.src} alt={`${v.title} 아이콘`} />
+                        <img 
+                            src={src} 
+                            alt={`${title} 아이콘`} 
+                        />
                     </span>
                 </Items>
             ))}

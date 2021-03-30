@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState, useRef, useReducer } from 'react';
+import React, { useEffect, useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useInput from '../../hooks/useInput';
 import { LOG_IN_ADMIN_REQUEST } from '../../reducers/user';
@@ -58,9 +58,6 @@ const Admin = () => {
             <InfoArea>
                 <DefaultAvatar 
                     size={80}
-                    // TODO: 이미지로 할지, 텍스트로 할지 고민 
-                    // src=""
-                    // icon={<UserOutlined />} 
                 >
                     관리자
                 </DefaultAvatar>
@@ -107,4 +104,4 @@ const Admin = () => {
 export default Admin;
 
 // TODO:
-// - 로그인 시도 일정치 이상 틀리면 벤시키기
+// - 관리자 로그인 시도 일정치 이상 틀릴 경우에 대해 처리

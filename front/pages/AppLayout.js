@@ -2,9 +2,10 @@ import React, { useEffect, useState, useCallback, useRef, useContext } from 'rea
 import styled, { ThemeContext } from 'styled-components';
 import { Layout } from 'antd';
 import SystemTools from '../components/SystemTools';
+import PropTypes from 'prop-types';
 
 const Wrap = styled(Layout)`
-    min-width: 320px;
+    min-width:  ${({ theme }) => theme.calcRem(320)};
     height: 100%;
     font-size: ${({ theme }) => theme.calcRem(16)};
     background: ${({ bgcolor }) => bgcolor};
@@ -117,6 +118,16 @@ const AppLayout = ({ bgcolor, main, footer }) => {
             </Footer>
         </Wrap>
     );
+};
+
+AppLayout.propTypes = {
+    bgcolor: PropTypes.string,
+    main: PropTypes.element.isRequired, 
+    footer: PropTypes.element.isRequired,
+};
+
+AppLayout.defaultProps = {
+    bgcolor: '#566270'
 };
 
 export default AppLayout;

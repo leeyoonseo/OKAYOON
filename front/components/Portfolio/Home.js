@@ -96,14 +96,17 @@ const Home = () => {
             </Tags>
 
             <Social>
-                {socialData.map((v) => (
+                {socialData.map(({ name, src, image }) => (
                     <a 
-                        key={`social_${v.name}`}
-                        href={v.src} 
-                        title={`${v.name} 바로가기`} 
+                        key={`social_${name}`}
+                        href={src} 
+                        title={`${name} 바로가기`} 
                         target="_blank"
                     >
-                        <img src={v.image} alt={`${v.name} 아이콘`} />
+                        <img 
+                            src={image} 
+                            alt={`${name} 아이콘`} 
+                        />
                     </a>
                 ))}
             </Social>

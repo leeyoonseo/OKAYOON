@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useInput from '../../../../hooks/useInput';
+import PropTypes from 'prop-types';
 import { ADD_GAMELIST_REQUEST } from '../../../../reducers/game';
 
 import styled from 'styled-components';
@@ -50,15 +51,20 @@ const GameListForm = ({ gameName }) => {
         let validateNum = 0;
         const data = {};
 
-        Array.from(formRef.current.elements).map((v, i) => {
-            if (v.nodeName !== 'INPUT') return;
+        Array.from(formRef.current.elements).map(({ 
+            nodeName, 
+            name, 
+            value, 
+            placeholder 
+        }) => {
+            if (nodeName !== 'INPUT') return;
 
-            if (!v.value || !v.value.trim()) {
+            if (!value || !value.trim()) {
                 validateNum++;
-                return alert(`${v.placeholder} 비었습니다.`);
+                return alert(`${placeholder} 비었습니다.`);
             }
 
-            data[v.name] = v.value;
+            data[name] = value;
         }); 
 
         if(!validateNum) {
@@ -67,15 +73,14 @@ const GameListForm = ({ gameName }) => {
                 data: data
             });
         }
-
     }, [gameName]);
 
     return (
         <Form ref={formRef}>
             <NotifyMessage>
                 * 게임 리스트 저장 시, 추가 작업 필수로 함부로 추가하지말것.<br/>
-                1) 데이터 db 폼 생성<br/>
-                2) 백엔드 db 작업
+                1&#41; 데이터 db 폼 생성<br/>
+                2&#41; 백엔드 db 작업
             </NotifyMessage>
             <Item>
                 <Input 
@@ -125,6 +130,10 @@ const GameListForm = ({ gameName }) => {
             </ButtonArea>
         </Form>
     );
+};
+
+GameListForm.propTypes = {
+    gameName: PropTypes.string.isRequired,
 };
 
 export default GameListForm;

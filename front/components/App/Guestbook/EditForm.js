@@ -1,5 +1,6 @@
-import React, { useCallback, useState, useRef, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useCallback, useRef, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import useInput from '../../../hooks/useInput';
@@ -103,6 +104,14 @@ const EditForm = ({
             </BottomWrap>
         </Wrap>
     );
+};
+
+EditForm.propTypes = {
+    MAX_TEXTAREA_LENGTH: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+    nickname: PropTypes.string.isRequired,
+    avatar: PropTypes.string.isRequired,
 };
 
 export default EditForm;

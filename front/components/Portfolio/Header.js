@@ -1,5 +1,8 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+
+const LOGO_URL = './icon_logo.png';
 
 const Wrap = styled.header`
     position: relative;
@@ -24,7 +27,7 @@ const Icon = styled.span`
     display: inline-block;
     width: ${({ theme }) => theme.calcRem(20)};
     height: ${({ theme }) => theme.calcRem(20)};
-    background: url(./icon_logo.png)no-repeat;
+    background: url(${LOGO_URL})no-repeat;
     background-size: 100% 100%;
 `;
 
@@ -58,6 +61,7 @@ const Nav = styled.div`
 `;
 
 const Header = () => {
+    const { navList } = useSelector((state) => state.portfolio);
     const onClickButton = useCallback((e) => {
         const target = document.querySelector(`.${e.target.dataset.name}`);
         window.scrollTo(0, target.offsetTop);
@@ -72,33 +76,19 @@ const Header = () => {
             </Logo>
 
             <Nav>
-                <button 
-                    onClick={onClickButton}
-                    data-name="home"
-                >
-                    Home
-                </button>
-                
-                <button
-                    onClick={onClickButton}
-                    data-name="iam"
-                >
-                    I am
-                </button>
-                
-                <button
-                    onClick={onClickButton}
-                    data-name="portfolio"
-                >
-                    Portfolio
-                </button>
-                
-                <button
-                    onClick={onClickButton}
-                    data-name="contact"
-                >
-                    Contact
-                </button>
+                {navList.map((v) => {
+                    const name = v.split(' ').join('').toLowerCase();
+
+                    return (
+                        <button 
+                            key={`header_${name.charAt(0)}`}
+                            onClick={onClickButton}
+                            data-name={name}
+                        >
+                            {v}
+                        </button>
+                    )
+                })}
             </Nav>
         </Wrap>
     );

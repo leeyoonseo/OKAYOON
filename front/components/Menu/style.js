@@ -24,7 +24,7 @@ export const MenuButton = styled.button`
 
 export const MenuIcon = styled(UpCircleOutlined)`
     font-size: ${({ theme }) => theme.calcRem(20)};
-    color: ${({ theme }) => theme.colors.white};
+    color: white;
 `;
 
 export const MenuTooltip = styled.div`
@@ -77,10 +77,10 @@ export const ItemButton = styled.button`
 export const GitAnchor = styled.a`
     display: inline-block;
     font-size: ${({ theme }) => theme.calcRem(16)};
-    color: ${({ theme }) => theme.colors.white};
+    color: white;
 
     &:hover { 
-        color: ${({ theme }) => theme.colors.white};
+        color: white;
         opacity: 0.8;
     }
 

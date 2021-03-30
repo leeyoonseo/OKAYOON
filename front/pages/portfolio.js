@@ -256,11 +256,8 @@ const portfolio = () => {
                         </ContTitleArea>
 
                         <WorkArea>
-                            {portfolioData.map((v) => {
-                                if (!v) return;
-                                
+                            {portfolioData.map(({ image, name, src, desc, skils }) => {
                                 const MAX = 5;
-                                const { image, name, src, desc, skils, } = v
                                 const slickLenght = image.length < MAX ? image.length : MAX;
 
                                 return (
@@ -332,7 +329,10 @@ const portfolio = () => {
                         )}
                     </Contents>
                     
-                    <Contents className="contact" bg={themeContext.pfColors.lightYellow}>
+                    <Contents 
+                        className="contact" 
+                        bg={themeContext.pfColors.lightYellow}
+                    >
                         <ContTitle>Contact</ContTitle>
                         <Contact />                    
                     </Contents>
@@ -347,3 +347,5 @@ const portfolio = () => {
 };
 
 export default portfolio;
+
+// TODO: 반응형

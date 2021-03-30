@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { CloseOutlined } from '@ant-design/icons';
 
@@ -34,7 +35,7 @@ const CloseButton = styled.button`
     line-height: 1;
     border: 2px solid white;
     outline: none;
-    background: #566270;
+    background: ${({ theme }) => theme.colors.black};
     transform: translateY(-100%);
     cursor: pointer;
 `;
@@ -75,5 +76,10 @@ const ImageZoom = ({
         </Wrap>
     );
 };
+
+ImageZoom.propTypes = {
+    src: PropTypes.string.isRequired,
+    onClose: PropTypes.func.isRequired,
+}
 
 export default ImageZoom;

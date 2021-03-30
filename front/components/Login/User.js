@@ -2,6 +2,7 @@ import React, { useEffect, useCallback, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useCookies } from 'react-cookie';
 import useInput from '../../hooks/useInput';
+import PropTypes from 'prop-types';
 import {
     InfoArea, AvatarButton, NicknameWrap, InputWrap, 
     Input, UserIcon, Nickname, RemoveButton, 
@@ -31,12 +32,7 @@ const User = ({
 
     const getAvatarSrc = useCallback(() => {
         const item = avatarList.find((v) => v.title === avatar);
-
-        if (item) {
-            return item.src;
-        }
-
-        return null;
+        return item ? item.src : null;
     }, [avatar]);
 
     const onClickReset = useCallback(() => {
@@ -46,17 +42,11 @@ const User = ({
     }, []);
 
     const onSubmit = useCallback(() => {
-        const date = new Date();
-        const exDate = date.setHours(date.getHours() + 24);
-
         setCookies('me', { 
                 avatar: avatar,
                 nickname: nickname
-            },{
-                // path: '/',
-                // expires: exDate,
-                maxAge: 2000,
-                // secure: true,
+            },{ 
+                maxAge: 2000, 
             }
         );
 
@@ -146,5 +136,11 @@ const User = ({
         </>
     );
 };
+
+User.propTypes = {
+    onClickModal: PropTypes.func.isRequired,
+    avatar: PropTypes.string.isRequired, 
+    setAvatar: PropTypes.func.isRequired,
+}
 
 export default User;

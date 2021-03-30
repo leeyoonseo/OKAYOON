@@ -153,30 +153,39 @@ const AppIndex = () => {
 
     return (
         <Wrap>
-            {applistData.map((v) => {
-                const { id, name, src } = v;
-                return(
-                    <AppButton
-                        key={`icon_${id}_${name}`}
-                        onClick={onClickApp(id)}
-                    >
-                        <span>
-                            <Icon src={src} alt={`${name} 아이콘`} />
-                        </span>
+            {applistData.map(({ id, name, src }) => (
+                <AppButton
+                    key={`icon_${id}_${name}`}
+                    onClick={onClickApp(id)}
+                >
+                    <span>
+                        <Icon 
+                            src={src} 
+                            alt={`${name} 아이콘`} 
+                        />
+                    </span>
 
-                        <span><Name>{name}</Name></span>
-                    </AppButton>
-                )
-            })}
+                    <span>
+                        <Name>{name}</Name>
+                    </span>
+                </AppButton>
+            ))}
 
             {/* [D] 포트폴리오 */}
             <Link href="./portfolio">
                 <AppButton key="icon_portfolio">
                     <span>
-                        <Icon src={portfolio.src} alt={`${portfolio.name} 아이콘`} />
+                        <Icon 
+                            src={portfolio.src} 
+                            alt={`${portfolio.name} 아이콘`} 
+                        />
                     </span>
+                    
                     <span>
-                        <Name>{portfolio.name}<br/>바로가기</Name>
+                        <Name>
+                            {portfolio.name}<br/>
+                            바로가기
+                        </Name>
                     </span>
                 </AppButton>
             </Link>

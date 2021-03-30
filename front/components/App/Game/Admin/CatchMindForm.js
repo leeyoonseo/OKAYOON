@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState, } from 'react';
 import { useDispatch, useSelector } from 'react-redux'; 
 import useInput from '../../../../hooks/useInput';
+import PropTypes from 'prop-types';
 import { ADD_GAME_REQUEST } from '../../../../reducers/game';
-
 import { Form, Item, Input, ButtonArea } from './formStyle';
 import styled from 'styled-components';
 
@@ -54,22 +54,27 @@ const CatchMindForm = ({ gameName }) => {
             gameName: gameName,
         };
 
-        Array.from(formRef.current.elements).map((v, i) => {
-            if (v.nodeName !== 'INPUT') return;
+        Array.from(formRef.current.elements).map(({ 
+            nodeName, 
+            name, 
+            value,
+            placeholder, 
+        }) => {
+            if (nodeName !== 'INPUT') return;
         
-            if (!v.value || !v.value.trim()) {
+            if (!value || !value.trim()) {
                 validateNum++;
-                return alert(`${v.placeholder} 비었습니다.`);
+                return alert(`${placeholder} 비었습니다.`);
             }
 
-            let val = v.value;
+            let val = value;
 
-            if (v.name === 'incorrect') {
-                val = val.split(',').filter((v) => v !== '');
+            if (name === 'incorrect') {
+                val = val.split(',').filter((o) => o !== '');
                 val = JSON.stringify(val);
             }
             
-            data[v.name] = val;
+            data[name] = val;
         });
 
         if(!validateNum) {
@@ -133,6 +138,10 @@ const CatchMindForm = ({ gameName }) => {
             </ButtonArea>
         </Form>
     );
+};
+
+CatchMindForm.propTypes = {
+    gameName: PropTypes.string.isRequired,
 };
 
 export default CatchMindForm;

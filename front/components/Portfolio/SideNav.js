@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 const Wrap = styled.div`
@@ -36,9 +37,8 @@ const Item = styled.div`
     }
 `;
 
-const nav = ['Home', 'I am', 'Portfolio', 'Contact'];
-
 const SideNav = () => {
+    const { navList } = useSelector((state) => state.portfolio);
     const onClickButton = useCallback((e) => {
         const target = document.querySelector(`.${e.target.dataset.name}`);
         window.scrollTo(0, target.offsetTop);
@@ -46,10 +46,10 @@ const SideNav = () => {
 
     return (
         <Wrap>
-            {nav.map((v) => {
-                const name = v.split(' ').join('').toLowerCase() 
+            {navList.map((v) => {
+                const name = v.split(' ').join('').toLowerCase();
                 
-                return(
+                return (
                     <Item 
                         key={`nav_${name.charAt(0)}`}
                     >

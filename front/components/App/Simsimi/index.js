@@ -49,12 +49,7 @@ const Simsimi = () => {
     const moveStep = useCallback(() => setStart(!start), [start]);
     const getSrc = useCallback(() => {
         const item = avatarList.find(({ title }) => title === avatar);
-        
-        if(!item) {
-            return null;
-        }
-        
-        return item.src;
+        return item ? item.src : null;
     }, [avatar]);
 
     return (

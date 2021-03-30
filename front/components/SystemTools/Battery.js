@@ -7,7 +7,6 @@ const Gauge = styled.span`
     display: inline-block;
     width: ${({ theme }) => theme.calcRem(25)};
     height: ${({ theme }) => theme.calcRem(15)};
-    vertical-align: text-bottom;
     border: 1px solid ${({ themecolor }) => themecolor};
 
     &:before {
@@ -19,6 +18,11 @@ const Gauge = styled.span`
     }
 `;
 
+/**
+ * 시간 값으로 배터리 % 구하기
+ * @param {string} time : dayjs()
+ * @returns 배터리 %
+ */
 function getPercent(time){
     const maxNum = 100;
     const dayMinutes = 24 * 60;
@@ -67,7 +71,3 @@ Battery.defaultProps = {
 };
 
 export default Battery;
-
-// [TODO]
-// - dayjs 한글만 가져오도록 최적화
-// - 배터리 10% 미만일 때 깜빡 깜빡

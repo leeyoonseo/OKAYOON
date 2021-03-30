@@ -79,8 +79,3 @@ WindowDialog.defaultProps = {
 };
 
 export default WindowDialog;
-
-// TODO:
-// alert = 경고문구, 확인
-// confirm = 질문, 확인과 취소에 대한 값 리턴
-// prompt = 질문, 입력받은 값 리턴해주기

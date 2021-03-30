@@ -1,4 +1,4 @@
-import styled, { css, keyframes } from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { Layout } from 'antd';
 import { MinusOutlined, FullscreenOutlined } from '@ant-design/icons';
@@ -81,7 +81,7 @@ export const ControlButton = styled.button`
 const defaultIconStyle = css`
     display:flex;
     font-size: 10px;
-    color: ${({ theme }) => theme.colors.white};
+    color: white;
     justify-content: center;
     align-items: center;
     opacity: 0;

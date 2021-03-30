@@ -5,7 +5,8 @@ import styled from 'styled-components';
 
 const ClockWrapper = styled.div`
     text-align: center;
-    color: ${({ themecolor }) => themecolor}
+    color: ${({ themecolor }) => themecolor};
+    cursor: default;
 `;
 
 const Clock = ({ themecolor }) => {

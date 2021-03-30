@@ -20,7 +20,7 @@ export const Wrap = styled.div`
     max-width: ${({ theme }) => theme.calcRem(300)};
     max-height: ${({ theme }) => theme.calcRem(300)};
     transform: translate(-50%, -50%);
-    background: ${({ theme }) => theme.colors.white};
+    background: white;
     border-radius: ${({ theme }) => theme.calcRem(5)};
     box-shadow: ${({ theme }) => theme.calcRem(1)} ${({ theme }) => theme.calcRem(1)} ${({ theme }) => theme.calcRem(5)} ${({ theme }) => theme.colors.rgbaBlack};
     box-sizing: border-box;

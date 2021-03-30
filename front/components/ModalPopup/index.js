@@ -70,7 +70,7 @@ const ModalPopup = ({
         <Wrap
             ref={modalRef}
             className={visible ? 'visible' : ''}
-            color={theme === 'normal' ? themeContext.colors.black : themeContext.colors.white}
+            color={theme === 'normal' ? themeContext.colors.black : 'white'}
             z={zIndex}
             w={maxStatus ? maximizeSize : size.w}
             h={maxStatus ? maximizeSize : size.h}
@@ -139,7 +139,3 @@ ModalPopup.defaultProps = {
 };
 
 export default ModalPopup;
-
-// TODO:
-// - 최소화 고민해보기.. 최소화 위치 어떻게 정렬할지도 같이 고민해야할 것..
-// - 이동 시 마우스 커서, useState가 비동기인 문제들 해결.. (style 속성 접근해서 수정하기말고 다른 방법없을까)

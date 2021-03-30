@@ -1,9 +1,6 @@
-import React, { useRef, useEffect, useCallback, useState, useContext } from "react";
+import React, { useRef, useEffect, useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useCookies } from 'react-cookie';
-import { ThemeContext } from 'styled-components';
-import PropTypes from 'prop-types';
-
 import { ALL_CLOSED_MODAL, CREATE_MODAL_REQUEST, TOGGLE_MODAL_REQUEST } from '../../reducers/site';
 import { LOG_OUT_ADMIN_REQUEST, LOG_OUT_REQUEST } from "../../reducers/user";
 
@@ -14,14 +11,13 @@ import {
 
 import { 
     Wrap, MenuButton, MenuIcon, MenuTooltip, 
-    List, Item, ItemButton, SiteName, GitAnchor, SiteInfo,
+    List, Item, ItemButton, SiteName, GitAnchor,
 } from './style';
 import { SmileOutlined, GithubOutlined } from '@ant-design/icons';
 
 
 const Menu = () => {
     const dispatch = useDispatch();
-    const themeContext = useContext(ThemeContext);
     const { me, admin } = useSelector((state) => state.user);
     const { modals } = useSelector((state) => state.site);
     const [cookie, setCookie, removeCookie] = useCookies(['me']);
@@ -59,19 +55,12 @@ const Menu = () => {
 
     const createModal = useCallback((id) => {
         if(modals.find((v) => v.id === id)) return;
-        
-        let data = '';
-        
-        if(id === WELCOME_MODAL_ID){
-            data = WELCOME_MODAL_DATA;
-
-        } else if(id === INFO_MODAL_ID){
-            data = INFO_MODAL_DATA;
-        }
 
         dispatch({
             type: CREATE_MODAL_REQUEST,
-            data: data
+            data: (id === WELCOME_MODAL_ID) 
+                    ? WELCOME_MODAL_DATA 
+                    : INFO_MODAL_DATA,
         })
     }, [modals]);
 
@@ -105,7 +94,7 @@ const Menu = () => {
                                 rel="noreferrer noopener"
                             >
                                 Github
-                                <GithubOutlined style={{ color: themeContext.colors.white }}/>
+                                <GithubOutlined style={{ color: 'white' }}/>
                             </GitAnchor>
                         </Item>
                         <Item>

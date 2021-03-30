@@ -71,20 +71,24 @@ const ModalAvatar = ({ id, onCloseModal }) => {
                         Nickname
                     </Button>
                 </Items>
-                {
-                    avatarList.map((v, i) => {
-                        return (
-                            <Items key={`${v.title}-${i}`}>
-                                <Button onClick={onCloseModal(id, v.title)}>
-                                    <img alt={v.title} src={v.src} />
-                                </Button>
-                            </Items>
-                        );  
-                    })
-                }
+                {avatarList.map(({ title, src }, i) => (
+                    <Items key={`${title}_${i}`}>
+                        <Button onClick={onCloseModal(id, title)}>
+                            <img 
+                                src={src} 
+                                alt={title}
+                            />
+                        </Button>
+                    </Items>
+                ))}
             </Inner>
         </Wrap>
     );
 };
+
+ModalAvatar.propTypes = {
+    id: PropTypes.string.isRequired,
+    onCloseModal: PropTypes.func.isRequired,
+}
 
 export default ModalAvatar;

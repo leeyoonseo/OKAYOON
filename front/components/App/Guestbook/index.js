@@ -1,8 +1,7 @@
-import React, { forwardRef, useEffect, useState, useRef, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { LOAD_GUESTBOOK_REQUEST } from '../../../reducers/guestbook';
-
 import { Button } from 'antd';
 
 import Loading from '../../Loading';
@@ -37,12 +36,7 @@ const MoreButton = styled(Button)`
 
 export const getSrc = (list, title) => {
     const item = list.find((v) => v.title === title);
-
-    if(!item) { 
-        return null;
-    }
-
-    return item.src;
+    return item ? item.src : null;
 };
 
 const Guestbook = () => {
@@ -123,7 +117,10 @@ const Guestbook = () => {
 
                 {guestbookCount > guestbook.length && (
                     <MoreWrap>
-                        <MoreButton loading={loadGuestbookLoading} onClick={onClickMore}>
+                        <MoreButton 
+                            loading={loadGuestbookLoading} 
+                            onClick={onClickMore}
+                        >
                             More
                         </MoreButton>
                     </MoreWrap>

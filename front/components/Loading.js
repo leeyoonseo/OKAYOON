@@ -8,7 +8,7 @@ const LoadingSpin = styled(Spin)`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: ${({ theme }) => theme.colors.white};
+    color: white;
     opacity: 0.5;
     z-index: 999999999;
 
@@ -17,9 +17,7 @@ const LoadingSpin = styled(Spin)`
     }
 `;
 
-const Loading = ({
-    bgcolor
-}) => {
+const Loading = ({ bgcolor }) => {
     return (
         <LoadingSpin 
             size="large"
@@ -33,7 +31,7 @@ Loading.propTypes = {
 };
 
 Loading.defaultProps = {
-    bgcolor: '#fff',
+    bgcolor: 'white',
 };
 
 export default Loading;

@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import { DELETE_COMMENT_REQUEST } from '../../../reducers/guestbook';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { getSrc } from './index';
@@ -12,7 +13,7 @@ import { DeleteOutlined } from '@ant-design/icons';
 
 const Wrap = styled.div`
     padding: 3%;
-    background: ${({ theme }) => theme.colors.white};
+    background: white;
     box-sizing: border-box;
 
     & + div {
@@ -145,15 +146,23 @@ const CommentCard = ({
             <Inner>
                 <AvatarWrap>
                     {avatar === 'nickname' ? (
-                        <Avatar size={42}>{nickname}</Avatar>
+                        <Avatar size={42}>
+                            {nickname}
+                        </Avatar>
+
                     ) : (
-                        <Avatar size={42} src={getSrc(avatarList, avatar)} />
+                        <Avatar 
+                            size={42} 
+                            src={getSrc(avatarList, avatar)} 
+                        />
                     )}
                 </AvatarWrap>
 
                 <Container>
                     <Nickname>{nickname}</Nickname>
-                    <CreatedDate>{dayjs(createdAt).format('YYYY.MM.DD')}</CreatedDate>
+                    <CreatedDate>
+                        {dayjs(createdAt).format('YYYY.MM.DD')}
+                    </CreatedDate>
 
                     <ContentWrap>
                         {content}
@@ -177,6 +186,14 @@ const CommentCard = ({
             )}
         </Wrap>
     );
+};
+
+CommentCard.propTypes = {
+    id: PropTypes.string.isRequired,
+    avatar: PropTypes.string.isRequired,
+    nickname: PropTypes.string.isRequired,
+    createdAt: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
 };
 
 export default CommentCard;

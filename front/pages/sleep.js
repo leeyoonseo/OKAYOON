@@ -10,12 +10,13 @@ const Wrap = styled.div`
     justify-content: center;
     align-items: center;
     background: ${({ bg }) => bg};
+    cursor: pointer;
 `;
 
 const Text = styled.span`
     position: fixed;
     bottom: 5%;
-    font-size: ${({ theme }) => theme.calcRem(16)};
+    font-size: ${({ theme }) => theme.calcRem(20)};
     color: ${({ theme }) => theme.colors.white};
     opacity: 0.8;
 `;
@@ -24,33 +25,28 @@ const sleep = () => {
     const [windowH, setWindowH] = useState(null);
     const [bgcolor, setBgcolor] = useState('none');
 
-    useEffect(() => {
-        setBgcolor(getRandomColor('rgba'));
-    }, []);
+    useEffect(() => setBgcolor(getRandomColor('rgba')), []);
+    useEffect(() => setWindowH(window.innerHeight), [windowH]);
 
-    useEffect(() => {
-        const windowH = window.innerHeight;
-        setWindowH(windowH);
-    }, [windowH]);
-
-    const onClick = useCallback(() => Router.replace('./login'), []);
+    const onClickWrap = useCallback(() => Router.replace('./login'), []);
 
     return(
         <>
             <Head>
                 <title>OKAYOON | SLEEP</title>
             </Head>
-            <Wrap
-                h={windowH}
-                onClick={onClick}
-                bg={bgcolor}
-            >
-                <Clock />       
 
-                <Text>
-                    Click anywhere!
-                </Text>
-            </Wrap>
+            {windowH && (
+                <Wrap
+                    h={windowH}
+                    bg={bgcolor}
+                    onClick={onClickWrap}
+                >
+                    <Clock />       
+
+                    <Text>Click anywhere!</Text>
+                </Wrap>
+            )}
         </>
     );
 };

@@ -31,7 +31,7 @@ export const NicknameWrap = styled.div`
 
 export const InputWrap = styled.div`
     position: relative;
-    border: ${({ theme }) => theme.calcRem(2)} solid ${({ theme }) => theme.colors.white};
+    border: ${({ theme }) => theme.calcRem(2)} solid white;
     border-radius: ${({ theme }) => theme.calcRem(3)};
     opacity: 0.8;
     box-sizing: border-box;
@@ -41,7 +41,7 @@ export const UserIcon = styled(UserOutlined)`
     position: absolute;
     top: 0;
     left: 0;
-    color: ${({ theme }) => theme.colors.white};
+    color: white;
     transform: translate(50%, 50%);
 `;
 
@@ -50,7 +50,7 @@ export const Input = styled.input`
     width: 100%;
     height: ${({ theme }) => theme.calcRem(35)};
     font-size: ${({ theme }) => theme.calcRem(16)};
-    color: ${({ theme }) => theme.colors.white};
+    color: white;
     border: none;
     background: none;
     box-sizing: border-box;
@@ -62,7 +62,7 @@ export const Input = styled.input`
     }    
 
     &::placeholder {
-        color: ${({ theme }) => theme.colors.white};
+        color: white;
     }
 `;
 
@@ -70,7 +70,7 @@ export const Nickname = styled.div`
     padding: 2% 0;
     font-size: ${({ theme }) => theme.calcRem(16)};
     line-height: ${({ theme }) => theme.calcRem(16)};
-    color: ${({ theme }) => theme.colors.white};
+    color: white;
     box-sizing: border-box;
 `;
 
@@ -86,7 +86,7 @@ export const RemoveButton = styled.button`
     padding: 0;
     margin-left: ${({ theme }) => theme.calcRem(5)};
     line-height: 1;
-    color: ${({ theme }) => theme.colors.white};
+    color: white;
     border: none;
     background: none;
     cursor: pointer;
@@ -94,7 +94,7 @@ export const RemoveButton = styled.button`
 
     &:hover,
     &:focus { 
-        color: ${({ theme }) => theme.colors.white};
+        color: white;
         border: none;
     }
 `;
@@ -103,15 +103,15 @@ export const InfoButton = styled(Button)`
     padding: 2% 5%;
     font-size: ${({ theme }) => theme.calcRem(16)};
     line-height: ${({ theme }) => theme.calcRem(16)};
-    color: ${({ theme }) => theme.colors.white};
-    border: ${({ theme }) => theme.calcRem(2)} solid ${({ theme }) => theme.colors.white};
+    color: white;
+    border: ${({ theme }) => theme.calcRem(2)} solid white;
     background: none;
     cursor: pointer;
 
     &:hover,
     &:focus {
-        color: ${({ theme }) => theme.colors.white};
-        border-color: ${({ theme }) => theme.colors.white};
+        color: white;
+        border-color: white;
         background: none;
         opacity: 0.5;
     }

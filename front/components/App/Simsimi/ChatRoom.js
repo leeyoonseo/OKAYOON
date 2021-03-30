@@ -140,7 +140,7 @@ const ChatRoom = ({ onPrevStep }) => {
 
     const onScrollTop = useCallback(() => {
         if (!chatContRef.current) return;
-        const {scrollHeight} = chatContRef.current;
+        const { scrollHeight } = chatContRef.current;
 
         if (scrollTop === scrollHeight) return;
         

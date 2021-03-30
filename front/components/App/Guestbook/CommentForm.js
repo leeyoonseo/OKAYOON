@@ -1,6 +1,7 @@
 import React, { useCallback, useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useInput from '../../../hooks/useInput';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { EyeOutlined } from '@ant-design/icons';
@@ -97,7 +98,6 @@ const CommentForm = ({
         }
     }, [text]);
 
-    // TODO: 비밀번호 암호화
     const onSubmit = useCallback(() => {
         if (!text || !text.trim()) {
             return alert('댓글을 입력하세요.');
@@ -168,6 +168,12 @@ const CommentForm = ({
             </BottomInner>
         </Wrap>
     );
+};
+
+CommentForm.propTypes = {
+    id: PropTypes.string.isRequired,
+    nickname: PropTypes.string.isRequired,
+    avatar: PropTypes.string.isRequired,
 };
 
 export default CommentForm;

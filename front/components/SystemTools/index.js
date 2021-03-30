@@ -1,9 +1,8 @@
-import React, { useCallback, useState, useEffect, useContext } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState, useEffect, useContext } from 'react';
+import { useSelector } from 'react-redux';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
 import styled, { ThemeContext } from 'styled-components';
-
 import { SoundOutlined } from '@ant-design/icons';
 
 import Wifi from './Wifi';
@@ -25,43 +24,17 @@ const IconBox = styled.div`
     ${({ addstyled }) => addstyled && addstyled};
 `;
 
-const SoundButton = styled.button`
-    padding: 0;
-    height: 100%;
-    border: none;
-    outline: none;
-    background: none;
-    cursor: pointer;
-
-    &:hover,
-    &:focus{
-        background: none;
-    }
-`;
-
 const SoundIcon = styled(SoundOutlined)`
     font-size: ${({ theme }) => theme.calcRem(18)};
     color: ${({ themecolor }) => themecolor};
-
-    &:hover,
-    &:focus,
-    &.active{
-        opacity: 0.5;
-    }
 `;
 
 const SystemTools = ({ themecolor }) => {
-    const dispatch = useDispatch();
     const themeContext = useContext(ThemeContext);
     const { isMuted } = useSelector((state) => state.site);
     const [pathname, setPathname] = useState('');
 
     useEffect(() => setPathname(Router.pathname), [pathname]);
-
-    const onClickSound = useCallback(() => {
-        console.log('onClickSound');
-        // dispatch({ type: CHANGE_MUTED });
-    });
 
     return(
         <SystemToolsWrap>
@@ -73,12 +46,10 @@ const SystemTools = ({ themecolor }) => {
                 iconwidth={themeContext.calcRem(25)} 
                 addstyled="text-align: left;"
             >
-                <SoundButton onClick={onClickSound}>
-                    <SoundIcon
-                        className={isMuted && 'active'} 
-                        themecolor={themecolor}
-                    />
-                </SoundButton>
+                <SoundIcon
+                    className={isMuted && 'active'} 
+                    themecolor={themecolor}
+                />
             </IconBox>
 
             <IconBox>
@@ -101,7 +72,3 @@ SystemTools.defaultProps = {
 }
 
 export default SystemTools;
-
-
-// TODO
-// - 검색, 메뉴 아이콘 로그인하고 들어간 화면에서만 접근 할 수 있도록 수정

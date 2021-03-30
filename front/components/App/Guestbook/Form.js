@@ -1,6 +1,7 @@
 import React, { useCallback, useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useInput from '../../../hooks/useInput';
+import PropTypes from 'prop-types';
 import { ADD_GUESTBOOK_REQUEST } from '../../../reducers/guestbook';
 import styled, { css } from 'styled-components';
 
@@ -40,7 +41,6 @@ const LetterCheck = styled.span`
 const BottomInner = styled.div`
     display: inline-block;
 `;
-
 
 const PasswordWrap = styled.div`
     position: relative;
@@ -149,7 +149,9 @@ const GuestbookForm = ({
             />
 
             <BottomWrap>
-                <LetterCheck className={text.length >= MAX_TEXTAREA_LENGTH ? 'max' : ''}>
+                <LetterCheck 
+                    className={text.length >= MAX_TEXTAREA_LENGTH ? 'max' : ''}
+                >
                     {text.length}/{MAX_TEXTAREA_LENGTH}
                 </LetterCheck>
 
@@ -169,7 +171,10 @@ const GuestbookForm = ({
                         </VisibleButtonPW>
                     </PasswordWrap>
 
-                    <SubmitButton type="button" onClick={onSubmit}>
+                    <SubmitButton 
+                        type="button" 
+                        onClick={onSubmit}
+                    >
                         등록
                     </SubmitButton>
                 </BottomInner>
@@ -178,8 +183,10 @@ const GuestbookForm = ({
     );
 };
 
-export default GuestbookForm;
+GuestbookForm.propTypes = {
+    MAX_TEXTAREA_LENGTH: PropTypes.string.isRequired,
+    avatar: PropTypes.string.isRequired,
+    nickname: PropTypes.string.isRequired,
+};
 
-// TODO:
-// - 보안 작업 (스크립트 금지 등)
-// - 패스워드 확인 눈아이콘 처음에 눈금지 아이콘으로 바꾸기!!
+export default GuestbookForm;

@@ -17,7 +17,7 @@ export const Item = styled.div`
 export const Input = styled.input`
     padding: ${({ theme }) => theme.calcRem(3)} ${({ theme }) => theme.calcRem(10)};
     width: 50%;
-    color: #333;
+    color: ${({ theme }) => theme.colors.black};
     border: none;
     outline: none;
 `;

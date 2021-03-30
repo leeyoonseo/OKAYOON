@@ -2,19 +2,16 @@ import React, { useEffect, useState, useCallback, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Head from 'next/head';
 import Link from 'next/link';
-
 import { CREATE_MODAL_REQUEST, TOGGLE_MODAL_REQUEST } from '../reducers/site';
+import styled, { ThemeContext, css } from 'styled-components';
+import { LogoutOutlined, SmileOutlined } from '@ant-design/icons';
 
+import AppLayout from './AppLayout';
 import User from '../components/Login/User';
 import Admin from '../components/Login/Admin';
 import Loading from '../components/Loading';
 import ModalPopup from '../components/ModalPopup';
 import { AVATAR_MODAL_ID, AVATAR_MODAL_DATA } from '../components/ModalPopup/data';
-
-import styled, { ThemeContext, css } from 'styled-components';
-import { LogoutOutlined, SmileOutlined } from '@ant-design/icons';
-
-import AppLayout from './AppLayout';
 
 const LoginFormArea = styled.div`
     width: ${({ theme }) => theme.calcRem(300)};
@@ -25,9 +22,9 @@ const LoginFormArea = styled.div`
 `;
 
 const ButtonArea = styled.div`
-    display: block;
-    position: relative;
     padding: 2% 0;
+    position: relative;
+    display: block;
     width: 100%;
     text-align: center;
 `;
@@ -141,19 +138,23 @@ const Login = () => {
                         </LoginFormArea>
                         
                         {!isAdmin && modals?.map((v) => {
-                            if(v){
-                                return (
-                                    <ModalPopup 
-                                        key={v.id} 
-                                        id={v.id}
-                                        visible={v.visible} 
+                            if (!v) return;
+                            const { id, visible } = v;
+
+                            return (
+                                <ModalPopup 
+                                    key={id} 
+                                    id={id}
+                                    visible={visible} 
+                                    onCloseModal={onToggleModal} 
+                                    {...v}
+                                >
+                                    <v.content 
+                                        id={id} 
                                         onCloseModal={onToggleModal} 
-                                        {...v}
-                                    >
-                                        <v.content id={v.id} onCloseModal={onToggleModal} />
-                                    </ModalPopup>
-                                );
-                            }
+                                    />
+                                </ModalPopup>
+                            );
                         })}
                     </> 
                 }

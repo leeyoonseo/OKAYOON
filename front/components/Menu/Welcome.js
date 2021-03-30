@@ -1,7 +1,5 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-
-import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 
 const Wrap = styled.div`
     position: relative;

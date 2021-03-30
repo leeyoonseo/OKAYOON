@@ -3,6 +3,8 @@ import produce from '../util/produce';
 export const initialState = {
     formData: [],
 
+    navList: ['Home', 'I am', 'Portfolio', 'Contact'],
+
     tagData: [
         '집사_견주',
         '집순이',

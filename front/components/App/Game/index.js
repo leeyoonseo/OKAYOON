@@ -143,12 +143,24 @@ const Game = () => {
         setComponent(compName);
     }, []);
 
-    const onClickSetting = useCallback(() => setOpenedSetting(!openedSetting), [openedSetting]);
+    const onClickSetting = useCallback(() => {
+        setOpenedSetting(!openedSetting);
+    }, [openedSetting]);
     
     return (
         <Wrap>
             {(() => {
                 if (component === STORE) {
+                    
+                    if (admin.userId && openedSetting) {
+                        return (
+                            <Admin 
+                                list={gameList}
+                                onClickBack={onClickSetting} 
+                            />
+                        )
+                    }
+
                     return (
                         <>
                             <List>
@@ -172,20 +184,13 @@ const Game = () => {
                                         </Item>
                                     )   
                                 })}
+
+                                {admin.userId && (
+                                    <SetButton onClick={onClickSetting}>
+                                        <SetIcon />
+                                    </SetButton>
+                                )}
                             </List>
-
-                            {admin.userId && (
-                                <SetButton onClick={onClickSetting}>
-                                    <SetIcon />
-                                </SetButton>
-                            )}
-
-                            {admin.userId && openedSetting && (
-                                <Admin 
-                                    list={gameList}
-                                    onClickBack={onClickSetting} 
-                                />
-                            )}
                         </>
                     )
                 } else {

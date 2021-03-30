@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import CommentForm from './CommentForm';
@@ -35,6 +36,13 @@ const Comment = ({
             })} 
         </Wrap>
     );
+};
+
+Comment.propTypes = {
+    id: PropTypes.string.isRequired,
+    Comments: PropTypes.string.isRequired,
+    authorAvatar: PropTypes.string.isRequired,
+    authorNickname: PropTypes.string.isRequired,
 };
 
 export default Comment;

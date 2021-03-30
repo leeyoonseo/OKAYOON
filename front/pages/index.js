@@ -8,12 +8,12 @@ import Head from 'next/head';
 import { TOGGLE_MODAL_REQUEST } from '../reducers/site';
 import { LOAD_ADMIN_INFO_REQUEST, LOG_IN_REQUEST } from '../reducers/user';
 
+import AppLayout from './AppLayout';
 import AppIndex from '../components/App/index';
 import Menu from '../components/Menu/index';
 import ModalPopup from '../components/ModalPopup/index';
 import Loading from '../components/Loading';
 
-import AppLayout from './AppLayout';
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -70,20 +70,20 @@ const Home = () => {
 
                         {modalToggleLoading && <Loading />}
                         {modals?.map((v) => {
-                            if(v){
-                                return (
-                                    <ModalPopup 
-                                        key={v.id} 
-                                        onCloseModal={onToggleModal} 
-                                        {...v}
-                                    >
-                                        <v.content 
-                                            id={v.id}
-                                            onCloseModal={onToggleModal}
-                                        />  
-                                    </ModalPopup>
-                                );
-                            }
+                            if (!v) return;
+
+                            return (
+                                <ModalPopup 
+                                    key={v.id} 
+                                    onCloseModal={onToggleModal} 
+                                    {...v}
+                                >
+                                    <v.content 
+                                        id={v.id}
+                                        onCloseModal={onToggleModal}
+                                    />  
+                                </ModalPopup>
+                            );
                         })}
                     </>
                 }
@@ -95,10 +95,3 @@ const Home = () => {
 };
 
 export default Home;
-
-// TODO:
-// - 메타태그
-// - 모바일
-// - login 거쳐서 오도록!! 무조건, 만약 안거쳐올 수도 있을까?
-// - 언어 https://meaningless-life.tistory.com/9
-// - 방명록에 다국어 변환 api? 추가할까? https://developers.naver.com/docs/papago/papago-detectlangs-example-code.md#node-js
