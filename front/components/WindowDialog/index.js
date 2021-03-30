@@ -21,7 +21,7 @@ const WindowDialog = ({ type, text, callback }) => {
 
     const onClose = useCallback(({ state, text }) => () => { 
         if (!text || !text.trim()) {
-            text = null;
+            return alert('값을 입력해주세요');
         }
 
         callback({state, text});

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { ADD_GUESTBOOK_REQUEST } from '../../../reducers/guestbook';
 import styled, { css } from 'styled-components';
 
-import { EyeOutlined } from '@ant-design/icons';
+import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 
 const Wrap = styled.div`
     margin-bottom: ${({ theme }) => theme.calcRem(20)};
@@ -167,7 +167,7 @@ const GuestbookForm = ({
                         />
 
                         <VisibleButtonPW onClick={onClickVisiblePassword}>
-                            <EyeOutlined />
+                            {visiblePassword ? <EyeInvisibleOutlined /> : <EyeOutlined /> }
                         </VisibleButtonPW>
                     </PasswordWrap>
 
@@ -184,9 +184,9 @@ const GuestbookForm = ({
 };
 
 GuestbookForm.propTypes = {
-    MAX_TEXTAREA_LENGTH: PropTypes.string.isRequired,
-    avatar: PropTypes.string.isRequired,
-    nickname: PropTypes.string.isRequired,
+    MAX_TEXTAREA_LENGTH: PropTypes.number.isRequired,
+    avatar: PropTypes.string,
+    nickname: PropTypes.string,
 };
 
 export default GuestbookForm;

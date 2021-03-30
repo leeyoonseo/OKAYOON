@@ -4,7 +4,7 @@ import useInput from '../../../hooks/useInput';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { EyeOutlined } from '@ant-design/icons';
+import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 import { ADD_COMMENT_REQUEST } from '../../../reducers/guestbook';
 
 const Wrap = styled.div`
@@ -155,7 +155,7 @@ const CommentForm = ({
                     />
 
                     <VisibleButtonPW onClick={onClickVisiblePassword}>
-                        <EyeOutlined />
+                    {visiblePassword ? <EyeInvisibleOutlined /> : <EyeOutlined /> }
                     </VisibleButtonPW>
                 </PasswordWrap>
 
@@ -171,9 +171,9 @@ const CommentForm = ({
 };
 
 CommentForm.propTypes = {
-    id: PropTypes.string.isRequired,
-    nickname: PropTypes.string.isRequired,
-    avatar: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    nickname: PropTypes.string,
+    avatar: PropTypes.string,
 };
 
 export default CommentForm;

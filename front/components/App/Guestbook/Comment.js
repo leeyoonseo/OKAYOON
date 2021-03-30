@@ -39,8 +39,8 @@ const Comment = ({
 };
 
 Comment.propTypes = {
-    id: PropTypes.string.isRequired,
-    Comments: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    Comments: PropTypes.array.isRequired,
     authorAvatar: PropTypes.string.isRequired,
     authorNickname: PropTypes.string.isRequired,
 };

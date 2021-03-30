@@ -220,12 +220,12 @@ const GuestbookCard = ({
 };
 
 GuestbookCard.propTypes = {
-    id: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
     nickname: PropTypes.string.isRequired,
     avatar: PropTypes.string.isRequired,
     createdAt: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
-    Comments: PropTypes.string.isRequired,
+    Comments: PropTypes.array.isRequired,
     authorNickname: PropTypes.string.isRequired,
     authorAvatar: PropTypes.string.isRequired,
 };

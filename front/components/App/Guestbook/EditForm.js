@@ -107,11 +107,11 @@ const EditForm = ({
 };
 
 EditForm.propTypes = {
-    MAX_TEXTAREA_LENGTH: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
+    MAX_TEXTAREA_LENGTH: PropTypes.number.isRequired,
+    id: PropTypes.number.isRequired,
     content: PropTypes.string.isRequired,
-    nickname: PropTypes.string.isRequired,
-    avatar: PropTypes.string.isRequired,
+    nickname: PropTypes.string,
+    avatar: PropTypes.string,
 };
 
 export default EditForm;

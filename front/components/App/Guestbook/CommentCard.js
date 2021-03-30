@@ -189,9 +189,9 @@ const CommentCard = ({
 };
 
 CommentCard.propTypes = {
-    id: PropTypes.string.isRequired,
-    avatar: PropTypes.string.isRequired,
-    nickname: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    avatar: PropTypes.string,
+    nickname: PropTypes.string,
     createdAt: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
 };
