@@ -88,7 +88,7 @@ const ListType = ({ data }) => {
 };
 
 ListType.propTypes = {
-    data: PropTypes.object.isRequired,
+    data: PropTypes.array.isRequired,
 };
 
 export default ListType;

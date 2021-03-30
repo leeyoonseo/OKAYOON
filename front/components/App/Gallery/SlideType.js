@@ -215,7 +215,7 @@ const SlideType = ({ data }) => {
 };
 
 SlideType.propTypes = {
-    data: PropTypes.object.isRequired,
+    data: PropTypes.array.isRequired,
 };
 
 export default SlideType;
