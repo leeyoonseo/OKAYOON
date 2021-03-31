@@ -7,8 +7,9 @@ import guestbook from './guestbook';
 import simsimi from './simsimi';
 import game from './game';
 import portfolio from './portfolio';
+import { backUrl } from '../config/config';
 
-axios.defaults.baseURL = 'http://localhost:3065';
+axios.defaults.baseURL = backUrl;
 axios.defaults.withCredentials = true;
 
 export default function* rootSaga(){
