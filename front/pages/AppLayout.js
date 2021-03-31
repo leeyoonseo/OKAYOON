@@ -15,7 +15,7 @@ const Wrap = styled(Layout)`
 const Header = styled(Layout.Header)` 
     padding: 0;
     height: auto;
-    color: ${({ theme }) => theme.colors.white};
+    color: white;
     background: none;
 `;
 
@@ -41,7 +41,7 @@ const Footer = styled(Layout.Footer)`
     padding: 0;
     font-size: ${({ theme }) => theme.calcRem(16)};
     line-height: 1;
-    color: ${({ theme }) => theme.colors.white};
+    color: white;
     background: ${({ theme }) => theme.colors.black};
     box-sizing: border-box;
 `;

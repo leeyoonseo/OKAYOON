@@ -17,7 +17,7 @@ const Text = styled.span`
     position: fixed;
     bottom: 5%;
     font-size: ${({ theme }) => theme.calcRem(20)};
-    color: ${({ theme }) => theme.colors.white};
+    color: white;
     opacity: 0.8;
 `;
 

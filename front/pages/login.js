@@ -29,12 +29,12 @@ const ButtonArea = styled.div`
     text-align: center;
 `;
 
-const btmButtonDefaultStyle = css`
+const initButtonStyle = css`
     font-size: ${({ theme }) => theme.calcRem(16)};
-    color: ${({ theme }) => theme.colors.white};
+    color: white;
 
     &:hover {
-        color: ${({ theme }) => theme.colors.white};
+        color: white;
         opacity: 0.8;
     }
 
@@ -46,13 +46,13 @@ const btmButtonDefaultStyle = css`
 `;
 
 const SleepButton = styled.a`
-    ${btmButtonDefaultStyle}
+    ${initButtonStyle}
     display: inline-block;
     vertical-align: top;
 `;
 
 const AdminButton = styled.button`
-    ${btmButtonDefaultStyle}
+    ${initButtonStyle}
     margin-left: ${({ theme }) => theme.calcRem(25)};
     background: none;
     border: none;
@@ -68,7 +68,7 @@ const ButtonInner = styled.div`
 
 const defaultIconStyle = css`
     font-size: ${({ theme }) => theme.calcRem(20)};
-    color: ${({ theme }) => theme.colors.white};
+    color: white;
     vertical-align: middle;
 `;
 
