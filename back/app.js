@@ -33,7 +33,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.use(cors({
-    origin: ['http://localhost:3060', 'okayoon.com', 'http://13.209.136.182'],
+    origin: ['http://localhost:3060', 'okayoon.com'],
     credentials: true,
 }));
 
@@ -44,6 +44,11 @@ app.use(session({
     saveUninitialized: false,
     resave: false,
     secret: process.env.COOKIE_SECRET,
+    cookie: {
+        httpOnly: true,
+        secure: false,
+        domain: process.env.NODE_ENV === 'production' && '.okayoon.com'
+    }
 }));
 app.use(passport.initialize());
 app.use(passport.session());
