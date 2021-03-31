@@ -2,8 +2,8 @@ const Sequelize = require('sequelize');
 const admin = require('./admin');
 const comment = require('./comment');
 const guestbook = require('./guestbook');
-const NonsenseQuiz = require('./NonsenseQuiz');
-const CatchMind = require('./CatchMind');
+const NonsenseQuiz = require('./nonsenseQuiz');
+const CatchMind = require('./catchMind');
 
 const env = process.env.NODE_ENV || 'development';
 const config = require('../config/config')[env];
