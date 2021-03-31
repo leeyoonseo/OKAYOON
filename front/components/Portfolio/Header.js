@@ -1,8 +1,7 @@
 import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-
-const LOGO_URL = './icon_logo.png';
+import { bucketUrl } from '../../config/config';
 
 const Wrap = styled.header`
     position: relative;
@@ -27,7 +26,7 @@ const Icon = styled.span`
     display: inline-block;
     width: ${({ theme }) => theme.calcRem(20)};
     height: ${({ theme }) => theme.calcRem(20)};
-    background: url(${LOGO_URL})no-repeat;
+    background: url(${bucketUrl}/icon_logo.png)no-repeat;
     background-size: 100% 100%;
 `;
 

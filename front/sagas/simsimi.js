@@ -49,6 +49,3 @@ export default function* guestbookSaga(){
         fork(watchSendMessage),
     ]);
 }
-
-// TODO
-// API 통신

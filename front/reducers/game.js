@@ -1,14 +1,11 @@
+import { bucketUrl } from '../config/config';
 import produce from '../util/produce';
 
 // [D] 게임 리스트
-// export const GAME_LIST = 'gamelist';
 export const STORE = 'store';
 export const NONSENSE_QUIZ = 'nonsensequiz';
 export const CATCH_MIND = 'catchmind';
 export const PERSONALITY_TEST = 'personalitytest';
-
-// [D] S3
-const awsBucketBaseURL = 'https://okayoon-bucket.s3.ap-northeast-2.amazonaws.com/';
 
 export const initialState = {
     // [D] 전체 게임 리스트
@@ -16,17 +13,17 @@ export const initialState = {
         {
             name:  NONSENSE_QUIZ,
             title: "넌센스 퀴즈",
-            image: "../game/nonsense/cover.png",
+            image: `${bucketUrl}/game/nonsense/cover.png`,
         },
         {
             name: CATCH_MIND,
             title: "그림 퀴즈",
-            image: "../game/catchmind/cover.png",
+            image: `${bucketUrl}/game/catchmind/cover.png`,
         },  
         {
             name: PERSONALITY_TEST,
             title: "성격 테스트",
-            image: "../game/personality/cover.png",
+            image: `${bucketUrl}/game/personality/cover.png`,
         },   
     ],
 

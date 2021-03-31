@@ -219,6 +219,3 @@ export default function* guestbookSaga(){
         fork(watchDeleteComment),
     ]);
 }
-
-// TODO:
-// API 통신

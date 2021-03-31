@@ -1,7 +1,5 @@
 import produce from '../util/produce';
 
-// TODO: site 정리하기
-
 export const initialState = {
     modalLoading: false,
     modalDone: false,
@@ -101,6 +99,3 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
 });
 
 export default reducer;
-
-// TODO:
-// 사이트 테마 변경

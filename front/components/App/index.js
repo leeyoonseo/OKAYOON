@@ -9,43 +9,43 @@ import {
     GUESTBOOK_MODAL_ID, GUESTBOOK_MODAL_DATA,
     BLOG_MODAL_ID, BLOG_MODAL_DATA,
     GALLERY_MODAL_ID, GALLERY_MODAL_DATA,
-    MEMO_MODAL_ID, MEMO_MODAL_DATA,
     SIMSIMI_MODAL_ID, SIMSIMI_MODAL_DATA,
     GAME_MODAL_ID, GAME_MODAL_DATA,
 } from '../ModalPopup/data';
+import { bucketUrl } from '../../config/config';
 
 const applistData = [
         {
             id: GUESTBOOK_MODAL_ID,
             name: '방명록',
-            src: '../app/icon_guestbook.png',
+            src: `${bucketUrl}/app/icon_guestbook.png`,
         },
         {
             id: BLOG_MODAL_ID,
             name: '블로그',
-            src: '../app/icon_blog.png',
+            src: `${bucketUrl}/app/icon_blog.png`,
         },
         {
             id: GALLERY_MODAL_ID,
             name: '사진첩',
-            src: '../app/icon_gallery.png',
+            src: `${bucketUrl}/app/icon_gallery.png`,
         },
         {
             id: SIMSIMI_MODAL_ID,
             name: '심심이',
-            src: '../app/icon_simsimi.png',
+            src: `${bucketUrl}/app/icon_simsimi.png`,
         },
         {
             id: GAME_MODAL_ID,
             name: '게임',
-            src: '../app/icon_game.png',
+            src: `${bucketUrl}/app/icon_game.png`,
         },
 ];
 
 const portfolio = {
     id: 'portfolio',
     name: '포트폴리오',
-    src: '../app/icon_portfolio.png',
+    src: `${bucketUrl}/app/icon_portfolio.png`,
 };
 
 const Wrap = styled.div`

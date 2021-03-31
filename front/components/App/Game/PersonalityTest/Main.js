@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
+import { bucketUrl } from '../../../../config/config';
 
 import { STEP_GAME } from './index';
 import Layout from './Layout';
@@ -23,7 +24,7 @@ const MainIcon = styled.div`
     margin-top: ${({ theme }) => theme.calcRem(20)};
     width: ${({ theme }) => theme.calcRem(150)};
     height: ${({ theme }) => theme.calcRem(150)};
-    background: url(../../../game/personality/icon_person_question.png)no-repeat;
+    background: url(${bucketUrl}/game/personality/icon_person_question.png)no-repeat;
     background-size: cover;
 `;
 

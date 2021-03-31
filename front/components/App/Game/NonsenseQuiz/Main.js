@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
+import { bucketUrl } from '../../../../config/config';
 
 import { shuffleArray, cloneObject } from '../index';
 
@@ -105,7 +106,7 @@ const Main = ({
 
             <Bottom>
                 <BottomInner>
-                    <img src="../../game/nonsense/icon_children.png" alt="아이들 이미지" />
+                    <img src={`${bucketUrl}/game/nonsense/icon_children.png`} alt="아이들 이미지" />
                 </BottomInner>
             </Bottom>
         </Layout>

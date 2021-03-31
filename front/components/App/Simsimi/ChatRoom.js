@@ -11,6 +11,7 @@ import { LeftOutlined, ArrowUpOutlined, RetweetOutlined } from '@ant-design/icon
 
 import WindowDialog from '../../WindowDialog/index';
 import Chat from './Chat';
+import { bucketUrl } from '../../../config/config';
 
 const Wrap = styled.div`
     width: 100%;
@@ -198,7 +199,7 @@ const ChatRoom = ({ onPrevStep }) => {
 
                     <Avatar
                         size={48}
-                        src="../../avatar/avatar_simsimi.png"
+                        src={`${bucketUrl}/avatar/avatar_simsimi.png`}
                     />
                 </Header>
 

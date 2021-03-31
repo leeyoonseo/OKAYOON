@@ -12,6 +12,7 @@ import Introduce from '../components/Portfolio/Introduce';
 import Skils from '../components/Portfolio/Skils';
 import ImageZoom from '../components/Portfolio/ImageZoom';
 import Contact from '../components/Portfolio/Contact';
+import { bucketUrl } from '../config/config';
 
 const MAX_WIDTH = '1240px';
 
@@ -234,7 +235,7 @@ const portfolio = () => {
                                                     return (
                                                         <WorkSkils key={`${name}_skils_${i}`}>
                                                             <img 
-                                                                src={`../portfolio/skils/icon_${o}.png`} 
+                                                                src={`${bucketUrl}/portfolio/skils/icon_${o}.png`} 
                                                                 alt={`icon_${o}`}
                                                             />
                                                         </WorkSkils>

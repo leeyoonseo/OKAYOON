@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { bucketUrl } from '../../config/config';
 
 const TitleArea = styled.div`
     line-height: 1;
@@ -75,7 +76,7 @@ const Home = () => {
             </TitleArea>
 
             <ImageWrap>
-                <img src="./portfolio/img_iam.jpg" alt="okayoon 사진" />
+                <img src={`${bucketUrl}/portfolio/img_iam.jpg`} alt="okayoon 사진" />
             </ImageWrap>
 
             <Tags>

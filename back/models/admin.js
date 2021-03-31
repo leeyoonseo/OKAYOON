@@ -24,7 +24,3 @@ module.exports = class Admin extends Model {
 
     static associate(db) {}
 };
-
-// TODO:
-// - 아바타 관리자꺼만 다른거 사용하기.
-// - 관리자 로그인 기능있게 만들기

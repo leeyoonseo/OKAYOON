@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { bucketUrl } from '../../config/config';
 
 const Wrap = styled.div`
     position: relative;
@@ -33,7 +34,7 @@ const Welcome = () => {
         <Wrap>
             <Inner>
                 <IconWrap>
-                    <img src="./icon_smile.png" alt="스마일 아이콘" />
+                    <img src={`${bucketUrl}/icon_smile.png`} alt="스마일 아이콘" />
                 </IconWrap>
                 안녕하세요?<br />
                 OKAYOON에 방문해주셔서 감사합니다!<br />

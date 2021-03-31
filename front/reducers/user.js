@@ -1,3 +1,4 @@
+import { bucketUrl } from '../config/config';
 import produce from '../util/produce';
 
 export const initialState = {
@@ -24,70 +25,69 @@ export const initialState = {
     logOutDone: false,
     logOutError: null,
 
-    // TODO: src, title 수정
     avatarList: [   
         {
-            src: '../avatar/avatar_bear.png',
+            src: `${bucketUrl}/avatar/avatar_bear.png`,
             title: 'bear',
         },
         {
-            src: '../avatar/avatar_bear_winter.png',
+            src: `${bucketUrl}/avatar/avatar_bear_winter.png`,
             title: 'bear_winter',
         },
         {
-            src: '../avatar/avatar_bird.png',
+            src: `${bucketUrl}/avatar/avatar_bird.png`,
             title: 'bird',
         },
         {
-            src: '../avatar/avatar_cat.png',
+            src: `${bucketUrl}/avatar/avatar_cat.png`,
             title: 'cat',
         },
         {
-            src: '../avatar/avatar_ducky.png',
+            src: `${bucketUrl}/avatar/avatar_ducky.png`,
             title: 'ducky',
         },
         {
-            src: '../avatar/avatar_elephant.png',
+            src: `${bucketUrl}/avatar/avatar_elephant.png`,
             title: 'elephant',
         },
         {
-            src: '../avatar/avatar_fox.png',
+            src: `${bucketUrl}/avatar/avatar_fox.png`,
             title: 'fox',
         },
         {
-            src: '../avatar/avatar_hedgehog.png',
+            src: `${bucketUrl}/avatar/avatar_hedgehog.png`,
             title: 'hedgehog',
         },
         {
-            src: '../avatar/avatar_monkey.png',
+            src: `${bucketUrl}/avatar/avatar_monkey.png`,
             title: 'monkey',
         },
         {
-            src: '../avatar/avatar_octopus.png',
+            src: `${bucketUrl}/avatar/avatar_octopus.png`,
             title: 'octopus',
         },
         {
-            src: '../avatar/avatar_puffer-fish1.png',
+            src: `${bucketUrl}/avatar/avatar_puffer-fish1.png`,
             title: 'puffer-fish1',
         },
         {
-            src: '../avatar/avatar_puffer-fish2.png',
+            src: `${bucketUrl}/avatar/avatar_puffer-fish2.png`,
             title: 'puffer-fish2',
         },
         {
-            src: '../avatar/avatar_sheep.png',
+            src: `${bucketUrl}/avatar/avatar_sheep.png`,
             title: 'sheep',
         },
         {
-            src: '../avatar/avatar_beetle.png',
+            src: `${bucketUrl}/avatar/avatar_beetle.png`,
             title: 'beetle',
         },
         {
-            src: '../avatar/avatar_pig.png',
+            src: `${bucketUrl}/avatar/avatar_pig.png`,
             title: 'pig',
         },
         {
-            src: '../avatar/avatar_sleeping_bunny.png',
+            src: `${bucketUrl}/avatar/avatar_sleeping_bunny.png`,
             title: 'sleeping_bunny',
         },
     ],

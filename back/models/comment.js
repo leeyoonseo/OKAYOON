@@ -31,6 +31,3 @@ module.exports = class Comment extends Model {
         db.Comment.belongsTo(db.Guestbook);
     }
 };
-
-// TODO:
-// - 아바타 이미지

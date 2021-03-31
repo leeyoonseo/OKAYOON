@@ -1,3 +1,4 @@
+import { bucketUrl } from '../config/config';
 import produce from '../util/produce';
 
 export const initialState = {
@@ -16,17 +17,17 @@ export const initialState = {
     socialData: [
         {
             name: 'tstory',
-            image: '../portfolio/icon_blog.png',
+            image: `${bucketUrl}/portfolio/icon_blog.png`,
             src: 'https://okayoon.tistory.com/',
         },
         {
             name: 'github',
-            image: '../portfolio/icon_github.png',
+            image: `${bucketUrl}/portfolio/icon_github.png`,
             src: 'https://github.com/leeyoonseo',
         },
         {
             name: 'instagram',
-            image: '../portfolio/icon_instagram.png',
+            image: `${bucketUrl}/portfolio/icon_instagram.png`,
             src: 'https://www.instagram.com/okayoon.lee/',
         },
     ],
@@ -34,76 +35,76 @@ export const initialState = {
     skilsData: [
         {
             name: 'javascript',
-            src: './portfolio/skils/icon_javascript.png',
+            src: `${bucketUrl}/portfolio/skils/icon_javascript.png`,
         },
         {
             name: 'jquery',
-            src: './portfolio/skils/icon_jquery.png',
+            src: `${bucketUrl}/portfolio/skils/icon_jquery.png`,
         },
         {
             name: 'nodejs',
-            src: './portfolio/skils/icon_nodejs.png',
+            src: `${bucketUrl}/portfolio/skils/icon_nodejs.png`,
         },
         {
             name: 'react',
-            src: './portfolio/skils/icon_react.png',
+            src: `${bucketUrl}/portfolio/skils/icon_react.png`,
         },
         {
             name: 'redux',
-            src: './portfolio/skils/icon_redux.png',
+            src: `${bucketUrl}/portfolio/skils/icon_redux.png`,
         },
         {
             name: 'redux_saga',
-            src: './portfolio/skils/icon_redux_saga.png',
+            src: `${bucketUrl}/portfolio/skils/icon_redux_saga.png`,
         },
         {
             title: 'Vue',
-            src: './portfolio/skils/icon_vue.png',
+            src: `${bucketUrl}/portfolio/skils/icon_vue.png`,
         },
         {
             name: 'axios',
-            src: './portfolio/skils/icon_axios.png',
+            src: `${bucketUrl}/portfolio/skils/icon_axios.png`,
         },
         {
             name: 'gulp',
-            src: './portfolio/skils/icon_gulp.png',
+            src: `${bucketUrl}/portfolio/skils/icon_gulp.png`,
         },
         {
             name: 'sequelize',
-            src: './portfolio/skils/icon_sequelize.png',
+            src: `${bucketUrl}/portfolio/skils/icon_sequelize.png`,
         },
         {
             name: 'html',
-            src: './portfolio/skils/icon_html5.png',
+            src: `${bucketUrl}/portfolio/skils/icon_html5.png`,
         },
         {
             name: 'css',
-            src: './portfolio/skils/icon_css3.png',
+            src: `${bucketUrl}/portfolio/skils/icon_css3.png`,
         },
         {
             name: 'scss',
-            src: './portfolio/skils/icon_scss.png',
+            src: `${bucketUrl}/portfolio/skils/icon_scss.png`,
         },
         
         {
             name: 'styled_components',
-            src: './portfolio/skils/icon_styled_components.png',
+            src: `${bucketUrl}/portfolio/skils/icon_styled_components.png`,
         },
         {
             name: 'git',
-            src: './portfolio/skils/icon_git.png',
+            src: `${bucketUrl}/portfolio/skils/icon_git.png`,
         },
         {
             name: 'svn',
-            src: './portfolio/skils/icon_svn.png',
+            src: `${bucketUrl}/portfolio/skils/icon_svn.png`,
         },
         {
             name: 'firebase',
-            src: './portfolio/skils/icon_firebase.png',
+            src: `${bucketUrl}/portfolio/skils/icon_firebase.png`,
         },
         {
             name: 'construct',
-            src: './portfolio/skils/icon_construct.png',
+            src: `${bucketUrl}/portfolio/skils/icon_construct.png`,
         },
     ],
 
@@ -111,12 +112,12 @@ export const initialState = {
         {
             name: 'OKAYOON',
             image: [
-                '../portfolio/site/portfolio_site0.png', 
-                '../portfolio/site/portfolio_site1.png', 
-                '../portfolio/site/portfolio_site2.png', 
-                '../portfolio/site/portfolio_site3.png', 
-                '../portfolio/site/portfolio_site4.png', 
-                '../portfolio/site/portfolio_site5.png', 
+                `${bucketUrl}/portfolio/site/portfolio_site0.png`,
+                `${bucketUrl}/portfolio/site/portfolio_site1.png`,
+                `${bucketUrl}/portfolio/site/portfolio_site2.png`,
+                `${bucketUrl}/portfolio/site/portfolio_site3.png`,
+                `${bucketUrl}/portfolio/site/portfolio_site4.png`,
+                `${bucketUrl}/portfolio/site/portfolio_site5.png`,
             ],
             src: 'http://www.okayoon.com', 
             desc: `
@@ -133,10 +134,10 @@ export const initialState = {
         {
             name: '어학원 녹음기',
             image: [
-                '../portfolio/site/portfolio_recorder0.png', 
-                '../portfolio/site/portfolio_recorder1.png', 
-                '../portfolio/site/portfolio_recorder2.png', 
-                '../portfolio/site/portfolio_recorder3.png', 
+                `${bucketUrl}/portfolio/site/portfolio_recorder0.png`,
+                `${bucketUrl}/portfolio/site/portfolio_recorder1.png`,
+                `${bucketUrl}/portfolio/site/portfolio_recorder2.png`,
+                `${bucketUrl}/portfolio/site/portfolio_recorder3.png`,
             ],
             src: 'https://recorder-9c060.web.app/', 
             desc: `
@@ -149,11 +150,11 @@ export const initialState = {
         {
             name: 'Newsletter (사내 솔루션)',
             image: [
-                '../portfolio/site/portfolio_newsletter0.png', 
-                '../portfolio/site/portfolio_newsletter1.png', 
-                '../portfolio/site/portfolio_newsletter2.png', 
-                '../portfolio/site/portfolio_newsletter3.png', 
-                '../portfolio/site/portfolio_newsletter4.png', 
+                `${bucketUrl}/portfolio/site/portfolio_newsletter0.png`,
+                `${bucketUrl}/portfolio/site/portfolio_newsletter1.png`,
+                `${bucketUrl}/portfolio/site/portfolio_newsletter2.png`,
+                `${bucketUrl}/portfolio/site/portfolio_newsletter3.png`,
+                `${bucketUrl}/portfolio/site/portfolio_newsletter4.png`,
             ],
             src: 'https://toy-littlefox-newsletter.web.app/global', 
             desc: `
@@ -166,12 +167,12 @@ export const initialState = {
         {
             name: '리틀팍스 사이트 / 크로스워드, 스타워즈 게임',
             image: [
-                '../portfolio/site/portfolio_littlefox0.png', 
-                '../portfolio/site/portfolio_littlefox1.png', 
-                '../portfolio/site/portfolio_littlefox2.png', 
-                '../portfolio/site/portfolio_littlefox3.png', 
-                '../portfolio/site/portfolio_littlefox4.png', 
-                '../portfolio/site/portfolio_littlefox5.png', 
+                `${bucketUrl}/portfolio/site/portfolio_littlefox0.png`,
+                `${bucketUrl}/portfolio/site/portfolio_littlefox1.png`,
+                `${bucketUrl}/portfolio/site/portfolio_littlefox2.png`,
+                `${bucketUrl}/portfolio/site/portfolio_littlefox3.png`,
+                `${bucketUrl}/portfolio/site/portfolio_littlefox4.png`,
+                `${bucketUrl}/portfolio/site/portfolio_littlefox5.png`,
             ],
             src: 'https://www.littlefox.co.kr/ko/main', 
             desc: `
@@ -186,10 +187,10 @@ export const initialState = {
         {
             name: '알서포브 브랜드사이트 / Remotecall 솔루션',
             image: [
-                '../portfolio/site/portfolio_rsupport0.png', 
-                '../portfolio/site/portfolio_rsupport1.png', 
-                '../portfolio/site/portfolio_rsupport2.png', 
-                '../portfolio/site/portfolio_rsupport3.png', 
+                `${bucketUrl}/portfolio/site/portfolio_rsupport0.png`,
+                `${bucketUrl}/portfolio/site/portfolio_rsupport1.png`,
+                `${bucketUrl}/portfolio/site/portfolio_rsupport2.png`,
+                `${bucketUrl}/portfolio/site/portfolio_rsupport3.png`,
             ],
             src: 'https://www.rsupport.com/ko-kr/', 
             desc: '알서포트 브랜드 사이트와 자사 솔루션 Remotecall 프론트엔드 담당이었습니다.',

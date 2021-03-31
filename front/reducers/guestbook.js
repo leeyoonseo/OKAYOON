@@ -256,6 +256,3 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
 });
 
 export default reducer;
-
-// TODO:
-// 사이트 테마 변경

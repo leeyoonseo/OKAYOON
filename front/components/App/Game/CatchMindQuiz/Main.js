@@ -1,5 +1,6 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import styled, { css } from 'styled-components';
+import { bucketUrl } from '../../../../config/config';
 
 import { shuffleArray, cloneObject } from '../index';
 
@@ -88,7 +89,7 @@ const Main = ({
         <Layout>
             <Inner>
                 <MainImageArea>
-                    <img src="./game/catchmind/icon_drawing.png" title="크레용 이미지" />
+                    <img src={`${bucketUrl}/game/catchmind/icon_drawing.png`} title="크레용 이미지" />
                 </MainImageArea>
 
                 <TitleArea>

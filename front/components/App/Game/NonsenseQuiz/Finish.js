@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { bucketUrl } from '../../../../config/config';
 
 import Layout from './Layout';
 
@@ -23,7 +24,7 @@ const Title = styled.div`
     font-size: ${({ theme }) => theme.calcRem(70)};
     line-height: 1;
     color: ${({ theme }) => theme.nColors.black};
-    background: url(../../game/nonsense/icon_speech_bubble.png)no-repeat;
+    background: url(${bucketUrl}/game/nonsense/icon_speech_bubble.png)no-repeat;
     background-size: 100% 100%;
     box-sizing: border-box;
 `;

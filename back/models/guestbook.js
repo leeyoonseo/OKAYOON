@@ -33,5 +33,3 @@ module.exports = class Guestbook extends Model {
         db.Guestbook.hasMany(db.Comment);
     }
 };
-
-// TODO: 나중엔 index번호만

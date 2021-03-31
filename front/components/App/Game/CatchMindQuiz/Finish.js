@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { bucketUrl } from '../../../../config/config';
 
 import Layout from './Layout';
 
@@ -88,7 +89,7 @@ const Finish = ({
                     {starNum >= 1 && Array(starNum).fill().map((_, i) => {
                         return(
                             <StarImageWrap key={`score_star_${i}`}>
-                                <img src="./game/catchmind/icon_star.png" alt="점수에 대한 별" />
+                                <img src={`${bucketUrl}/game/catchmind/icon_star.png`} alt="점수에 대한 별" />
                             </StarImageWrap>
                         )
                     })}

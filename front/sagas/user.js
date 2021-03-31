@@ -155,6 +155,3 @@ export default function* userSaga(){
         fork(watchAdminLogout),
     ]);
 }
-
-// TODO
-// API 통신
