@@ -33,7 +33,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.use(cors({
-    origin: ['http://localhost:3060', 'okayoon.com'],
+    origin: ['http://localhost:3060', 'http://okayoon.com'],
     credentials: true,
 }));
 
