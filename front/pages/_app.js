@@ -7,6 +7,7 @@ import { theme } from '../theme/styles';
 import 'antd/dist/antd.css';
 import './app.css';
 import wrapper from '../store/configurestore';
+import { backUrl } from '../config/config';
 
 const Okayoon = ({ Component }) => {
 
@@ -51,7 +52,7 @@ const Okayoon = ({ Component }) => {
                 <meta name="Robot"content="all"/>
                 <meta name="author" content="Okayoon.lee" />
                 <meta name="description" content="Front-end Web Developer Portfolio Site: react, redux" />
-                <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+                <link rel="shortcut icon" href={`${backUrl}/favicon.ico`} type="image/x-icon" />
                 <meta property="og:image" content="../public/icon_logo.png" />
                 <meta property="og:description" content="Front-end Web Developer Portfolio Site: react, redux" />
                 <meta property="og:title" content="Okayoon" />
