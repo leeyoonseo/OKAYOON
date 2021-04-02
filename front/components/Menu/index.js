@@ -43,15 +43,21 @@ const Menu = () => {
     const onToggleMenu = useCallback(() => setOpenedMenu(!openedMenu), [openedMenu]);
 
     const onClickLogout = useCallback(() => {
-        const type = admin.userId ? LOG_OUT_ADMIN_REQUEST : LOG_OUT_REQUEST;  
-        
-        if (me.nickname) {
+        let type = '';
+
+        if (admin.userId) {
+            console.log('관리자');  
+            type = LOG_OUT_ADMIN_REQUEST;
+
+        } else {
+            console.log('게스트');  
+            type = LOG_OUT_REQUEST;
             removeCookie('me');
         }
-
+        
         dispatch({ type: ALL_CLOSED_MODAL });
         dispatch({ type: type });
-    }, [admin]);
+    }, [admin, me]);
 
     const createModal = useCallback((id) => {
         if(modals.find((v) => v.id === id)) return;
