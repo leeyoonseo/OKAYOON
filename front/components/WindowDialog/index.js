@@ -3,11 +3,16 @@ import PropTypes from 'prop-types';
 import useInput from '../../hooks/useInput';
 
 import {
-    Wrap, Text, InputWrap, 
+    Wrap, Message, InputWrap, 
     ButtonArea, CancelButton, ConfirmButton,
 } from './style';
 
-const WindowDialog = ({ type, text, callback }) => {
+const WindowDialog = ({ 
+    type, 
+    text, 
+    setOpened,
+    callback 
+}) => {
     const inputRef = useRef(null);
     const [val, onChangeVal] = useInput('');
 
@@ -19,53 +24,82 @@ const WindowDialog = ({ type, text, callback }) => {
         return {__html: text};
     }, [text]);
 
-    const onClose = useCallback(({ state, text }) => () => { 
-        if (state) {
-            if (!text || !text.trim()) {
+    const onClickConfirm = useCallback(() => { 
+        const data = {};
+
+        if (type === 'prompt') {
+            if (!val || !val.trim()) {
                 return alert('값을 입력해주세요');
             }
+
+            data.value = val;
         }
 
-        callback({state, text});
+        data.state = true;
+        setOpened(false);
+        callback(data);
+    }, [val]);
+    
+    const onClickCancel = useCallback(() => {
+        setOpened(false);
+        callback({ state: false });
     }, []);
 
     return (
         <Wrap>
-            <Text>
+            <Message>
                 <span dangerouslySetInnerHTML={renderReqText()} ></span>
-            </Text>
+            </Message>
 
-            {type === 'prompt' && (
-                <InputWrap>
-                    <input
-                        ref={inputRef}
-                        value={val}
-                        onChange={onChangeVal} 
-                        placeholder="입력해주세요" 
-                    />
-                </InputWrap>
+            {type === 'alert' && (
+                <CancelButton
+                    onClick={(() => setOpened(false))}
+                >
+                    확인
+                </CancelButton>
             )}
 
-            <ButtonArea>
-                {type !== 'alert' && (
+            {type === 'prompt' && (
+                <>
+                    <InputWrap>
+                        <input
+                            ref={inputRef}
+                            value={val}
+                            onChange={onChangeVal} 
+                            placeholder="입력해주세요" 
+                        />
+                    </InputWrap>
+                    <ButtonArea>
+                        <CancelButton
+                            onClick={(() => setOpened(false))}
+                        >
+                            취소
+                        </CancelButton>
+                        
+                        <ConfirmButton
+                            onClick={onClickConfirm}
+                        >
+                            확인
+                        </ConfirmButton>
+                    </ButtonArea>
+                </>
+            )}
+
+            {type === 'confirm' && (
+                <ButtonArea>
                     <CancelButton
-                        onClick={onClose({
-                            state: false
-                        })}
+                        onClick={onClickCancel}
                     >
                         취소
                     </CancelButton>
-                )}
-                
-                <ConfirmButton
-                    onClick={onClose({
-                        state: true, 
-                        text: val
-                    })}
-                >
-                    확인
-                </ConfirmButton>
-            </ButtonArea>
+                    
+                    <ConfirmButton
+                        onClick={onClickConfirm}
+                    >
+                        확인
+                    </ConfirmButton>
+                </ButtonArea>
+            )}
         </Wrap>
     );
 };

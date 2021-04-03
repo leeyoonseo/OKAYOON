@@ -27,7 +27,7 @@ export const Wrap = styled.div`
     z-index: 9999999;
 `;
 
-export const Text = styled.div`
+export const Message = styled.div`
     overflow-y: auto;
 `;
 

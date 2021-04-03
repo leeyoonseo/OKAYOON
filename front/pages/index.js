@@ -11,6 +11,7 @@ import Head from 'next/head';
 import { TOGGLE_MODAL_REQUEST } from '../reducers/site';
 import { LOAD_ADMIN_INFO_REQUEST, LOAD_USER_INFO_REQUEST } from '../reducers/user';
 import wrapper from '../store/configurestore';
+import { isEmptyObj } from '../util/common';
 
 import AppLayout from './AppLayout';
 import AppIndex from '../components/App/index';
@@ -90,14 +91,6 @@ const Home = () => {
         </>
     );
 };
-
-export function isEmptyObj(obj)  {
-    if(obj.constructor === Object && Object.keys(obj).length === 0)  {
-        return true;
-    }
-    
-    return false;
-}
 
 export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
     const cookie = context.req ? context.req.headers.cookie : '';

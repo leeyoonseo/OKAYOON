@@ -40,7 +40,7 @@ const Comment = ({
 
 Comment.propTypes = {
     id: PropTypes.number.isRequired,
-    Comments: PropTypes.array.isRequired,
+    Comments: PropTypes.array,
     authorAvatar: PropTypes.string.isRequired,
     authorNickname: PropTypes.string.isRequired,
 };

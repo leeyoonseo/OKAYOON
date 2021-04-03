@@ -28,7 +28,7 @@ const Header = styled.div`
     box-sizing: border-box;
 `;
 
-const BackButton = styled.button`
+const PrevButton = styled.button`
     position: absolute;
     top: 50%;
     left: 0;
@@ -40,7 +40,7 @@ const BackButton = styled.button`
     cursor: pointer;
 `;
 
-const BackIcon = styled(LeftOutlined)`
+const PrevIcon = styled(LeftOutlined)`
     font-size: ${({ theme }) => theme.calcRem(16)};
     color: ${({ theme }) => theme.colors.black};
 `;
@@ -139,6 +139,13 @@ const ChatRoom = ({ onPrevStep }) => {
         }
     }, [sendMessageDone]);
 
+    const dialogCallback = useCallback(({ state }) => {
+        if (state) {
+            onPrevStep();
+            dispatch({ type: DELETE_MESSAGE });
+        }
+    }, []);
+
     const onScrollTop = useCallback(() => {
         if (!chatContRef.current) return;
         const { scrollHeight } = chatContRef.current;
@@ -149,22 +156,13 @@ const ChatRoom = ({ onPrevStep }) => {
         setScrollTop(scrollHeight);
     }, [scrollTop, chatContRef]);
 
-    const onCloseDialog = useCallback(({ state }) => {
-        setOpenedDialog(false);
-
-        if (!state) return;
+    const onClickPrevStep = useCallback(() => {
+        if (startedChat) {
+            return setOpenedDialog(true);
+        } 
 
         onPrevStep();
-        dispatch({ type: DELETE_MESSAGE });
-    }, []);
 
-    const onCloseRoom = useCallback(() => {
-        if (startedChat) {
-            setOpenedDialog(true);
-
-        } else {
-            onPrevStep();
-        }
     }, [startedChat]);
 
     const onSendMessage = useCallback(() => {
@@ -193,9 +191,9 @@ const ChatRoom = ({ onPrevStep }) => {
         <>   
             <Wrap>
                 <Header>
-                    <BackButton onClick={onCloseRoom}>
-                        <BackIcon />
-                    </BackButton>
+                    <PrevButton onClick={onClickPrevStep}>
+                        <PrevIcon />
+                    </PrevButton>
 
                     <Avatar
                         size={48}
@@ -260,7 +258,8 @@ const ChatRoom = ({ onPrevStep }) => {
                 <WindowDialog 
                     type="confirm"
                     text="대화내용이 지워집니다. <br> 진행하시겠습니까?"
-                    callback={onCloseDialog}
+                    setOpened={setOpenedDialog}
+                    callback={dialogCallback}
                 />
             )}
         </>

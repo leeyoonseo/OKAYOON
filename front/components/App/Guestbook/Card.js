@@ -6,6 +6,7 @@ import { getSrc } from './index';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import { isEmptyObj } from '../../../util/common';
 import WindowDialog from '../../WindowDialog/index';
 import Comment from './Comment';
 
@@ -102,6 +103,9 @@ const GuestbookCard = ({
     const [openedModal, setOpenedModal] = useState(false);
     const [modalText, setModalText] = useState(false);
     const [reqStatus, setReqStatus] = useState('');
+    const MENU_COMMENT = 'comment';
+    const MENU_EDIT = 'edit';
+    const MENU_DELETE = 'delete';
 
     useEffect(() => {
         const text = admin.userId 
@@ -111,47 +115,41 @@ const GuestbookCard = ({
         setModalText(text);
     }, [admin, reqStatus]);
 
-    const passwordCheck = useCallback(({state, text}) => {
-        setOpenedModal(false);
-        if (!state) return;
+    const dialogCallback = useCallback(({ value }) => {
+        if (!value) return;
+        passwordCheck(value);
+    }, [admin, reqStatus, id]);
 
-        let type = '';
-
-        // [D] 관리자 
-        if (admin.userId) {
-            type = DELETE_GUESTBOOK_REQUEST;
-            text = admin.userId;
-
-        } else {
-            type = (reqStatus === 'edit') 
-                    ? GET_PERMISSION_REQUEST 
-                    : DELETE_GUESTBOOK_REQUEST;
-        }
+    const passwordCheck = useCallback((value) => {
+        if (!value) return;
         
+        let typeStr = (reqStatus === 'edit') ? GET_PERMISSION_REQUEST : DELETE_GUESTBOOK_REQUEST;
+        let val = value;
+
+        if(!isEmptyObj(admin)) {
+            typeStr = DELETE_GUESTBOOK_REQUEST;
+            val = admin.userId;
+        }
+
         dispatch({
-            type: type,
+            type: typeStr,
             data: {
                 id: id,
-                password: text
+                password: val,
             }
         });
     }, [admin, reqStatus, id]);
 
-    const onClickEdit = useCallback(() => {
-        if (admin.userId) return;
+    const onClickMenu = useCallback((type) => () => {
+        if (type === MENU_EDIT && !isEmptyObj(admin)) return;
+        if (type === MENU_COMMENT) {
+            setOpenedComment(!openedComment);
+            return;
+        } 
         
         setOpenedModal(true);
-        setReqStatus('edit');
-    }, []);
-
-    const onClickDelete = useCallback(() => {
-        setOpenedModal(true);
-        setReqStatus('delete');
-    }, []);
-
-    const onClickComment = useCallback(() => {
-        setOpenedComment(!openedComment);
-    }, [openedComment]);
+        setReqStatus(type);
+    }, [admin, openedComment]);
 
     return (
         <Wrap>
@@ -181,17 +179,23 @@ const GuestbookCard = ({
                 </Container>
 
                 <MenuArea>
-                    <button onClick={onClickEdit}>
+                    <button
+                        onClick={onClickMenu(MENU_EDIT)}
+                    >
                         <FormOutlined />
                         <span className="hidden">수정</span>
                     </button>
 
-                    <button onClick={onClickDelete}>
+                    <button 
+                        onClick={onClickMenu(MENU_DELETE)}
+                    >
                         <DeleteOutlined />
                         <span className="hidden">삭제</span>
                     </button>
 
-                    <button onClick={onClickComment}>
+                    <button 
+                        onClick={onClickMenu(MENU_COMMENT)}
+                    >
                         <MessageOutlined />
                         <span className="hidden">댓글</span>
                     </button>
@@ -212,7 +216,8 @@ const GuestbookCard = ({
                 <WindowDialog
                     type="prompt"
                     text={modalText}  
-                    callback={passwordCheck}
+                    setOpened={setOpenedModal}
+                    callback={dialogCallback}
                 />
             )}
         </Wrap>

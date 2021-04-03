@@ -10,6 +10,7 @@ import WindowDialog from '../../WindowDialog/index';
 
 import { Avatar } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
+import { isEmptyObj } from '../../../util/common';
 
 const Wrap = styled.div`
     padding: 3%;
@@ -99,39 +100,34 @@ const CommentCard = ({
     const [modalText, setModalText] = useState(false);
 
     useEffect(() => {
-        let text = ''; 
-
-        if (admin.userId) {
-            text = '관리자 권한으로 삭제합니다.';
-
-        } else {
-            text = `${(reqStatus === 'edit') ? '수정' : '삭제'} 비밀번호를 입력해주세요`;
-        }
+        const text = admin.userId 
+            ? '관리자 권한으로 삭제합니다.' 
+            : `${(reqStatus === 'edit') ? '수정' : '삭제'} 비밀번호를 입력해주세요`;
 
         setModalText(text);
     }, [admin, reqStatus]);
 
-    const passwordCheck = useCallback(({state, text}) => {
-        setOpenedModal(false);
-        if (!state) return;
+    const dialogCallback = useCallback(({ value }) => {
+        if (!value) return;
+        passwordCheck(value);
+    }, [admin, reqStatus, id]);
 
-        let type = '';
+    const passwordCheck = useCallback((value) => {
+        if (!value) return;
 
-        if (admin.userId) {
-            type = DELETE_COMMENT_REQUEST;
-            text = admin.userId;
-            
-        } else {
-            type = (reqStatus === 'edit') 
-                ? GET_PERMISSION_REQUEST 
-                : DELETE_COMMENT_REQUEST;
+        let typeStr = (reqStatus === 'edit') ? GET_PERMISSION_REQUEST : DELETE_COMMENT_REQUEST;
+        let val = value;
+
+        if(!isEmptyObj(admin)) {
+            typeStr = DELETE_COMMENT_REQUEST;
+            val = admin.userId;
         }
 
         dispatch({
-            type: type,
+            type: typeStr,
             data: {
                 id: id,
-                password: text
+                password: val,
             }
         });
     }, [admin, reqStatus, id]);
@@ -181,7 +177,8 @@ const CommentCard = ({
                 <WindowDialog
                     type="prompt"
                     text={modalText}
-                    callback={passwordCheck}
+                    setOpened={setOpenedModal}
+                    callback={dialogCallback}
                 />
             )}
         </Wrap>
