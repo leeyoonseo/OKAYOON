@@ -60,7 +60,7 @@ const Finish = ({
 
     useEffect(() => {
         const randomNum = Math.floor(Math.random() * MAX_CHARACTER_NUM);
-        const char = `../../game/nonsense/icon_child_${randomNum}.png`;
+        const char = `${bucketUrl}/game/nonsense/icon_child_${randomNum}.png`;
 
         setRandomChar(char);
     }, []);

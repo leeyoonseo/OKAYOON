@@ -92,7 +92,7 @@ const Main = ({
     return (
         <Layout>
             <Content>
-                <AskIcon src="../../game/nonsense/icon_ask.png" alt="QnA 아이콘" />
+                <AskIcon src={`${bucketUrl}/game/nonsense/icon_ask.png`} alt="QnA 아이콘" />
                 
                 <Title>넌, <Highlight>센스</Highlight>퀴즈</Title>
 
