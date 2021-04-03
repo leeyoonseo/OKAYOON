@@ -6,15 +6,38 @@ import {
     LOAD_ADMIN_INFO_REQUEST, LOAD_ADMIN_INFO_SUCCESS, LOAD_ADMIN_INFO_FAILURE,
     LOG_IN_ADMIN_REQUEST, LOG_IN_ADMIN_SUCCESS, LOG_IN_ADMIN_FAILURE,
     LOG_OUT_ADMIN_REQUEST, LOG_OUT_ADMIN_SUCCESS, LOG_OUT_ADMIN_FAILURE,
+
     // [D] 사용자
+    LOAD_USER_INFO_REQUEST, LOAD_USER_INFO_SUCCESS, LOAD_USER_INFO_FAILURE,
     LOG_IN_FAILURE, LOG_IN_REQUEST, LOG_IN_SUCCESS,
     LOG_OUT_FAILURE, LOG_OUT_REQUEST, LOG_OUT_SUCCESS,
 } from '../reducers/user';
 
+
+// [D] 사용자 정보 가져오기
+function* loadUserInfo(action){
+    try{
+        yield put({
+            type: LOAD_USER_INFO_SUCCESS,
+            data: action.data
+        });
+
+    }catch(err){
+        console.error(err);
+        yield put({
+            type: LOAD_USER_INFO_FAILURE,
+            error: err.response.data
+        });
+    }
+}
+
+function* watchLoadUserInfo(){ 
+    yield takeLatest(LOAD_USER_INFO_REQUEST, loadUserInfo);
+}
+
 // [D] 사용자 로그인
 function* logIn(action){
     try{
-        console.log('action',action);
         yield put({
             type: LOG_IN_SUCCESS,
             data: action.data
@@ -98,6 +121,8 @@ function* adminLogIn(action){
             data: result.data
         });
 
+        yield Router.replace('/');
+
     }catch(err){
         alert(err.response.data);
         console.error(err);
@@ -146,6 +171,7 @@ function* watchAdminLogout(){
 export default function* userSaga(){
     yield all([
         // [D] 사용자
+        fork(watchLoadUserInfo),
         fork(watchLogIn),
         fork(watchLogOut),
 

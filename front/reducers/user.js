@@ -5,25 +5,30 @@ export const initialState = {
     admin: {},
     me: {},
 
-    // [D] 로그인 정보 가져오기
-    loadInfoLoading: false, 
-    loadInfoDone: false,
-    loadInfoError: null,
+    // [D] 사용자 로그인 정보 가져오기
+    loadUserInfoLoading: false, 
+    loadUserInfoDone: false,
+    loadUserInfoError: null,
 
     // [D] 로그인
     logInLoading: false, 
     logInDone: false,
     logInError: null,
 
-    // [D] 관리자로그인
-    logInAdminLoading: false, 
-    logInAdminDone: false,
-    logInAdminError: null,
-
     // [D] 로그아웃
     logOutLoading: false,
     logOutDone: false,
     logOutError: null,
+
+    // [D] 관리자 로그인 정보 가져오기
+    loadAdminInfoLoading: false, 
+    loadAdminInfoDone: false,
+    loadAdminInfoError: null,
+
+    // [D] 관리자 로그인
+    logInAdminLoading: false, 
+    logInAdminDone: false,
+    logInAdminError: null,
 
     avatarList: [   
         {
@@ -93,12 +98,17 @@ export const initialState = {
     ],
 };
 
-// [D] 유저 로그인 
+// [D] 사용자 정보 가져오기
+export const LOAD_USER_INFO_REQUEST = 'LOAD_USER_INFO_REQUEST';
+export const LOAD_USER_INFO_SUCCESS = 'LOAD_USER_INFO_SUCCESS';
+export const LOAD_USER_INFO_FAILURE = 'LOAD_USER_INFO_FAILURE';
+
+// [D] 사용자 로그인 
 export const LOG_IN_REQUEST = 'LOG_IN_REQUEST';
 export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
 export const LOG_IN_FAILURE = 'LOG_IN_FAILURE';
 
-// [D] 유저 로그아웃 
+// [D] 사용자 로그아웃 
 export const LOG_OUT_REQUEST = 'LOG_OUT_REQUEST';
 export const LOG_OUT_SUCCESS = 'LOG_OUT_SUCCESS';
 export const LOG_OUT_FAILURE = 'LOG_OUT_FAILURE';
@@ -120,6 +130,27 @@ export const LOG_OUT_ADMIN_FAILURE = 'LOG_OUT_ADMIN_FAILURE';
 
 const reducer = (state = initialState, action) => produce(state,(draft) => {
     switch(action.type){
+        // [D] 사용자 정보 가져오기
+        case LOAD_USER_INFO_REQUEST: 
+            draft.loadUserInfoLoading = true;
+            draft.loadUserInfoDone = false;
+            draft.loadUserInfoError = false;
+            break;
+                
+        case LOAD_USER_INFO_SUCCESS: {
+            draft.loadUserInfoLoading = false;
+            draft.loadUserInfoDone = true;
+            draft.loadUserInfoError = false;
+            draft.me = action.data;
+            break;
+        }
+
+        case LOAD_USER_INFO_FAILURE:
+            draft.loadUserInfoLoading = false;
+            draft.loadUserInfoDone = false;
+            draft.loadUserInfoError = true;
+            break;
+
         // [D] 사용자 로그인
         case LOG_IN_REQUEST: 
             draft.logInLoading = true;
@@ -163,15 +194,15 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
 
         // [D] 관리자 정보 가져오기
         case LOAD_ADMIN_INFO_REQUEST: 
-            draft.loadInfoLoading = true;
-            draft.loadInfoDone = false;
-            draft.loadInfoError = false;
+            draft.loadAdminInfoLoading = true;
+            draft.loadAdminInfoDone = false;
+            draft.loadAdminInfoError = false;
             break;
                 
         case LOAD_ADMIN_INFO_SUCCESS: {
-            draft.loadInfoLoading = false;
-            draft.loadInfoDone = true;
-            draft.loadInfoError = false;
+            draft.loadAdminInfoLoading = false;
+            draft.loadAdminInfoDone = true;
+            draft.loadAdminInfoError = false;
 
             if (action.data) {
                 draft.admin = action.data;
@@ -181,9 +212,9 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
         }
 
         case LOAD_ADMIN_INFO_FAILURE:
-            draft.loadInfoLoading = false;
-            draft.loadInfoDone = false;
-            draft.loadInfoError = true;
+            draft.loadAdminInfoLoading = false;
+            draft.loadAdminInfoDone = false;
+            draft.loadAdminInfoError = true;
             break;
 
         // [D] 관리자 로그인
