@@ -225,7 +225,7 @@ GuestbookCard.propTypes = {
     avatar: PropTypes.string.isRequired,
     createdAt: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
-    Comments: PropTypes.array.isRequired,
+    Comments: PropTypes.array,
     authorNickname: PropTypes.string.isRequired,
     authorAvatar: PropTypes.string.isRequired,
 };
