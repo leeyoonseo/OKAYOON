@@ -22,13 +22,12 @@ const Home = () => {
     const dispatch = useDispatch();
     const themeContext = useContext(ThemeContext);
     const { modals, modalToggleLoading } = useSelector((state) => state.site);
-    const { me, admin, loadAdminInfoDone } = useSelector((state) => state.user);  
+    const { me, admin, loadAdminInfoDone, } = useSelector((state) => state.user);  
     const [cookies] = useCookies(['me']);
     
     useEffect(() => {
         if (loadAdminInfoDone) {
-            if (admin.userId) return;
-
+            if (!isEmptyObj(admin) || !isEmptyObj(me)) return;   
             if (!cookies.me) {
                 return Router.push('/login');
             }
@@ -42,7 +41,7 @@ const Home = () => {
                 }
             });
         }
-    }, [admin, cookies.me, loadAdminInfoDone]);
+    }, [me, admin, cookies.me, loadAdminInfoDone]);
 
     /** @params {string} id: 팝업 아이디 */
     const onToggleModal = useCallback((id) => () => {
@@ -91,6 +90,14 @@ const Home = () => {
         </>
     );
 };
+
+export function isEmptyObj(obj)  {
+    if(obj.constructor === Object && Object.keys(obj).length === 0)  {
+        return true;
+    }
+    
+    return false;
+}
 
 export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
     const cookie = context.req ? context.req.headers.cookie : '';

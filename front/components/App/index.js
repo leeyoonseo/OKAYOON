@@ -135,11 +135,14 @@ const AppIndex = () => {
         }
 
         if (!data) return;
-        
-        dispatch({
-            type: CREATE_MODAL_REQUEST,
-            data: data
-        })
+
+        const haveSameModalData = modals.some((v) => v.id === data);
+        if(!haveSameModalData){
+            dispatch({
+                type: CREATE_MODAL_REQUEST,
+                data: data
+            });
+        }
     }, [modals]);
 
     const onClickApp = useCallback((id) => () => {
