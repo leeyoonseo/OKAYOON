@@ -20,8 +20,10 @@ const WindowDialog = ({ type, text, callback }) => {
     }, [text]);
 
     const onClose = useCallback(({ state, text }) => () => { 
-        if (!text || !text.trim()) {
-            return alert('값을 입력해주세요');
+        if (state) {
+            if (!text || !text.trim()) {
+                return alert('값을 입력해주세요');
+            }
         }
 
         callback({state, text});
@@ -48,7 +50,7 @@ const WindowDialog = ({ type, text, callback }) => {
                 {type !== 'alert' && (
                     <CancelButton
                         onClick={onClose({
-                            state:false
+                            state: false
                         })}
                     >
                         취소

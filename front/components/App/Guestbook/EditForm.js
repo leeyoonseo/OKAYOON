@@ -98,7 +98,7 @@ const EditForm = ({
 
                 <BottomInner>
                     <Button type="button" onClick={onSubmit}>
-                        완료
+                        수정완료
                     </Button>
                 </BottomInner>
             </BottomWrap>
