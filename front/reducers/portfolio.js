@@ -7,11 +7,11 @@ export const initialState = {
     navList: ['Home', 'I am', 'Portfolio', 'Contact'],
 
     tagData: [
-        '집사_견주',
+        '주말_카공_얼죽아',
         '집순이',
-        '흥미로운',
-        '카공_얼죽아',
-        '오버워치',
+        '견주_집사',
+        '자유로움',
+        'FPS',
     ],
 
     socialData: [
@@ -122,8 +122,8 @@ export const initialState = {
             src: 'http://www.okayoon.com', 
             desc: `
                 React, Redux등 학습목적으로 만든 포트폴리오 사이트입니다.<br />
-                기획부터 개발까지 작업하여 협업 과정에 대해 더 많이 이해하는 시간이었습니다.<br /> 
-                결론은, 굉장히 재미있는 작업이었습니다.
+                기획부터 개발, 배포까지 작업하며 협업에 대한 이해도를 높일 수 있었습니다.<br /> 
+                AWS EC2, S3, Route53을 사용하여 운영하고 있고 pm2로 프로세스 관리를 하고있습니다.
             `,
             skils: [
                 'next', 'react', 'redux', 'redux_saga', 'axios', 
@@ -141,8 +141,9 @@ export const initialState = {
             ],
             src: 'https://recorder-9c060.web.app/', 
             desc: `
-                리틀팍스 어학원에서 사용하는 녹음기 개발에 참여하였습니다.<br />
-                가입자만 확인 가능하기 때문에 firebase에서 테스트 할 수 있도록 추가 작업했습니다.<br />
+                리틀팍스 어학원에서 사용하는 녹음기 개발에 참여하였습니다.<br/>
+                녹음 기능과 녹음한 파일을 들어볼 수 있는 기능이 있습니다.<br/>
+                운영 서버는 가입자만 확인이 가능하기 때문에 firebase에서 테스트 할 수 있도록 추가 작업했습니다.<br />
                 Audio Web API에 대해 공부할 수 있었습니다. 
             `,
             skils: ['javascript', 'jquery', 'firebase', 'css3', 'html5'],
@@ -158,29 +159,43 @@ export const initialState = {
             ],
             src: 'https://toy-littlefox-newsletter.web.app/global', 
             desc: `
-                타 부서와 협업 시 불편함을 느끼고 개발한 사이트입니다.<br/>
-                정적인 코드들을 통해 아웃풋을 확인하고 필요한 부분의 코드를 결합하여 제공합니다.<br />
-                Vue 학습 후 개인적으로 제작하여 오픈했었던 사이트입니다.
+                타 부서와 협업 시 불편함을 개선하고자 만든 사이트 입니다.<br/>
+                정적인 파일들을 서버에 올린 후, 필요한 영역의 코드들을 결합하여 아웃풋으로 제공합니다.<br/> 
+                사이트의 목적은 정적인 파일의 버전관리와 개발자가 없이도 타 부서에 코드를 제공하기 위함입니다.<br/>
+                Vue 학습 후 개인적으로 제작하여 팀의 허락을 받고 오픈했던 사이트이며<br/>
+                보안 상 내부 네트워크에서만 운영이 되었기 때문에 firebase에서 테스트 할 수 있도록 추가 작업했습니다.
             `,
             skils: ['javascript', 'vue', 'jquery', 'firebase', 'html5', 'css3' ],
         },
         {
-            name: '리틀팍스 사이트 / 크로스워드, 스타워즈 게임',
+            name: '스타워즈 / 크로스워드 게임',
             image: [
-                `${bucketUrl}/portfolio/site/portfolio_littlefox0.png`,
-                `${bucketUrl}/portfolio/site/portfolio_littlefox1.png`,
                 `${bucketUrl}/portfolio/site/portfolio_littlefox2.png`,
                 `${bucketUrl}/portfolio/site/portfolio_littlefox3.png`,
                 `${bucketUrl}/portfolio/site/portfolio_littlefox4.png`,
                 `${bucketUrl}/portfolio/site/portfolio_littlefox5.png`,
             ],
+            src: [
+                'https://www.littlefox.co.kr/static/game/Starwords_v3/index.html?202103110949',
+                'https://www.littlefox.co.kr/static/game/CrosswordPuzzle_v2/index.html?202012241016'
+            ], 
+            desc: `
+                컨스트럭트와 Javascript를 이용해서 게임 개발 업무를 담당했습니다.<br/>
+                개편으로 인해 전체 코드 리팩터링 및 기능 추가 업무를 진행했습니다.<br/>
+                컨스트럭트는 HTML5 기반 게임편집기(게임엔진)입니다.<br/> 
+            `,
+            skils: ['javascript', 'jquery', 'firebase', 'css3', 'html5', 'construct'],
+        },
+        {
+            name: '리틀팍스 사이트',
+            image: [
+                `${bucketUrl}/portfolio/site/portfolio_littlefox0.png`,
+                `${bucketUrl}/portfolio/site/portfolio_littlefox1.png`,
+            ],
             src: 'https://www.littlefox.co.kr/ko/main', 
             desc: `
-                사이트 프론트엔드 개발을 진행했습니다.<br />
-                자주 사용하는 기능들을 컴포넌트로 개발하였습니다.<br />
-                컨스트럭트와 js로 개발된 게임들을 리팩토링 및 추가 개발하였습니다.<br />
-                컨스트럭트는 HTML5 기반 게임편집기(게임엔진)입니다.<br /> 
-                처음 접하는 툴이었지만 좋은 경험이었습니다. 
+                퍼블리싱&프론트 개발을 진행했습니다.<br/>
+                유지보수, 페이지 제작 및 기능 추가, 컴포넌트 개발등의 업무를 맡았습니다.<br/> 
             `,
             skils: ['javascript', 'jquery', 'firebase', 'css3', 'html5', 'construct'],
         },

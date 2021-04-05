@@ -1,8 +1,8 @@
-import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Head from 'next/head';
-import styled, { ThemeContext, css } from 'styled-components';
-import { ExportOutlined } from '@ant-design/icons';
+import styled, { ThemeContext } from 'styled-components';
+import { HomeOutlined } from '@ant-design/icons';
 
 import Header from '../components/Portfolio/Header';
 import Footer from '../components/Portfolio/Footer';
@@ -217,13 +217,34 @@ const portfolio = () => {
                                                 <span>
                                                     {name}
                                                 </span>
-                                                <a
-                                                    href={src} 
-                                                    title={`${name} 바로가기`} 
-                                                    target="_blank"
-                                                >
-                                                    <ExportOutlined />
-                                                </a>
+
+                                                {(() => {
+                                                    if (typeof src === 'object') {
+                                                        return src.map((v, i) => {
+                                                            console.log('v',v)
+                                                            return (
+                                                                <a  
+                                                                    key={`${v}_${i}`}
+                                                                    href={v} 
+                                                                    title={`${name} 바로가기 _ ${i}`} 
+                                                                    target="_blank"
+                                                                >
+                                                                    <HomeOutlined />
+                                                                </a>
+                                                            )
+                                                        });
+                                                    } else {
+                                                        return (
+                                                            <a
+                                                                href={src} 
+                                                                title={`${name} 바로가기`} 
+                                                                target="_blank"
+                                                            >
+                                                                    <HomeOutlined />
+                                                            </a>
+                                                        )
+                                                    }
+                                                })()}
                                             </WorkName>
     
                                             <WorkDesk dangerouslySetInnerHTML={{__html: desc}} />

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { all, fork, put, takeLatest, delay, call } from 'redux-saga/effects';
 import { SEND_MAIL_FAILURE, SEND_MAIL_REQUEST, SEND_MAIL_SUCCESS } from '../reducers/portfolio';
 import emailjs from 'emailjs-com';
