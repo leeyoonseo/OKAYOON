@@ -66,6 +66,6 @@ app.use('/guestbook', GuestRouter);
 app.use('/simsimi', SimsimiRouter);
 app.use('/game', GameRouter);
 
-app.listen(80, () => {
+app.listen(3065, () => {
     console.log('서버실행중');
 });
