@@ -9,9 +9,7 @@ import './app.css';
 import wrapper from '../store/configurestore';
 import { bucketUrl } from '../config/config';
 
-const Okayoon = ({ Component }) => {
-
-    const Global = createGlobalStyle`
+const Global = createGlobalStyle`
         body {
             font-size: 16px;
 
@@ -44,6 +42,7 @@ const Okayoon = ({ Component }) => {
         }
     `;
 
+const Okayoon = ({ Component }) => {
     return(
         <ThemeProvider theme={theme} >
             <Head>

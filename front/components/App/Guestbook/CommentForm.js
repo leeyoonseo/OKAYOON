@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useRef, useEffect } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useInput from '../../../hooks/useInput';
 import PropTypes from 'prop-types';
@@ -152,6 +152,8 @@ const CommentForm = ({
                         value={password}
                         onChange={onChangePassword}
                         onKeyPress={onKeyPressPassword}
+                        autoComplete="new-password"
+                        required
                     />
 
                     <VisibleButtonPW onClick={onClickVisiblePassword}>

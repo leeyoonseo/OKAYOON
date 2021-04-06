@@ -149,21 +149,21 @@ const GuestbookForm = ({
             />
 
             <BottomWrap>
-                <LetterCheck 
-                    className={text.length >= MAX_TEXTAREA_LENGTH ? 'max' : ''}
-                >
+                <LetterCheck className={text.length >= MAX_TEXTAREA_LENGTH ? 'max' : ''}>
                     {text.length}/{MAX_TEXTAREA_LENGTH}
                 </LetterCheck>
 
                 <BottomInner>
                     <PasswordWrap>
                         <Input
-                            maxLength={20}
                             type={visiblePassword ? 'text' : 'password'}
+                            maxLength={20}
+                            autoComplete="new-password"
                             placeholder="비밀번호"
                             value={password}
                             onChange={onChangePassword}
                             onKeyPress={onKeyPressPassword}
+                            required
                         />
 
                         <VisibleButtonPW onClick={onClickVisiblePassword}>
