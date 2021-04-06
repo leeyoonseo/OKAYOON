@@ -2,8 +2,10 @@ import React, { useEffect, useCallback, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useCookies } from 'react-cookie';
 import { ThemeContext } from 'styled-components';
+
 import Router from 'next/router';
 import Head from 'next/head';
+
 import { TOGGLE_MODAL_REQUEST } from '../reducers/site';
 import { LOAD_ADMIN_INFO_REQUEST, LOAD_USER_INFO_REQUEST } from '../reducers/user';
 import { isEmptyObj } from '../util/common';
@@ -18,37 +20,36 @@ const Home = () => {
     const dispatch = useDispatch();
     const themeContext = useContext(ThemeContext);
     const { modals, modalToggleLoading } = useSelector((state) => state.site);
-    const { me, admin, loadAdminInfoDone, logOutDone, } = useSelector((state) => state.user);  
+    const { me, admin, loadAdminInfoDone, logInDone} = useSelector((state) => state.user);  
     const [cookies] = useCookies(['me']);
+    
+    useEffect(() => {
+        if (logInDone) return;
+
+        dispatch({
+            type: LOAD_ADMIN_INFO_REQUEST,
+        });
+    }, [logInDone]);
 
     useEffect(() => {
-        if (!isEmptyObj(admin) || !isEmptyObj(me) || logOutDone) return;
-
-        if (cookies.me) {
-            const { avatar, nickname } = cookies.me;
-            dispatch({
-                type: LOAD_USER_INFO_REQUEST,
-                data: {
-                    avatar: avatar,
-                    nickname: nickname
-                }
-            });
-
-        } else {
-            dispatch({
-                type: LOAD_ADMIN_INFO_REQUEST,
-            });
-        }
-    }, [me, admin, cookies.me, logOutDone]);
-
-    useEffect(() => {
-        if (loadAdminInfoDone) {
-            if (isEmptyObj(admin) && isEmptyObj(me)){
+        if (logInDone) return;
+        
+        if (loadAdminInfoDone && isEmptyObj(admin)) {
+            if (cookies.me) {
+                const { avatar, nickname } = cookies.me;
+                dispatch({
+                    type: LOAD_USER_INFO_REQUEST,
+                    data: {
+                        avatar: avatar,
+                        nickname: nickname
+                    }
+                });
+            }else {
                 return Router.push('/login');
             }
         }
-    }, [loadAdminInfoDone]);
-    
+    }, [logInDone, loadAdminInfoDone, admin, cookies.me]);
+
     /** @params {string} id: 팝업 아이디 */
     const onToggleModal = useCallback((id) => () => {
         dispatch({

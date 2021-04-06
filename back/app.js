@@ -29,7 +29,7 @@ if (process.env.NODE_ENV === 'production') {
     app.use(hpp());
     app.use(helmet());
     app.use(cors({
-        origin: ['https://okayoon.com'],
+        origin: ['https://okayoon.com', 'https://www.okayoon.com'],
         credentials: true,
     }));
 
@@ -50,14 +50,14 @@ app.use(session({
     secret: process.env.COOKIE_SECRET,
     cookie: {
         httpOnly: true,
-        secure: true,
+        secure: process.env.NODE_ENV === 'production',
         domain: process.env.NODE_ENV === 'production' && '.okayoon.com'
     }
 }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get('/', (_, res) => {
+app.get('/', (req, res) => {
     res.send('hello express');
 });
 
