@@ -4,9 +4,14 @@
         ["styled-components", {
             "ssr": true,
             "displayName": true
-        }],
-        ["transform-remove-console", { 
-            "exclude": [ "error", "warn"] 
         }]
+        // ["transform-remove-console", { 
+        //     "exclude": [ "error", "warn"] 
+        // }]
     ]
+    // "env": {
+    //     "production": { 
+    //         "presets": ["transform-remove-console"] 
+    //     }
+    // }
 }
