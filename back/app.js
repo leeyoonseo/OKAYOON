@@ -29,7 +29,7 @@ if (process.env.NODE_ENV === 'production') {
     app.use(hpp());
     app.use(helmet());
     app.use(cors({
-        origin: ['http://www.okayoon.com', 'http://okayoon.com'],
+        origin: ['https://okayoon.com'],
         credentials: true,
     }));
 
@@ -50,7 +50,7 @@ app.use(session({
     secret: process.env.COOKIE_SECRET,
     cookie: {
         httpOnly: true,
-        secure: false,
+        secure: true,
         domain: process.env.NODE_ENV === 'production' && '.okayoon.com'
     }
 }));
