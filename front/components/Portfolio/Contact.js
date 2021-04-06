@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import useInput from '../../hooks/useInput';
 import styled from 'styled-components';
 import { SEND_MAIL_REQUEST } from '../../reducers/portfolio';
+import { bucketUrl } from '../../config/config';
 
 const Wrap = styled.div`
     max-width: ${({ theme }) => theme.calcRem(700)};
@@ -149,7 +150,7 @@ const Contact = () => {
         <Wrap>
             <Info>
                 <ImageWrap>
-                    <img src="../../portfolio/img_cat.jpg" title="고양이 사진"/>
+                    <img src={`${bucketUrl}/portfolio/img_cat.jpg`} title="고양이 사진"/>
                 </ImageWrap>
 
                 <div>
