@@ -1,9 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
-
-import { ClockCircleOutlined, CheckOutlined, CloseOutlined, ConsoleSqlOutlined } from '@ant-design/icons';
 import { STEP_FINISH } from './index';
-import { shuffleArray } from '../index';
+import { shuffleArray } from '../../../../util/common';
+import { ClockCircleOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons';
 
 import Layout from './Layout';
 
@@ -148,7 +147,6 @@ const Game = ({
     const [round, setRound] = useState(null);
     const [time, setTime] = useState(null);
 
-    // TODO: 여러번 리렌더링되는지 확인할 것
     useEffect(() => {
         if(!data) return;
 

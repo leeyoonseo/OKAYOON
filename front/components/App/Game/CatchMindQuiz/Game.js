@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useCallback, createRef, useRef } from 'react';
-import { useSelector } from 'react-redux';
-import { shuffleArray, cloneObject } from '../index';
+import { shuffleArray } from '../../../../util/common';
 
 import styled, { css, keyframes } from 'styled-components';
 import { ArrowLeftOutlined, CheckOutlined, CloseOutlined, DeleteOutlined } from '@ant-design/icons';
@@ -444,5 +443,3 @@ const Game = ({
 };
 
 export default Game;
-
-// TODO: hint 추가 - 원하는 곳의 한글자 보기?

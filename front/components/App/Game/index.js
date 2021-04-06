@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { STORE, NONSENSE_QUIZ, CATCH_MIND, PERSONALITY_TEST } from '../../../reducers/game';
 import styled, { css } from 'styled-components';
-import { HomeOutlined, SettingOutlined } from '@ant-design/icons';
+import { SettingOutlined } from '@ant-design/icons';
 
 import Admin from './Admin/index';
 import NonsenseQuiz from './NonsenseQuiz/index';
@@ -218,32 +218,5 @@ const Game = () => {
         </Wrap>
     );
 };
-
-export function shuffleArray (arr){
-    let temp = arr.map((v) => {
-        return cloneObject(v);
-    });
-
-    for(let i = temp.length - 1; i > 0; i--){
-        let j = Math.floor(Math.random() * (i + 1));
-        [temp[i], temp[j]] = [temp[j], temp[i]];
-    }
-
-    return temp;
-};
-
-export function cloneObject(obj) {
-    let clone = {};
-
-    for (var key in obj) {
-        if (typeof obj[key] == 'object' && obj[key] != null) {
-            clone[key] = cloneObject(obj[key]);
-        } else {
-            clone[key] = obj[key];
-        }
-    }
-
-    return clone;
-}
 
 export default Game;

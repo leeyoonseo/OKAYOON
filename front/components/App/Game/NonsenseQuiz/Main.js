@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { bucketUrl } from '../../../../config/config';
-
-import { shuffleArray, cloneObject } from '../index';
+import { shuffleArray, cloneObject } from '../../../../util/common';
 
 import { STEP_GAME } from './index';
 import Layout from './Layout';
@@ -112,7 +111,5 @@ const Main = ({
         </Layout>
     );
 };
-
-
 
 export default Main;
