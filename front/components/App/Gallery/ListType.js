@@ -48,19 +48,10 @@ const ItemMeta = styled(List.Item.Meta)`
     align-items: center;
 `;
 
-const ListType = ({ data }) => {
-    const [openedZoom, setOpenedZoom] = useState(false);
-    const [item, setItem] = useState(null);
-
-    const onCloseZoom = useCallback(() => {
-        setOpenedZoom(false);
-    }, []);
-
-    const onClickZoom = useCallback((item) => () => {
-        setItem(item);
-        setOpenedZoom(!openedZoom);
-    }, [openedZoom]);
-
+const ListType = ({ 
+    data,
+    onClickZoom,
+}) => {
     return (
         <>
             <ListWrap
@@ -76,19 +67,13 @@ const ListType = ({ data }) => {
                 </Item>
                 )}
             />
-
-            {openedZoom && (
-                <ImageZoom 
-                    item={item}
-                    onClose={onCloseZoom}
-                />
-            )}
         </>
     );
 };
 
 ListType.propTypes = {
     data: PropTypes.array.isRequired,
+    onClickZoom: PropTypes.func.isRequired,
 };
 
 export default ListType;

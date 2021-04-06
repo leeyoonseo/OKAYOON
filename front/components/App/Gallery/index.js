@@ -5,6 +5,7 @@ import { AppstoreOutlined, SplitCellsOutlined, ProfileOutlined } from '@ant-desi
 import SlideType from './SlideType';
 import CardType from './CardType';
 import ListType from './ListType';
+import ImageZoom from './ImageZoom';
 import { bucketUrl } from '../../../config/config';
 
 const imageData = [
@@ -153,6 +154,8 @@ const ListIcon = styled(ProfileOutlined)`
 const Gallery = () => {
     const [type, setType] = useState(null);
     const [menuHeight, setMenuHeight] = useState(null);
+    const [openedZoom, setOpenedZoom] = useState(false);
+    const [zoomItem, setZoomItem] = useState(null);
     const menuRef = useRef(null);
     const CARD = 'card';
     const SLIDE = 'slide';
@@ -166,6 +169,12 @@ const Gallery = () => {
         setMenuHeight(menuRef.current.clientHeight);
     }, [menuRef]);
 
+    const onCloseZoom = useCallback(() => setOpenedZoom(false), []);
+    const onClickZoom = useCallback((item) => () => {
+        setZoomItem(item);
+        setOpenedZoom(!openedZoom);
+    }, [openedZoom]);
+
     const setActive = useCallback((name) => (type === name) ? 'active' : '', [type]);
     const onClickButton = useCallback((name) => () =>  setType(name), []);
 
@@ -177,10 +186,20 @@ const Gallery = () => {
                         return <SlideType data={imageData} />;
 
                     } else if (type === CARD) {
-                        return <CardType data={imageData} />;
+                        return (
+                            <CardType 
+                                data={imageData} 
+                                onClickZoom={onClickZoom}
+                            />
+                        );
 
                     } else if (type === LIST) {
-                        return <ListType data={imageData} />;
+                        return (
+                            <ListType 
+                                data={imageData} 
+                                onClickZoom={onClickZoom}
+                            />
+                        );
                     }
                 })()}
             </Container>
@@ -219,6 +238,13 @@ const Gallery = () => {
                     <span className="hidden">목록</span>
                 </Button>
             </MenuArea>
+
+            {openedZoom && (
+                <ImageZoom 
+                    item={zoomItem}
+                    onClose={onCloseZoom}
+                />
+            )}
         </>
     );
 };

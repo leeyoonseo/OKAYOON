@@ -29,16 +29,10 @@ const Image = styled.img`
     width: 100%;
 `;
 
-const CardType = ({ data }) => {
-    const [openedZoom, setOpenedZoom] = useState(false);
-    const [item, setItem] = useState(null);
-
-    const onCloseZoom = useCallback(() => setOpenedZoom(false), []);
-    const onClickZoom = useCallback((item) => () => {
-        setItem(item);
-        setOpenedZoom(!openedZoom);
-    }, [openedZoom]);
-
+const CardType = ({ 
+    data,
+    onClickZoom, 
+}) => {
     return (
         <>
             <Wrap>
@@ -60,19 +54,13 @@ const CardType = ({ data }) => {
                     )
                 })}
             </Wrap>
-
-            {openedZoom && (
-                <ImageZoom 
-                    item={item}
-                    onClose={onCloseZoom}
-                />
-            )}
         </>
     );
 };
 
 CardType.propTypes = {
     data: PropTypes.array.isRequired,
+    onClickZoom: PropTypes.func.isRequired,
 };
 
 export default CardType;
