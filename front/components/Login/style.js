@@ -58,7 +58,6 @@ export const Input = styled.input`
     &:hover,
     &:focus {
         outline: none;
-
     }    
 
     &::placeholder {
@@ -113,6 +112,9 @@ export const InfoButton = styled(Button)`
         color: white;
         border-color: white;
         background: none;
+    }
+
+    &:hover {
         opacity: 0.5;
     }
 

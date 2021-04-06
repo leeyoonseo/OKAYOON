@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
@@ -41,10 +41,18 @@ const AccessButton = styled.button`
 `;
 
 const Simsimi = () => {
-    const { me, avatarList } = useSelector((state) => state.user);
-    const [avatar, setAvatar] = useState(me.avatar);
-    const [nickname, setNickname] = useState(me.nickname);
+    const { me, admin, avatarList } = useSelector((state) => state.user);
+    const [avatar, setAvatar] = useState(me.avatar ? me.avatar : null);
+    const [nickname, setNickname] = useState(me.nickname ? me.nickname : null);
     const [start, setStart] = useState(false);
+    const NICKNAME = 'nickname';
+
+    useEffect(() => {
+        if (admin.userId) {
+            setAvatar(NICKNAME);
+            setNickname(`관리자${admin.userId.charAt().toUpperCase()}`);
+        }
+    }, [admin]);
 
     const moveStep = useCallback(() => setStart(!start), [start]);
     const getSrc = useCallback(() => {
@@ -60,7 +68,7 @@ const Simsimi = () => {
             ) : (
                 <Wrap>
                     <Inner>
-                        {avatar === 'nickname' ? (
+                        {avatar === NICKNAME ? (
                             <Avatar size={100}>
                                 {nickname}
                             </Avatar>

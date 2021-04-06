@@ -46,11 +46,9 @@ const Menu = () => {
         let type = '';
 
         if (admin.userId) {
-            console.log('관리자');  
             type = LOG_OUT_ADMIN_REQUEST;
 
         } else {
-            console.log('게스트');  
             type = LOG_OUT_REQUEST;
             removeCookie('me');
         }

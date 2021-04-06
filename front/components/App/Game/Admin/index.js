@@ -74,7 +74,7 @@ const Admin = ({ list, onClickBack }) => {
 };
 
 Admin.propTypes = {
-    list: PropTypes.object.isRequired,
+    list: PropTypes.array.isRequired,
     onClickBack: PropTypes.func.isRequired,
 };
 
