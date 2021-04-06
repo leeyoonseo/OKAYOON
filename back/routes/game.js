@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { sequelize, NonsenseQuiz, CatchMind } = require('../models');
-const { isAdminLoggedIn, isNotAdminLoggedIn } = require('./middlewares');
+const { NonsenseQuiz, CatchMind } = require('../models');
+const { isAdminLoggedIn } = require('./middlewares');
 
 const NONSENSE_QUIZ = 'nonsensequiz';
 const CATCH_MIND = 'catchmind';

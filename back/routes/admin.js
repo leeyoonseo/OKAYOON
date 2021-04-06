@@ -8,7 +8,6 @@ const { isAdminLoggedIn, isNotAdminLoggedIn } = require('./middlewares');
 router.get('/', async (req, res, next) => { // GET /admin
     try {
         if (req.user) {
-            console.log('===========req.user', req.user);
             const admin = await Admin.findOne({
                 where: { userId: req.user.userId },
                 attributes: {
@@ -17,7 +16,6 @@ router.get('/', async (req, res, next) => { // GET /admin
             });
 
             res.status(200).json(admin);
-            
         } else {
             res.status(204).json(null);
         }

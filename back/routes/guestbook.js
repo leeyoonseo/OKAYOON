@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { Op } = require('sequelize');
 const bcrypt = require('bcrypt');
-const { Comment, Image, Guestbook, Admin } = require('../models');
+const { Comment, Guestbook, Admin } = require('../models');
 
 // [D] 방명록 가져오기
 router.get('/', async (req, res, next) => { // GET /guestbook
