@@ -24,7 +24,7 @@ const WindowDialog = ({
         return {__html: text};
     }, [text]);
 
-    const onClickConfirm = useCallback(() => { 
+    const onSubmit = useCallback(() => { 
         const data = {};
 
         if (type === 'prompt') {
@@ -44,6 +44,12 @@ const WindowDialog = ({
         setOpened(false);
         callback({ state: false });
     }, []);
+
+    const onKeyPressInput = useCallback(({ code }) => {
+        if (code === 'Enter') {
+            onSubmit();
+        }
+    }, [val]);
 
     return (
         <Wrap>
@@ -66,6 +72,7 @@ const WindowDialog = ({
                             ref={inputRef}
                             value={val}
                             onChange={onChangeVal} 
+                            onKeyPress={onKeyPressInput}
                             placeholder="입력해주세요" 
                         />
                     </InputWrap>
@@ -77,7 +84,7 @@ const WindowDialog = ({
                         </CancelButton>
                         
                         <ConfirmButton
-                            onClick={onClickConfirm}
+                            onClick={onSubmit}
                         >
                             확인
                         </ConfirmButton>
@@ -94,7 +101,7 @@ const WindowDialog = ({
                     </CancelButton>
                     
                     <ConfirmButton
-                        onClick={onClickConfirm}
+                        onClick={onSubmit}
                     >
                         확인
                     </ConfirmButton>

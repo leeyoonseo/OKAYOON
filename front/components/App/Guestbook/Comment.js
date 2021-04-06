@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import CommentForm from './CommentForm';
-import CommentCard from './CommentCard';
+import Form from './Form';
+import Card from './Card';
+import { FORM_COMMENT } from '.';
 
 const Wrap = styled.div`
     padding: ${({ theme }) => theme.calcRem(20)};
@@ -20,7 +21,9 @@ const Comment = ({
 }) => {
     return (
         <Wrap>
-            <CommentForm 
+            <Form
+                formtype={FORM_COMMENT}
+                MAX_TEXTAREA_LENGTH={50}
                 id={id}
                 avatar={authorAvatar}
                 nickname={authorNickname}
@@ -28,7 +31,7 @@ const Comment = ({
 
             {Comments && Comments.map((v, i) => {
                 return (
-                    <CommentCard 
+                    <Card 
                         key={`comment_${v.nickname.charAt(0)}_${i}`}
                         {...v}
                     />

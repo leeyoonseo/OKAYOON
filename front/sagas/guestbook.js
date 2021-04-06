@@ -3,6 +3,7 @@ import { all, fork, put, takeLatest, delay, call } from 'redux-saga/effects';
 import { 
     // 권한
     GET_PERMISSION_REQUEST, GET_PERMISSION_SUCCESS, GET_PERMISSION_FAILURE, 
+    REVOKE_PERMISSION_REQUEST, REVOKE_PERMISSION_SUCCESS, REVOKE_PERMISSION_FAILURE, 
 
     // 방명록
     LOAD_GUESTBOOK_REQUEST, LOAD_GUESTBOOK_SUCCESS, LOAD_GUESTBOOK_FAILURE, 
@@ -16,7 +17,7 @@ import {
 } from '../reducers/guestbook';
 
 
-// [D] 권한요청하기
+// [D] 권한 요청하기
 function getPermissionAPI(data){
     return axios.post(`/guestbook/permission/${data.id}`, data);
 };
@@ -42,6 +43,27 @@ function* getPermission(action){
 
 function* watchGetPermission(){ 
     yield takeLatest(GET_PERMISSION_REQUEST, getPermission);
+}
+
+// [D] 권한 취소하기
+function* revokePermission(action){
+    try{
+        yield put({
+            type: REVOKE_PERMISSION_SUCCESS,
+            data: action.data
+        });
+
+    }catch(err){
+        console.error(err);
+        yield put({
+            type: REVOKE_PERMISSION_FAILURE,
+            error: err.response.data
+        })
+    }
+}
+
+function* watchRevokePermission(){ 
+    yield takeLatest(REVOKE_PERMISSION_REQUEST, revokePermission);
 }
 
 
@@ -207,6 +229,7 @@ export default function* guestbookSaga(){
     yield all([
         // 권한
         fork(watchGetPermission),
+        fork(watchRevokePermission),
 
         // 방명록
         fork(watchLoadGuestbook),

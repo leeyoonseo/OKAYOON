@@ -4,10 +4,13 @@ import styled from 'styled-components';
 import { LOAD_GUESTBOOK_REQUEST } from '../../../reducers/guestbook';
 import { Button } from 'antd';
 
-import Loading from '../../Loading';
 import Form from './Form';
+import Loading from '../../Loading';
 import Card from './Card';
-import EditForm from './EditForm';
+
+export const FORM_CREATE = 'FORM_CREATE';
+export const FORM_EDIT = 'FORM_EDIT';
+export const FORM_COMMENT = 'FORM_COMMENT';
 
 const MoreWrap = styled.div`
     text-align: center;
@@ -81,14 +84,14 @@ const Guestbook = () => {
         dispatch({
             type: LOAD_GUESTBOOK_REQUEST,
             lastId: lastId
-        })
-
+        });
     }, [guestbook]);
 
     return (
         <>
             <div>
                 <Form 
+                    formtype={FORM_CREATE}
                     MAX_TEXTAREA_LENGTH={MAX_TEXTAREA_LENGTH} 
                     nickname={nickname}
                     avatar={avatar}
@@ -97,7 +100,8 @@ const Guestbook = () => {
                 {guestbook && guestbook.map((v, i) => {
                     if (v.edit) {
                         return (
-                            <EditForm 
+                            <Form 
+                                formtype={FORM_EDIT}
                                 key={`edit_${v.nickname.charAt(0)}_${i}`}
                                 MAX_TEXTAREA_LENGTH={MAX_TEXTAREA_LENGTH}
                                 {...v}

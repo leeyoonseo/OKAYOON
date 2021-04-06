@@ -6,10 +6,15 @@ export const initialState = {
     guestbookCount: 0,
     hasMoreGuestbook: true,
 
-    // [D] 권한요청하기
+    // [D] 권한 요청하기
     getPermissionLoading: false,
     getPermissionDone: false,
     getPermissionError: false,
+
+    // [D] 권한 취소하기
+    revokePermissionLoading: false,
+    revokePermissionDone: false,
+    revokePermissionError: false,
     
     // [D] 방명록 가져오기
     loadGuestbookLoading: false,
@@ -47,10 +52,15 @@ export const initialState = {
     deleteCommentError: false,
 };
 
-// [D] 권한요청
+// [D] 권한 요청
 export const GET_PERMISSION_REQUEST = 'GET_PERMISSION_REQUEST';
 export const GET_PERMISSION_SUCCESS = 'GET_PERMISSION_SUCCESS';
 export const GET_PERMISSION_FAILURE = 'GET_PERMISSION_FAILURE';
+
+// [D] 권한 취소
+export const REVOKE_PERMISSION_REQUEST = 'REVOKE_PERMISSION_REQUEST';
+export const REVOKE_PERMISSION_SUCCESS = 'REVOKE_PERMISSION_SUCCESS';
+export const REVOKE_PERMISSION_FAILURE = 'REVOKE_PERMISSION_FAILURE';
 
 // [D] 방명록 가져오기
 export const LOAD_GUESTBOOK_REQUEST = 'LOAD_GUESTBOOK_REQUEST';
@@ -84,7 +94,7 @@ export const DELETE_COMMENT_FAILURE = 'DELETE_COMMENT_FAILURE';
 
 const reducer = (state = initialState, action) => produce(state,(draft) => {
     switch(action.type){
-        // [D] 권한요청하기
+        // [D] 권한 요청하기
         case GET_PERMISSION_REQUEST:
             draft.getPermissionLoading = true;
             draft.getPermissionDone = false;
@@ -109,6 +119,32 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             draft.getPermissionLoading = false;
             draft.getPermissionDone = false;
             draft.getPermissionError = true;
+            break;
+
+        // [D] 권한 취소하기
+        case REVOKE_PERMISSION_REQUEST:
+            draft.revokePermissionLoading = true;
+            draft.revokePermissionDone = false;
+            draft.revokePermissionError = false;
+            break;
+
+        case REVOKE_PERMISSION_SUCCESS: {
+            draft.guestbook.filter((v) => {
+                if(v.id === action.data.id){
+                    delete v.edit;
+                }
+            });
+
+            draft.revokePermissionLoading = false;
+            draft.revokePermissionDone = true;
+            draft.revokePermissionError = false;
+            break;
+        }
+
+        case REVOKE_PERMISSION_FAILURE:
+            draft.revokePermissionLoading = false;
+            draft.revokePermissionDone = false;
+            draft.revokePermissionError = true;
             break;
 
         // [D] 방명록 가져오기
@@ -141,6 +177,7 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             break;
 
         case ADD_GUESTBOOK_SUCCESS:
+            console.log('?action.data', action.data);
             draft.guestbook.unshift(action.data);
             draft.guestbookCount++;    
             draft.addGuestbookLoading = false;

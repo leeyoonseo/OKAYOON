@@ -57,7 +57,11 @@ router.post('/', async (req, res, next) => { // POST /guestbook
             where: { id: guestbook.id },
             attributes: {
                 exclude: ['password'],
-            }
+            },
+            include: [{
+                model: Comment,
+                attributes: ['id', 'nickname', 'avatar', 'content', 'createdAt' , 'GuestbookId'],
+            }]
         });
 
         res.status(200).json(withoutPwGuestbook);

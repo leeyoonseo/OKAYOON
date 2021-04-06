@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
-import { DELETE_GUESTBOOK_REQUEST, GET_PERMISSION_REQUEST } from '../../../reducers/guestbook';
+import { DELETE_COMMENT_REQUEST, DELETE_GUESTBOOK_REQUEST, GET_PERMISSION_REQUEST } from '../../../reducers/guestbook';
 import { getSrc } from './index';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -110,7 +110,7 @@ const GuestbookCard = ({
     useEffect(() => {
         const text = admin.userId 
             ? '관리자 권한으로 삭제합니다.' 
-            : `${(reqStatus === 'edit') ? '수정' : '삭제'} 비밀번호를 입력해주세요`;
+            : `${(reqStatus === MENU_EDIT) ? '수정' : '삭제'} 비밀번호를 입력해주세요`;
 
         setModalText(text);
     }, [admin, reqStatus]);
@@ -122,23 +122,24 @@ const GuestbookCard = ({
 
     const passwordCheck = useCallback((value) => {
         if (!value) return;
-        
-        let typeStr = (reqStatus === 'edit') ? GET_PERMISSION_REQUEST : DELETE_GUESTBOOK_REQUEST;
-        let val = value;
+        let type = '';
+        let val = !isEmptyObj(admin) ? admin.userId : value;
 
-        if(!isEmptyObj(admin)) {
-            typeStr = DELETE_GUESTBOOK_REQUEST;
-            val = admin.userId;
+        if (reqStatus === MENU_EDIT) {
+            type = GET_PERMISSION_REQUEST;
+
+        } else {
+            type = Comments ? DELETE_GUESTBOOK_REQUEST : DELETE_COMMENT_REQUEST;
         }
 
         dispatch({
-            type: typeStr,
+            type: type,
             data: {
                 id: id,
                 password: val,
             }
         });
-    }, [admin, reqStatus, id]);
+    }, [admin, reqStatus, id, Comments]);
 
     const onClickMenu = useCallback((type) => () => {
         if (type === MENU_EDIT && !isEmptyObj(admin)) return;
@@ -156,12 +157,12 @@ const GuestbookCard = ({
             <Inner>
                 <AvatarWrap>
                     {avatar === 'nickname' ? (
-                        <Avatar size={64}>
+                        <Avatar size={Comments ? 64 : 48}>
                             {nickname}
                         </Avatar>
                     ) : (
                         <Avatar 
-                            size={64} 
+                            size={Comments ? 64 : 48} 
                             src={getSrc(avatarList, avatar)} 
                         />
                     )}
@@ -179,12 +180,14 @@ const GuestbookCard = ({
                 </Container>
 
                 <MenuArea>
-                    <button
-                        onClick={onClickMenu(MENU_EDIT)}
-                    >
-                        <FormOutlined />
-                        <span className="hidden">수정</span>
-                    </button>
+                    {Comments && (
+                        <button
+                            onClick={onClickMenu(MENU_EDIT)}
+                        >
+                            <FormOutlined />
+                            <span className="hidden">수정</span>
+                        </button>
+                    )}
 
                     <button 
                         onClick={onClickMenu(MENU_DELETE)}
@@ -193,13 +196,14 @@ const GuestbookCard = ({
                         <span className="hidden">삭제</span>
                     </button>
 
-                    <button 
-                        onClick={onClickMenu(MENU_COMMENT)}
-                    >
-                        <MessageOutlined />
-                        <span className="hidden">댓글</span>
-                    </button>
-
+                    {Comments && (
+                        <button 
+                            onClick={onClickMenu(MENU_COMMENT)}
+                        >
+                            <MessageOutlined />
+                            <span className="hidden">댓글</span>
+                        </button>
+                    )}
                 </MenuArea>
             </Inner>
             
@@ -226,13 +230,13 @@ const GuestbookCard = ({
 
 GuestbookCard.propTypes = {
     id: PropTypes.number.isRequired,
-    nickname: PropTypes.string.isRequired,
-    avatar: PropTypes.string.isRequired,
+    nickname: PropTypes.string,
+    avatar: PropTypes.string,
     createdAt: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
     Comments: PropTypes.array,
-    authorNickname: PropTypes.string.isRequired,
-    authorAvatar: PropTypes.string.isRequired,
+    authorNickname: PropTypes.string,
+    authorAvatar: PropTypes.string,
 };
 
 export default GuestbookCard;
