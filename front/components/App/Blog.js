@@ -17,7 +17,7 @@ const Iframe = styled.iframe`
 const Blog = () => {
     return (
         <IframeWrap>
-            <Iframe src="http://okayoon.tistory.com/"/>
+            <Iframe src="https://okayoon.tistory.com/"/>
         </IframeWrap>
     );
 };
