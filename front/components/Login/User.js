@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import {
     InfoArea, AvatarButton, NicknameWrap, InputWrap, 
     Input, UserIcon, Nickname, RemoveButton, 
-    InfoButtonArea, InfoButton, 
+    InfoButtonArea, InfoButton, ClickText
 } from './style';
 import { UserOutlined, CloseOutlined } from '@ant-design/icons';
 
@@ -77,6 +77,8 @@ const User = ({
     return (
         <>
             <InfoArea>
+                <ClickText>↓ Click</ClickText>
+
                 {avatar === 'nickname' ? (
                     <AvatarButton 
                         size={80} 

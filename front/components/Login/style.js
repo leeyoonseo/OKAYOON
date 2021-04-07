@@ -122,3 +122,8 @@ export const InfoButton = styled(Button)`
         margin-left: ${({ theme }) => theme.calcRem(15)};
     }
 `;
+
+export const ClickText = styled.div`
+    color: white;
+    font-size: ${({ theme }) => theme.calcRem(16)};
+`;
