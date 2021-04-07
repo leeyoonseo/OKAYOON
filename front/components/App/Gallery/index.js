@@ -102,7 +102,7 @@ const Container = styled.div`
 `;
 
 const MenuArea = styled.div`
-    position: fixed;
+    position: absolute;
     bottom: 0;
     padding: 2%;
     display: flex;

@@ -121,14 +121,19 @@ export const initialState = {
             ],
             src: 'http://www.okayoon.com', 
             desc: `
-                React, Redux등 학습목적으로 만든 포트폴리오 사이트입니다.<br />
-                기획부터 개발, 배포까지 작업하며 협업에 대한 이해도를 높일 수 있었습니다.<br /> 
-                AWS EC2, S3, Route53을 사용하여 운영하고 있고 pm2로 프로세스 관리를 하고있습니다.
+                React 학습 목적으로 제작한 포트폴리오 사이트<br/>
+                기획~배포까지 전체 작업 진행<br/><br/>
+                작업내역<br>
+                Nextjs로 환경 구축, Redux와 Redux-saga를 통해 데이터 상태 관리 및 통신 작업<br/>
+                sequelize로 데이터베이스 생성부터 정적인 데이터 삽입 등 db 관리<br/>
+                Passportjs로 어드민 로그인 구현, emailjs로 메일 발송기능 구현<br/>
+                외부 api 사용을 통한 (심심이api) 채팅 구현 등의 작업<br>
+                AWS EC2, S3, Route53을 사용하여 배포, pm2를 통한 프로세스 관리
             `,
             skils: [
-                'next', 'react', 'redux', 'redux_saga', 'axios', 
-                'styled_components', 'eslint', 'dayjs', 'immer', 
-                'sequelize', 'mysql', 'html5', 'css3' 
+                'next', 'react', 'redux', 'redux_saga',
+                'styled_components', 'eslint', 'sequelize', 
+                'mysql', 'html5', 'css3' 
             ],
         },        
         {
@@ -139,12 +144,13 @@ export const initialState = {
                 `${bucketUrl}/portfolio/site/portfolio_recorder2.png`,
                 `${bucketUrl}/portfolio/site/portfolio_recorder3.png`,
             ],
+            // [D] size는 src가 하나일때만 사용 가능(window.open에서 사용)
+            size: ['800', '400'],
             src: 'https://recorder-9c060.web.app/', 
             desc: `
-                리틀팍스 어학원에서 사용하는 녹음기 개발에 참여하였습니다.<br/>
-                녹음 기능과 녹음한 파일을 들어볼 수 있는 기능이 있습니다.<br/>
-                운영 서버는 가입자만 확인이 가능하기 때문에 firebase에서 테스트 할 수 있도록 추가 작업했습니다.<br />
-                Audio Web API에 대해 공부할 수 있었습니다. 
+                리틀팍스 어학원에서 사용하는 녹음기 프론트엔드 담당<br/>
+                Audio Web API를 활용한 녹음 및 플레이어 기능 구현<br/>
+                가입자에게만 공개되어있으므로 테스트를 위해 firebase를 사용하여 임시배포
             `,
             skils: ['javascript', 'jquery', 'firebase', 'css3', 'html5'],
         },
@@ -159,11 +165,10 @@ export const initialState = {
             ],
             src: 'https://toy-littlefox-newsletter.web.app/global', 
             desc: `
-                타 부서와 협업 시 불편함을 개선하고자 만든 사이트 입니다.<br/>
-                정적인 파일들을 서버에 올린 후, 필요한 영역의 코드들을 결합하여 아웃풋으로 제공합니다.<br/> 
-                사이트의 목적은 정적인 파일의 버전관리와 개발자가 없이도 타 부서에 코드를 제공하기 위함입니다.<br/>
-                Vue 학습 후 개인적으로 제작하여 팀의 허락을 받고 오픈했던 사이트이며<br/>
-                보안 상 내부 네트워크에서만 운영이 되었기 때문에 firebase에서 테스트 할 수 있도록 추가 작업했습니다.
+                사내 솔루션 웹 서비스 프론트엔드 담당<br/>
+                기획, 디자인, 프론트엔드 개발까지 진행<br/>
+                javascript, jQuery, vueJS로 개발 진행(vuejs 점진적 도입)<br/>
+                보안 상 내부 네트워크에서만 확인가능하므로 테스트를 위해 firebase를 사용하여 임시배포
             `,
             skils: ['javascript', 'vue', 'jquery', 'firebase', 'html5', 'css3' ],
         },
@@ -175,14 +180,11 @@ export const initialState = {
                 `${bucketUrl}/portfolio/site/portfolio_littlefox4.png`,
                 `${bucketUrl}/portfolio/site/portfolio_littlefox5.png`,
             ],
-            src: [
-                'https://www.littlefox.co.kr/static/game/Starwords_v3/index.html?202103110949',
-                'https://www.littlefox.co.kr/static/game/CrosswordPuzzle_v2/index.html?202012241016'
-            ], 
+            src: 'https://www.littlefox.co.kr/ko/games/contents_list/DP001024',
             desc: `
-                컨스트럭트와 Javascript를 이용해서 게임 개발 업무를 담당했습니다.<br/>
-                개편으로 인해 전체 코드 리팩터링 및 기능 추가 업무를 진행했습니다.<br/>
-                컨스트럭트는 HTML5 기반 게임편집기(게임엔진)입니다.<br/> 
+                Construct와 Javascript를 활용한 게임 개발의 프론트엔드 담당<br/>
+                개편으로 인한 전체 코드 리팩터링 진행 및 추가 기능 개발<br/>
+                (사이트 접속 후 play를 눌러 확인할 수 있습니다.)
             `,
             skils: ['javascript', 'jquery', 'firebase', 'css3', 'html5', 'construct'],
         },
@@ -194,21 +196,28 @@ export const initialState = {
             ],
             src: 'https://www.littlefox.co.kr/ko/main', 
             desc: `
-                퍼블리싱&프론트 개발을 진행했습니다.<br/>
-                유지보수, 페이지 제작 및 기능 추가, 컴포넌트 개발등의 업무를 맡았습니다.<br/> 
+                사이트 유지보수 담당<br/>
+                유지보수, 새로운 페이지 제작,<br/>
+                자주 사용하는 기능을 컴포넌트로 개발하는 업무 등을 담당<br/> 
             `,
-            skils: ['javascript', 'jquery', 'firebase', 'css3', 'html5', 'construct'],
+            skils: ['javascript', 'jquery', 'firebase', 'css3', 'html5'],
         },
         {
-            name: '알서포브 브랜드사이트 / Remotecall 솔루션',
+            name: '알서포브 브랜드사이트 | Remotecall 솔루션',
             image: [
                 `${bucketUrl}/portfolio/site/portfolio_rsupport0.png`,
                 `${bucketUrl}/portfolio/site/portfolio_rsupport1.png`,
                 `${bucketUrl}/portfolio/site/portfolio_rsupport2.png`,
                 `${bucketUrl}/portfolio/site/portfolio_rsupport3.png`,
             ],
-            src: 'https://www.rsupport.com/ko-kr/', 
-            desc: '알서포트 브랜드 사이트와 자사 솔루션 Remotecall 프론트엔드 담당이었습니다.',
+            src: 'https://www.rsupport.com/ko-kr/',
+            desc: `
+                알서포트, 리모트콜, 리모트뷰, 타스, 라이트캠 총 5개의 브랜드 사이트 유지보수<br/>
+                솔루션 프로그램(Remotecall) 어드민 프론트엔드 담당<br/><br/>
+                워드프레스 기반의 사이트 유지보수, 랜딩 페이지 제작<br/>
+                Taas 사이트 구축 시 전체 프론트엔드 담당<br/>
+                솔루션 어드민 페이지 프론트엔드 담당
+            `,
             skils: ['javascript', 'jquery', 'css3', 'html5' ],
         },
     ],

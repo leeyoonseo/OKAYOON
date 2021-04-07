@@ -114,9 +114,17 @@ const WorkName = styled.div`
     margin-bottom: ${({ theme }) => theme.calcRem(15)};
     font-weight: 700;
 
-    a { 
+    a, button { 
         margin-left: ${({ theme }) => theme.calcRem(10)};
         line-height: 1;
+    }
+
+    button {
+        padding: 0;
+        outline: none;
+        border: none;
+        background: none;
+        cursor: pointer;
     }
 `;
 
@@ -131,9 +139,8 @@ const WorkSkilsArea = styled.div`
 
 const WorkSkils = styled.span`
     display: inline-block;
-    height: ${({ theme }) => theme.calcRem(30)};
+    height: ${({ theme }) => theme.calcRem(50)};
     border-radius: ${({ theme }) => theme.calcRem(10)};
-    overflow: hidden;
 
     & + span {
         margin-left: ${({ theme }) => theme.calcRem(10)};
@@ -158,6 +165,12 @@ const portfolio = () => {
     const onToggleZoom = useCallback(() => {
         setOpenedZoom(!openedZoom);
     }, [openedZoom]);
+
+    const onClickWindowOpen = useCallback(({ url, name, width, height }) => {
+        console.log('onClickWindowOpen', url, name, width, height );
+//url, windowName, [windowFeatures]
+        const popup = window.open(url, name, `width=${width}, height=${height}`);
+    }, []);
 
     return (
         <>
@@ -209,7 +222,7 @@ const portfolio = () => {
                         </ContTitleArea>
 
                         <WorkArea>
-                            {portfolioData.map(({ image, name, src, desc, skils }) => {
+                            {portfolioData.map(({ image, name, size = null, src, desc, skils }) => {
                                 return (
                                     <WorkItems key={`portfolio_${name}`}>
                                         <InfoArea>
@@ -221,7 +234,6 @@ const portfolio = () => {
                                                 {(() => {
                                                     if (typeof src === 'object') {
                                                         return src.map((v, i) => {
-                                                            console.log('v',v)
                                                             return (
                                                                 <a  
                                                                     key={`${v}_${i}`}
@@ -234,15 +246,32 @@ const portfolio = () => {
                                                             )
                                                         });
                                                     } else {
-                                                        return (
-                                                            <a
-                                                                href={src} 
-                                                                title={`${name} 바로가기`} 
-                                                                target="_blank"
-                                                            >
+                                                        if (size) {
+                                                            return (
+                                                                <button
+                                                                    onClick={(() => {
+                                                                        onClickWindowOpen({ 
+                                                                            url: src, 
+                                                                            name: name,
+                                                                            width: size[0], 
+                                                                            height: size[1] 
+                                                                        })
+                                                                    })}
+                                                                >
                                                                     <HomeOutlined />
-                                                            </a>
-                                                        )
+                                                                </button>
+                                                            )
+                                                        } else {
+                                                            return (
+                                                                <a
+                                                                    href={src} 
+                                                                    title={`${name} 바로가기`} 
+                                                                    target="_blank"
+                                                                >
+                                                                        <HomeOutlined />
+                                                                </a>
+                                                            )
+                                                        }
                                                     }
                                                 })()}
                                             </WorkName>
