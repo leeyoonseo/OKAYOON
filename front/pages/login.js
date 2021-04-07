@@ -102,7 +102,7 @@ const Login = () => {
      * @params src: 아바타 이미지 주소 
      * - 1. Avatar 컴포넌트 기본이미지 세팅은 문자열 'default'를 전달받는 것을 기준으로 한다.
      */
-    const onToggleModal = useCallback((id, title) => () => {
+    const onToggleModal = useCallback((id, title) => {
         if (title) {
             setAvatar(title);
         }

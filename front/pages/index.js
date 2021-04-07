@@ -51,7 +51,7 @@ const Home = () => {
     }, [logInDone, loadAdminInfoDone, admin, cookies.me]);
 
     /** @params {string} id: 팝업 아이디 */
-    const onToggleModal = useCallback((id) => () => {
+    const onToggleModal = useCallback((id) => {
         dispatch({
             type: TOGGLE_MODAL_REQUEST,
             data: id

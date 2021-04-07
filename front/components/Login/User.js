@@ -22,8 +22,9 @@ const User = ({
     const dispatch = useDispatch();
     const { me, logInLoading, avatarList } = useSelector((state) => state.user);
     const [nickname, onChangeNickname, setNickname] = useInput(me?.nickname ? me.nickname : 'Guest');
-    const [haveNickname, setHaveNickname] = useState(false);
     const [cookies, setCookies, removeCookies] = useCookies(['me']);
+    const [haveNickname, setHaveNickname] = useState(false);
+    const [isFirstClicked, setIsFirstClicked] = useState(false);
     const inputRef = useRef(null);
 
     useEffect(() => {
@@ -74,15 +75,20 @@ const User = ({
         }
     }, [nickname]); 
 
+    const onClickAvatar = useCallback(() => {
+        onClickModal(AVATAR_MODAL_ID);
+        setIsFirstClicked(true);
+    }, [AVATAR_MODAL_ID]);
+
     return (
         <>
             <InfoArea>
-                <ClickText>↓ Click</ClickText>
+                {!isFirstClicked && <ClickText>↓ Click</ClickText>}
 
                 {avatar === 'nickname' ? (
                     <AvatarButton 
                         size={80} 
-                        onClick={onClickModal(AVATAR_MODAL_ID)}
+                        onClick={onClickAvatar}
                     >
                         {nickname.substr(0, 5)}
                     </AvatarButton>
@@ -91,7 +97,7 @@ const User = ({
                         size={80} 
                         src={getAvatarSrc()}
                         icon={<UserOutlined />} 
-                        onClick={onClickModal(AVATAR_MODAL_ID)}
+                        onClick={onClickAvatar}
                     />
                 )}
 

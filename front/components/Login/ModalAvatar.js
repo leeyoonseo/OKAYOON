@@ -66,14 +66,14 @@ const ModalAvatar = ({ id, onCloseModal }) => {
                 <Items>
                     <Button
                         className="default" 
-                        onClick={onCloseModal(id, 'nickname')}
+                        onClick={(() => onCloseModal(id, 'nickname'))}
                     >
                         Nickname
                     </Button>
                 </Items>
                 {avatarList.map(({ title, src }, i) => (
                     <Items key={`${title}_${i}`}>
-                        <Button onClick={onCloseModal(id, title)}>
+                        <Button onClick={(() => onCloseModal(id, title))}>
                             <img 
                                 src={src} 
                                 alt={title}

@@ -84,7 +84,7 @@ const ModalPopup = ({
                         <Controls>
                             <ControlButton 
                                 bgcolor={themeContext.colors.yellow}
-                                onClick={onCloseModal(id)}
+                                onClick={(() => onCloseModal(id))}
                             >
                                 <MinimizationIcon />
                             </ControlButton>
