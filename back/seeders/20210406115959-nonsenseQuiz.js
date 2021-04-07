@@ -4,6 +4,7 @@ module.exports = {
     up: async (queryInterface, Sequelize) => {
         await queryInterface.bulkInsert('nonsensequiz', [
             {
+                id: '1',
                 question: '타이타닉의 구명 보트에는 몇 명이 탈수 있을까?',
                 example: `[{
                         "isCorrect":true,
@@ -20,6 +21,7 @@ module.exports = {
                     }]`
             },
             {
+                id: '2',
                 question: '서울시민 모두가 동시에 외치면 무슨 말이 될까?',
                 example: `[{
                         "isCorrect":true,
@@ -36,6 +38,7 @@ module.exports = {
                     }]`
             },
             {
+                id: '3',
                 question: '금은 금인데 도둑고양이에게 가장 어울리는 금은?',
                 example: `[{
                         "isCorrect":true,
@@ -52,6 +55,7 @@ module.exports = {
                     }]`
             },
             {
+                id: '4',
                 question: '고기 먹을 때마다 따라오는 개는?',
                 example: `[{
                         "isCorrect":true,
@@ -68,6 +72,7 @@ module.exports = {
                     }]`
             },
             {
+                id: '5',
                 question: '진짜 새의 이름은 무엇일까요?',
                 example: `[{
                         "isCorrect":true,
@@ -84,6 +89,7 @@ module.exports = {
                     }]`
             },
             {
+                id: '6',
                 question: '사람의 몸무게가 가장 많이 나갈 때는?',
                 example: `[{
                         "isCorrect":true,
@@ -100,6 +106,7 @@ module.exports = {
                     }]`
             },
             {
+                id: '7',
                 question: '세상에서 제일 더러운 집은?',
                 example: `[{
                         "isCorrect":true,
@@ -116,6 +123,7 @@ module.exports = {
                     }]`
             },
             {
+                id: '8',
                 question: '서로 진짜라고 우기는 신은?',
                 example: `[{
                         "isCorrect":true,
@@ -132,6 +140,7 @@ module.exports = {
                     }]`
             },
             {
+                id: '9',
                 question: '재밌는 곳은 어딜까?',
                 example: `[{
                         "isCorrect":true,
@@ -148,6 +157,7 @@ module.exports = {
                     }]`
             },
             {
+                id: '10',
                 question: '겨울에 많이 쓰는 끈은?',
                 example: `[{
                         "isCorrect":true,
@@ -164,6 +174,7 @@ module.exports = {
                     }]`
             },
             {
+                id: '11',
                 question: '토끼들이 젤 잘 하는 것은 무엇일까?',
                 example: `[{
                         "isCorrect":true,
@@ -180,6 +191,7 @@ module.exports = {
                     }]`
             },
             {
+                id: '12',
                 question: '진짜 문제투성이인 것은?',
                 example: `[{
                         "isCorrect":true,
@@ -196,6 +208,7 @@ module.exports = {
                     }]`
             },
             {
+                id: '13',
                 question: '먹고 살기 위해 하는 내기는?',
                 example: `[{
                         "isCorrect":true,
@@ -212,6 +225,7 @@ module.exports = {
                     }]`
             },
             {
+                id: '14',
                 question: '눈이 녹으면 뭐가 될까?',
                 example: `[{
                         "isCorrect":true,
@@ -228,6 +242,7 @@ module.exports = {
                     }]`
             },
             {
+                id: '15',
                 question: '가슴의 무게는?',
                 example: `[{
                         "isCorrect":true,
@@ -244,6 +259,7 @@ module.exports = {
                     }]`
             },
             {
+                id: '16',
                 question: '개 중에 가장 아름다운 개는?',
                 example: `[{
                         "isCorrect":true,
@@ -260,6 +276,7 @@ module.exports = {
                     }]`
             },
             {
+                id: '17',
                 question: '다 자랐는데도 계속 자라라고 하는 것은?',
                 example: `[{
                         "isCorrect":true,
@@ -276,6 +293,7 @@ module.exports = {
                     }]`
             },
             {
+                id: '18',
                 question: '발이 두 개 달린 소는?',
                 example: `[{
                         "isCorrect":true,
@@ -292,6 +310,7 @@ module.exports = {
                     }]`
             },
             {
+                id: '19',
                 question: '사람이 즐겨 먹는 피는?',
                 example: `[{
                         "isCorrect":true,
@@ -308,6 +327,7 @@ module.exports = {
                     }]`
             },
             {
+                id: '20',
                 question: '약은 약인데 아껴 먹어야 하는 약은?',
                 example: `[{
                         "isCorrect":true,
@@ -324,6 +344,7 @@ module.exports = {
                     }]`
             },
             {
+                id: '21',
                 question: '장사꾼들이 싫어하는 경기는?',
                 example: `[{
                         "isCorrect":true,
@@ -340,6 +361,7 @@ module.exports = {
                     }]`
             },
             {
+                id: '22',
                 question: '창으로 찌르려고 할 때 하는 말은?',
                 example: `[{
                         "isCorrect":true,
@@ -356,6 +378,7 @@ module.exports = {
                     }]`
             },
             {
+                id: '23',
                 question: '파리 중에 가장 무거운 파리는?',
                 example: `[{
                         "isCorrect":true,
@@ -372,6 +395,7 @@ module.exports = {
                     }]`
             },
             {
+                id: '24',
                 question: '남이 먹어야 맛있는 것은?',
                 example: `[{
                         "isCorrect":true,
@@ -388,6 +412,7 @@ module.exports = {
                     }]`
             },
             {
+                id: '25',
                 question: '못 팔고도 돈 번 사람은?',
                 example: `[{
                         "isCorrect":true,
@@ -404,6 +429,7 @@ module.exports = {
                     }]`
             },
             {
+                id: '26',
                 question: '못사는 사람들이 하는 직업은?',
                 example: `[{
                         "isCorrect":true,
@@ -420,6 +446,7 @@ module.exports = {
                     }]`
             },
             {
+                id: '27',
                 question: '이상한 사람들이 모이는 곳은?',
                 example: `[{
                         "isCorrect":true,
@@ -436,6 +463,7 @@ module.exports = {
                     }]`
             },
             {
+                id: '28',
                 question: '눈사람의 반대말은?',
                 example: `[{
                         "isCorrect":true,
@@ -452,6 +480,7 @@ module.exports = {
                     }]`
             },
             {
+                id: '29',
                 question: '가위바위( ), 가갸거겨( ), 123456789( ), 가나( )답은?',
                 example: `[{
                         "isCorrect":true,
@@ -468,6 +497,7 @@ module.exports = {
                     }]`
             },
             {
+                id: '30',
                 question: '먹을수록 덜덜 떨리는 음식은?',
                 example: `[{
                         "isCorrect":true,
