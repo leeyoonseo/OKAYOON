@@ -327,8 +327,9 @@ const portfolio = () => {
                         <Contact />                    
                     </Contents>
                 </section>
-
-                <SideNav />
+                
+                {/* TODO: 현재 위치 알 수 있고, 네비인줄 알 수 있게 변경 */}
+                {/* <SideNav /> */}
 
                 <Footer />
             </Wrap>
@@ -337,5 +338,3 @@ const portfolio = () => {
 };
 
 export default portfolio;
-
-// TODO: 반응형
