@@ -4,7 +4,7 @@ import produce from '../util/produce';
 export const initialState = {
     formData: [],
 
-    navList: ['Home', 'I am', 'Portfolio', 'Contact'],
+    navList: ['Home', 'Exprience', 'Portfolio', 'Contact'],
 
     tagData: [
         '주말_카공_얼죽아',
@@ -123,7 +123,6 @@ export const initialState = {
             desc: `
                 React 학습 목적으로 제작한 포트폴리오 사이트<br/>
                 기획~배포까지 전체 작업 진행<br/><br/>
-                작업내역<br>
                 Nextjs로 환경 구축, Redux와 Redux-saga를 통해 데이터 상태 관리 및 통신 작업<br/>
                 sequelize로 데이터베이스 생성부터 정적인 데이터 삽입 등 db 관리<br/>
                 Passportjs로 어드민 로그인 구현, emailjs로 메일 발송기능 구현<br/>
@@ -148,7 +147,7 @@ export const initialState = {
             size: ['800', '400'],
             src: 'https://recorder-9c060.web.app/', 
             desc: `
-                리틀팍스 어학원에서 사용하는 녹음기 프론트엔드 담당<br/>
+                리틀팍스 어학원에서 사용하는 녹음기 프론트엔드 담당<br/><br/>
                 Audio Web API를 활용한 녹음 및 플레이어 기능 구현<br/>
                 가입자에게만 공개되어있으므로 테스트를 위해 firebase를 사용하여 임시배포
             `,
@@ -166,7 +165,7 @@ export const initialState = {
             src: 'https://toy-littlefox-newsletter.web.app/global', 
             desc: `
                 사내 솔루션 웹 서비스 프론트엔드 담당<br/>
-                기획, 디자인, 프론트엔드 개발까지 진행<br/>
+                기획, 디자인, 프론트엔드 개발까지 진행<br/><br/>
                 javascript, jQuery, vueJS로 개발 진행(vuejs 점진적 도입)<br/>
                 보안 상 내부 네트워크에서만 확인가능하므로 테스트를 위해 firebase를 사용하여 임시배포
             `,
@@ -182,8 +181,8 @@ export const initialState = {
             ],
             src: 'https://www.littlefox.co.kr/ko/games/contents_list/DP001024',
             desc: `
-                Construct와 Javascript를 활용한 게임 개발의 프론트엔드 담당<br/>
-                개편으로 인한 전체 코드 리팩터링 진행 및 추가 기능 개발<br/>
+                Construct와 Javascript를 사용하여 개발된 게임의 프론트엔드 담당<br/><br/>
+                개편으로 인한 전체 코드 리팩터링 진행 및 신규 기능 개발 작업<br/>
                 (사이트 접속 후 play를 눌러 확인할 수 있습니다.)
             `,
             skils: ['javascript', 'jquery', 'firebase', 'css3', 'html5', 'construct'],
@@ -196,9 +195,9 @@ export const initialState = {
             ],
             src: 'https://www.littlefox.co.kr/ko/main', 
             desc: `
-                사이트 유지보수 담당<br/>
-                유지보수, 새로운 페이지 제작,<br/>
-                자주 사용하는 기능을 컴포넌트로 개발하는 업무 등을 담당<br/> 
+                사이트 프론트 개발 담당<br><br/>
+                유지보수, 신규 페이지 개발, 기능 개발 작업<br/>
+                브라우저 체크, 타이머, 팝업등의 기능 개발 후 컴포넌트화 작업
             `,
             skils: ['javascript', 'jquery', 'firebase', 'css3', 'html5'],
         },
@@ -212,11 +211,11 @@ export const initialState = {
             ],
             src: 'https://www.rsupport.com/ko-kr/',
             desc: `
-                알서포트, 리모트콜, 리모트뷰, 타스, 라이트캠 총 5개의 브랜드 사이트 유지보수<br/>
-                솔루션 프로그램(Remotecall) 어드민 프론트엔드 담당<br/><br/>
-                워드프레스 기반의 사이트 유지보수, 랜딩 페이지 제작<br/>
-                Taas 사이트 구축 시 전체 프론트엔드 담당<br/>
-                솔루션 어드민 페이지 프론트엔드 담당
+                브랜드 사이트 유지보수(알서포트, 리모트콜, 리모트뷰, 타스, 라이트캠)<br/>
+                솔루션 프로그램 Remotecall 프론트엔드 담당<br/><br/>
+                워드프레스 기반의 사이트 유지보수, 신규 페이지 제작<br/>
+                Taas 사이트 구축 시 전체 프론트 개발 작업<br/>
+                솔루션의 원격 연결페이지, 어드민 페이지 작업
             `,
             skils: ['javascript', 'jquery', 'css3', 'html5' ],
         },

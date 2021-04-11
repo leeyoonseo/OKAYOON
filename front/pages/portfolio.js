@@ -167,9 +167,7 @@ const portfolio = () => {
     }, [openedZoom]);
 
     const onClickWindowOpen = useCallback(({ url, name, width, height }) => {
-        console.log('onClickWindowOpen', url, name, width, height );
-//url, windowName, [windowFeatures]
-        const popup = window.open(url, name, `width=${width}, height=${height}`);
+        window.open(url, name, `width=${width}, height=${height}`);
     }, []);
 
     return (
@@ -192,17 +190,17 @@ const portfolio = () => {
                         <Home />
                     </Contents>
 
-                    <Contents className="iam" bg={themeContext.pfColors.lightYellow}>
-                        <ContTitleArea>
+                    <Contents bg={themeContext.pfColors.lightYellow}>
+                        {/* <ContTitleArea>
                             <ContTitle>I am</ContTitle>
-                        </ContTitleArea>
+                        </ContTitleArea> */}
 
                         <Introduce />
                     </Contents>
 
-                    <Contents>
+                    <Contents className="exprience">
                         <ContTitleArea>
-                            <ContTitle>Exprienced</ContTitle>
+                            <ContTitle>Exprience</ContTitle>
                             <ContSubTitle>
                                 *상대적인 것이라 점수는 의미없다고 생각해 작성하지 않았습니다.<br />
                                 업무에서 사용하였거나 결과물을 만든 경험이 있는 항목들만 추가하였습니다.
