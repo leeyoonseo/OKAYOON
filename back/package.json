@@ -5,9 +5,11 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon app",
-    "start": "cross-env NODE_ENV=production pm2 start app.js",
     "seed_all": "npx sequelize db:seed:all",
-    "seed_undo_all": "npx sequelize db:seed:undo:all"
+    "seed_undo_all": "npx sequelize db:seed:undo:all",
+    "pm2_start": "cross-env NODE_ENV=production pm2 start app.js",
+    "pm2_monit": "npx pm2 monit",
+    "pm2_kill": "npx pm2 kill"
   },
   "author": "",
   "license": "ISC",

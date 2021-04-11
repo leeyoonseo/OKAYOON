@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "cross-env next -p 3060",
     "build": "cross-env ANALYZE=true NODE_ENV=production next build",
-    "start": "cross-env NODE_ENV=production next start -p 3060"
+    "start": "cross-env NODE_ENV=production next start -p 3060",
+    "pm2_start": "npx pm2 start npm -- start",
+    "pm2_monit": "npx pm2 monit",
+    "pm2_kill": "npx pm2 kill"
   },
   "author": "",
   "license": "ISC",
