@@ -21,7 +21,7 @@ const User = ({
 }) => {
     const dispatch = useDispatch();
     const { me, logInLoading, avatarList } = useSelector((state) => state.user);
-    const [nickname, onChangeNickname, setNickname] = useInput(me?.nickname ? me.nickname : 'Guest');
+    const [nickname, onChangeNickname, setNickname] = useInput(me?.nickname ? me.nickname : '');
     const [cookies, setCookies, removeCookies] = useCookies(['me']);
     const [haveNickname, setHaveNickname] = useState(false);
     const [isFirstClicked, setIsFirstClicked] = useState(false);
@@ -37,12 +37,14 @@ const User = ({
     }, [avatar]);
 
     const onClickReset = useCallback(() => {
-        setNickname('Guest');
+        setNickname('');
         setAvatar('nickname');
         setHaveNickname(false);
     }, []);
 
     const onSubmit = useCallback(() => {
+        let nick = nickname;
+
         setCookies('me', { 
                 avatar: avatar,
                 nickname: nickname
@@ -51,11 +53,17 @@ const User = ({
             }
         );
 
+        if (nickname === '' || nickname.trim() === '') {
+            console.log('비어있다 닉네임');
+            setNickname('guest');
+            nick = 'guest';
+        }
+
         dispatch({
             type: LOG_IN_REQUEST,
             data: {
                 avatar: avatar,
-                nickname: nickname
+                nickname: nick
             }
         });
 
