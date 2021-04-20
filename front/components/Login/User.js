@@ -54,7 +54,6 @@ const User = ({
         );
 
         if (nickname === '' || nickname.trim() === '') {
-            console.log('비어있다 닉네임');
             setNickname('guest');
             nick = 'guest';
         }
