@@ -57,10 +57,10 @@ export const initialState = {
             name: 'redux_saga',
             src: `${bucketUrl}/portfolio/skils/icon_redux_saga.png`,
         },
-        {
-            title: 'Vue',
-            src: `${bucketUrl}/portfolio/skils/icon_vue.png`,
-        },
+        // {
+        //     title: 'Vue',
+        //     src: `${bucketUrl}/portfolio/skils/icon_vue.png`,
+        // },
         {
             name: 'axios',
             src: `${bucketUrl}/portfolio/skils/icon_axios.png`,
@@ -81,10 +81,10 @@ export const initialState = {
             name: 'css',
             src: `${bucketUrl}/portfolio/skils/icon_css3.png`,
         },
-        {
-            name: 'scss',
-            src: `${bucketUrl}/portfolio/skils/icon_scss.png`,
-        },
+        // {
+        //     name: 'scss',
+        //     src: `${bucketUrl}/portfolio/skils/icon_scss.png`,
+        // },
         
         {
             name: 'styled_components',
@@ -102,10 +102,10 @@ export const initialState = {
             name: 'firebase',
             src: `${bucketUrl}/portfolio/skils/icon_firebase.png`,
         },
-        {
-            name: 'construct',
-            src: `${bucketUrl}/portfolio/skils/icon_construct.png`,
-        },
+        // {
+        //     name: 'construct',
+        //     src: `${bucketUrl}/portfolio/skils/icon_construct.png`,
+        // },
     ],
 
     portfolioData: [
@@ -153,24 +153,24 @@ export const initialState = {
             `,
             skils: ['javascript', 'jquery', 'firebase', 'css3', 'html5'],
         },
-        {
-            name: 'Newsletter (사내 솔루션)',
-            image: [
-                `${bucketUrl}/portfolio/site/portfolio_newsletter0.png`,
-                `${bucketUrl}/portfolio/site/portfolio_newsletter1.png`,
-                `${bucketUrl}/portfolio/site/portfolio_newsletter2.png`,
-                `${bucketUrl}/portfolio/site/portfolio_newsletter3.png`,
-                `${bucketUrl}/portfolio/site/portfolio_newsletter4.png`,
-            ],
-            src: 'https://toy-littlefox-newsletter.web.app/global', 
-            desc: `
-                사내 솔루션 웹 서비스 프론트 엔드 담당<br/>
-                기획, 디자인, 프론트엔드 개발까지 진행<br/><br/>
-                Javascript, jQuery, Vuejs로 개발 진행(Vuejs 점진적 도입)<br/>
-                보안상 내부 네트워크에서만 확인 가능하므로 테스트를 위해 firebase를 사용하여 임시배포
-            `,
-            skils: ['javascript', 'vue', 'jquery', 'firebase', 'html5', 'css3' ],
-        },
+        // {
+        //     name: 'Newsletter (사내 솔루션)',
+        //     image: [
+        //         `${bucketUrl}/portfolio/site/portfolio_newsletter0.png`,
+        //         `${bucketUrl}/portfolio/site/portfolio_newsletter1.png`,
+        //         `${bucketUrl}/portfolio/site/portfolio_newsletter2.png`,
+        //         `${bucketUrl}/portfolio/site/portfolio_newsletter3.png`,
+        //         `${bucketUrl}/portfolio/site/portfolio_newsletter4.png`,
+        //     ],
+        //     src: 'https://toy-littlefox-newsletter.web.app/global', 
+        //     desc: `
+        //         사내 솔루션 웹 서비스 프론트 엔드 담당<br/>
+        //         기획, 디자인, 프론트엔드 개발까지 진행<br/><br/>
+        //         Javascript, jQuery, Vuejs로 개발 진행(Vuejs 점진적 도입)<br/>
+        //         보안상 내부 네트워크에서만 확인 가능하므로 테스트를 위해 firebase를 사용하여 임시배포
+        //     `,
+        //     skils: ['javascript', 'vue', 'jquery', 'firebase', 'html5', 'css3' ],
+        // },
         {
             name: '스타워즈 / 크로스워드 게임',
             image: [
