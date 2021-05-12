@@ -177,7 +177,6 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             break;
 
         case ADD_GUESTBOOK_SUCCESS:
-            console.log('?action.data', action.data);
             draft.guestbook.unshift(action.data);
             draft.guestbookCount++;    
             draft.addGuestbookLoading = false;
