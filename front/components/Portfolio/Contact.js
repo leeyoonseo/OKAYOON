@@ -91,7 +91,7 @@ const RefMessage = styled.div`
 
 const Contact = () => {
     const dispatch = useDispatch();
-    const { sendMailDone } = useSelector((state) => state.portfolio);
+    const { sendMailDone, sendMailLoading } = useSelector((state) => state.portfolio);
     const [name, onChangeName, setName] = useInput('');
     const [email, onChangeEmail, setEmail] = useInput('');
     const [phone, onChangePhone, setPhone] = useInput('');
@@ -210,7 +210,10 @@ const Contact = () => {
                         </RefMessage>
                     </div>
 
-                    <button type="submit">
+                    <button 
+                        type="submit"
+                        disabled={sendMailLoading}
+                    >
                         보내기
                     </button>
                 </Form>
