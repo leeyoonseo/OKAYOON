@@ -57,6 +57,9 @@ const Okayoon = ({ Component }) => {
                 <meta property="og:title" content="Okayoon" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
                 <title>OKAYOON</title>
+
+                <link href="https://fonts.googleapis.com/css?family=Stylish:400" rel="stylesheet" type="text/css" />
+                <link href="https://fonts.googleapis.com/css?family=Sunflower:500,700" rel="stylesheet" type="text/css" />
             </Head>
             <Global />
             <Component />

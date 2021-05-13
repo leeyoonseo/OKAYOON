@@ -93,7 +93,11 @@ const Form = ({
     content,
 }) => {
     const dispatch = useDispatch();
-    const { addGuestbookLoading, addGuestbookDone, addCommentDone } = useSelector((state) => state.guestbook);
+    const { 
+        addGuestbookLoading, addGuestbookDone, 
+        addCommentDone, addCommentLoading,
+        updateGuestbookLoading,
+    } = useSelector((state) => state.guestbook);
     const [text, onChangeText, setText] = useInput('');
     const [password, onChangePassword, setPassword] = useInput('');
     const [visiblePassword, setVisiblePassword] = useState(false);
@@ -153,7 +157,7 @@ const Form = ({
         let valid = validation();
 
         if (!valid) return;
-        
+
         if (formtype === FORM_CREATE) {
             type = ADD_GUESTBOOK_REQUEST;
             data.password = password;
@@ -245,7 +249,7 @@ const Form = ({
                     <SubmitButton 
                         type="button" 
                         onClick={onSubmit}
-                        disabled={addGuestbookLoading}
+                        disabled={addGuestbookLoading || addCommentLoading || updateGuestbookLoading}
                     >
                         {formtype === FORM_EDIT ? '수정' : '등록'}
                     </SubmitButton>
