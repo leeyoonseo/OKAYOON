@@ -35,12 +35,7 @@ export const initialState = {
     deleteGuestbookLoading: false,
     deleteGuestbookDone: false,
     deleteGuestbookError: false,
-
-    // [D] 방명록 수정
-    editGuestbookLoading: false,
-    editGuestbookDone: false,
-    editGuestbookError: false,
-
+    
     // [D] 댓글 등록
     addCommentLoading: false,
     addCommentDone: false,
