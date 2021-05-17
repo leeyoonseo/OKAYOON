@@ -48,28 +48,21 @@ const ItemMeta = styled(List.Item.Meta)`
     align-items: center;
 `;
 
-const ListType = ({ 
-    data,
-    onClickZoom,
-}) => {
-    return (
-        <>
-            <ListWrap
-                itemLayout="horizontal"
-                dataSource={data}
-                renderItem={item => (
-                <Item onClick={onClickZoom(item)}>
-                    <ItemMeta
-                        avatar={<Avatar src={item.src} />}
-                        title={<span>{item.title}</span>}
-                        description={item.desc}
-                    />
-                </Item>
-                )}
+const ListType = ({ data, onClickZoom }) => (
+    <ListWrap
+        itemLayout="horizontal"
+        dataSource={data}
+        renderItem={item => (
+        <Item onClick={(() => onClickZoom(item))}>
+            <ItemMeta
+                avatar={<Avatar src={item.src} />}
+                title={<span>{item.title}</span>}
+                description={item.desc}
             />
-        </>
-    );
-};
+        </Item>
+        )}
+    />
+);
 
 ListType.propTypes = {
     data: PropTypes.array.isRequired,
