@@ -8,14 +8,15 @@ const { Comment, Guestbook, Admin } = require('../models');
 router.get('/', async (req, res, next) => { // GET /guestbook
     try {
         const where = {};
+        const { lastId, limit = 10 } = req.query;
 
-        if (parseInt(req.query.lastId, 10)) {
-            where.id = { [Op.lt]: parseInt(req.query.lastId, 10)}
+        if (parseInt(lastId, limit)) {
+            where.id = { [Op.lt]: parseInt(lastId, limit)}
         }
 
         const guestbook = await Guestbook.findAll({
             where,
-            limit: 10,
+            limit: parseInt(limit),
             order: [
                 ['createdAt', 'DESC'],
                 [Comment, 'createdAt', 'DESC'],

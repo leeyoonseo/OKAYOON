@@ -69,7 +69,7 @@ function* watchRevokePermission(){
 
 // [D] 방명록 가져오기
 function loadGuestbookAPI(lastId){
-    return axios.get(`/guestbook?lastId=${lastId || 0}`);
+    return axios.get(`/guestbook?lastId=${lastId || 0}&limit=10`);
 };
 
 function* loadGuestbook(action){
