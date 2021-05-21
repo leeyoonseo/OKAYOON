@@ -10,7 +10,7 @@ import CatchMindForm from './CatchMindForm';
 const Admin = ({ list, onClickBack }) => {
     const [dataName, setDataName] = useState(null);
 
-    const onClickOption = useCallback((name) => () => {
+    const onClickOption = useCallback(name => {
         setDataName(name);
     }, []);
 
@@ -35,7 +35,7 @@ const Admin = ({ list, onClickBack }) => {
                                     id={name} 
                                     name="add-data" 
                                     value={name} 
-                                    onClick={onClickOption(name)} 
+                                    onClick={(() => onClickOption(name))} 
                                 />
                                 <label 
                                     htmlFor={name}

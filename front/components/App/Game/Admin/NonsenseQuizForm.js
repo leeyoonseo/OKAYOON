@@ -25,19 +25,16 @@ const NonsenseQuizForm = ({ gameName }) => {
         setWrongAnswer('');
     }, []);
 
-    const onReset = useCallback((e) => {
+    const onReset = useCallback(e => {
         e.preventDefault();
         allReset();
     }, []);
 
-    const onsubmit = useCallback((e) => {
+    const onsubmit = useCallback(e => {
         e.preventDefault();
-        let validateNum = 0;
-
-        const data = {
-            gameName: gameName,
-            example: [],
-        };
+        let data = {};
+        let example = [];
+        let failCount = 0;
 
         Array.from(formRef.current.elements).map(({ 
             nodeName, 
@@ -48,40 +45,43 @@ const NonsenseQuizForm = ({ gameName }) => {
             if (nodeName !== 'INPUT') return;
         
             if (!value || !value.trim()) {
-                validateNum++;
+                failCount++;
                 return alert(`${placeholder} 비었습니다.`);
             }
 
             if (name === 'answer') {
-                data.example.push({
+                example.push({
                     isCorrect: true,
                     answer: value
                 });
                 
             } else if (name === 'wrongAnswer') {
                 value.split(',').map((txt) => {
-                    data.example.push({
+                    example.push({
                         isCorrect: false,
                         answer: txt
                     });
                 });
 
-                data.example = JSON.stringify(data.example);
+                example = JSON.stringify(example);
 
             } else {
                 data[name] = value;
             }
         });
 
-        if(!validateNum) {
+        if(!failCount) {
+            data['gameName'] = gameName;
+            data['example'] = example;
+
             dispatch({
                 type: ADD_GAME_REQUEST,
-                data: data
+                data
             });
         }
-    }, [gameName]);
+    }, []);
 
-    const onEnter = useCallback((e) => {
+    const onEnter = useCallback(e => {
         if (e.code === 'Enter') {
             onsubmit(e);
         }

@@ -6,13 +6,23 @@ import { ADD_GAME_REQUEST } from '../../../../reducers/game';
 import { Form, Item, Input, ButtonArea } from './formStyle';
 import styled from 'styled-components';
 
-const IncorrectNum = styled.span`
+const IncorrectLength = styled.span`
     margin: 0 auto;
     display: block;
     width: 70%;
     font-size: ${({ theme }) => theme.calcRem(12)}; 
     text-align: right;
 `;
+
+const getWord = words => {
+    return words
+        .split(',')
+        .filter(v => v !== '');
+};
+
+const getWordLenght = words => {
+    return getWord(words).length;
+};
 
 const CatchMindForm = ({ gameName }) => {
     const dispatch = useDispatch();
@@ -21,7 +31,7 @@ const CatchMindForm = ({ gameName }) => {
     const [correct, onChangeCorrect, setCorrect] = useInput('');
     const [incorrect, onChangeIncorrect, setIncorrect] = useInput('');
     const formRef = useRef(null);
-    const [incorrectNum, setIncorrectNum] = useState(0);
+    const [incorrectLength, setIncorrectLength] = useState(0);
 
     useEffect(() => {
         if (addGameDone) {
@@ -30,10 +40,8 @@ const CatchMindForm = ({ gameName }) => {
     }, [addGameDone]);
 
     useEffect(() => {
-        let arr = incorrect.split(',');
-        arr = arr.filter((v) => v !== '');
-
-        setIncorrectNum(arr.length);
+        const incorrectLength = getWordLenght(incorrect)
+        setIncorrectLength(incorrectLength);
     }, [incorrect]);
 
     const allReset = useCallback(() => {
@@ -42,17 +50,15 @@ const CatchMindForm = ({ gameName }) => {
         setIncorrect('');
     }, []);
 
-    const onReset = useCallback((e) => {
+    const onReset = useCallback(e => {
         e.preventDefault();
         allReset();
     }, []);
 
-    const onsubmit = useCallback((e) => {
+    const onsubmit = useCallback(e => {
         e.preventDefault();
-        let validateNum = 0;
-        const data = {
-            gameName: gameName,
-        };
+        let data = {};
+        let failCount = 0;
 
         Array.from(formRef.current.elements).map(({ 
             nodeName, 
@@ -61,31 +67,36 @@ const CatchMindForm = ({ gameName }) => {
             placeholder, 
         }) => {
             if (nodeName !== 'INPUT') return;
+            let val = value;
         
-            if (!value || !value.trim()) {
-                validateNum++;
+            if (!val || !val.trim()) {
+                failCount++;
                 return alert(`${placeholder} 비었습니다.`);
             }
 
-            let val = value;
-
             if (name === 'incorrect') {
-                val = val.split(',').filter((o) => o !== '');
-                val = JSON.stringify(val);
+                if (getWordLenght(val) <= 11) {
+                    failCount++;
+                    return alert('오답을 12자 이상 입력하세요.');
+                }
+
+                val = JSON.stringify(getWord(val));
             }
             
             data[name] = val;
         });
 
-        if(!validateNum) {
+        if(!failCount) {
+            data['gameName'] = gameName;
+
             dispatch({
                 type: ADD_GAME_REQUEST,
-                data: data
+                data
             });
         }
-    }, [gameName]);
+    }, []);
 
-    const onEnter = useCallback((e) => {
+    const onEnter = useCallback(e => {
         if (e.code === 'Enter') {
             onsubmit(e);
         }
@@ -128,9 +139,8 @@ const CatchMindForm = ({ gameName }) => {
                     onKeyPress={onEnter}
                     value={incorrect}
                 />
-                <IncorrectNum>{incorrectNum}</IncorrectNum>
+                <IncorrectLength>{incorrectLength}</IncorrectLength>
             </Item>
-
             
             <ButtonArea>
                 <button onClick={onReset}>초기화</button>

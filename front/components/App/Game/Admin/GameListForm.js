@@ -40,15 +40,15 @@ const GameListForm = ({ gameName }) => {
         setDesc('');
     }, []);
 
-    const onReset = useCallback((e) => {
+    const onReset = useCallback(e => {
         e.preventDefault();
         allReset();
     }, []);
 
-    const onSubmit = useCallback((e) => {
+    const onSubmit = useCallback(e => {
         e.preventDefault();
-        let validateNum = 0;
-        const data = {};
+        let data = {};
+        let failCount = 0;
 
         Array.from(formRef.current.elements).map(({ 
             nodeName, 
@@ -59,20 +59,22 @@ const GameListForm = ({ gameName }) => {
             if (nodeName !== 'INPUT') return;
 
             if (!value || !value.trim()) {
-                validateNum++;
+                failCount++;
                 return alert(`${placeholder} 비었습니다.`);
             }
 
             data[name] = value;
         }); 
 
-        if(!validateNum) {
+        if(!failCount) {
+            data['gameName'] = gameName;
+        
             dispatch({
                 type: ADD_GAMELIST_REQUEST,
-                data: data
+                data
             });
         }
-    }, [gameName]);
+    }, []);
 
     return (
         <Form ref={formRef}>
