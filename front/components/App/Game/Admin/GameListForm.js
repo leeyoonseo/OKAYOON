@@ -89,7 +89,7 @@ const GameListForm = ({ gameName }) => {
                     maxLength={20}
                     onChange={onChangeName}
                     value={name}
-                    autocomplete="off"
+                    autoComplete="off"
                 />
             </Item>
             <Item>
@@ -99,7 +99,7 @@ const GameListForm = ({ gameName }) => {
                     maxLength={20}
                     onChange={onChangeTitle}
                     value={title}
-                    autocomplete="off"
+                    autoComplete="off"
                 />
             </Item>
             <Item>
@@ -109,7 +109,7 @@ const GameListForm = ({ gameName }) => {
                     maxLength={100}
                     onChange={onChangeImgSrc}
                     value={imgSrc}
-                    autocomplete="off"
+                    autoComplete="off"
                 /> 
             </Item>
             <Item>
@@ -119,7 +119,7 @@ const GameListForm = ({ gameName }) => {
                     maxLength={200}
                     onChange={onChangeDesc}
                     value={desc}
-                    autocomplete="off"
+                    autoComplete="off"
                 /> 
             </Item>
 

@@ -95,7 +95,7 @@ const NonsenseQuizForm = ({ gameName }) => {
                     placeholder="문제"
                     name="question"
                     maxLength={100}
-                    autocomplete="off"
+                    autoComplete="off"
                     onChange={onChangeQuestion}
                     onKeyPress={onEnter}
                     value={question}
@@ -107,7 +107,7 @@ const NonsenseQuizForm = ({ gameName }) => {
                     placeholder="정답"
                     name="answer"
                     maxLength={20}
-                    autocomplete="off"
+                    autoComplete="off"
                     onChange={onChangeAnswer}
                     onKeyPress={onEnter}
                     value={answer}
@@ -119,7 +119,7 @@ const NonsenseQuizForm = ({ gameName }) => {
                     placeholder="오답 ','로 구분해서 총 3개 입력"
                     name="wrongAnswer"
                     maxLength={100}
-                    autocomplete="off"
+                    autoComplete="off"
                     onChange={onChangeWrongAnswer}
                     onKeyPress={onEnter}
                     value={wrongAnswer}

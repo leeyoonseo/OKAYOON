@@ -64,7 +64,7 @@ const Admin = ({ list, onClickBack }) => {
                 } else {
                     return (
                         <NotifyMessage>
-                            항목을 선택해주세요...
+                            항목을 선택하세요.
                         </NotifyMessage>
                     )
                 }

@@ -9,7 +9,7 @@ import styled from 'styled-components';
 const IncorrectNum = styled.span`
     margin: 0 auto;
     display: block;
-    width: 50%;
+    width: 70%;
     font-size: ${({ theme }) => theme.calcRem(12)}; 
     text-align: right;
 `;
@@ -99,7 +99,7 @@ const CatchMindForm = ({ gameName }) => {
                     placeholder="문제 이미지 주소"
                     name="question"
                     maxLength={100}
-                    autocomplete="off"
+                    autoComplete="off"
                     onChange={onChangeQuestion}
                     onKeyPress={onEnter}
                     value={question}
@@ -111,7 +111,7 @@ const CatchMindForm = ({ gameName }) => {
                     placeholder="정답"
                     name="correct"
                     maxLength={20}
-                    autocomplete="off"
+                    autoComplete="off"
                     onChange={onChangeCorrect}
                     onKeyPress={onEnter}
                     value={correct}
@@ -120,10 +120,10 @@ const CatchMindForm = ({ gameName }) => {
 
             <Item>
                 <Input 
-                    placeholder="오답 ','로 구분해서 최소 12글자 입력"
+                    placeholder="오답 ','로 구분해서 12자이상 입력 (EX:가,나,다,라)"
                     name="incorrect"
                     maxLength={100}
-                    autocomplete="off"
+                    autoComplete="off"
                     onChange={onChangeIncorrect}
                     onKeyPress={onEnter}
                     value={incorrect}
