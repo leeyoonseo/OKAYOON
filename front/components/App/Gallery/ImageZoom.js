@@ -87,7 +87,11 @@ const ImageZoom = ({ item, onClose }) => {
 };
 
 ImageZoom.propTypes = {
-    item: PropTypes.object.isRequired, 
+    item: PropTypes.shape({
+        src: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+        desc: PropTypes.string.isRequired,
+    }), 
     onClose: PropTypes.func.isRequired,
 };  
 

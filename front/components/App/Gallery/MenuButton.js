@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const getIconColor = (activeType, name, { black }) => {
-    return (activeType === name) ? 'white' : black;
+const getIconColor = (type, name, { black }) => {
+    return (type === name) ? 'white' : black;
 };
 
 const Button = styled.button`
@@ -26,35 +26,30 @@ const Button = styled.button`
 
     span {
         vertical-align: middle;
-        color: ${({ activeType, name }) => getIconColor(activeType, name, `${({ theme }) => theme.colors}`)};
+        color: ${({ type, name }) => getIconColor(type, name, `${({ theme }) => theme.colors}`)};
     }
 `;
 
-const MenuButton = ({ activeType, name, onClick, Icon }) => {
-    return (
-        <Button
-            activeType={activeType}
+const MenuButton = ({ type, name, onClick, Icon }) => (
+    <Button
+        type={type}
+        name={name}
+        className={type === name ? 'active' : ''}
+        onClick={(() => onClick(name))}
+    >
+        <Icon 
+            type={type} 
             name={name}
-            className={activeType === name ? 'active' : ''}
-            onClick={(() => onClick(name))}
-        >
-            <Icon 
-                type={activeType} 
-                name={name}
-            />
-
-            <span className="hidden">{name} 타입 버튼</span>
-        </Button>
-    );
-};
+        />
+        <span className="hidden">{name} 타입 버튼</span>
+    </Button>
+);
 
 MenuButton.propTypes = {
-    activeType: PropTypes.string.isRequired, 
+    type: PropTypes.string.isRequired, 
     name: PropTypes.string.isRequired, 
     onClick: PropTypes.func.isRequired, 
     Icon: PropTypes.object.isRequired,
 };
 
 export default MenuButton;
-
-// TODO: 정적 컴포넌트

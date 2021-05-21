@@ -66,40 +66,48 @@ const Gallery = () => {
     return (
         <Wrap>
             <Container>
-                {type === SLIDE && <SlideType data={imageData} />}
-
-                {type === CARD && (
-                    <CardType 
-                        data={imageData} 
-                        onClickZoom={onClickZoom}
-                    />
-                )}
-
-                {type === LIST && (
-                    <ListType 
-                        data={imageData} 
-                        onClickZoom={onClickZoom}
-                    />
-                )}
+                {(() => {
+                    if (type === SLIDE) {
+                        return (
+                            <SlideType 
+                                images={imageData} 
+                            />
+                        )
+                    } else if (type === CARD) {
+                        return (
+                            <CardType 
+                                images={imageData} 
+                                onClickZoom={onClickZoom}
+                            />
+                        )
+                    } else {
+                        return (
+                            <ListType 
+                                images={imageData} 
+                                onClickZoom={onClickZoom}
+                            />
+                        )
+                    }
+                })()}
             </Container>
             
             <MenuArea>
                 <MenuButton 
-                    activeType={type}
+                    type={type}
                     name={CARD}
                     onClick={onClickMenu}
                     Icon={AppstoreOutlined}
                 />
 
                 <MenuButton 
-                    activeType={type}
+                    type={type}
                     name={SLIDE}
                     onClick={onClickMenu}
                     Icon={SplitCellsOutlined}
                 />
 
                 <MenuButton 
-                    activeType={type}
+                    type={type}
                     name={LIST}
                     onClick={onClickMenu}
                     Icon={ProfileOutlined}

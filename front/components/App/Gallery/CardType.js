@@ -27,9 +27,9 @@ const Image = styled.img`
     width: 100%;
 `;
 
-const CardType = ({ data, onClickZoom }) => (
+const CardType = ({ images, onClickZoom }) => (
     <Wrap>
-        {data.map(({ title, src }) => (
+        {images.map(({ title, src }) => (
             <Items 
                 key={title}
                 onClick={(() => onClickZoom({ title, src }))}
@@ -46,7 +46,7 @@ const CardType = ({ data, onClickZoom }) => (
 );
 
 CardType.propTypes = {
-    data: PropTypes.array.isRequired,
+    images: PropTypes.array.isRequired,
     onClickZoom: PropTypes.func.isRequired,
 };
 

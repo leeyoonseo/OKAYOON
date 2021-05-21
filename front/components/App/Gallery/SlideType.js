@@ -108,7 +108,7 @@ const NextIcon = styled(RightOutlined)`
     ${defaultIconStyle}
 `;
 
-const SlideType = ({ data }) => {
+const SlideType = ({ images }) => {
     const [mainSlick, setMainSlick] = useState(null);
     const [pagingSlick, setPagingSlick] = useState(null);
     const mainSlickRef = useRef(null);
@@ -148,7 +148,7 @@ const SlideType = ({ data }) => {
                         asNavFor={pagingSlick}
                         {...mainSettings}
                     >
-                        {data.map(({ title, src, desc }, i) => {
+                        {images.map(({ title, src, desc }, i) => {
                             return (
                                 <MainSlickItems 
                                     key={`${title}_${i}`}
@@ -185,7 +185,7 @@ const SlideType = ({ data }) => {
                         asNavFor={mainSlick}
                         {...pagingSettings}
                     >
-                        {data.map(({ title, src }, i) => {
+                        {images.map(({ title, src }, i) => {
                             return (
                                 <PagingItems 
                                     key={`${title}_${i}`}
@@ -215,7 +215,7 @@ const SlideType = ({ data }) => {
 };
 
 SlideType.propTypes = {
-    data: PropTypes.array.isRequired,
+    images: PropTypes.array.isRequired,
 };
 
 export default SlideType;

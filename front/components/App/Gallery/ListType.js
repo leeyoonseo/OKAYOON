@@ -1,8 +1,7 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { List, Avatar } from 'antd';
-import ImageZoom from './ImageZoom';
 
 const ListWrap = styled(List)`
     &:after {
@@ -34,7 +33,6 @@ const Item = styled(List.Item)`
         box-shadow: ${({ theme }) => theme.calcRem(1)} ${({ theme }) => theme.calcRem(1)} ${({ theme }) => theme.calcRem(5)} ${({ theme }) => theme.colors.rgbaBlack};
     }
 
-
     @media only screen and ${({ theme }) => theme.device.mobileS} {
         .ant-list-item-meta-description {
             text-overflow: ellipsis;
@@ -48,10 +46,10 @@ const ItemMeta = styled(List.Item.Meta)`
     align-items: center;
 `;
 
-const ListType = ({ data, onClickZoom }) => (
+const ListType = ({ images, onClickZoom }) => (
     <ListWrap
         itemLayout="horizontal"
-        dataSource={data}
+        dataSource={images}
         renderItem={item => (
         <Item onClick={(() => onClickZoom(item))}>
             <ItemMeta
@@ -65,7 +63,7 @@ const ListType = ({ data, onClickZoom }) => (
 );
 
 ListType.propTypes = {
-    data: PropTypes.array.isRequired,
+    images: PropTypes.array.isRequired,
     onClickZoom: PropTypes.func.isRequired,
 };
 
