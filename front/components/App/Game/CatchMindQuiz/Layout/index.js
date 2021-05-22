@@ -7,7 +7,7 @@ import { HomeOutlined, LeftOutlined } from '@ant-design/icons';
 import Main from './Main';
 import Game from './Game';
 import Finish from './Finish';
-import { LOAD_GAME_REQUEST, CATCH_MIND, STORE } from '../../../../reducers/game';
+import { LOAD_GAME_REQUEST, CATCH_MIND, STORE } from '../../../../../reducers/game';
 
 export const STEP_MAIN = 'main';
 export const STEP_GAME = 'game';
@@ -80,7 +80,9 @@ const CatchMindQuiz = ({ onClickHome }) => {
         });
     }, []);
 
-    const onChangeStep = useCallback((changeStep) => () => setStep(changeStep), []);
+    const onChangeStep = useCallback(changeStep => {
+        setStep(changeStep);
+    }, []);
 
     return (
         <>
@@ -91,7 +93,7 @@ const CatchMindQuiz = ({ onClickHome }) => {
                 </HomeButton>
 
                 {step !== STEP_MAIN && (
-                    <MainButton onClick={onChangeStep(STEP_MAIN)}>
+                    <MainButton onClick={(() => onChangeStep(STEP_MAIN))}>
                         <MainIcon />
                         <span className="hidden">이전 상태로 가기</span>
                     </MainButton>

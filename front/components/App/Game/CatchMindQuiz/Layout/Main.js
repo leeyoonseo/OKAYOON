@@ -1,10 +1,10 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import styled, { css } from 'styled-components';
-import { bucketUrl } from '../../../../config/config';
-import { shuffleArray, cloneObject } from '../../../../util/common';
+import { bucketUrl } from '../../../../../config/config';
+import { shuffleArray, cloneObject } from '../../../../../util/common';
 
 import { STEP_GAME } from './index';
-import Layout from './Layout';
+import Frame from '../Module/Frame';
 
 const initialButton = css`
     padding: 0;
@@ -48,6 +48,8 @@ const Highlighter = styled.div`
 const StartButton = styled.button`
     ${initialButton}
     position: relative;
+    width: 100%;
+    height: 100%;
     font-size: ${({ theme }) => theme.calcRem(40)};
     color: ${({ theme }) => theme.cColors.red};
     text-shadow: ${({ theme }) => theme.calcRem(2)} ${({ theme }) => theme.calcRem(2)} ${({ theme }) => theme.calcRem(2)} white;
@@ -85,7 +87,7 @@ const Main = ({
     }, [data]);
 
     return (
-        <Layout>
+        <Frame>
             <Inner>
                 <MainImageArea>
                     <img src={`${bucketUrl}/game/catchmind/icon_drawing.png`} title="크레용 이미지" />
@@ -94,7 +96,7 @@ const Main = ({
                 <TitleArea>
                     <Highlighter />
                     <StartButton 
-                        onClick={onChangeStep(STEP_GAME)}
+                        onClick={(() => onChangeStep(STEP_GAME))}
                         disabled={!ready}
                     >
                         {ready ? '시작하기' : 'No Data'}
@@ -102,7 +104,7 @@ const Main = ({
                 </TitleArea>
             </Inner>
             <Copyright>디자인 참고: 캐치마인드</Copyright>
-        </Layout>
+        </Frame>
     );
 };
 
