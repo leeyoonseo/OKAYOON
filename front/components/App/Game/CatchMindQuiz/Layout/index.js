@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 
@@ -134,5 +135,9 @@ const CatchMindQuiz = ({ onClickHome }) => {
         </>
     );
 };
+
+CatchMindQuiz.prototype = {
+    onClickHome: PropTypes.func.isRequired,
+};  
 
 export default CatchMindQuiz;

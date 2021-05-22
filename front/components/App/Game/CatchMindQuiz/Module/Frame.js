@@ -1,11 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled  from 'styled-components';
 
 const Wrap = styled.div`
     position: relative;
     display: flex;
     height: ${({ theme }) => theme.calcRem(550)};
-    // height: calc(100% - ${({ theme }) => theme.calcRem(30)});
     font-family: 'Sunflower';
     text-align: center;
     justify-content: center;
@@ -17,7 +17,7 @@ const Wrap = styled.div`
     }
 `;
 
-const Layout = ({ children }) => {
+const Frame = ({ children }) => {
     return (
         <Wrap>
             {children}
@@ -25,4 +25,12 @@ const Layout = ({ children }) => {
     );
 };
 
-export default Layout;
+Frame.propTypes = {
+    children: PropTypes.oneOfType([
+        PropTypes.element,
+        PropTypes.array,
+        PropTypes.object,
+    ]).isRequired,
+};
+
+export default Frame;

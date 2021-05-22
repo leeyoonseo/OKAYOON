@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { bucketUrl } from '../../../../../config/config';
 import Frame from '../Module/Frame';
@@ -44,7 +45,7 @@ const getRatio = (score, MAX_ROUND) => {
     return (score / MAX_ROUND) * 100;
 };
 
-const getResultData = (ratio) => {
+const getResultData = ratio => {
     let data = {};
 
     if (ratio >= 95) { 
@@ -112,6 +113,11 @@ const Finish = ({ score, MAX_ROUND }) => {
             </Inner>
         </Frame>
     );
+};
+
+Finish.propTypes = {
+    score: PropTypes.number.isRequired, 
+    MAX_ROUND: PropTypes.number.isRequired,   
 };
 
 export default Finish;      

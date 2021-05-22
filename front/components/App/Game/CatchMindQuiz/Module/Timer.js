@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Wrap = styled.div`
@@ -65,6 +66,13 @@ const Timer = ({ MAX_TIME, isRunning, setNextRound, openedResult }) => {
             />
         </Wrap>
     );
+};
+
+Timer.propTypes = {
+    MAX_TIME: PropTypes.number.isRequired, 
+    isRunning: PropTypes.bool.isRequired, 
+    setNextRound: PropTypes.func.isRequired, 
+    openedResult: PropTypes.bool.isRequired,
 };
 
 export default Timer;

@@ -1,4 +1,5 @@
 import React, { useEffect, useCallback, useState } from 'react';
+import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import { bucketUrl } from '../../../../../config/config';
 import { shuffleArray, cloneObject } from '../../../../../util/common';
@@ -69,11 +70,7 @@ const Copyright = styled.span`
     color: ${({ theme }) => theme.cColors.black};
 `;
 
-const Main = ({ 
-    data,
-    setGameData,
-    onChangeStep,
-}) => {
+const Main = ({ data, setGameData, onChangeStep }) => {
     const [ready, setReady] = useState(false);
 
     useEffect(() => {
@@ -108,6 +105,10 @@ const Main = ({
     );
 };
 
-
+Main.propTypes = {
+    data: PropTypes.array.isRequired, 
+    setGameData: PropTypes.func.isRequired,
+    onChangeStep: PropTypes.func.isRequired
+};
 
 export default Main;

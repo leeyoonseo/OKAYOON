@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Button = styled.button`
@@ -52,6 +53,18 @@ const ExampleBox = ({ example, examRef, openedResult, onClickExample }) => {
             )
         })
     }, [example, examRef, openedResult, onClickExample]);
+};
+
+ExampleBox.propTypes = {
+    example: PropTypes.array.isRequired, 
+    examRef: PropTypes.oneOfType([
+        PropTypes.array, 
+        PropTypes.shape({ 
+            current: PropTypes.object
+        }),
+    ]).isRequired, 
+    openedResult: PropTypes.bool.isRequired, 
+    onClickExample: PropTypes.func.isRequired,
 };
 
 export default ExampleBox;

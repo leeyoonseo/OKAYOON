@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Box = styled.span`
@@ -36,6 +37,11 @@ const AnswerBox = ({ correctWord, userAnswer }) => {
             )
         })
     }, [correctWord, userAnswer]);
+};
+
+AnswerBox.propTypes = {
+    correctWord: PropTypes.string.isRequired, 
+    userAnswer: PropTypes.string.isRequired,
 };
 
 export default AnswerBox;

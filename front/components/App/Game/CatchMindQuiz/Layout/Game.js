@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback, createRef, useRef, useMemo } from 'react';
+import PropTypes from 'prop-types';
 import { shuffleArray } from '../../../../../util/common';
 
 import styled, { css, keyframes } from 'styled-components';
@@ -347,6 +348,14 @@ const Game = ({ data, setScore, MAX_ROUND, MAX_TIME, onChangeStep }) => {
             </Inner>
         </Frame>
     );
+};
+
+Game.propTypes = {
+    data: PropTypes.array.isRequired, 
+    setScore: PropTypes.func.isRequired, 
+    MAX_ROUND: PropTypes.number.isRequired, 
+    MAX_TIME: PropTypes.number.isRequired, 
+    onChangeStep: PropTypes.func.isRequired,
 };
 
 export default Game;
