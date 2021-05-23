@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { bucketUrl } from '../../../../../config/config';
 import { shuffleArray, cloneObject } from '../../../../../util/common';
 import { STEP_GAME } from './index';
@@ -29,29 +29,22 @@ const Highlight = styled.span`
     color: ${({ theme }) => theme.nColors.skyBlue};
 `;
 
-const initialButtonStyle = css`
-    padding: 0;
-    line-height: 1;
-    border: none;
-    outline: none;
-    background: none;
-    cursor: pointer;
-
-    &[disabled] {
-        cursor: default;
-    }
-`;
-
 const StartButton = styled.button`
-    ${initialButtonStyle}
     margin-top: ${({ theme }) => theme.calcRem(30)};
     padding: ${({ theme }) => theme.calcRem(10)} ${({ theme }) => theme.calcRem(30)};
     font-size: ${({ theme }) => theme.calcRem(40)};
+    line-height: 1;
     border-radius: ${({ theme }) => theme.calcRem(10)};
     border: ${({ theme }) => theme.calcRem(4)} solid ${({ theme }) => theme.nColors.black};
     background: ${({ theme }) => theme.nColors.darkYellow};
     font-weight: 700;
     color: ${({ theme }) => theme.nColors.black};
+    outline: none;
+    cursor: pointer;
+
+    &[disabled] {
+        cursor: default;
+    }
 `;
 
 const Bottom = styled.div`

@@ -205,20 +205,16 @@ const Game = ({ score, setScore, onChangeStep, data, MAX_ROUND, MAX_TIME }) => {
                         </TimerArea>
 
                         <AnswerArea>
-                            {example && example.map((v, i) => {
-                                const { question, answer, isCorrect } = v;
-                                
-                                return (
-                                    <Items key={`Q_${i}_${question}`}>
-                                        <button 
-                                            onClick={(() => onClickExample(isCorrect))}
-                                            disabled={openedResult}
-                                        >
-                                            {answer}
-                                        </button>
-                                    </Items>
-                                )
-                            })}
+                            {example && example.map(({ question, answer, isCorrect }, i) => (
+                                <Items key={`Q_${i}_${question}`}>
+                                    <button 
+                                        onClick={(() => onClickExample(isCorrect))}
+                                        disabled={openedResult}
+                                    >
+                                        {answer}
+                                    </button>
+                                </Items>
+                            ))}
                         </AnswerArea>
                     </Content>
                 )}     

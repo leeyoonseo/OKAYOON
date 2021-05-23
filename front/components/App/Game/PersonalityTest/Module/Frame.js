@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled  from 'styled-components';
 
 const Wrap = styled.div`
@@ -30,6 +31,14 @@ const Frame = ({ children }) => {
             </Inner>
         </Wrap>
     );
+};
+
+Frame.propTypes = {
+    children: PropTypes.oneOfType([
+        PropTypes.element,
+        PropTypes.array,
+        PropTypes.object,
+    ]).isRequired,
 };
 
 export default Frame;

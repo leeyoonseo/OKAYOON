@@ -9,10 +9,7 @@ import CatchMindForm from './CatchMindForm';
 
 const Admin = ({ list, onClickBack }) => {
     const [dataName, setDataName] = useState(null);
-
-    const onClickOption = useCallback(name => {
-        setDataName(name);
-    }, []);
+    const onClickOption = useCallback(name => setDataName(name), []);
 
     return (
         <Wrap>

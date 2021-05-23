@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Wrap = styled.div`
@@ -45,5 +46,9 @@ const Tooltip = ({ message }) => (
         />
     </Wrap>
 );
+
+Tooltip.prototype = {
+    message: PropTypes.string.isRequired,
+};  
 
 export default Tooltip;

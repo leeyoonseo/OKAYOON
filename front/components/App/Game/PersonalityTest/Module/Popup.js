@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { LeftOutlined, RightOutlined, CloseOutlined } from '@ant-design/icons';
@@ -204,6 +205,11 @@ const Popup = ({ data, onClose }) => {
             </ArrowButtonArea>
         </Wrap>
     );
+};
+
+Popup.propTypes = {
+    data: PropTypes.object.isRequired,
+    onClose: PropTypes.func.isRequired,
 };
 
 export default Popup;

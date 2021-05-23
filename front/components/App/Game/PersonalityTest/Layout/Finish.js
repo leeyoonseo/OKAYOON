@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState, useMemo } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { LeftOutlined, RightOutlined, CloseOutlined } from '@ant-design/icons';
@@ -96,7 +97,7 @@ const AdjacentArea = styled.div`
 `;
 
 const Finish = ({ type }) => {
-    const { personalityTestResult } = useSelector((state) => state.game);
+    const { personalityTestResult } = useSelector(state => state.game);
     const [data, setData] = useState(null);
     const [openedPopup, setOpenedPopup] = useState(false);
     const [showTooltip, setShowTooltip] = useState(false);
@@ -168,6 +169,10 @@ const Finish = ({ type }) => {
             )}
         </Frame>
     );
+};
+
+Finish.propTypes = {
+    type: PropTypes.string.isRequired, 
 };
 
 export default Finish;

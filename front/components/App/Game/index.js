@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { STORE, NONSENSE_QUIZ, CATCH_MIND, PERSONALITY_TEST } from '../../../reducers/game';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { SettingOutlined } from '@ant-design/icons';
 
 import Admin from './Admin/index';

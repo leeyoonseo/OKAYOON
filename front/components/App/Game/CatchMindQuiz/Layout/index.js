@@ -63,7 +63,7 @@ const MainIcon = styled(LeftOutlined)`
 
 const CatchMindQuiz = ({ onClickHome }) => {
     const dispatch = useDispatch();
-    const { catchmindData } = useSelector((state) => state.game);
+    const { catchmindData } = useSelector(state => state.game);
     const [gameData, setGameData] = useState(null);
     const [step, setStep] = useState(STEP_MAIN); // [D] default = STEP_MAIN
     const [score, setScore] = useState(0);
@@ -79,7 +79,7 @@ const CatchMindQuiz = ({ onClickHome }) => {
         });
     }, []);
 
-    const onChangeStep = useCallback(changeStep => setStep(changeStep), []);
+    const onChangeStep = useCallback(step => setStep(step), []);
 
     return (
         <>

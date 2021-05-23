@@ -54,7 +54,7 @@ const getRatio = (score, MAX_ROUND) => {
 };
 
 const getRandomNumber = MAX => {
-    return Math.floor(Math.random() * MAX);
+    return 
 };
 
 const getResultData = ratio => {
@@ -91,7 +91,7 @@ const Finish = ({ score, MAX_ROUND }) => {
     const MAX_CHARACTER_NUM = 8;
 
     useEffect(() => {
-        const randomNumber = getRandomNumber(MAX_CHARACTER_NUM);
+        const randomNumber = Math.floor(Math.random() * MAX_CHARACTER_NUM);
         setRandomImage(`${bucketUrl}/game/nonsense/icon_child_${randomNumber}.png`);
     }, []);
 

@@ -26,7 +26,7 @@ const getWordLenght = words => {
 
 const CatchMindForm = ({ gameName }) => {
     const dispatch = useDispatch();
-    const { addGameDone } = useSelector((state) => state.game);
+    const { addGameDone } = useSelector(state => state.game);
     const [question, onChangeQuestion, setQuestion] = useInput('');
     const [correct, onChangeCorrect, setCorrect] = useInput('');
     const [incorrect, onChangeIncorrect, setIncorrect] = useInput('');
@@ -60,12 +60,7 @@ const CatchMindForm = ({ gameName }) => {
         let data = {};
         let failCount = 0;
 
-        Array.from(formRef.current.elements).map(({ 
-            nodeName, 
-            name, 
-            value,
-            placeholder, 
-        }) => {
+        Array.from(formRef.current.elements).map(({ nodeName, name, value, placeholder }) => {
             if (nodeName !== 'INPUT') return;
             let val = value;
         

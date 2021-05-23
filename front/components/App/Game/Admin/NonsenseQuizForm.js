@@ -7,7 +7,7 @@ import { Form, Item, Input, ButtonArea } from './formStyle';
 
 const NonsenseQuizForm = ({ gameName }) => {
     const dispatch = useDispatch();
-    const { addGameDone } = useSelector((state) => state.game);
+    const { addGameDone } = useSelector(state => state.game);
     const formRef = useRef(null);
     const [question, onChangeQuestion, setQuestion] = useInput('');
     const [answer, onChangeAnswer, setAnswer] = useInput('');
@@ -36,12 +36,7 @@ const NonsenseQuizForm = ({ gameName }) => {
         let example = [];
         let failCount = 0;
 
-        Array.from(formRef.current.elements).map(({ 
-            nodeName, 
-            name, 
-            value, 
-            placeholder 
-        }) => {
+        Array.from(formRef.current.elements).map(({ nodeName, name, value, placeholder }) => {
             if (nodeName !== 'INPUT') return;
         
             if (!value || !value.trim()) {

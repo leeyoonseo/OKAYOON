@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { STEP_FINISH } from './index';
 import Frame from '../Module/Frame';
@@ -104,6 +105,13 @@ const Game = ({ data, type, setType, onChangeStep }) => {
             })}
         </Frame>
     );
+};
+
+Game.propTypes = {
+    data: PropTypes.array.isRequired, 
+    type: PropTypes.string,  
+    setType: PropTypes.func.isRequired,
+    onChangeStep: PropTypes.func.isRequired,
 };
 
 export default Game;

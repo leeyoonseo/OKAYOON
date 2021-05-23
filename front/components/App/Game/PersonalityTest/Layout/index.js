@@ -1,10 +1,9 @@
 import React, { useCallback, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
-
 import { HomeOutlined, LeftOutlined } from '@ant-design/icons';
 import { STORE } from '../../../../../reducers/game';
-
 import Main from './Main';
 import Game from './Game';
 import Finish from './Finish';
@@ -63,7 +62,7 @@ const MainIcon = styled(LeftOutlined)`
 `;
 
 const PersonalityTest = ({ onClickHome }) => {
-    const { personalityTestData } = useSelector((state) => state.game);
+    const { personalityTestData } = useSelector(state => state.game);
     const [step, setStep] = useState(STEP_MAIN); // [D] default = STEP_MAIN
     const [type, setType] = useState(null);
 
@@ -118,5 +117,9 @@ const PersonalityTest = ({ onClickHome }) => {
         </>
     );
 };
+
+PersonalityTest.prototype = {
+    onClickHome: PropTypes.func.isRequired,
+};  
 
 export default PersonalityTest;

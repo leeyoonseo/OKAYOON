@@ -20,7 +20,7 @@ const NotifyMessage = styled.div`
 
 const GameListForm = ({ gameName }) => {
     const dispatch = useDispatch();
-    const { addGameListDone } = useSelector((state) => state.game);
+    const { addGameListDone } = useSelector(state => state.game);
     const formRef = useRef(null);
     const [name, onChangeName, setName] = useInput('');
     const [title, onChangeTitle, setTitle] = useInput('');
@@ -50,12 +50,7 @@ const GameListForm = ({ gameName }) => {
         let data = {};
         let failCount = 0;
 
-        Array.from(formRef.current.elements).map(({ 
-            nodeName, 
-            name, 
-            value, 
-            placeholder 
-        }) => {
+        Array.from(formRef.current.elements).map(({ nodeName, name, value, placeholder }) => {
             if (nodeName !== 'INPUT') return;
 
             if (!value || !value.trim()) {

@@ -65,7 +65,7 @@ const MainIcon = styled(LeftOutlined)`
 
 const NonsenseQuiz = ({ onClickHome }) => {
     const dispatch = useDispatch();
-    const { nonsenseData } = useSelector((state) => state.game);
+    const { nonsenseData } = useSelector(state => state.game);
     const [gameData, setGameData] = useState(null);
     const [step, setStep] = useState(STEP_MAIN); // [D] default = STEP_MAIN
     const [score, setScore] = useState(0);
@@ -81,7 +81,7 @@ const NonsenseQuiz = ({ onClickHome }) => {
         });
     }, []);
 
-    const onChangeStep = useCallback(changeStep => setStep(changeStep), []);
+    const onChangeStep = useCallback(step => setStep(step), []);
     
     return (
         <>  

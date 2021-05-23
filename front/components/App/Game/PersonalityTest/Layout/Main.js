@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { bucketUrl } from '../../../../../config/config';
 import { STEP_GAME } from './index';
 import Frame from '../Module/Frame';
@@ -57,32 +58,34 @@ const Copyright = styled.span`
     }
 `;
 
-const Main = ({ onChangeStep }) => {
-    return (
-        <Frame>
-            <SubTitle>두개의 퀴즈로 알아보는</SubTitle>
-                <Title>내 성격 유형</Title>
-                <div>
-                    <StartButton
-                        onClick={(() => onChangeStep(STEP_GAME))}
-                    >
-                        시작하기
-                    </StartButton>
-                </div>
+const Main = ({ onChangeStep }) => (
+    <Frame>
+        <SubTitle>두개의 퀴즈로 알아보는</SubTitle>
+            <Title>내 성격 유형</Title>
+            <div>
+                <StartButton
+                    onClick={(() => onChangeStep(STEP_GAME))}
+                >
+                    시작하기
+                </StartButton>
+            </div>
 
-                <MainIcon />
+            <MainIcon />
 
-                <Copyright>
-                    <a 
-                        href="https://post.naver.com/viewer/postView.nhn?volumeNo=30753987&memberNo=1192430&vType=VERTICAL" 
-                        title="쌤앤파커스"
-                        target="_blank"
-                    >
-                        원본 바로가기 (쌤앤파커스)
-                    </a>
-                </Copyright>
-        </Frame>
-    );
+            <Copyright>
+                <a 
+                    href="https://post.naver.com/viewer/postView.nhn?volumeNo=30753987&memberNo=1192430&vType=VERTICAL" 
+                    title="쌤앤파커스"
+                    target="_blank"
+                >
+                    원본 바로가기 (쌤앤파커스)
+                </a>
+            </Copyright>
+    </Frame>
+);
+
+Main.propTypes = {
+    onChangeStep: PropTypes.func.isRequired
 };
 
 export default Main;
