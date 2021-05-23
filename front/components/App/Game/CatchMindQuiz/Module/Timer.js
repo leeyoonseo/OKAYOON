@@ -26,7 +26,7 @@ const Bar = styled.div`
     }
 `;
 
-const Timer = ({ MAX_TIME, isRunning, setNextRound, openedResult }) => {
+const Timer = ({ MAX_TIME, isRunning, setNext, openedResult }) => {
     const [time, setTime] = useState(MAX_TIME);
 
     useEffect(() => {
@@ -39,7 +39,7 @@ const Timer = ({ MAX_TIME, isRunning, setNextRound, openedResult }) => {
         }, 100);
 
         if (time === 0) {
-            setNextRound();
+            setNext();
             clearInterval(timer);
             setTime(MAX_TIME);
         }
@@ -71,7 +71,7 @@ const Timer = ({ MAX_TIME, isRunning, setNextRound, openedResult }) => {
 Timer.propTypes = {
     MAX_TIME: PropTypes.number.isRequired, 
     isRunning: PropTypes.bool.isRequired, 
-    setNextRound: PropTypes.func.isRequired, 
+    setNext: PropTypes.func.isRequired, 
     openedResult: PropTypes.bool.isRequired,
 };
 

@@ -2,9 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
-
 import { HomeOutlined, LeftOutlined } from '@ant-design/icons';
-
 import Main from './Main';
 import Game from './Game';
 import Finish from './Finish';
@@ -81,9 +79,7 @@ const CatchMindQuiz = ({ onClickHome }) => {
         });
     }, []);
 
-    const onChangeStep = useCallback(changeStep => {
-        setStep(changeStep);
-    }, []);
+    const onChangeStep = useCallback(changeStep => setStep(changeStep), []);
 
     return (
         <>
@@ -115,11 +111,10 @@ const CatchMindQuiz = ({ onClickHome }) => {
 
                     return (
                         <Game 
-                            score={score}
-                            setScore={setScore}
                             MAX_ROUND={MAX_ROUND}
                             MAX_TIME={MAX_TIME}
                             data={gameData}
+                            setScore={setScore}
                             onChangeStep={onChangeStep}
                         />
                     )

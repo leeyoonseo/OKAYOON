@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState } from 'react';
+import React, { useEffect, useCallback, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import { bucketUrl } from '../../../../../config/config';
@@ -33,11 +33,10 @@ const MainImageArea = styled.div`
 
 const TitleArea = styled.div`
     position: relative;
-    padding: ${({ theme }) => theme.calcRem(10)} 0;
     margin: ${({ theme }) => theme.calcRem(30)} 0;
 `;
 
-const Highlighter = styled.div`
+const Background = styled.div`
     position: absolute;
     top: 0;
     left: 0;
@@ -49,6 +48,7 @@ const Highlighter = styled.div`
 const StartButton = styled.button`
     ${initialButton}
     position: relative;
+    padding: ${({ theme }) => theme.calcRem(10)} 0;
     width: 100%;
     height: 100%;
     font-size: ${({ theme }) => theme.calcRem(40)};
@@ -83,24 +83,34 @@ const Main = ({ data, setGameData, onChangeStep }) => {
         setReady(true);
     }, [data]);
 
+    const setReadyText = useMemo(() => {
+        return ready ? '시작하기' : 'No Data';
+    }, [ready]);
+
     return (
         <Frame>
             <Inner>
                 <MainImageArea>
-                    <img src={`${bucketUrl}/game/catchmind/icon_drawing.png`} title="크레용 이미지" />
+                    <img 
+                        src={`${bucketUrl}/game/catchmind/icon_drawing.png`}
+                        title="크레용 이미지" 
+                    />
                 </MainImageArea>
 
                 <TitleArea>
-                    <Highlighter />
+                    <Background />
                     <StartButton 
                         onClick={(() => onChangeStep(STEP_GAME))}
                         disabled={!ready}
                     >
-                        {ready ? '시작하기' : 'No Data'}
+                        {setReadyText}
                     </StartButton>
                 </TitleArea>
             </Inner>
-            <Copyright>디자인 참고: 캐치마인드</Copyright>
+
+            <Copyright>
+                디자인 참고: 캐치마인드
+            </Copyright>
         </Frame>
     );
 };

@@ -279,7 +279,7 @@ const Game = ({ data, setScore, MAX_ROUND, MAX_TIME, onChangeStep }) => {
                             MAX_TIME={MAX_TIME}
                             isRunning={isRunning}
                             openedResult={openedResult}
-                            setNextRound={setNextRound}
+                            setNext={setNextRound}
                         />
                     </TimerArea>
 
