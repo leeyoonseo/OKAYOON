@@ -1,8 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
-
 import { STEP_FINISH } from './index';
-import Layout from './Layout';
+import Frame from '../Module/Frame';
 
 const Step = styled.div`
     max-width: ${({ theme }) => theme.calcRem(620)};
@@ -58,60 +57,52 @@ const Items = styled.div`
     }
 `;
 
-const Game = ({
-    data, 
-    type,
-    setType,
-    onChangeStep, 
-}) => {
+const Game = ({ data, type, setType, onChangeStep }) => {
     const [round, setRound] = useState(1);
 
     useEffect(() => setType(null), []);
 
-    const onClickExam = useCallback((e) => {
-        const i = e.target.dataset.index;
+    const onClickExam = useCallback(({ target }) => {
+        const i = target.dataset.index;
 
         setType(type ? type + i : i);
 
-        if (!type) {
-            setRound(round + 1);
-
-        } else {
-            onChangeStep(STEP_FINISH)();
+        if (type) {
+            return onChangeStep(STEP_FINISH);
         }
+
+        setRound(round + 1);
     }, [type, round]);
 
     return (
-        <Layout>
-            {data && data.map((v) => {
-                if (v.round !== round) return;
+        <Frame>
+            {data && data.map(({ round: dataRound, question, example }) => {
+                if (dataRound !== round) return;
 
                 return (
-                    <Step key={`${v.round}_${v.question.charAt(0)}`}>
+                    <Step key={`${dataRound}_${question.charAt(0)}`}>
                         <Round>
-                            {v.round}번 질문
+                            {dataRound}번 질문
                         </Round>
 
-                        <Question dangerouslySetInnerHTML={{ __html: v.question }}/>
+                        <Question dangerouslySetInnerHTML={{ __html: question }}/>
 
                         <Example>
-                            {v.example.map((o) => {
-                                return (
-                                    <Items key={`answer_${o.type}`}>
-                                        <button 
-                                            onClick={onClickExam}
-                                            data-index={o.type}
-                                        >
-                                            {o.answer}
-                                        </button>
-                                    </Items>
-                                )
-                            })}
+                            {example.map(({ type, answer }) => (
+                                <Items key={`answer_${type}`}>
+                                    <button 
+                                        onClick={onClickExam}
+                                        data-index={type}
+                                    >
+                                        {answer}
+                                    </button>
+                                </Items>
+                            ))}
                         </Example>
                     </Step>
                 )   
             })}
-        </Layout>
+        </Frame>
     );
 };
 

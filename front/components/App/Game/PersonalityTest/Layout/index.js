@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 
 import { HomeOutlined, LeftOutlined } from '@ant-design/icons';
-import { STORE } from '../../../../reducers/game';
+import { STORE } from '../../../../../reducers/game';
 
 import Main from './Main';
 import Game from './Game';
@@ -67,18 +67,22 @@ const PersonalityTest = ({ onClickHome }) => {
     const [step, setStep] = useState(STEP_MAIN); // [D] default = STEP_MAIN
     const [type, setType] = useState(null);
 
-    const onChangeStep = useCallback((changeStep) => () => setStep(changeStep), []);
+    const onChangeStep = useCallback(step => setStep(step), []);
 
     return (
         <>  
             <TopNav>
-                <HomeButton onClick={onClickHome(STORE)}>
+                <HomeButton 
+                    onClick={(() => onClickHome(STORE))}
+                >
                     <HomeIcon />
                     <span className="hidden">메뉴 바로가기</span>
                 </HomeButton>
 
                 {step !== STEP_MAIN && (
-                    <MainButton onClick={onChangeStep(STEP_MAIN)}>
+                    <MainButton 
+                        onClick={(() => onChangeStep(STEP_MAIN))}
+                    >
                         <MainIcon />
                         <span className="hidden">이전 상태로 가기</span>
                     </MainButton>

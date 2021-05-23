@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
-import { bucketUrl } from '../../../../config/config';
-
+import { bucketUrl } from '../../../../../config/config';
 import { STEP_GAME } from './index';
-import Layout from './Layout';
+import Frame from '../Module/Frame';
 
 const SubTitle = styled.div`
     font-size: ${({ theme }) => theme.calcRem(45)};
@@ -60,13 +59,12 @@ const Copyright = styled.span`
 
 const Main = ({ onChangeStep }) => {
     return (
-        <Layout>
+        <Frame>
             <SubTitle>두개의 퀴즈로 알아보는</SubTitle>
                 <Title>내 성격 유형</Title>
-
                 <div>
                     <StartButton
-                        onClick={onChangeStep(STEP_GAME)}
+                        onClick={(() => onChangeStep(STEP_GAME))}
                     >
                         시작하기
                     </StartButton>
@@ -83,7 +81,7 @@ const Main = ({ onChangeStep }) => {
                         원본 바로가기 (쌤앤파커스)
                     </a>
                 </Copyright>
-        </Layout>
+        </Frame>
     );
 };
 

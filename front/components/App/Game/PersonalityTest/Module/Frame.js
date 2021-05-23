@@ -7,7 +7,6 @@ const Wrap = styled.div`
     position: relative;
     padding: 5% 0;
     height: ${({ theme }) => theme.calcRem(550)};
-    // height: calc(100% - ${({ theme }) => theme.calcRem(30)});
     text-align: center;
     background: ${({ theme }) => theme.pColors.yellow};
     align-items: center;
@@ -23,7 +22,7 @@ const Inner = styled.div`
     width: 100%;
 `;
 
-const Layout = ({ children }) => {
+const Frame = ({ children }) => {
     return (
         <Wrap>
             <Inner>
@@ -33,4 +32,4 @@ const Layout = ({ children }) => {
     );
 };
 
-export default Layout;
+export default Frame;

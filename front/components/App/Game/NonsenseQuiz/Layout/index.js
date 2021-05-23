@@ -86,7 +86,9 @@ const NonsenseQuiz = ({ onClickHome }) => {
     return (
         <>  
             <TopNav>
-                <HomeButton onClick={onClickHome(STORE)}>
+                <HomeButton 
+                    onClick={(() => onClickHome(STORE))}
+                >
                     <HomeIcon />
                     <span className="hidden">메뉴 바로가기</span>
                 </HomeButton>

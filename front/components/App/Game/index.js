@@ -7,21 +7,7 @@ import { SettingOutlined } from '@ant-design/icons';
 import Admin from './Admin/index';
 import NonsenseQuiz from './NonsenseQuiz/Layout/index';
 import CatchMindQuiz from './CatchMindQuiz/Layout/index';
-import PersonalityTest from './PersonalityTest/index';
-
-const initButtonStyled = css`
-    padding: 0;
-    color: ${({theme}) => theme.colors.black};
-    font-size: ${({theme}) => theme.calcRem(16)};
-    border: none;
-    outline: none;
-    background: none;
-    cursor: pointer;
-
-    &:hover {
-        opacity: 0.5;   
-    }
-`;
+import PersonalityTest from './PersonalityTest/Layout/index';
 
 const Wrap = styled.div`
     position: relative;
@@ -84,9 +70,15 @@ const Item = styled.div`
 `;
 
 const ItemButton = styled.button`
-    ${initButtonStyled}
+    padding: 0;
     width: 100%;
+    font-size: ${({theme}) => theme.calcRem(16)};
     text-align: left;
+    border: none;
+    background: none;
+    color: ${({theme}) => theme.colors.black};
+    outline: none;
+    cursor: pointer;
 
     &:hover {
         opacity: 1;
@@ -134,18 +126,13 @@ const SetIcon = styled(SettingOutlined)`
 `;
 
 const Game = () => {
-    const { gameList } = useSelector((state) => state.game);
-    const { admin } = useSelector((state) => state.user);
+    const { gameList } = useSelector(state => state.game);
+    const { admin } = useSelector(state => state.user);
     const [component, setComponent] = useState(STORE);
     const [openedSetting, setOpenedSetting] = useState(false);
 
-    const onChangeCategory = useCallback((compName) => () => {
-        setComponent(compName);
-    }, []);
-
-    const onClickSetting = useCallback(() => {
-        setOpenedSetting(!openedSetting);
-    }, [openedSetting]);
+    const onChangeCategory = useCallback(compName => setComponent(compName), []);
+    const onClickSetting = useCallback(() => setOpenedSetting(!openedSetting), [openedSetting]);
     
     return (
         <Wrap>
@@ -164,26 +151,26 @@ const Game = () => {
                     return (
                         <>
                             <List>
-                                {gameList && gameList.map((v) => {
-                                    const { name, gameId, image, title } = v;
-                                    
-                                    return (
-                                        <Item 
-                                            key={`game_${name}`}
-                                            id={gameId}
+                                {gameList && gameList.map(({ name, gameId, image, title }) => (
+                                    <Item 
+                                        key={`game_${name}`}
+                                        id={gameId}
+                                    >
+                                        <ItemButton 
+                                            onClick={(() => onChangeCategory(name))}
                                         >
-                                            <ItemButton onClick={onChangeCategory(name)}>
-                                                <Image bg={image}>
-                                                    <span className="hidden">{title} 표지</span>
-                                                </Image>
+                                            <Image bg={image}>
+                                                <span className="hidden">
+                                                    {title} 표지
+                                                </span>
+                                            </Image>
 
-                                                <Description>
-                                                    <Title>{title}</Title>
-                                                </Description>
-                                            </ItemButton>
-                                        </Item>
-                                    )   
-                                })}
+                                            <Description>
+                                                <Title>{title}</Title>
+                                            </Description>
+                                        </ItemButton>
+                                    </Item>
+                                ))}
 
                                 {admin.userId && (
                                     <SetButton onClick={onClickSetting}>

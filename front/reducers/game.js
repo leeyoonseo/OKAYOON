@@ -112,7 +112,7 @@ export const initialState = {
             description: `
                 다른 사람 위에 서는 것을 좋아하는<br />
                 <span class="strong">'리더'</span> 타입입니다.<br />
-                <span class="strong">승부</span>에 집착하며, 적군과 아군으ㅗ<br />
+                <span class="strong">승부</span>에 집착하며, 적군과 아군으로<br />
                 타인을 구분하는 경향이 있습니다.<br />
                 직감적이고 야생적인 행동력을 지녔으며,<br />
                 빠르게 움직입니다.
