@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
-import { bucketUrl } from '../../../../config/config';
-import { shuffleArray, cloneObject } from '../../../../util/common';
-
+import { bucketUrl } from '../../../../../config/config';
+import { shuffleArray, cloneObject } from '../../../../../util/common';
 import { STEP_GAME } from './index';
-import Layout from './Layout';
+import Frame from '../Module/Frame';
 
 const Content = styled.div`
     display: inline-block;
@@ -71,11 +71,7 @@ const BottomInner = styled.div`
     }
 `;
 
-const Main = ({ 
-    data,
-    setGameData,
-    onChangeStep,
-}) => {
+const Main = ({ data, setGameData, onChangeStep }) => {
     const [ready, setReady] = useState(false);
 
     useEffect(() => {
@@ -89,14 +85,17 @@ const Main = ({
     }, [data]);
 
     return (
-        <Layout>
+        <Frame>
             <Content>
-                <AskIcon src={`${bucketUrl}/game/nonsense/icon_ask.png`} alt="QnA 아이콘" />
+                <AskIcon 
+                    src={`${bucketUrl}/game/nonsense/icon_ask.png`} 
+                    alt="QnA 아이콘" 
+                />
                 
                 <Title>넌, <Highlight>센스</Highlight>퀴즈</Title>
 
                 <StartButton
-                    onClick={onChangeStep(STEP_GAME)}
+                    onClick={(() => onChangeStep(STEP_GAME))}
                     disabled={!ready}
                 >
                     {ready ? 'START' : 'No Data'}
@@ -108,8 +107,14 @@ const Main = ({
                     <img src={`${bucketUrl}/game/nonsense/icon_children.png`} alt="아이들 이미지" />
                 </BottomInner>
             </Bottom>
-        </Layout>
+        </Frame>
     );
+};
+
+Main.propTypes = {
+    data: PropTypes.array.isRequired, 
+    setGameData: PropTypes.func.isRequired,
+    onChangeStep: PropTypes.func.isRequired
 };
 
 export default Main;

@@ -114,6 +114,7 @@ const CatchMindQuiz = ({ onClickHome }) => {
                             MAX_ROUND={MAX_ROUND}
                             MAX_TIME={MAX_TIME}
                             data={gameData}
+                            score={score}
                             setScore={setScore}
                             onChangeStep={onChangeStep}
                         />

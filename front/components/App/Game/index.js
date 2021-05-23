@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components';
 import { SettingOutlined } from '@ant-design/icons';
 
 import Admin from './Admin/index';
-import NonsenseQuiz from './NonsenseQuiz/index';
+import NonsenseQuiz from './NonsenseQuiz/Layout/index';
 import CatchMindQuiz from './CatchMindQuiz/Layout/index';
 import PersonalityTest from './PersonalityTest/index';
 

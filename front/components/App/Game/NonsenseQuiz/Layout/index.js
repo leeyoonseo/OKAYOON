@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 
 import { HomeOutlined, LeftOutlined } from '@ant-design/icons';
-import { STORE, LOAD_GAME_REQUEST, NONSENSE_QUIZ } from '../../../../reducers/game';
+import { STORE, LOAD_GAME_REQUEST, NONSENSE_QUIZ } from '../../../../../reducers/game';
 
 import Main from './Main';
 import Game from './Game';
@@ -68,7 +69,7 @@ const NonsenseQuiz = ({ onClickHome }) => {
     const [gameData, setGameData] = useState(null);
     const [step, setStep] = useState(STEP_MAIN); // [D] default = STEP_MAIN
     const [score, setScore] = useState(0);
-    const MAX_ROUND = 10;
+    const MAX_ROUND = 11;
     const MAX_TIME = 1000; // [D] 1000 = 1초
 
     useEffect(() => {
@@ -80,7 +81,7 @@ const NonsenseQuiz = ({ onClickHome }) => {
         });
     }, []);
 
-    const onChangeStep = useCallback((changeStep) => () => setStep(changeStep), []);
+    const onChangeStep = useCallback(changeStep => setStep(changeStep), []);
     
     return (
         <>  
@@ -91,7 +92,9 @@ const NonsenseQuiz = ({ onClickHome }) => {
                 </HomeButton>
 
                 {step !== STEP_MAIN && (
-                    <MainButton onClick={onChangeStep(STEP_MAIN)}>
+                    <MainButton 
+                        onClick={(() => onChangeStep(STEP_MAIN))}
+                    >
                         <MainIcon />
                         <span className="hidden">이전 상태로 가기</span>
                     </MainButton>
@@ -133,5 +136,9 @@ const NonsenseQuiz = ({ onClickHome }) => {
         </>
     );
 };
+
+NonsenseQuiz.prototype = {
+    onClickHome: PropTypes.func.isRequired,
+};  
 
 export default NonsenseQuiz;

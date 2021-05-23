@@ -75,6 +75,10 @@ const getResultData = ratio => {
     return data;
 };
 
+const getStarImage = () => {
+    return `${bucketUrl}/game/catchmind/icon_star.png`;
+};
+
 const Finish = ({ score, MAX_ROUND }) => {
     const [text, setText] = useState(null);
     const [star, setStar] = useState(null);
@@ -91,16 +95,14 @@ const Finish = ({ score, MAX_ROUND }) => {
         <Frame>
             <Inner>
                 <StarArea>
-                    {star >= 1 && Array(star).fill().map((_, i) => {
-                        return(
-                            <StarImageWrap key={`score_star_${i}`}>
-                                <img 
-                                    src={`${bucketUrl}/game/catchmind/icon_star.png`} 
-                                    alt="점수 별 이미지" 
-                                />
-                            </StarImageWrap>
-                        )
-                    })}
+                    {star >= 1 && Array(star).fill().map((_, i) => (
+                        <StarImageWrap key={`score_star_${i}`}>
+                            <img 
+                                src={getStarImage} 
+                                alt="점수 별 이미지" 
+                            />
+                        </StarImageWrap>
+                    ))}
 
                     <ResultMessage>
                         {text && text}

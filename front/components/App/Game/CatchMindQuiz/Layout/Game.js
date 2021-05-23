@@ -1,11 +1,9 @@
 import React, { useEffect, useState, useCallback, createRef, useRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { shuffleArray } from '../../../../../util/common';
-
-import styled, { css, keyframes } from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { ArrowLeftOutlined, CheckOutlined, CloseOutlined, DeleteOutlined } from '@ant-design/icons';
 import useInput from '../../../../../hooks/useInput';
-
 import { STEP_FINISH } from './index';
 import Frame from '../Module/Frame';
 import Timer from '../Module/Timer';
@@ -140,7 +138,7 @@ const Result = styled.div`
     color: ${({ isCorrect }) => isCorrect ? '#26ca3f' : '#ff6059'};
 `;
 
-const Game = ({ data, setScore, MAX_ROUND, MAX_TIME, onChangeStep }) => {
+const Game = ({ data, score, setScore, MAX_ROUND, MAX_TIME, onChangeStep }) => {
     const [userAnswer, onChangeUserAnswer, setUserAnswer] = useInput('');
     const [isRunning, setIsRunning] = useState(false); // [D] 게임 진행 여부
 
@@ -239,7 +237,7 @@ const Game = ({ data, setScore, MAX_ROUND, MAX_TIME, onChangeStep }) => {
 
     const setNextRound = useCallback((isCorrect = false) => {
         if (isCorrect) {
-            setScore(isCorrect + 1);
+            setScore(score + 1);
         }
 
         setIsCorrect(isCorrect);
@@ -258,7 +256,7 @@ const Game = ({ data, setScore, MAX_ROUND, MAX_TIME, onChangeStep }) => {
             setRound(round + 1);
             resetExample();
         }, 1000);
-    }, [round, examRef]);
+    }, [round, score, examRef]);
 
     const onClickExample = useCallback(({ target }) => {
         const currentVal = userAnswer + target.value;
@@ -351,10 +349,11 @@ const Game = ({ data, setScore, MAX_ROUND, MAX_TIME, onChangeStep }) => {
 };
 
 Game.propTypes = {
-    data: PropTypes.array.isRequired, 
-    setScore: PropTypes.func.isRequired, 
     MAX_ROUND: PropTypes.number.isRequired, 
     MAX_TIME: PropTypes.number.isRequired, 
+    data: PropTypes.array.isRequired, 
+    score: PropTypes.number.isRequired,  
+    setScore: PropTypes.func.isRequired,
     onChangeStep: PropTypes.func.isRequired,
 };
 

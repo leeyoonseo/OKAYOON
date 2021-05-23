@@ -1,10 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import styled, { keyframes } from 'styled-components';
 import { STEP_FINISH } from './index';
-import { shuffleArray } from '../../../../util/common';
-import { ClockCircleOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons';
-
-import Layout from './Layout';
+import { shuffleArray } from '../../../../../util/common';
+import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
+import Frame from '../Module/Frame';
+import Timer from '../Module/Timer';
 
 const resultFadeIn = keyframes`
     0% {
@@ -57,15 +58,6 @@ const TimerArea = styled.div`
     line-height: 1;
     font-weight: 700;
     color: ${({ theme }) => theme.nColors.black};
-`;
-
-const TimerIcon = styled(ClockCircleOutlined)`
-    font-size: ${({ theme }) => theme.calcRem(20)};
-    margin-right: ${({ theme }) => theme.calcRem(5)};
-`;
-
-const Time = styled.span`
-    font-size: ${({ theme }) => theme.calcRem(25)};
 `;
 
 const AnswerArea = styled.div`
@@ -130,95 +122,70 @@ const Message = styled.span`
     color: ${props => props.isCorrect ? '#26ca3f' : '#ff6059'};
 `;
 
-const Game = ({ 
-    score,
-    setScore, 
-    onChangeStep, 
-    data, 
-    MAX_ROUND, 
-    MAX_TIME,
-}) => {
+const Game = ({ score, setScore, onChangeStep, data, MAX_ROUND, MAX_TIME }) => {
     const [openedResult, setOpenedResult] = useState(false);
-    const [isCorrect, setIsCorrect] = useState(null);
-
+    const [isCorrect, setIsCorrect] = useState(null); // [D] 정답 여부
+    const [isRunning, setIsRunning] = useState(false); // [D] 게임 진행 여부
     const [quizList, setQuizList] = useState(null); // [D] 퀴즈배열 
     const [quiz, setQuiz] = useState(null); // [D] 현재퀴즈
     const [example, setExample] = useState(null); // [D] 보기
     const [round, setRound] = useState(null);
-    const [time, setTime] = useState(null);
 
     useEffect(() => {
         if(!data) return;
-
-        setQuizList(data);
-        setRound(0);
+        init();
     }, []);
 
     useEffect(() => {
         if(round === null) return;
+        setGameQuest();
+        setIsRunning(true);
+    }, [quizList, round]); 
 
+    const init = useCallback(() => {
+        setQuizList(data);
+        setRound(0);
+    }, []);
+
+    const setGameQuest = useCallback(() => {
         const q = quizList[round];
         const ex = (typeof q.example === 'string') ? JSON.parse(q.example) : q.example;
         const shuffleEx = shuffleArray(Object.values(ex));
 
         setQuiz(q);
         setExample(shuffleEx);
-        setTime(MAX_TIME);
-    }, [quizList, round]); 
+    }, [quizList, round]);
 
-    useEffect(() => {
-        if (time === null) return;
-
-        if (openedResult) {
-            return clearInterval(timer);
-        }
-
-        // [D] 시간제한 실패
-        if (time === 0) {
-            clearInterval(timer);
-            moveNextRound({ scoreUp: false });  
-            return;
-        };
-
-        const timer = setInterval(() => {
-            setTime(time - 10);
-        }, 100);
-
-        return () => {
-            clearInterval(timer);
-        }
-    }, [time, openedResult]); 
-
-    const moveNextRound = useCallback(({ scoreUp }) => {
-        if (scoreUp) {
+    const setNextRound = useCallback((isCorrect = false) => {
+        if (isCorrect) {
             setScore(score + 1);
         }
 
-        setIsCorrect(scoreUp);
+        setIsCorrect(isCorrect);
         setOpenedResult(true);
+        setIsRunning(false);
 
         setTimeout(() => {
             setOpenedResult(false);
             
             if (round > MAX_ROUND || round >= (data.length - 1)) {
                 setRound(null);
-                onChangeStep(STEP_FINISH)();
+                onChangeStep(STEP_FINISH);
                 return;
             }
 
             setRound(round + 1);
-            setTime(MAX_TIME);
         }, 1000);
     }, [round, score]);
 
-    const onClickExample = useCallback((state) => () => {
+    const onClickExample = useCallback(isCorrect => {
         if (openedResult) return;
 
-        moveNextRound({ scoreUp: state });
+        setNextRound(isCorrect);
     }, [round, openedResult]);
 
     return (
-        <Layout>
+        <Frame>
             <Inner>
                 {quiz && (
                     <Content>
@@ -229,10 +196,12 @@ const Game = ({
                         </QuizArea>
 
                         <TimerArea>
-                            <TimerIcon /> 
-                            <Time>
-                                {Math.floor(time / 100)}
-                            </Time>
+                            <Timer 
+                                MAX_TIME={MAX_TIME}
+                                isRunning={isRunning}
+                                openedResult={openedResult}
+                                setNext={setNextRound}
+                            />
                         </TimerArea>
 
                         <AnswerArea>
@@ -242,7 +211,7 @@ const Game = ({
                                 return (
                                     <Items key={`Q_${i}_${question}`}>
                                         <button 
-                                            onClick={onClickExample(isCorrect)}
+                                            onClick={(() => onClickExample(isCorrect))}
                                             disabled={openedResult}
                                         >
                                             {answer}
@@ -262,8 +231,17 @@ const Game = ({
                     </Result>
                 )}
             </Inner>
-        </Layout>
+        </Frame>
     );
+};
+
+Game.propTypes = {
+    MAX_ROUND: PropTypes.number.isRequired, 
+    MAX_TIME: PropTypes.number.isRequired, 
+    data: PropTypes.array.isRequired, 
+    score: PropTypes.number.isRequired,  
+    setScore: PropTypes.func.isRequired,
+    onChangeStep: PropTypes.func.isRequired,
 };
 
 export default Game;

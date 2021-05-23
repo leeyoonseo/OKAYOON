@@ -1,9 +1,8 @@
-import React, { useEffect, useCallback, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import { bucketUrl } from '../../../../../config/config';
 import { shuffleArray, cloneObject } from '../../../../../util/common';
-
 import { STEP_GAME } from './index';
 import Frame from '../Module/Frame';
 
@@ -83,10 +82,6 @@ const Main = ({ data, setGameData, onChangeStep }) => {
         setReady(true);
     }, [data]);
 
-    const setReadyText = useMemo(() => {
-        return ready ? '시작하기' : 'No Data';
-    }, [ready]);
-
     return (
         <Frame>
             <Inner>
@@ -103,7 +98,7 @@ const Main = ({ data, setGameData, onChangeStep }) => {
                         onClick={(() => onChangeStep(STEP_GAME))}
                         disabled={!ready}
                     >
-                        {setReadyText}
+                        {ready ? '시작하기' : 'No Data'}
                     </StartButton>
                 </TitleArea>
             </Inner>
