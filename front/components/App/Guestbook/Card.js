@@ -1,15 +1,13 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import { DELETE_COMMENT_REQUEST, DELETE_GUESTBOOK_REQUEST, GET_PERMISSION_REQUEST } from '../../../reducers/guestbook';
 import { getSrc } from './index';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-
 import { isEmptyObj } from '../../../util/common';
 import WindowDialog from '../../WindowDialog/index';
 import Comment from './Comment';
-
 import { Avatar } from 'antd';
 import { MessageOutlined, DeleteOutlined, FormOutlined } from '@ant-design/icons';
 
@@ -87,18 +85,9 @@ const MenuArea = styled.div`
     }
 `;
 
-const GuestbookCard = ({
-    id,
-    nickname,
-    avatar,
-    createdAt,
-    content,
-    Comments,
-    authorNickname,
-    authorAvatar,
-}) => {
+const Card = ({ id, nickname, avatar, createdAt, content, Comments, authorNickname, authorAvatar }) => {
     const dispatch = useDispatch();
-    const { avatarList, admin } = useSelector((state) => state.user);
+    const { avatarList, admin } = useSelector(state => state.user);
     const [openedComment, setOpenedComment] = useState(false);
     const [openedModal, setOpenedModal] = useState(false);
     const [modalText, setModalText] = useState(false);
@@ -115,54 +104,51 @@ const GuestbookCard = ({
         setModalText(text);
     }, [admin, reqStatus]);
 
-    const dialogCallback = useCallback(({ value }) => {
-        if (!value) return;
-        passwordCheck(value);
-    }, [admin, reqStatus, id]);
+    const getAvatarSize = useMemo(() => Comments ? 64 : 48, [Comments]);
+    const createdDate = useMemo(() => dayjs(createdAt).format('YYYY.MM.DD | a hh:mm'), [createdAt]);
 
-    const passwordCheck = useCallback((value) => {
-        if (!value) return;
+    const onDialogCallback = useCallback(({ value }) => {
+        if (!admin && !value) return;
+
+        let val = admin.userId || value;
         let type = '';
-        let val = !isEmptyObj(admin) ? admin.userId : value;
 
         if (reqStatus === MENU_EDIT) {
             type = GET_PERMISSION_REQUEST;
-
         } else {
             type = Comments ? DELETE_GUESTBOOK_REQUEST : DELETE_COMMENT_REQUEST;
         }
 
         dispatch({
-            type: type,
+            type,
             data: {
-                id: id,
+                id,
                 password: val,
             }
         });
     }, [admin, reqStatus, id, Comments]);
 
-    const onClickMenu = useCallback((type) => () => {
-        if (type === MENU_EDIT && !isEmptyObj(admin)) return;
-        if (type === MENU_COMMENT) {
-            setOpenedComment(!openedComment);
-            return;
-        } 
-        
+    const onClickComment = useCallback(() => {
+        setOpenedComment(!openedComment);
+        setReqStatus(MENU_COMMENT);
+    }, [openedComment]);
+
+    const onClickEditOrDelete = useCallback(type => {
         setOpenedModal(true);
         setReqStatus(type);
-    }, [admin, openedComment]);
+    }, []);
 
     return (
         <Wrap>
             <Inner>
                 <AvatarWrap>
                     {avatar === 'nickname' ? (
-                        <Avatar size={Comments ? 64 : 48}>
+                        <Avatar size={getAvatarSize}>
                             {nickname}
                         </Avatar>
                     ) : (
                         <Avatar 
-                            size={Comments ? 64 : 48} 
+                            size={getAvatarSize} 
                             src={getSrc(avatarList, avatar)} 
                         />
                     )}
@@ -170,19 +156,14 @@ const GuestbookCard = ({
 
                 <Container>
                     <Nickname>{nickname}</Nickname>
-                    <CreatedDate>
-                        {dayjs(createdAt).format('YYYY.MM.DD | a hh:mm')}
-                    </CreatedDate>
-
-                    <ContentWrap>
-                        {content}
-                    </ContentWrap>
+                    <CreatedDate>{createdDate}</CreatedDate>
+                    <ContentWrap>{content}</ContentWrap>
                 </Container>
 
                 <MenuArea>
-                    {Comments && (
+                    {(!admin.userId && Comments) && (
                         <button
-                            onClick={onClickMenu(MENU_EDIT)}
+                            onClick={(() => onClickEditOrDelete(MENU_EDIT))}
                         >
                             <FormOutlined />
                             <span className="hidden">수정</span>
@@ -190,7 +171,7 @@ const GuestbookCard = ({
                     )}
 
                     <button 
-                        onClick={onClickMenu(MENU_DELETE)}
+                        onClick={(() => onClickEditOrDelete(MENU_DELETE))}
                     >
                         <DeleteOutlined />
                         <span className="hidden">삭제</span>
@@ -198,7 +179,7 @@ const GuestbookCard = ({
 
                     {Comments && (
                         <button 
-                            onClick={onClickMenu(MENU_COMMENT)}
+                            onClick={onClickComment}
                         >
                             <MessageOutlined />
                             <span className="hidden">댓글</span>
@@ -221,14 +202,14 @@ const GuestbookCard = ({
                     type="prompt"
                     text={modalText}  
                     setOpened={setOpenedModal}
-                    callback={dialogCallback}
+                    callback={onDialogCallback}
                 />
             )}
         </Wrap>
     );
 };
 
-GuestbookCard.propTypes = {
+Card.propTypes = {
     id: PropTypes.number.isRequired,
     nickname: PropTypes.string,
     avatar: PropTypes.string,
@@ -239,4 +220,4 @@ GuestbookCard.propTypes = {
     authorAvatar: PropTypes.string,
 };
 
-export default GuestbookCard;
+export default Card;

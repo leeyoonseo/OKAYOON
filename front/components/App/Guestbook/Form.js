@@ -4,7 +4,6 @@ import useInput from '../../../hooks/useInput';
 import PropTypes from 'prop-types';
 import { ADD_COMMENT_REQUEST, ADD_GUESTBOOK_REQUEST, REVOKE_PERMISSION_REQUEST, UPDATE_GUESTBOOK_REQUEST } from '../../../reducers/guestbook';
 import styled, { css } from 'styled-components';
-
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 import { FORM_COMMENT, FORM_CREATE, FORM_EDIT } from './index';
 
@@ -84,20 +83,13 @@ const SubmitButton = styled.button`
     margin-left: ${({ theme }) => theme.calcRem(10)};
 `;
 
-const Form = ({ 
-    formtype,
-    MAX_TEXTAREA_LENGTH,
-    avatar,
-    nickname,
-    id,
-    content,
-}) => {
+const Form = ({ formtype, MAX_TEXTAREA_LENGTH, avatar, nickname, id, content }) => {
     const dispatch = useDispatch();
     const { 
         addGuestbookLoading, addGuestbookDone, 
         addCommentDone, addCommentLoading,
         updateGuestbookLoading,
-    } = useSelector((state) => state.guestbook);
+    } = useSelector(state => state.guestbook);
     const [text, onChangeText, setText] = useInput('');
     const [password, onChangePassword, setPassword] = useInput('');
     const [visiblePassword, setVisiblePassword] = useState(false);
@@ -107,20 +99,21 @@ const Form = ({
         if (formtype === FORM_EDIT) {
             setText(content);
         }
-
+        
         textareaRef.current.focus();
     }, [formtype, content]);
 
     useEffect(() => {
-        if (formtype === FORM_EDIT) return;
-
-        if (addGuestbookDone || addCommentDone) {
-            setText('');
-            setPassword('');
-
+        if (formtype !== FORM_EDIT && (addGuestbookDone || addCommentDone)) {
+            resetForm();
             textareaRef.current.focus();
         }
     }, [formtype, addGuestbookDone, addCommentDone]);
+
+    const resetForm = useCallback(() => {
+        setText('');
+        setPassword('');
+    }, []);
 
     const onBlurTextarea = useCallback(() => {
         if (text.length > MAX_TEXTAREA_LENGTH) {
@@ -128,7 +121,7 @@ const Form = ({
         }
     }, [text]);
 
-    const validation = useCallback(() => {
+    const getValidationResult = useCallback(() => {
         if (!text || !text.trim()) {
             alert('내용을 입력해주세요.');
             return false;
@@ -154,9 +147,9 @@ const Form = ({
     const onSubmit = useCallback(() => {
         let type = '';
         let data = {};
-        let valid = validation();
+        let isValidationPass = getValidationResult();
 
-        if (!valid) return;
+        if (!isValidationPass) return;
 
         if (formtype === FORM_CREATE) {
             type = ADD_GUESTBOOK_REQUEST;
@@ -173,16 +166,14 @@ const Form = ({
             data.password = password;
         }
 
-        data = {
-            ...data,
-            nickname: nickname,
-            avatar: avatar,
-            content: text
-        };
-
         dispatch({
-            type: type,
-            data: data,
+            type,
+            data: {
+                ...data,
+                nickname: nickname,
+                avatar: avatar,
+                content: text
+            },
         });
     }, [text, password]);
 
@@ -213,7 +204,9 @@ const Form = ({
             />
 
             <BottomWrap>
-                <LetterCheck className={text.length >= MAX_TEXTAREA_LENGTH ? 'max' : ''}>
+                <LetterCheck 
+                    className={text.length >= MAX_TEXTAREA_LENGTH ? 'max' : ''}
+                >
                     {text.length}/{MAX_TEXTAREA_LENGTH}
                 </LetterCheck>
 

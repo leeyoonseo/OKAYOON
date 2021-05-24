@@ -3,11 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { LOAD_GUESTBOOK_REQUEST } from '../../../reducers/guestbook';
 import { Button } from 'antd';
-
 import Form from './Form';
 import Loading from '../../Loading';
 import Card from './Card';
-
 export const FORM_CREATE = 'FORM_CREATE';
 export const FORM_EDIT = 'FORM_EDIT';
 export const FORM_COMMENT = 'FORM_COMMENT';
@@ -44,7 +42,7 @@ export const getSrc = (list, title) => {
 
 const Guestbook = () => {
     const dispatch = useDispatch();
-    const { me, admin } = useSelector((state) => state.user);
+    const { me, admin } = useSelector(state => state.user);
     const { guestbook, guestbookCount, loadGuestbookLoading } = useSelector((state) => state.guestbook);
     const [isFirstReq, setIsFirstReq] = useState(false);
     const [nickname, setNickname] = useState(null);
@@ -53,33 +51,30 @@ const Guestbook = () => {
 
     useEffect(() => {
         if (guestbook.length < 1) {
-            dispatch({
-                type: LOAD_GUESTBOOK_REQUEST
-            });
+            dispatch({ type: LOAD_GUESTBOOK_REQUEST });
         }
     }, []);
 
     useEffect(() => {
-        if (me.nickname) {
-            setNickname(me.nickname);
-
-        } else if (admin.userId){
-            setNickname(`관리자${admin.userId.charAt().toUpperCase()}`);
-        }
+        setNickname(
+            admin.userId 
+                ? `관리자${admin.userId.charAt().toUpperCase()}` 
+                : me.nickname
+        );
     }, [me, admin]);
 
     const renderLoading = useCallback(() => {
         if (!loadGuestbookLoading) return;
-
-        return (
-            <Loading bgcolor="#777" />
-        );
+        
+        return <Loading bgcolor="#777" />
     }, [loadGuestbookLoading]);
 
     const onClickMore = useCallback(() => {
         const lastId = guestbook[guestbook.length - 1]?.id;
 
-        if(!isFirstReq) setIsFirstReq(true);
+        if(!isFirstReq) {
+            setIsFirstReq(true);
+        }
 
         dispatch({
             type: LOAD_GUESTBOOK_REQUEST,
@@ -98,12 +93,14 @@ const Guestbook = () => {
                 />
                 
                 {guestbook && guestbook.map((v, i) => {
-                    if (v.edit) {
+                    const { edit, nickname } = v;
+
+                    if (edit) {
                         return (
                             <Form 
                                 formtype={FORM_EDIT}
-                                key={`edit_${v.nickname.charAt(0)}_${i}`}
                                 MAX_TEXTAREA_LENGTH={MAX_TEXTAREA_LENGTH}
+                                key={`edit_${nickname.charAt(0)}_${i}`}
                                 {...v}
                             />
                         )
@@ -111,7 +108,7 @@ const Guestbook = () => {
 
                     return (
                         <Card 
-                            key={`card_${v.nickname.charAt(0)}_${i}`}
+                            key={`card_${nickname.charAt(0)}_${i}`}
                             authorNickname={nickname}
                             authorAvatar={avatar}
                             {...v}

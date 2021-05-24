@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-
 import Form from './Form';
 import Card from './Card';
-import { FORM_COMMENT } from '.';
+import { FORM_COMMENT } from './index';
 
 const Wrap = styled.div`
     padding: ${({ theme }) => theme.calcRem(20)};
@@ -13,12 +12,7 @@ const Wrap = styled.div`
     background: ${({ theme }) => theme.colors.lightGray};
 `;
 
-const Comment = ({
-    id,
-    Comments,
-    authorAvatar,
-    authorNickname,
-}) => {
+const Comment = ({ id, Comments, authorAvatar, authorNickname }) => {
     return (
         <Wrap>
             <Form
@@ -29,14 +23,12 @@ const Comment = ({
                 nickname={authorNickname}
             />
 
-            {Comments && Comments.map((v, i) => {
-                return (
-                    <Card 
-                        key={`comment_${v.nickname.charAt(0)}_${i}`}
-                        {...v}
-                    />
-                )
-            })} 
+            {Comments && Comments.map((v, i) => (
+                <Card 
+                    key={`comment_${v.nickname.charAt(0)}_${i}`}
+                    {...v}
+                />
+            ))} 
         </Wrap>
     );
 };
