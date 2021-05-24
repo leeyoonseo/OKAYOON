@@ -90,7 +90,7 @@ ImageZoom.propTypes = {
     item: PropTypes.shape({
         src: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
-        desc: PropTypes.string.isRequired,
+        desc: PropTypes.string,
     }), 
     onClose: PropTypes.func.isRequired,
 };  
