@@ -6,13 +6,10 @@ import {
     Wrap, Message, InputWrap, 
     ButtonArea, CancelButton, ConfirmButton,
 } from './style';
+import { useSelector } from 'react-redux';
 
-const WindowDialog = ({ 
-    type, 
-    text, 
-    setOpened,
-    callback 
-}) => {
+const WindowDialog = ({ type, text, setOpened, callback }) => {
+    const { admin } = useSelector(state => state.user);
     const inputRef = useRef(null);
     const [val, onChangeVal] = useInput('');
 
@@ -20,24 +17,32 @@ const WindowDialog = ({
         inputRef.current && inputRef.current.focus();        
     }, []);
 
-    const renderReqText = useCallback(() => {
-        return {__html: text};
-    }, [text]);
+    const getValidationResult = useCallback(() => {
+        if (!val || !val.trim()) {
+            return false;
+        }
+
+        return true;
+    }, [type, val]);
 
     const onSubmit = useCallback(() => { 
-        const data = {};
+        let value = '';
 
         if (type === 'prompt') {
-            if (!val || !val.trim()) {
+            let isValidationPass = getValidationResult();
+
+            if (!admin.userId && !isValidationPass) {
                 return alert('값을 입력해주세요');
             }
 
-            data.value = val;
+            value = val;
         }
 
-        data.state = true;
         setOpened(false);
-        callback(data);
+        callback({
+            state: true,
+            value: value || null,
+        });
     }, [val]);
     
     const onClickCancel = useCallback(() => {
@@ -53,9 +58,11 @@ const WindowDialog = ({
 
     return (
         <Wrap>
-            <Message>
-                <span dangerouslySetInnerHTML={renderReqText()} ></span>
-            </Message>
+            {text && (
+                <Message>
+                    <span dangerouslySetInnerHTML={{ __html: text }} ></span>
+                </Message>
+            )}
 
             {type === 'alert' && (
                 <CancelButton
@@ -67,15 +74,18 @@ const WindowDialog = ({
 
             {type === 'prompt' && (
                 <>
-                    <InputWrap>
-                        <input
-                            ref={inputRef}
-                            value={val}
-                            onChange={onChangeVal} 
-                            onKeyPress={onKeyPressInput}
-                            placeholder="입력해주세요" 
-                        />
-                    </InputWrap>
+                    {!admin.userId && (
+                        <InputWrap>
+                            <input
+                                ref={inputRef}
+                                value={val}
+                                onChange={onChangeVal} 
+                                onKeyPress={onKeyPressInput}
+                                placeholder="입력해주세요" 
+                            />
+                        </InputWrap>
+                    )}
+                    
                     <ButtonArea>
                         <CancelButton
                             onClick={(() => setOpened(false))}
