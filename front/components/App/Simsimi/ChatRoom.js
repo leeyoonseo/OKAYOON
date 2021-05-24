@@ -3,9 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import useInput from '../../../hooks/useInput';
 import { DELETE_MESSAGE, SEND_MESSAGE_REQUEST } from '../../../reducers/simsimi';
-
-import styled, { keyframes } from 'styled-components';
-
+import styled, { keyframes, css } from 'styled-components';
 import { Avatar } from 'antd';
 import { LeftOutlined, ArrowUpOutlined, RetweetOutlined } from '@ant-design/icons';
 
@@ -96,22 +94,36 @@ const loadingAni = keyframes`
     }
 `;
 
+
+const loadingDelayCss = () => {
+    let styles = '';
+    let delay = 0.1;
+
+    for (let i = 2; i <= 6; i++) {
+        styles += `
+            span:nth-child(${i}) {
+                animation-delay: ${delay}s;
+            }
+        `;
+
+        delay += 0.1;
+    }
+
+    return css`${styles}`;
+}
+
 const LoadingText = styled.div`
     span {
         display: inline-block;
         animation: ${loadingAni} .7s infinite;
     }
 
-    span:nth-child(2) { animation-delay: 0.1s; }
-    span:nth-child(3) { animation-delay: 0.2s; }
-    span:nth-child(4) { animation-delay: 0.3s; }
-    span:nth-child(5) { animation-delay: 0.4s; }
-    span:nth-child(6) { animation-delay: 0.5s; }
+    ${loadingDelayCss}
 `;
 
 const ChatRoom = ({ onPrevStep }) => {
     const dispatch = useDispatch();
-    const { chatList, sendMessageLoading, sendMessageDone } = useSelector((state) => state.simsimi);
+    const { chatList, sendMessageLoading, sendMessageDone } = useSelector(state => state.simsimi);
     const [message, onChangeMessage, setMessage] = useInput('');
     const [scrollTop, setScrollTop] = useState(null);
     const [openedDialog, setOpenedDialog] = useState(false);
@@ -139,11 +151,11 @@ const ChatRoom = ({ onPrevStep }) => {
         }
     }, [sendMessageDone]);
 
-    const dialogCallback = useCallback(({ state }) => {
-        if (state) {
-            onPrevStep();
-            dispatch({ type: DELETE_MESSAGE });
-        }
+    const onDialogCallback = useCallback(({ state }) => {
+        if (!state) return;
+
+        onPrevStep();
+        dispatch({ type: DELETE_MESSAGE });
     }, []);
 
     const onScrollTop = useCallback(() => {
@@ -259,7 +271,7 @@ const ChatRoom = ({ onPrevStep }) => {
                     type="confirm"
                     text="대화내용이 지워집니다. <br> 진행하시겠습니까?"
                     setOpened={setOpenedDialog}
-                    callback={dialogCallback}
+                    callback={onDialogCallback}
                 />
             )}
         </>
