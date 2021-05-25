@@ -8,12 +8,10 @@ const Wrap = styled.footer`
     box-sizing: border-box;
 `;
 
-const Footer = () => {
-    return (
-        <Wrap>
-            Copyright 2021. Web Front-end developer portfolio
-        </Wrap>
-    );
-};
+const Footer = () => (
+    <Wrap>
+        Copyright 2021. Web Front-end developer portfolio
+    </Wrap>
+);
 
 export default Footer;

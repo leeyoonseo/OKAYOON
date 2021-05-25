@@ -66,7 +66,7 @@ const Social = styled.div`
 `;
 
 const Home = () => {
-    const { tagData, socialData } = useSelector((state) => state.portfolio);
+    const { tagData, socialData } = useSelector(state => state.portfolio);
 
     return (
         <>
@@ -74,15 +74,17 @@ const Home = () => {
                 <Sub>FRONT-END DEVELOPER</Sub>
                 <Title>PORTFOLIO</Title>
             </TitleArea>
-
             <ImageWrap>
-                <img src={`${bucketUrl}/portfolio/img_iam.jpg`} alt="okayoon 사진" />
+                <img 
+                    src={`${bucketUrl}/portfolio/img_iam.jpg`} 
+                    alt="okayoon 사진" 
+                />
             </ImageWrap>
 
             <Tags>
-                {tagData.map((v, i) => (
-                    <span key={`tag_${v}_${i}`}>
-                        {`#${v}`}
+                {tagData.map((name, i) => (
+                    <span key={`tag_${name}_${i}`}>
+                        {`#${name}`}
                     </span>
                 ))}
                 <span>#

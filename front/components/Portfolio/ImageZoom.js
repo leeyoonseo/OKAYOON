@@ -61,25 +61,20 @@ const Image = styled.img`
     height: 100%;
 `;
 
-const ImageZoom = ({
-    src, 
-    onClose,
-}) => {
-    return (
-        <Wrap>
-            <Inner>
-                <CloseButton onClick={onClose}>
-                    <CloseIcon />
-                    <span className="hidden">닫기</span>
-                </CloseButton>
+const ImageZoom = ({ src, onClose }) => (
+    <Wrap>
+        <Inner>
+            <CloseButton onClick={onClose}>
+                <CloseIcon />
+                <span className="hidden">닫기</span>
+            </CloseButton>
 
-                <ImageWrap>
-                    <Image src={src} alt="zoom image" />
-                </ImageWrap>
-            </Inner>
-        </Wrap>
-    );
-};
+            <ImageWrap>
+                <Image src={src} alt="zoom image" />
+            </ImageWrap>
+        </Inner>
+    </Wrap>
+);
 
 ImageZoom.propTypes = {
     src: PropTypes.string.isRequired,

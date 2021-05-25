@@ -42,7 +42,6 @@ const ImageWrap = styled.div`
     }
 `;
 
-
 const FormWrap = styled.div`
     display: block;
     width: 100%
@@ -91,7 +90,7 @@ const RefMessage = styled.div`
 
 const Contact = () => {
     const dispatch = useDispatch();
-    const { sendMailDone, sendMailLoading } = useSelector((state) => state.portfolio);
+    const { sendMailDone, sendMailLoading } = useSelector(state => state.portfolio);
     const [name, onChangeName, setName] = useInput('');
     const [email, onChangeEmail, setEmail] = useInput('');
     const [phone, onChangePhone, setPhone] = useInput('');
@@ -100,18 +99,22 @@ const Contact = () => {
 
     useEffect(() => {
         if (sendMailDone) {
-            setName('');
-            setEmail('');
-            setPhone('');
-            setMessage('');
+            reset();
         }
     }, [sendMailDone]);
 
-    const validation = useCallback((target) => {
+    const reset = useCallback(() => {
+        setName('');
+        setEmail('');
+        setPhone('');
+        setMessage('');
+    }, []);
+
+    const getValidationResult = useCallback(target => {
         const inputNum = target.childElementCount - 1; // [D] 버튼한개 제외
         const data = new FormData(target);
         const entries = data.entries();
-        let failNum = 0;
+        let failCount = 0;
         let next = '';
         let key = '';
         let value = '';
@@ -123,22 +126,22 @@ const Contact = () => {
 
             if (!value) {
                 if (key !== 'phone') {
-                    failNum++;
+                    failCount++;
                     alert(`${key} 비어있습니다.`);
                     break;
                 }
             }
         }
 
-        return !failNum ? true : false;
+        return !failCount ? true : false;
     }, []);
     
-    const onSubmit = useCallback((e) => {
+    const onSubmit = useCallback(e => {
         e.preventDefault();
         const { target } = e;
-        const isChecked = validation(target);
+        const isValidationPass = getValidationResult(Resultet);
 
-        if (isChecked) {
+        if (isValidationPass) {
             dispatch({
                 type: SEND_MAIL_REQUEST,
                 data: target
@@ -150,9 +153,11 @@ const Contact = () => {
         <Wrap>
             <Info>
                 <ImageWrap>
-                    <img src={`${bucketUrl}/portfolio/img_cat.jpg`} title="고양이 사진"/>
+                    <img 
+                        src={`${bucketUrl}/portfolio/img_cat.jpg`} 
+                        title="고양이 사진"
+                    />
                 </ImageWrap>
-
                 <div>
                     <span>이윤서 / 1992.04.23</span>
                 </div>
@@ -185,7 +190,6 @@ const Contact = () => {
                             onChange={onChangeEmail}
                         />
                     </div>
-
                     <div>
                         <input 
                             type="text" 
@@ -195,7 +199,6 @@ const Contact = () => {
                             onChange={onChangePhone}
                         />
                     </div>
-
                     <div>
                         <textarea 
                             name="message" 
@@ -209,7 +212,6 @@ const Contact = () => {
                             <a href="mailto:okayoon.lee@gmail.com">okayoon.lee@gmail.com</a>로 발송해주세요.
                         </RefMessage>
                     </div>
-
                     <button 
                         type="submit"
                         disabled={sendMailLoading}

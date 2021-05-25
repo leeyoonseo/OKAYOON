@@ -43,7 +43,7 @@ const Items = styled.div`
 `;
 
 const Skils = () => {
-    const { skilsData } = useSelector((state) => state.portfolio);
+    const { skilsData } = useSelector(state => state.portfolio);
     
     return (
         <Wrap> 

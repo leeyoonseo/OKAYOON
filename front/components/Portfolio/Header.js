@@ -44,7 +44,7 @@ const Nav = styled.div`
         display: none;
     }
     
-    button {
+    a {
         padding: 0;
         font-size: ${({ theme }) => theme.calcRem(17)};
         line-height: 1;
@@ -53,7 +53,7 @@ const Nav = styled.div`
         background: none;
         cursor: pointer;
 
-        & + button {
+        & + a {
             margin-left: ${({ theme }) => theme.calcRem(50)};
         }
 
@@ -62,18 +62,9 @@ const Nav = styled.div`
         }
     }
 `;
-export const getScrollY = (name) => {
-    return (name === 'home') 
-        ? 0 
-        : document.querySelector(`.${name}`).offsetTop;
-};
 
 const Header = () => {
-    const { navList } = useSelector((state) => state.portfolio);
-    const onClickButton = useCallback((e) => {
-        const scrollY = getScrollY(e.target.dataset.name);
-        window.scrollTo(0, scrollY);
-    }, []); 
+    const { navList } = useSelector(state => state.portfolio);
 
     return (
         <Wrap>
@@ -84,17 +75,16 @@ const Header = () => {
             </Logo>
 
             <Nav>
-                {navList.map((v) => {
-                    const name = v.split(' ').join('').toLowerCase();
+                {navList.map(v => {
+                    const name = v.toLowerCase();
 
                     return (
-                        <button 
+                        <a 
                             key={`header_${name.charAt(0)}`}
-                            onClick={onClickButton}
-                            data-name={name}
+                            href={`#${name}`}
                         >
                             {v}
-                        </button>
+                        </a>
                     )
                 })}
             </Nav>
