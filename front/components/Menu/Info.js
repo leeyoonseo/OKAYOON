@@ -14,7 +14,7 @@ const Inner = styled.div`
     text-align: center;
     background: white;
 
-    > div {
+    & > div {
         padding: ${({ theme }) => theme.calcRem(10)};
     }
 
@@ -32,36 +32,30 @@ const Inner = styled.div`
     }
 `;
 
-const MenuInfo = () => {
-    return (
-        <Wrap>
-            <Inner>
-                <div>
-                    <span>작업 기간</span>
-                    <span>
-                        2021.01 ~ 2021.03
-                    </span> 
-                </div>
-
-                <div>
-                    <span>사용</span>
-                    <span>
-                        React, redux-saga, next, antd, styled-components, eslint, dayjs, axios, immer
-                        github, sequelize, mySQL, slick
-                    </span>
-                </div>
-
-                <div>
-                    <span>아이콘 출처</span>
-                    <span>
-                        Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from 
-                        <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
-                    </span>
-                </div>
-            </Inner>
-        </Wrap>
-    );
-};
+const MenuInfo = () => (
+    <Wrap>
+        <Inner>
+            <div>
+                <span>작업 기간</span>
+                <span> 2021.01 ~ 2021.03</span> 
+            </div>
+            <div>
+                <span>사용</span>
+                <span>
+                    React, redux-saga, next, antd, styled-components, eslint, dayjs, axios, immer
+                    github, sequelize, mySQL, slick
+                </span>
+            </div>
+            <div>
+                <span>아이콘 출처</span>
+                <span>
+                    Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from 
+                    <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+                </span>
+            </div>
+        </Inner>
+    </Wrap>
+);
 
 export default MenuInfo;
 

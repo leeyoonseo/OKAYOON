@@ -3,23 +3,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { useCookies } from 'react-cookie';
 import { ALL_CLOSED_MODAL, CREATE_MODAL_REQUEST, TOGGLE_MODAL_REQUEST } from '../../reducers/site';
 import { LOG_OUT_ADMIN_REQUEST, LOG_OUT_REQUEST } from "../../reducers/user";
-
 import { 
     WELCOME_MODAL_ID, WELCOME_MODAL_DATA, 
     INFO_MODAL_ID, INFO_MODAL_DATA, 
 } from "../ModalPopup/data";
-
 import { 
     Wrap, MenuButton, MenuIcon, MenuTooltip, 
     List, Item, ItemButton, SiteName, GitAnchor,
 } from './style';
 import { SmileOutlined, GithubOutlined } from '@ant-design/icons';
 
-
 const Menu = () => {
     const dispatch = useDispatch();
-    const { me, admin } = useSelector((state) => state.user);
-    const { modals } = useSelector((state) => state.site);
+    const { me, admin } = useSelector(state => state.user);
+    const { modals } = useSelector(state => state.site);
     const [cookie, setCookie, removeCookie] = useCookies(['me']);
     const [openedMenu, setOpenedMenu] = useState(false);
     const menuRef = useRef(null);
@@ -43,23 +40,17 @@ const Menu = () => {
     const onToggleMenu = useCallback(() => setOpenedMenu(!openedMenu), [openedMenu]);
 
     const onClickLogout = useCallback(() => {
-        let type = '';
+        const type = (admin.userId) ? LOG_OUT_ADMIN_REQUEST : LOG_OUT_REQUEST;
 
-        if (admin.userId) {
-            type = LOG_OUT_ADMIN_REQUEST;
-
-        } else {
-            type = LOG_OUT_REQUEST;
+        if (!admin.userId) {
             removeCookie('me');
         }
         
         dispatch({ type: ALL_CLOSED_MODAL });
-        dispatch({ type: type });
+        dispatch({ type });
     }, [admin, me]);
 
-    const createModal = useCallback((id) => {
-        if(modals.find((v) => v.id === id)) return;
-
+    const createModal = useCallback(id => {
         dispatch({
             type: CREATE_MODAL_REQUEST,
             data: (id === WELCOME_MODAL_ID) 
@@ -68,8 +59,13 @@ const Menu = () => {
         })
     }, [modals]);
 
-    const onClickItem = useCallback((id) => () => {
-        createModal(id);
+    const onClickItem = useCallback(id => () => {
+        const isSameModal = modals.some(({ id: modalId }) => modalId === id);
+        
+        if(!isSameModal) {
+            createModal(id);
+        }
+
         setOpenedMenu(false);
             
         dispatch({
@@ -130,9 +126,3 @@ const Menu = () => {
 };
 
 export default Menu;
-
-// TODO:
-// - 최소화 문제로 인해 각각 컴포넌트를 렌더링해야하는가? (별도로)
-// - welcome (소개)
-// - Info (출처, 소스 정보, 라이브러리 정보등등..)
-// - logout (login 페이지로 이동)
