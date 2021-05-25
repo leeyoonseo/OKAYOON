@@ -2,9 +2,7 @@ import React, { useCallback } from 'react';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-
 import { CREATE_MODAL_REQUEST, TOGGLE_MODAL_REQUEST } from '../../reducers/site';
-
 import { 
     GUESTBOOK_MODAL_ID, GUESTBOOK_MODAL_DATA,
     BLOG_MODAL_ID, BLOG_MODAL_DATA,
@@ -12,41 +10,6 @@ import {
     SIMSIMI_MODAL_ID, SIMSIMI_MODAL_DATA,
     GAME_MODAL_ID, GAME_MODAL_DATA,
 } from '../ModalPopup/data';
-import { bucketUrl } from '../../config/config';
-
-const applistData = [
-        {
-            id: GUESTBOOK_MODAL_ID,
-            name: '방명록',
-            src: `${bucketUrl}/app/icon_guestbook.png`,
-        },
-        {
-            id: BLOG_MODAL_ID,
-            name: '블로그',
-            src: `${bucketUrl}/app/icon_blog.png`,
-        },
-        {
-            id: GALLERY_MODAL_ID,
-            name: '사진첩',
-            src: `${bucketUrl}/app/icon_gallery.png`,
-        },
-        {
-            id: SIMSIMI_MODAL_ID,
-            name: '심심이',
-            src: `${bucketUrl}/app/icon_simsimi.png`,
-        },
-        {
-            id: GAME_MODAL_ID,
-            name: '게임',
-            src: `${bucketUrl}/app/icon_game.png`,
-        },
-];
-
-const portfolio = {
-    id: 'portfolio',
-    name: '포트폴리오',
-    src: `${bucketUrl}/app/icon_portfolio.png`,
-};
 
 const Wrap = styled.div`
     display: inline-block;
@@ -101,11 +64,9 @@ const Name = styled.span`
 
 const AppIndex = () => {
     const dispatch = useDispatch();
-    const { modals } = useSelector((state) => state.site);
-    
-    const createModal = useCallback((id) => {
-        if(modals.find((v) => v.id === id)) return;
-    
+    const { applistData, modals } = useSelector(state => state.site);
+
+    const getModalData = useCallback(id => {
         let data = '';
 
         switch(id) {
@@ -134,19 +95,26 @@ const AppIndex = () => {
                 break;
         }
 
-        if (!data) return;
+        return data;
+    }, []);
 
-        const haveSameModalData = modals.some((v) => v.id === data);
-        if(!haveSameModalData){
+    const createModal = useCallback(id => {
+        const data = getModalData(id);
+        
+        if (data) {
             dispatch({
                 type: CREATE_MODAL_REQUEST,
-                data: data
+                data
             });
         }
     }, [modals]);
 
-    const onClickApp = useCallback((id) => () => {
-        createModal(id);
+    const onClickApp = useCallback(id => {
+        const isSameModal = modals.some(({ id: modalId }) => modalId === id);
+
+        if(!isSameModal) {
+            createModal(id);
+        }
             
         dispatch({
             type: TOGGLE_MODAL_REQUEST,
@@ -156,42 +124,46 @@ const AppIndex = () => {
 
     return (
         <Wrap>
-            {applistData.map(({ id, name, src }) => (
-                <AppButton
-                    key={`icon_${id}_${name}`}
-                    onClick={onClickApp(id)}
-                >
-                    <span>
-                        <Icon 
-                            src={src} 
-                            alt={`${name} 아이콘`} 
-                        />
-                    </span>
+            {applistData && applistData.map(({ id, name, src }) => {
+                console.log('APP!!');
+                if (id === 'portfolio') {
+                    return (
+                        <Link 
+                            key={`icon_${id}_${name}`}
+                            href={`./${id}`}
+                        >
+                            <AppButton>
+                                <span>
+                                    <Icon 
+                                        src={src} 
+                                        alt={`${name} 아이콘`} 
+                                    />
+                                </span>
+                                <span>
+                                    <Name>{name}<br/>바로가기</Name>
+                                </span>
+                            </AppButton>
+                        </Link>
+                    );
+                }
 
-                    <span>
-                        <Name>{name}</Name>
-                    </span>
-                </AppButton>
-            ))}
-
-            {/* [D] 포트폴리오 */}
-            <Link href="./portfolio">
-                <AppButton key="icon_portfolio">
-                    <span>
-                        <Icon 
-                            src={portfolio.src} 
-                            alt={`${portfolio.name} 아이콘`} 
-                        />
-                    </span>
-                    
-                    <span>
-                        <Name>
-                            {portfolio.name}<br/>
-                            바로가기
-                        </Name>
-                    </span>
-                </AppButton>
-            </Link>
+                return (
+                    <AppButton
+                        key={`icon_${id}_${name}`}
+                        onClick={(() => onClickApp(id))}
+                    >
+                        <span>
+                            <Icon 
+                                src={src} 
+                                alt={`${name} 아이콘`} 
+                            />
+                        </span>
+                        <span>
+                            <Name>{name}</Name>
+                        </span>
+                    </AppButton>
+                );
+            })}
         </Wrap>
     );
 }

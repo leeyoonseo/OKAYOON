@@ -14,12 +14,10 @@ const Iframe = styled.iframe`
     background: white;
 `;      
 
-const Blog = () => {
-    return (
-        <IframeWrap>
-            <Iframe src="https://okayoon.tistory.com/"/>
-        </IframeWrap>
-    );
-};
+const Blog = () => (
+    <IframeWrap>
+        <Iframe src="https://okayoon.tistory.com/"/>
+    </IframeWrap>
+);
 
 export default Blog;

@@ -1,5 +1,8 @@
 import produce from '../util/produce';
 import { bucketUrl } from '../config/config';
+import { 
+    GUESTBOOK_MODAL_ID, BLOG_MODAL_ID, GALLERY_MODAL_ID, SIMSIMI_MODAL_ID, GAME_MODAL_ID
+} from '../components/ModalPopup/data';
 
 export const initialState = {
     modals: [], 
@@ -93,7 +96,39 @@ export const initialState = {
             desc: '난 킬러다. 해산물 킬러',
         },
     ],
-
+    applistData: [
+        {
+            id: GUESTBOOK_MODAL_ID,
+            name: '방명록',
+            src: `${bucketUrl}/app/icon_guestbook.png`,
+        },
+        {
+            id: BLOG_MODAL_ID,
+            name: '블로그',
+            src: `${bucketUrl}/app/icon_blog.png`,
+        },
+        {
+            id: GALLERY_MODAL_ID,
+            name: '사진첩',
+            src: `${bucketUrl}/app/icon_gallery.png`,
+        },
+        {
+            id: SIMSIMI_MODAL_ID,
+            name: '심심이',
+            src: `${bucketUrl}/app/icon_simsimi.png`,
+        },
+        {
+            id: GAME_MODAL_ID,
+            name: '게임',
+            src: `${bucketUrl}/app/icon_game.png`,
+        },
+        {
+            id: 'portfolio',
+            name: '포트폴리오',
+            src: `${bucketUrl}/app/icon_portfolio.png`,
+        }
+    ],
+    
     modalLoading: false,
     modalDone: false,
     modalError: false,
