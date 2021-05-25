@@ -10,17 +10,7 @@ import {
     MaximizeIcon, 
 } from './styles';
 
-const ModalPopup = ({
-    id,
-    visible,
-    zIndex, 
-    size, 
-    title, 
-    theme,
-    children,
-    buttonDisabled, 
-    onCloseModal,
-}) => {
+const ModalPopup = ({ id, visible, zIndex, size, title, theme, children, buttonDisabled, onCloseModal }) => {
     const themeContext = useContext(ThemeContext);
     const [maxStatus, setMaxStatus] = useState(false);
     const modalRef = useRef(null);
@@ -40,13 +30,14 @@ const ModalPopup = ({
 
     const onMaximize = useCallback(() => setMaxStatus(!maxStatus), [maxStatus]);
 
-    const onMove = useCallback((e) => {
+    const onMove = useCallback(e => {
+        const { clientX, clientY } = e;
         e.preventDefault(); 
-        lastX = startX - e.clientX; 
-        lastY = startY - e.clientY; 
 
-        startX = e.clientX; 
-        startY = e.clientY; 
+        lastX = startX - clientX; 
+        lastY = startY - clientY; 
+        startX = clientX; 
+        startY = clientY; 
 
         modalRef.current.style.top = `${modalRef.current.offsetTop - lastY}px`;
         modalRef.current.style.left = `${modalRef.current.offsetLeft - lastX}px`;
@@ -57,11 +48,12 @@ const ModalPopup = ({
         document.removeEventListener('mousemove', onMove); 
     }, []);
 
-    const onMouseDown = useCallback((e) => {
+    const onMouseDown = useCallback(e => {
+        const { clientX, clientY } = e;
         e.preventDefault(); 
-        startX = e.clientX; 
-        startY = e.clientY; 
 
+        startX = clientX; 
+        startY = clientY; 
         document.addEventListener('mouseup', onRemoveEvent); 
         document.addEventListener('mousemove', onMove);
     }, []);

@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-
 import { Layout } from 'antd';
 import { MinusOutlined, FullscreenOutlined } from '@ant-design/icons';
 
