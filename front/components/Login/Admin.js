@@ -2,7 +2,6 @@ import React, { useEffect, useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useInput from '../../hooks/useInput';
 import { LOG_IN_ADMIN_REQUEST } from '../../reducers/user';
-
 import {
     InfoArea, DefaultAvatar, InputWrap, Input,
     UserIcon, InfoButtonArea, InfoButton, 
@@ -10,7 +9,7 @@ import {
 
 const Admin = () => {
     const dispatch = useDispatch();
-    const { logInAdminLoading } = useSelector((state) => state.user);
+    const { logInAdminLoading } = useSelector(state => state.user);
     const [id, onChangeID, setID] = useInput('');
     const [pw, onChangePW, setPW] = useInput('');
     const idRef = useRef(null);
@@ -20,9 +19,13 @@ const Admin = () => {
         idRef.current.focus();
 
         return () => {
-            setID('');
-            setPW('');
+            reset();
         }
+    }, []);
+
+    const reset = useCallback(() => {
+        setID('');
+        setPW('');
     }, []);
 
     const onSubmit = useCallback(() => {
@@ -56,15 +59,11 @@ const Admin = () => {
     return (
         <>
             <InfoArea>
-                <DefaultAvatar 
-                    size={80}
-                >
+                <DefaultAvatar size={80}>
                     관리자
                 </DefaultAvatar>
-
                 <InputWrap>
                     <UserIcon />
-
                     <Input 
                         type="text"
                         maxLength="20"
@@ -74,10 +73,8 @@ const Admin = () => {
                         onKeyPress={onKeyPressInput}
                     />
                 </InputWrap>
-
                 <InputWrap>
                     <UserIcon />
-
                     <Input 
                         type="password"
                         maxLength="20"
@@ -88,7 +85,6 @@ const Admin = () => {
                     />
                 </InputWrap>
             </InfoArea>
-
             <InfoButtonArea>
                 <InfoButton 
                     loading={logInAdminLoading}
@@ -102,6 +98,3 @@ const Admin = () => {
 };
 
 export default Admin;
-
-// TODO:
-// - 관리자 로그인 시도 일정치 이상 틀릴 경우에 대해 처리

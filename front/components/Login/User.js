@@ -14,13 +14,9 @@ import { AVATAR_MODAL_ID } from '../ModalPopup/data';
 import { LOG_IN_REQUEST } from '../../reducers/user';
 import { ALL_CLOSED_MODAL } from '../../reducers/site';
 
-const User = ({
-    onClickModal,
-    avatar, 
-    setAvatar
-}) => {
+const User = ({ onClickModal, avatar, setAvatar }) => {
     const dispatch = useDispatch();
-    const { me, logInLoading, avatarList } = useSelector((state) => state.user);
+    const { me, logInLoading, avatarList } = useSelector(state => state.user);
     const [nickname, onChangeNickname, setNickname] = useInput(me?.nickname ? me.nickname : 'Guest');
     const [cookies, setCookies, removeCookies] = useCookies(['me']);
     const [haveNickname, setHaveNickname] = useState(false);
@@ -32,7 +28,7 @@ const User = ({
     }, []);
 
     const getAvatarSrc = useCallback(() => {
-        const item = avatarList.find((v) => v.title === avatar);
+        const item = avatarList.find(({ title }) => title === avatar);
         return item ? item.src : null;
     }, [avatar]);
 
@@ -43,19 +39,12 @@ const User = ({
     }, []);
 
     const onSubmit = useCallback(() => {
-        setCookies('me', { 
-                avatar: avatar,
-                nickname: nickname
-            },{ 
-                maxAge: 2000, 
-            }
-        );
-
+        setCookies('me', { avatar, nickname },{ maxAge: 2000 });
         dispatch({
             type: LOG_IN_REQUEST,
             data: {
-                avatar: avatar,
-                nickname: nickname
+                avatar,
+                nickname
             }
         });
 
@@ -84,7 +73,6 @@ const User = ({
         <>
             <InfoArea>
                 {!isFirstClicked && <ClickText>↓ Click</ClickText>}
-
                 {avatar === 'nickname' ? (
                     <AvatarButton 
                         size={80} 
@@ -100,14 +88,10 @@ const User = ({
                         onClick={onClickAvatar}
                     />
                 )}
-
                 <NicknameWrap>
-                    {
-                        haveNickname
-                        ? (
+                    {haveNickname ? (
                             <Nickname className="nickname">
                                 <span>{nickname}</span>
-
                                 <RemoveButton onClick={onRemoveNickname}>
                                     <CloseOutlined />
                                 </RemoveButton>
@@ -115,7 +99,6 @@ const User = ({
                         ) : (
                             <InputWrap>
                                 <UserIcon />
-
                                 <Input 
                                     type="text"
                                     maxLength="20"
@@ -130,10 +113,8 @@ const User = ({
                     } 
                 </NicknameWrap>
             </InfoArea>
-
             <InfoButtonArea>
                 <InfoButton onClick={onClickReset}>초기화</InfoButton>
-                
                 <InfoButton 
                     loading={logInLoading}
                     onClick={onSubmit} 

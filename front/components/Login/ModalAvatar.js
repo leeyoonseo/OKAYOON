@@ -58,7 +58,7 @@ const Button = styled.button`
 `;
 
 const ModalAvatar = ({ id, onCloseModal }) => {
-    const { avatarList } = useSelector((state) => state.user);
+    const { avatarList } = useSelector(state => state.user);
 
     return(
         <Wrap>
