@@ -23,7 +23,7 @@ const Gauge = styled.span`
  * @param {string} time : dayjs()
  * @returns 배터리 %
  */
-function getPercent(time){
+const getPercent = time => {
     const maxNum = 100;
     const dayMinutes = 24 * 60;
     const currentMinutes = (time.format('HH') * 60) + Number(time.format('mm'));
@@ -46,7 +46,6 @@ const Battery = ({ themecolor }) => {
             if (per === percent) return;
 
             setPercent(Math.floor(per));
-            
         }, 1000);
 
         return () => {

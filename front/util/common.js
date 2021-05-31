@@ -1,4 +1,4 @@
-export const isEmptyObj = (obj) => {
+export const isEmptyObj = obj => {
     if(obj.constructor === Object && Object.keys(obj).length === 0)  {
         return true;
     }
@@ -6,8 +6,8 @@ export const isEmptyObj = (obj) => {
     return false;
 }
 
-export const shuffleArray = (arr) => {
-    let temp = arr.map((v) => {
+export const shuffleArray = arr => {
+    let temp = arr.map(v => {
         return cloneObject(v);
     });
 
@@ -19,7 +19,7 @@ export const shuffleArray = (arr) => {
     return temp;
 };
 
-export const cloneObject = (obj) => {
+export const cloneObject = obj => {
     let clone = {};
 
     for (var key in obj) {

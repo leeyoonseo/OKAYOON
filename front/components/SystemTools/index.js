@@ -31,7 +31,7 @@ const SoundIcon = styled(SoundOutlined)`
 
 const SystemTools = ({ themecolor }) => {
     const themeContext = useContext(ThemeContext);
-    const { isMuted } = useSelector((state) => state.site);
+    const { isMuted } = useSelector(state => state.site);
     const [pathname, setPathname] = useState('');
 
     useEffect(() => setPathname(Router.pathname), [pathname]);

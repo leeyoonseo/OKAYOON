@@ -182,7 +182,7 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             break;
 
         case TOGGLE_MODAL_SUCCESS: {
-            const modal = draft.modals.find((v) => v.id === action.data);
+            const modal = draft.modals.find(({id}) => id === action.data);
             modal.visible = !modal.visible;
 
             if(modal.visible){
@@ -203,7 +203,7 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             break;
 
         case ALL_CLOSED_MODAL:
-            draft.modals.map((v) => {
+            draft.modals.map(v => {
                 if (v.visible === true) {
                     v.visible = false
                 } 

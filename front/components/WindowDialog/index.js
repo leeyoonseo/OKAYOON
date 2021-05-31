@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import useInput from '../../hooks/useInput';
-
 import {
     Wrap, Message, InputWrap, 
     ButtonArea, CancelButton, ConfirmButton,

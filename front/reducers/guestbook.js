@@ -97,7 +97,7 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             break;
 
         case GET_PERMISSION_SUCCESS:
-            draft.guestbook.map((v) => {
+            draft.guestbook.map(v => {
                 if (v.id === action.data) {
                     return v.edit = true;
                 }
@@ -124,7 +124,7 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             break;
 
         case REVOKE_PERMISSION_SUCCESS: {
-            draft.guestbook.filter((v) => {
+            draft.guestbook.filter(v => {
                 if(v.id === action.data.id){
                     delete v.edit;
                 }
@@ -193,7 +193,7 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             break;
 
         case UPDATE_GUESTBOOK_SUCCESS: {
-            draft.guestbook.find((v) => {
+            draft.guestbook.find(v => {
                 if (v.id === action.data.id) {
                     Object.assign(v, action.data);
                     delete v.edit;
@@ -221,7 +221,7 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             break;
 
         case DELETE_GUESTBOOK_SUCCESS:
-            draft.guestbook = draft.guestbook.filter((v, i) => v.id !== action.data);
+            draft.guestbook = draft.guestbook.filter(({id}) => id !== action.data);
             draft.guestbookCount--;    
             
             draft.deleteGuestbookLoading = false;
@@ -243,7 +243,7 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             break;
 
         case ADD_COMMENT_SUCCESS: {
-            const guestbook = draft.guestbook.find((v) => v.id === action.data.GuestbookId);
+            const guestbook = draft.guestbook.find(({id}) => id === action.data.GuestbookId);
             guestbook.Comments.unshift(action.data);
 
             draft.addCommentLoading = false;
@@ -266,8 +266,8 @@ const reducer = (state = initialState, action) => produce(state,(draft) => {
             break;
 
         case DELETE_COMMENT_SUCCESS: {
-            const guestbook = draft.guestbook.find((v) => v.id === action.data.guestbookId);
-            guestbook.Comments = guestbook.Comments.filter((v) => v.id !== action.data.commentId);
+            const guestbook = draft.guestbook.find(({id}) => id === action.data.guestbookId);
+            guestbook.Comments = guestbook.Comments.filter(({id}) => id !== action.data.commentId);
             
             draft.deleteCommentLoading = false;
             draft.deleteCommentDone = true;

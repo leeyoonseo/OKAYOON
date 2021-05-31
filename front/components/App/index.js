@@ -125,7 +125,6 @@ const AppIndex = () => {
     return (
         <Wrap>
             {applistData && applistData.map(({ id, name, src }) => {
-                console.log('APP!!');
                 if (id === 'portfolio') {
                     return (
                         <Link 
