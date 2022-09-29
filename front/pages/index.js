@@ -10,7 +10,7 @@ import { TOGGLE_MODAL_REQUEST } from '../reducers/site';
 import { LOAD_ADMIN_INFO_REQUEST, LOAD_USER_INFO_REQUEST } from '../reducers/user';
 import { isEmptyObj } from '../util/common';
 
-import AppLayout from './AppLayout';
+import DefaultLayout from '../layouts/Default/index.jsx';
 import AppIndex from '../components/App/index';
 import Menu from '../components/Menu/index';
 import ModalPopup from '../components/ModalPopup/index';
@@ -65,7 +65,7 @@ const Home = () => {
             </Head>
             
             {(me.avatar || admin.userId) && (
-                <AppLayout
+                <DefaultLayout
                     bgcolor={themeContext.colors.mint}
                     main={
                         <>

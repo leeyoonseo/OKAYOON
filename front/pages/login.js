@@ -6,7 +6,7 @@ import { CREATE_MODAL_REQUEST, TOGGLE_MODAL_REQUEST } from '../reducers/site';
 import styled, { ThemeContext, css } from 'styled-components';
 import { LogoutOutlined, SmileOutlined } from '@ant-design/icons';
 
-import AppLayout from './AppLayout';
+import DefaultLayout from '../layouts/Default/index.jsx';
 import User from '../components/Login/User';
 import Admin from '../components/Login/Admin';
 import Loading from '../components/Loading';
@@ -121,7 +121,7 @@ const Login = () => {
                 <title>OKAYOON | LOGIN</title>
             </Head>
             
-            <AppLayout 
+            <DefaultLayout 
                 bgcolor={themeContext.colors.black}
                 main={
                     <>
