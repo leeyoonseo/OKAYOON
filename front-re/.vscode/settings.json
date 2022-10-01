@@ -1,0 +1,20 @@
+{
+  "editor.tabSize": 2,
+  "npm-intellisense.importES6": true,
+  "npm-intellisense.scanDevDependencies": true,
+  "terminal.integrated.defaultProfile.osx": "bash",
+  "liveServer.settings.ChromeDebuggingAttachment": false,
+  "editor.codeActionsOnSave": {
+    // "source.fixAll.eslint": true,
+    "source.fixAll": true,
+  },
+  "editor.formatOnSave": false,
+  "workbench.startupEditor": "none",
+  "auto-close-tag.activationOnLanguage": [
+    "html",
+    "xml",
+    "javascript",
+    "javascriptreact",
+    "typescriptreact"
+  ],
+}

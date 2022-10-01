@@ -1,0 +1,44 @@
+{
+  "extends": ["plugin:prettier/recommended"],
+  "rules": {
+    "quotes": 0,
+    // "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
+    // "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
+    "no-magic-numbers": 0,
+    "comma-dangle": [
+      "error",
+      {
+        "arrays": "always-multiline",
+        "objects": "always-multiline",
+        "imports": "always-multiline",
+        "exports": "always-multiline",
+        "functions": "ignore",
+      },
+    ],
+    "import/namespace": 0,
+    "no-lonely-if": 0,
+    "no-empty-pattern": 0,
+    "no-alert": 0,
+    "no-shadow": "off",
+    "default-case": "warn",
+  },
+  "prettier/prettier": [
+    "warn",
+    {
+      "printWidth": 120,
+      "tabWidth": 2,
+      "useTabs": false,
+      "semi": true,
+      "quoteProps": "as-needed",
+      "trailingComma": "all",
+      "arrowParens": "always",
+      "endOfLine": "auto",
+      "bracketSpacing": true,
+      "requirePragma": false,
+      "insertPragma": false,
+      "proseWrap": "preserve",
+      "vueIndentScriptAndStyle": false,
+      "singleQuote": true
+    }
+  ]
+}
