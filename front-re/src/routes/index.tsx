@@ -25,6 +25,17 @@ export default createBrowserRouter([
   {
     path: '/photos',
     element: <Photos />,
+    // children: [
+    //   {
+    //     index: true,
+    //     loader: homeLoader,
+    //     element: <Home />,
+    //   },
+    //   {
+    //     path: "about",
+    //     element: <About />,
+    //   },
+    // ]
   },
   {
     path: '/portfolio',
@@ -34,4 +45,9 @@ export default createBrowserRouter([
     path: '/sleep',
     element: <Sleep />,
   },
+  // TODO:
+  // {
+  //   path: "*",
+  //   element: <NoMatch />,
+  // },
 ]);
