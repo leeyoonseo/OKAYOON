@@ -1,8 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from '@layouts/App/index';
-import { BrowserRouter } from 'react-router-dom';
+import {
+  // createBrowserRouter,
+  RouterProvider,
+  // Route,
+} from "react-router-dom";
+// import { BrowserRouter } from 'react-router-dom';
 import './index.css';
+import router from './src/routes/index';
 
 const appNode = document.getElementById('app');
 
@@ -12,8 +17,9 @@ if (!appNode) {
 
 ReactDOM.createRoot(appNode).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <RouterProvider router={router} />
+    {/* <BrowserRouter>
       <App />
-    </BrowserRouter>
+    </BrowserRouter> */}
   </React.StrictMode>,
 );

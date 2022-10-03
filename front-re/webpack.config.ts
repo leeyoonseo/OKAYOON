@@ -27,6 +27,7 @@ const config: Configuration = {
     clean: true,
   },
   devServer: {
+    open: true,
     historyApiFallback: true,
     port: 3090,
     devMiddleware: { publicPath: '/dist/' },
@@ -101,6 +102,7 @@ const config: Configuration = {
     alias: {
       '@src': path.resolve(__dirname, './src'),
       '@layouts': path.resolve(__dirname, './src/layouts'),
+      '@pages': path.resolve(__dirname, './src/pages'),
     },
   },
 };
