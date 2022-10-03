@@ -1,13 +1,17 @@
 import { FC } from 'react'
-import { Header, Footer } from './styles';
+import { Wrap, Header, Container, Footer } from './styles';
 
 const App: FC<React.PropsWithChildren<{}>> = ({ children }) => {
   return (
-    <div>
-      <Header>Header</Header>
-      <div>{children}</div>
+    <Wrap>
+      <Header>
+        <div className="header__inner">
+          header
+        </div>
+      </Header>
+      <Container>{children}</Container>
       <Footer>Footer</Footer>
-    </div>
+    </Wrap>
   )
 }
 
