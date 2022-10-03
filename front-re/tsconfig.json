@@ -15,6 +15,7 @@
       "@layouts/*": ["src/layouts/*"],
       "@pages/*": ["src/pages/*"],
       "@components/*": ["src/components/*"],
+      "@hooks/*": ["src/hooks/*"],
     }
   },
   "ts-node": {
