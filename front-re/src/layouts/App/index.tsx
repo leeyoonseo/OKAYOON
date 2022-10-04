@@ -1,9 +1,16 @@
-import { FC } from 'react'
+import { FC, CSSProperties } from 'react'
 import { Wrap, Header, Container, Footer } from './styles';
 
-const App: FC<React.PropsWithChildren<{}>> = ({ children }) => {
+interface Props {
+  style?: CSSProperties
+}
+
+const App: FC<React.PropsWithChildren<Props>> = ({ 
+  children,
+  style,
+}) => {
   return (
-    <Wrap>
+    <Wrap style={style}>
       <Header>
         <div className="header__inner">
           header
