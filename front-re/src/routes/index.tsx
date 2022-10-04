@@ -4,6 +4,7 @@ import loadable from '@loadable/component';
 // Code Split
 const Home = loadable(() => import('@pages/Home'));
 const Game = loadable(() => import('@pages/Game'));
+const Entry = loadable(() => import('@pages/Entry'));
 const Guestbook = loadable(() => import('@pages/Guestbook'));
 const Photos = loadable(() => import('@pages/Photos'));
 const Portfolio = loadable(() => import('@pages/Portfolio'));
@@ -17,6 +18,10 @@ export default createBrowserRouter([
   {
     path: '/game',
     element: <Game />,
+  },
+  {
+    path: '/entry',
+    element: <Entry />,
   },
   {
     path: '/guestbook',
