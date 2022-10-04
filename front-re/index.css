@@ -18,6 +18,10 @@ body {
   box-sizing: border-box;
 }
 
+*:focus { 
+  outline: 0; 
+}
+
 body, 
 textarea, 
 input, 
@@ -26,4 +30,17 @@ a,
 * {
     font-family: 'Stylish', 'Nanum Gothic', '나눔고딕', 'Malgun Gothic', '맑은 고딕', Tahoma, 'Dotum', '돋움', sans-serif !important;
     font-size: 16px;
+}
+
+.hidden {
+  position: absolute;
+  margin: -1px;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  border: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
 }
