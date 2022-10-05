@@ -1,13 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import {
-  // createBrowserRouter,
-  RouterProvider,
-  // Route,
-} from "react-router-dom";
-// import { BrowserRouter } from 'react-router-dom';
-import './index.css';
+import { RouterProvider } from "react-router-dom";
+import { CookiesProvider } from 'react-cookie';
 import router from './src/routes/index';
+import './index.css';
 
 const appNode = document.getElementById('app');
 
@@ -17,9 +13,8 @@ if (!appNode) {
 
 ReactDOM.createRoot(appNode).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
-    {/* <BrowserRouter>
-      <App />
-    </BrowserRouter> */}
+    <CookiesProvider>
+      <RouterProvider router={router} />
+    </CookiesProvider>
   </React.StrictMode>,
 );

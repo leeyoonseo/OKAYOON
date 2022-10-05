@@ -22,7 +22,7 @@ const App: FC<React.PropsWithChildren<Props>> = ({
   )
 }
 
-export default App
+export default App;
 
 // TODO:
 // footer: welcome, info, blog, github, log | logout 맥북처럼 가운데 아이콘으로 만들기

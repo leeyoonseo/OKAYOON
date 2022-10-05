@@ -17,3 +17,4 @@ TODO:
 - 구조 변경 등 리팩터링 
 - react, typescript
 - 코드 스타일 맞추기 (eslint, prettier)
+- recoil https://recoiljs.org/ko/docs/introduction/getting-started
