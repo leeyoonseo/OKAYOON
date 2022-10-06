@@ -1,68 +1,64 @@
-import React, { MouseEvent, useCallback, useEffect } from 'react'
+import {  FormEvent, useCallback, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
-// import { useCookies } from 'react-cookie';
+import Cookies from 'js-cookie';
 import useInput from '@src/hooks/useInput';
-import { Form } from './styles';
-import dayjs from 'dayjs';
-
+import { getRandomNumber } from '@utils/helper';
+import Avatar from '@components/Avatar';
+import { Wrap } from './styles';
 
 const LoginForm = () => {
   const navigate = useNavigate();
-  // TODO: Cookie작업
-  // const [cookies, setCookie, removeCookie] = useCookies(['oky_nickname']);
+  const [nickname, handleChangeNickname, setNickname] = useInput(Cookies.get('oky_nickname') ?? '');
 
-  const [nickname, handleChangeNickname, setNickname] = useInput('');
+  useEffect(() => {
+    if (nickname) {
+      navigate('/');
+    }
+  }, []);
 
-  const handleSaveNickname = useCallback((e: MouseEvent<HTMLButtonElement>) => {
+  const onSubmitLogin = useCallback((e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    let _nickname = nickname;
 
     if (!nickname.trim()) {
-      // let expires = new Date();
-      // expires = expires.setHours(expires.getHours() + 24);
-      const expireDate = new Date(2147483647 * 1000);
-      const nickname = `guest${getRandomNumber()}`;
-      setNickname(nickname);
-      // console.log('dayjs', dayjs().date() + 1)
-      // setCookie('oky_nickname', nickname, { expires: expireDate });
-      // setCookie('oky_nickname', nickname, { expires: expires.setHours(expires.getHours() + 24) })
+      _nickname = `guest${getRandomNumber()}`;
+      setNickname(_nickname);
     }
 
-
-    // TODO: 저장
-    // navigate('/home');
+    Cookies.set('oky_nickname', _nickname, { expires: 1 });
+    navigate('/');
   }, [nickname]);
-  
+
   return (
-    <Form>
-      <label>
-        <span className="hidden">nickname</span>
-        <input 
-          className="entry__input-nickname"
-          value={nickname} 
-          placeholder="닉네임을 입력하세요." 
-          onChange={handleChangeNickname}
-        />
-      </label>
-      <button 
-        className="entry__button-submit"
-        onClick={handleSaveNickname}
-      >
-        확인
-      </button>
-      <Link 
-        to="/sleep"
-        className="entry__button-sleep"
-        title="잠자기모드"
-      >
-        sleep
-      </Link>
-    </Form>
+    <Wrap>
+      <Avatar 
+        size={62}
+        nickname={nickname}
+      />
+      <form onSubmit={onSubmitLogin}>
+        <label className="entry__input">
+          <span className="hidden">nickname</span>
+          <input 
+            value={nickname} 
+            placeholder="닉네임을 입력하세요." 
+            onChange={handleChangeNickname}
+          />
+        </label>
+        <button className="entry__button-submit">
+          ↵
+          <span className="hidden">입력</span>
+        </button>
+        {/* Sleep 위치 footer로 옮길 것 */}
+        <Link 
+          to="/sleep"
+          className="entry__button-sleep"
+          title="잠자기모드"
+        >
+          sleep
+        </Link>
+      </form>
+    </Wrap>
   )
-}
+};
 
-function getRandomNumber() {
-  const Max = 10000;
-  return Math.floor(Math.random() * Max);
-}
-
-export default LoginForm
+export default LoginForm;

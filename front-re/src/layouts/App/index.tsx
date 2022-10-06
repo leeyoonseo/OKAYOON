@@ -1,4 +1,6 @@
-import { FC, CSSProperties } from 'react'
+import Avatar from '@src/components/Avatar';
+import Cookies from 'js-cookie';
+import { FC, CSSProperties, useState, useEffect } from 'react'
 import { Wrap, Header, Container, Footer } from './styles';
 
 interface Props {
@@ -9,6 +11,8 @@ const App: FC<React.PropsWithChildren<Props>> = ({
   children,
   style,
 }) => {
+  const [nickname, setNickname] = useState(Cookies.get('oky_nickname') ?? '');
+
   return (
     <Wrap style={style}>
       <Header>
@@ -17,7 +21,36 @@ const App: FC<React.PropsWithChildren<Props>> = ({
         </div>
       </Header>
       <Container>{children}</Container>
-      <Footer>Footer</Footer>
+      <Footer>
+        <div className="footer__inner">
+          <ul className="footer__host">
+            {/* 아이콘 넣기 */}
+            <span>Github</span>
+            <span>Blog</span>
+          </ul>
+
+          {nickname ? (
+            <div className="footer__menu">
+              <div className="footer__avatar">
+                <Avatar 
+                  size={32}
+                  nickname={nickname}
+                />
+              </div>
+              
+              <ul className="footer__menu-list">
+                <li>Hello~ {nickname}</li>
+                <li>Welcome</li>
+                <li>Info</li>
+                <li>Logout</li>
+              </ul>
+            </div>
+          ): (
+            // TODO:
+            <span>Sleep 넣기</span>
+          )}
+        </div>
+      </Footer>
     </Wrap>
   )
 }
